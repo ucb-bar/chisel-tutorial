@@ -6,9 +6,9 @@ import scala.util.Random
 
 class Combinational extends Component {
   val io = new Bundle {
-    val x   = UFix(16, INPUT)
-    val y   = UFix(16, INPUT)
-    val z   = UFix(16, OUTPUT)
+    val x   = UFix(INPUT,  16)
+    val y   = UFix(INPUT,  16)
+    val z   = UFix(OUTPUT, 16)
   }
   io.z := io.x + io.y
 }

@@ -6,8 +6,8 @@ import scala.collection.mutable.HashMap
 
 class Darken extends Component {
   val io = new Bundle {
-    val in  = Bits(8, INPUT)
-    val out = Bits(8, OUTPUT)
+    val in  = Bits(INPUT, 8)
+    val out = Bits(OUTPUT, 8)
   }
 
   io.out := io.in << UFix(1)

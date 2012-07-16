@@ -6,9 +6,9 @@ import scala.util.Random
 
 class VendingMachine extends Component {
   val io = new Bundle {
-    val nickel = Bool(dir = INPUT)
-    val dime   = Bool(dir = INPUT)
-    val valid  = Bool(dir = OUTPUT) }
+    val nickel = Bool(INPUT)
+    val dime   = Bool(INPUT)
+    val valid  = Bool(OUTPUT) }
   val sIdle :: s5 :: s10 :: s15 :: sOk :: Nil = 
     Enum(5){ UFix() }
   val state = Reg(resetVal = sIdle)

@@ -7,9 +7,9 @@ import scala.util.Random
 
 class Mul extends Component {
   val io = new Bundle {
-    val x   = UFix(4, INPUT)
-    val y   = UFix(4, INPUT)
-    val z   = UFix(8, OUTPUT)
+    val x   = UFix(INPUT,  4)
+    val y   = UFix(INPUT,  4)
+    val z   = UFix(OUTPUT, 8)
   }
   val muls = new ArrayBuffer[UFix]()
 

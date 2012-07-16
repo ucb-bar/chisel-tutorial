@@ -6,12 +6,12 @@ import scala.collection.mutable.HashMap
 
 class Mux4 extends Component {
   val io = new Bundle {
-    val in0 = Bits(width = 1, dir = INPUT)
-    val in1 = Bits(width = 1, dir = INPUT)
-    val in2 = Bits(width = 1, dir = INPUT)
-    val in3 = Bits(width = 1, dir = INPUT)
-    val sel = Bits(width = 2, dir = INPUT)
-    val out = Bits(width = 1, dir = OUTPUT)
+    val in0 = Bits(INPUT,  1)
+    val in1 = Bits(INPUT,  1)
+    val in2 = Bits(INPUT,  1)
+    val in3 = Bits(INPUT,  1)
+    val sel = Bits(INPUT,  2)
+    val out = Bits(OUTPUT, 1)
   }
 
   val m0 = new Mux2()

@@ -7,11 +7,11 @@ import scala.collection.mutable.HashMap
 class Memo extends Component {
   val io = new Bundle {
     val wen     = Bool(INPUT)
-    val wrAddr  = UFix(8, INPUT)
-    val wrData  = UFix(8, INPUT)
+    val wrAddr  = UFix(INPUT,  8)
+    val wrData  = UFix(INPUT,  8)
     val ren     = Bool(INPUT)
-    val rdAddr  = UFix(8, INPUT)
-    val rdData  = UFix(8, OUTPUT)
+    val rdAddr  = UFix(INPUT,  8)
+    val rdData  = UFix(OUTPUT, 8)
   }
   val mem = Mem(256){ UFix(width = 8) }
 

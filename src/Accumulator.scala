@@ -7,8 +7,8 @@ import util.Random
 
 class Accumulator extends Component {
   val io = new Bundle {
-    val in  = UFix(width = 1, dir = INPUT)
-    val out = UFix(width = 8, dir = OUTPUT)
+    val in  = UFix(INPUT,  1)
+    val out = UFix(OUTPUT, 8)
   }
 
   // ----------------------------------------------- \\
@@ -37,7 +37,7 @@ class AccumulatorTests(c: Accumulator) extends Tester(c, Array(c.io)) {
       vars(c.io.in)  = Bool(in)
       vars(c.io.out) = UFix(tot)
       allGood        = step(vars) && allGood
-      if (t > 0 && in) tot += 1
+      if (in) tot += 1
     }
     allGood
   }

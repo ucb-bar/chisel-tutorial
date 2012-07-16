@@ -6,9 +6,9 @@ import scala.util.Random
 
 class Functional extends Component {
   val io = new Bundle {
-    val x   = Bits(16, INPUT)
-    val y   = Bits(16, INPUT)
-    val z   = Bits(16, OUTPUT)
+    val x   = Bits(INPUT,  16)
+    val y   = Bits(INPUT,  16)
+    val z   = Bits(OUTPUT, 16)
   }
   def clb(a: Bits, b: Bits, c: Bits, d: Bits) =
     (a & b) | (~c & d)

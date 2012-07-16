@@ -6,8 +6,8 @@ import util.Random
 
 class Tbl extends Component {
   val io = new Bundle {
-    val addr = UFix(8, INPUT)
-    val out  = UFix(8, OUTPUT)
+    val addr = UFix(INPUT,  8)
+    val out  = UFix(OUTPUT, 8)
   }
   val r = Vec(Range(0, 256).map(UFix(_))){ UFix(width = 8) }
   io.out := r(io.addr)

@@ -28,7 +28,7 @@ class ParityTests(c: Parity) extends Tester(c, Array(c.io)) {
       val bit        = rnd.nextInt(2)
       vars(c.io.in)  = Bool(bit == 1)
       vars(c.io.out) = Bool(isOdd)
-      isOdd          = if (t > 0 && bit == 1) !isOdd else isOdd
+      isOdd          = if (bit == 1) !isOdd else isOdd
       allGood        = step(vars) && allGood
     }
     allGood

@@ -7,7 +7,7 @@ import Literal._
 import scala.util.Random
 
 class LinkIO extends Bundle { 
-  val data  = Bits(16, OUTPUT) 
+  val data  = Bits(OUTPUT, 16) 
   val valid = Bool(OUTPUT)
 }
 

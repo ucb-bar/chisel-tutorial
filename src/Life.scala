@@ -54,13 +54,14 @@ class LifeTests(c: Life) extends Tester(c, Array(c.io)) {
   defTests {
     var allGood = true
     val vars    = new HashMap[Node, Node]()
+    val ovars   = new HashMap[Node, Node]()
     var tot     = 0
     for (t <- 0 until 16) {
       vars.clear()
-      step(vars)
+      step(vars, ovars)
       for (j <- 0 until c.n) {
         for (i <- 0 until c.n) {
-          print(vars(c.io.state(c.idx(i, j))).litValue())
+          print(ovars(c.io.state(c.idx(i, j))).litValue())
         }
         println()
       }

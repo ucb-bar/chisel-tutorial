@@ -7,11 +7,11 @@ import scala.collection.mutable.HashMap
 class Risc extends Component {
   val io = new Bundle {
     val isWr   = Bool(INPUT)
-    val wrAddr = UFix(8, INPUT)
-    val wrData = Bits(32, INPUT)
+    val wrAddr = UFix(INPUT, 8)
+    val wrData = Bits(INPUT, 32)
     val boot   = Bool(INPUT)
     val valid  = Bool(OUTPUT)
-    val out    = Bits(32, OUTPUT)
+    val out    = Bits(OUTPUT, 32)
   }
   val file = Mem(256){ Bits(width = 32) }
   val code = Mem(256){ Bits(width = 32) }
