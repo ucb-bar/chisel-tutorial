@@ -1,5 +1,5 @@
 basedir = ..
-include ../Makefrag
+include ../../Makefrag
 SBTARGS = --backend c --compile --test --targetDir ../emulator/problems --genHarness
 
 tut_out = $(addsuffix .out, $(tutorials))

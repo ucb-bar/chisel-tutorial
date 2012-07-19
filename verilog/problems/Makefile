@@ -1,5 +1,5 @@
 basedir = ..
-include ../Makefrag
+include ../../Makefrag
 SBTARGS = --backend v --targetDir ../verilog/problems --genHarness
 
 tut_v = $(addsuffix .v, $(tutorials))
