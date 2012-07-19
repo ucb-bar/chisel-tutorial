@@ -6,7 +6,7 @@ tut_v = $(addsuffix .v, $(tutorials))
 
 all: $(tut_v)
 
-$(tut_v): %.v: ${CHISEL}/src/solutions/*.scala ../src/solutions/%.scala
+$(tut_v): %.v: ${CHISEL}/src/*.scala ../src/solutions/%.scala
 	cd $(basedir)/sbt; $(SBT) "project tutorial" "run $* $(SBTARGS)"
 
 clean: 

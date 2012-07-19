@@ -22,6 +22,6 @@ object ChiselBuild extends Build
   import BuildSettings._
 
   lazy val chisel = Project("chisel", file("chisel"), settings = BuildSettings(java.lang.System.getenv("CHISEL")))
-  lazy val tutorialAnswers   = Project("tutorialAnswers", file("tutorial"), settings = BuildSettings("..", "/answers")) dependsOn(chisel)
+  lazy val tutorialProblems   = Project("tutorialProblems", file("tutorial"), settings = BuildSettings("..", "/problems")) dependsOn(chisel)
   lazy val tutorialSolutions = Project("tutorialSolutions", file("tutorial"), settings = BuildSettings("..", "/solutions")) dependsOn(chisel)
 }
