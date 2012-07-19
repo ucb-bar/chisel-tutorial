@@ -1,4 +1,4 @@
-package Tutorial 
+package Tutorial {
 
 import Chisel._
 import Node._
@@ -7,22 +7,14 @@ import util.Random
 
 class Accumulator extends Component {
   val io = new Bundle {
-    val in  = UFix(INPUT,  1)
-    val out = UFix(OUTPUT, 8)
+    val in  = UFix(width = 1, dir = INPUT)
+    val out = UFix(width = 8, dir = OUTPUT)
   }
-
-  // ----------------------------------------------- \\
-  // Accumulate in
-  // Shouldn't need more than 3 lines of code
-  // ----------------------------------------------- \\
-
-
-
-
-
-  // ----------------------------------------------- \\
-
-
+  // COUNT INCOMING TRUES 
+  // FILL IN HERE ...
+  val accumulator = Reg(resetVal = UFix(0, 8))
+  accumulator := accumulator + io.in
+  io.out := accumulator
 }
 
 class AccumulatorTests(c: Accumulator) extends Tester(c, Array(c.io)) {  
@@ -37,8 +29,10 @@ class AccumulatorTests(c: Accumulator) extends Tester(c, Array(c.io)) {
       vars(c.io.in)  = Bool(in)
       vars(c.io.out) = UFix(tot)
       allGood        = step(vars) && allGood
-      if (in) tot += 1
+      if (t > 0 && in) tot += 1
     }
     allGood
   }
+}
+
 }
