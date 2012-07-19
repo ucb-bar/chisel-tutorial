@@ -1,4 +1,4 @@
-package Tutorial
+package TutorialSolutions
 
 import Chisel._
 import scala.math._

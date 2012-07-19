@@ -1,4 +1,4 @@
-package Tutorial
+package TutorialSolutions
 
 import java.io.File
 import java.io.ByteArrayInputStream

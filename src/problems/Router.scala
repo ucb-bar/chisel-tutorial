@@ -1,4 +1,4 @@
-package Tutorial
+package TutorialProblems
 
 import Chisel._
 import Node._;

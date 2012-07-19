@@ -1,4 +1,4 @@
-package Tutorial {
+package TutorialSolutions
 
 import Chisel._
 import Node._
@@ -30,8 +30,8 @@ object Counter {
 class Counter extends Component {
   val io = new Bundle {
     val inc = Bool(INPUT)
-    val amt = UFix(4, INPUT)
-    val tot = UFix(8, OUTPUT)
+    val amt = UFix(INPUT, 4)
+    val tot = UFix(OUTPUT, 8)
   }
 
   io.tot := counter(UFix(255), io.inc, io.amt)
@@ -66,6 +66,4 @@ class CounterTest(c: Counter) extends Tester(c, Array(c.io)) {
     allGood
 
   }
-}
-
 }
