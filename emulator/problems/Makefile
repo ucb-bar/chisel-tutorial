@@ -14,6 +14,6 @@ $(tut_out): %.out: ../../src/problems/%.scala
 	cd $(basedir)/sbt; $(SBT) "project tutorialProblems" "run $* $(SBTARGS)" > ../emulator/problems/$@
 
 clean: 
-	rm -f *.out *.o $(tutorials) $(addsuffix .h, $(tutorials)) *-emulator.* $(addsuffix .cpp, $(tutorials))
+	rm -f *.out *.o emulator.h *-emulator.* $(tutorials) $(addsuffix .h, $(tutorials)) $(addsuffix .cpp, $(tutorials))
 
 .PHONY: all clean
