@@ -1,4 +1,4 @@
-basedir = ..
+basedir = ../..
 include ../../Makefrag
 SBTARGS = --backend v --targetDir ../verilog/problems --genHarness
 
@@ -6,8 +6,8 @@ tut_v = $(addsuffix .v, $(tutorials))
 
 all: $(tut_v)
 
-$(tut_v): %.v: ${CHISEL}/src/*.scala ../src/problems/%.scala
-	cd $(basedir)/sbt; $(SBT) "project tutorial" "run $* $(SBTARGS)"
+$(tut_v): %.v: ../../src/problems/%.scala
+	cd $(basedir)/sbt; $(SBT) "project tutorialProblems" "run $* $(SBTARGS)"
 
 clean: 
-	rm -f *.out *.o $(tutorials) $(addsuffix .v, $(tutorials)) *.conf
+	rm -f *.out *.o *-harness.* $(tutorials) $(addsuffix .v, $(tutorials)) *.conf
