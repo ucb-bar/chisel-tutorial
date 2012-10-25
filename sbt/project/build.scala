@@ -12,7 +12,8 @@ object BuildSettings
       organization := buildOrganization,
       version      := buildVersion,
       scalaVersion := buildScalaVersion,
-      scalaSource in Compile := Path.absolute(file(projectdir + "/src" + subdir))
+      scalaSource in Compile := Path.absolute(file(projectdir + "/src" + subdir)),
+      libraryDependencies += "edu.berkeley.cs" %% "chisel" % "1.0"
     )
   }
 }
@@ -21,7 +22,6 @@ object ChiselBuild extends Build
 {
   import BuildSettings._
 
-  lazy val chisel = Project("chisel", file("chisel"), settings = BuildSettings(java.lang.System.getenv("CHISEL")))
-  lazy val tutorialProblems   = Project("tutorialProblems", file("tutorial"), settings = BuildSettings("..", "/problems")) dependsOn(chisel)
-  lazy val tutorialSolutions = Project("tutorialSolutions", file("tutorial"), settings = BuildSettings("..", "/solutions")) dependsOn(chisel)
+  lazy val tutorialProblems   = Project("tutorialProblems", file("tutorial"), settings = BuildSettings("..", "/problems")) 
+  lazy val tutorialSolutions = Project("tutorialSolutions", file("tutorial"), settings = BuildSettings("..", "/solutions"))
 }

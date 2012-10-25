@@ -24,6 +24,8 @@ class Filter extends Component {
   // Should only need two lines of code
   // -------------------------------- \\
 
+  io.out.data := io.in.data
+  io.out.valid := io.in.valid & io.in.data(0)
 
   // -------------------------------- \\
 }

@@ -18,6 +18,11 @@ class Mul extends Component {
   // building filling out muls
   // -------------------------------- \\
 
+  for (i <- 0 until 16)
+    for (j <- 0 until 16)
+      muls += UFix(i * j)
+  val tbl = Vec(muls){ UFix(width = 8) }
+  io.z := tbl((io.x << UFix(4)) | io.y)
 
   // -------------------------------- \\
 }

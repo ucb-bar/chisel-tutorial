@@ -51,7 +51,7 @@ class CounterTest(c: Counter) extends Tester(c, Array(c.io)) {
         
     // let it spin for a bit
     for (i <- 0 until 5) {
-      step(vars, null, false)
+      step(vars, isTrace = false)
     }
 
     for (i <- 0 until 10) {

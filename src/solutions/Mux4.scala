@@ -16,15 +16,20 @@ class Mux4 extends Component {
 
   val m0 = new Mux2()
   m0.io.sel := io.sel(0) 
-  m0.io.in0 := io.in0; m0.io.in1 := io.in1
+  m0.io.in0 := io.in0
+  m0.io.in1 := io.in1
 
-  //-------------------------------------------------------------------------\\
-  
-  // Modify this section to build a 4-to-1 mux out of 3 2-to-1 mux
-  // The first mux is already done for you
+  val m1 = new Mux2()
+  m1.io.sel := io.sel(0)
+  m1.io.in0 := io.in2
+  m1.io.in1 := io.in3
 
+  val m2 = new Mux2()
+  m2.io.sel := io.sel(1)
+  m2.io.in0 := m0.io.out
+  m2.io.in1 := m1.io.out
 
-  //-------------------------------------------------------------------------\\
+  io.out := m2.io.out
 }
 
 class Mux4Tests(c: Mux4) extends Tester(c, Array(c.io)) {  
