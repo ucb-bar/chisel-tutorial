@@ -39,6 +39,10 @@ def main(args, junit_file):
         if test_results[path][0] != 'PASSED':
             junit_file.write('<error type="%s"></error>\n'
                              % test_results[path][0])
+            junit_file.write('<system-out><![CDATA[\n')
+            with open(path) as outfile:
+                junit_file.write(outfile.read())
+            junit_file.write(']]></system-out>\n')
         junit_file.write(
             '</testcase>\n')
     junit_file.write('</testsuite>\n')
