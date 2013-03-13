@@ -13,7 +13,7 @@ object BuildSettings
       version      := buildVersion,
       scalaVersion := buildScalaVersion,
       scalaSource in Compile := Path.absolute(file(projectdir + "/src" + subdir)),
-      libraryDependencies += "edu.berkeley.cs" %% "chisel" % "1.0"
+      libraryDependencies += "edu.berkeley.cs" %% "chisel" % "1.1-SNAPSHOT"
     )
   }
 }
