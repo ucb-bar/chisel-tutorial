@@ -37,7 +37,8 @@ def main(args, junit_file):
             '<testcase name="%s" classname="%s" time="%d">\n'
             % (path, 'emulator', test_results[path][1]))
         if test_results[path][0] != 'PASSED':
-            junit_file.write('<error type="%s">\n')
+            junit_file.write('<error type="%s"></error>\n'
+                             % test_results[path][0])
         junit_file.write(
             '</testcase>\n')
     junit_file.write('</testsuite>\n')
