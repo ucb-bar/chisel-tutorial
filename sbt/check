@@ -41,7 +41,10 @@ def main(args, junit_file):
                              % test_results[path][0])
             junit_file.write('<system-out><![CDATA[\n')
             with open(path) as outfile:
-                junit_file.write(outfile.read())
+                for line in outfile.readlines():
+                    if not '\033[' in line:
+                        # Skip lines with ANSI escape characters
+                        junit_file.write(line)
             junit_file.write(']]></system-out>\n')
         junit_file.write(
             '</testcase>\n')
