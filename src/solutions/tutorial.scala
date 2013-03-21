@@ -63,7 +63,7 @@ object TutorialSolutions {
           c => new EchoTests(c, "../src/in.wav", "../emulator/out.wav")}
       case "Darken" => 
         chiselMainTest(tutArgs, () => new Darken()){
-          c => new DarkenTests(c, "../src/in.im24", "../src/out.im24")}
+          c => new DarkenTests(c, "../src/in.im24", "../emulator/out.im24")}
     }
   }
 }
