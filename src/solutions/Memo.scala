@@ -4,7 +4,7 @@ import Chisel._
 import Node._
 import scala.collection.mutable.HashMap
 
-class Memo extends Component {
+class Memo extends Mod {
   val io = new Bundle {
     val wen     = Bool(INPUT)
     val wrAddr  = UFix(INPUT, 8)
@@ -13,7 +13,7 @@ class Memo extends Component {
     val rdAddr  = UFix(INPUT, 8)
     val rdData  = UFix(OUTPUT, 8)
   }
-  val mem = Mem(256){ UFix(width = 8) }
+  val mem = Mem(256, UFix(width = 8))
 
   // --------------------------------------------------- \\
   // When wen is asserted, write wrData to mem at wrAddr 

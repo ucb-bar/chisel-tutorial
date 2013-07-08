@@ -4,16 +4,16 @@ import Chisel._
 import scala.collection.mutable.HashMap
 import util.Random
 
-class Tbl extends Component {
+class Tbl extends Mod {
   val io = new Bundle {
     val addr = UFix(INPUT,  8)
     val out  = UFix(OUTPUT, 8)
   }
-  val r = Vec(Range(0, 256).map(UFix(_))){ UFix(width = 8) }
+  val r = Vec(Range(0, 256).map(UFix(_, width = 8)))
   io.out := r(io.addr)
 }
 
-class TblTests(c: Tbl) extends Tester(c, Array(c.io)) {  
+class TblTests(c: Tbl) extends Tester(c, Array(c.io)) {
   defTests {
     var allGood = true
     val vars    = new HashMap[Node, Node]()

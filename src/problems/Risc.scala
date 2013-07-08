@@ -4,7 +4,7 @@ import Chisel._
 import Node._
 import scala.collection.mutable.HashMap
 
-class Risc extends Component {
+class Risc extends Mod {
   val io = new Bundle {
     val isWr   = Bool(INPUT)
     val wrAddr = UFix(INPUT, 8)
@@ -13,9 +13,9 @@ class Risc extends Component {
     val valid  = Bool(OUTPUT)
     val out    = Bits(OUTPUT, 32)
   }
-  val file = Mem(256){ Bits(width = 32) }
-  val code = Mem(256){ Bits(width = 32) }
-  val pc   = Reg(resetVal = UFix(0, 8))
+  val file = Mem(256, Bits(width = 32))
+  val code = Mem(256, Bits(width = 32))
+  val pc   = RegReset(UFix(0, 8))
   
   val add_op :: imm_op :: Nil = Enum(2){ Bits() }
 
@@ -74,8 +74,8 @@ class RiscTests(c: Risc) extends Tester(c, Array(c.io, c.pc)) {
       svars(c.io.boot)   = Bool(false)
       step(svars, ovars)
     }
-    def I (op: Bits, rc: Int, ra: Int, rb: Int) = 
-      Cat(op, Bits(rc, 8), Bits(ra, 8), Bits(rb, 8))
+    def I (op: UFix, rc: Int, ra: Int, rb: Int) = 
+      Cat(op, UFix(rc, 8), UFix(ra, 8), UFix(rb, 8))
     val app  = Array(I(c.imm_op,   1, 0, 1), // r1 <- 1
                      I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
                      I(c.add_op,   1, 1, 1), // r1 <- r1 + r1

@@ -4,7 +4,7 @@ import Chisel._
 import scala.math._
 import scala.collection.mutable.HashMap
 
-class Mux2 extends Component {
+class Mux2 extends Mod {
   val io = new Bundle {
     val sel = Bits(INPUT,  1)
     val in0 = Bits(INPUT,  1)
@@ -14,7 +14,7 @@ class Mux2 extends Component {
   io.out := (io.sel & io.in1) | (~io.sel & io.in0)
 }
 
-class Mux2Tests(c: Mux2) extends Tester(c, Array(c.io)) {  
+class Mux2Tests(c: Mux2) extends Tester(c, Array(c.io)) {
   defTests {
     var allGood = true
     val n = pow(2, 3).toInt
