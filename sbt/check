@@ -1,0 +1,55 @@
+#!/usr/bin/env python
+
+import datetime, re, socket, sys
+
+def main(args, junit_file):
+    testsuitename = 'solutions'
+    hostname = socket.gethostname()
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+    testsuite_time = 0
+    nb_errors = 0
+    nb_tests = len(args)
+    nb_expected_failures = 0
+    test_results = {}
+    for path in args:
+        with open(path) as outfile:
+            test_status = 'FAILED'
+            test_time = 0
+            for line in outfile.readlines():
+                look = re.match('(PASSED|FAILED)', line)
+                if look:
+                    test_status = look.group(1)
+                look = re.match('.*Total time: (\S+) s,', line)
+                if look:
+                    test_time = int(look.group(1))
+            if test_status != 'PASSED':
+                nb_errors = nb_errors + 1
+            testsuite_time = testsuite_time + test_time
+            test_results[path] = (test_status, test_time)
+
+    # Output the XML file compatible with JUnit format.
+    junit_file.write('<testsuite name="%s" timestamp="%s" time="%d" hostname="%s" tests="%d" failures="%s" errors="%s">\n'
+       % (testsuitename, timestamp, testsuite_time, hostname,
+          nb_tests, nb_expected_failures, nb_errors))
+    junit_file.write('<properties></properties>\n')
+    for path in args:
+        junit_file.write(
+            '<testcase name="%s" classname="%s" time="%d">\n'
+            % (path, 'emulator', test_results[path][1]))
+        if test_results[path][0] != 'PASSED':
+            junit_file.write('<error type="%s"></error>\n'
+                             % test_results[path][0])
+            junit_file.write('<system-out><![CDATA[\n')
+            with open(path) as outfile:
+                for line in outfile.readlines():
+                    if not '\033[' in line:
+                        # Skip lines with ANSI escape characters
+                        junit_file.write(line)
+            junit_file.write(']]></system-out>\n')
+        junit_file.write(
+            '</testcase>\n')
+    junit_file.write('</testsuite>\n')
+
+
+if __name__ == '__main__':
+    main(sys.argv[1:], sys.stdout)

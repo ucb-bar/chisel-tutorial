@@ -3,7 +3,7 @@ package TutorialSolutions
 import Chisel._
 import scala.collection.mutable.HashMap
 
-class GCD extends Component {
+class GCD extends Mod {
   val io = new Bundle {
     val a  = UFix(INPUT,  16)
     val b  = UFix(INPUT,  16)
@@ -11,9 +11,9 @@ class GCD extends Component {
     val z  = UFix(OUTPUT, 16)
     val v  = Bool(OUTPUT)
   }
-  val x  = Reg(){ UFix() }
-  val y  = Reg(){ UFix() }
-  when   (x > y) { x := x - y } 
+  val x  = Reg(UFix())
+  val y  = Reg(UFix())
+  when   (x > y) { x := x - y }
   unless (x > y) { y := y - x }
   when (io.e) { x := io.a; y := io.b }
   io.z := x

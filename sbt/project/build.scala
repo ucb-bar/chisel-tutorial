@@ -4,8 +4,8 @@ import Keys._
 object BuildSettings
 {
   val buildOrganization = "edu.berkeley.cs"
-  val buildVersion = "1.1"
-  val buildScalaVersion = "2.9.2"
+  val buildVersion = "2.0"
+  val buildScalaVersion = "2.10.2"
 
   def apply(projectdir: String, subdir: String = "") = {
     Defaults.defaultSettings ++ Seq (
@@ -13,7 +13,7 @@ object BuildSettings
       version      := buildVersion,
       scalaVersion := buildScalaVersion,
       scalaSource in Compile := Path.absolute(file(projectdir + "/src" + subdir)),
-      libraryDependencies += "edu.berkeley.cs" %% "chisel" % "1.0"
+      libraryDependencies += "edu.berkeley.cs" %% "chisel" % "2.0-SNAPSHOT"
     )
   }
 }

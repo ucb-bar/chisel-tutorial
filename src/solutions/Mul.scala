@@ -5,7 +5,7 @@ import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
-class Mul extends Component {
+class Mul extends Mod {
   val io = new Bundle {
     val x   = UFix(INPUT,  4)
     val y   = UFix(INPUT,  4)
@@ -20,8 +20,8 @@ class Mul extends Component {
 
   for (i <- 0 until 16)
     for (j <- 0 until 16)
-      muls += UFix(i * j)
-  val tbl = Vec(muls){ UFix(width = 8) }
+      muls += UFix(i * j, width = 8)
+  val tbl = Vec(muls)
   io.z := tbl((io.x << UFix(4)) | io.y)
 
   // -------------------------------- \\

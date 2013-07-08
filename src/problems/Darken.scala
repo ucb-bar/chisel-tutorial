@@ -4,7 +4,7 @@ import Chisel._
 import Node._
 import scala.collection.mutable.HashMap
 
-class Darken extends Component {
+class Darken extends Mod {
   val io = new Bundle {
     val in  = Bits(INPUT, 8)
     val out = Bits(OUTPUT, 8)

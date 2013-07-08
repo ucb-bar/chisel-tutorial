@@ -10,17 +10,17 @@ class RealGCDInput extends Bundle {
 }
 
 
-class RealGCD extends Component {
+class RealGCD extends Mod {
   val io  = new Bundle {
-    val in  = new FIFOIO()( new RealGCDInput() ).flip()
-    val out = new PipeIO()( Bits(width = 16) )
+    val in  = new FIFOIO(new RealGCDInput()).flip()
+    val out = new PipeIO(Bits(width = 16))
   }
 
-  val x = Reg(){ Bits() }
-  val y = Reg(){ Bits() }
-  val first = Reg(resetVal = Bool(true) )
+  val x = Reg(UFix())
+  val y = Reg(UFix())
+  val first = RegReset(Bool(true))
 
-  io.in.ready := first || y === Bits(0)
+  io.in.ready := first || y === UFix(0)
 
   when (io.in.valid && io.in.ready) {
     x := io.in.bits.a
@@ -28,7 +28,7 @@ class RealGCD extends Component {
     first := Bool(false)
   }
 
-  when (!first && y != Bits(0)) {
+  when (!first && y != UFix(0)) {
     when (x > y) { x := y; y := x}
     when (x <= y) { y := y - x }
   }

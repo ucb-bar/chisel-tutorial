@@ -18,7 +18,7 @@ object Counter {
   // ---------------------------------------- \\
 
   def counter(max: UFix, en: Bool, amt: UFix) = {
-    val x = Reg(resetVal = UFix(0, max.getWidth))
+    val x = RegReset(UFix(0, max.getWidth))
     x := wrapAround(x + UFix(1), max)
     x
   }
@@ -27,7 +27,7 @@ object Counter {
 
 }
 
-class Counter extends Component {
+class Counter extends Mod {
   val io = new Bundle {
     val inc = Bool(INPUT)
     val amt = UFix(INPUT,  4)
