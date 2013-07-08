@@ -5,7 +5,7 @@ import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
-class Mul extends Component {
+class Mul extends Mod {
   val io = new Bundle {
     val x   = UFix(INPUT,  4)
     val y   = UFix(INPUT,  4)

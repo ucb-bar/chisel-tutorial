@@ -5,7 +5,7 @@ import Node._
 import java.io.File
 import scala.collection.mutable.HashMap
 
-class Echo extends Component {
+class Echo extends Mod {
   val io = new Bundle {
     val in  = Bits(INPUT,  8)
     val out = Bits(OUTPUT, 8)
@@ -16,8 +16,8 @@ class Echo extends Component {
 
   val inSigned = (io.in - UFix(128)).toFix // convert to two's complement
 
-  val history = Mem(samples) { Fix(width = 8) }
-  val pos = Reg(resetVal = UFix(0, log2Up(samples)))
+  val history = Mem(samples, Fix(width = 8))
+  val pos = RegReset(UFix(0, log2Up(samples)))
   pos := pos + UFix(1)
 
   // y[n] = x[n] + 0.5 * y[n - samples]
