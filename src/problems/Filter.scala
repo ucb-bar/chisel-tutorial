@@ -16,7 +16,7 @@ class FilterIO extends Bundle {
   val out = new LinkIO()
 }
 
-class Filter extends Component { 
+class Filter extends Mod {
   val io  = new FilterIO()
 
   // -------------------------------- \\

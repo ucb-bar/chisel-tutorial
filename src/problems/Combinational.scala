@@ -4,7 +4,7 @@ import Chisel._
 import scala.collection.mutable.HashMap
 import scala.util.Random
 
-class Combinational extends Component {
+class Combinational extends Mod {
   val io = new Bundle {
     val x   = UFix(INPUT,  16)
     val y   = UFix(INPUT,  16)

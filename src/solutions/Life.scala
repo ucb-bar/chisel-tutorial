@@ -4,12 +4,12 @@ import Chisel._
 import scala.collection.mutable.HashMap
 import util.Random
 
-class Cell(isBorn: Boolean) extends Component {
+class Cell(isBorn: Boolean) extends Mod {
   val io = new Bundle {
-    val nbrs = Vec(8){ Bool(INPUT) }
+    val nbrs = Vec.fill(8){ Bool(INPUT) }
     val out  = Bool(OUTPUT)
   }
-  val isAlive = Reg(resetVal = Bool(isBorn))
+  val isAlive = RegReset(Bool(isBorn))
   val count   = io.nbrs.foldRight(UFix(0, 3))((x: Bool, y: UFix) => x.toUFix + y)
   when (count < UFix(2)) {
     isAlive := Bool(false)
@@ -23,15 +23,15 @@ class Cell(isBorn: Boolean) extends Component {
   io.out := isAlive
 }
 
-class Life(val n: Int) extends Component {
+class Life(val n: Int) extends Mod {
   val tot = n*n
   val io = new Bundle {
-    val state = Vec(tot){ Bool(OUTPUT) }
+    val state = Vec.fill(tot){ Bool(OUTPUT) }
   }
   def idx(i: Int, j: Int) = ((j*n+n)%n)+((i+n)%n)
   def nbrIdx(di: Int, dj: Int) = (dj+1)*3 + (di+1)
   val rnd = new Random()
-  val cells = Range(0, tot).map(i => new Cell(rnd.nextInt(2) == 1))
+  val cells = Range(0, tot).map(i => Mod(new Cell(rnd.nextInt(2) == 1)))
   for (k <- 0 until tot)
     io.state(k) := cells(k).io.out
   for (j <- 0 until n) {
@@ -40,7 +40,7 @@ class Life(val n: Int) extends Component {
       for (dj <- -1 until 1) {
         for (di <- -1 until 1) {
           val ni = nbrIdx(di, dj)
-          if (di == 0 && dj == 0) 
+          if (di == 0 && dj == 0)
             cell.io.nbrs(ni) := Bool(false)
           else
             cell.io.nbrs(ni) := cells(idx(i+di, j+dj)).io.out

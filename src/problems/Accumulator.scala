@@ -5,14 +5,14 @@ import Node._
 import scala.collection.mutable.HashMap
 import util.Random
 
-class Accumulator extends Component {
+class Accumulator extends Mod {
   val io = new Bundle {
     val in  = UFix(width = 1, dir = INPUT)
     val out = UFix(width = 8, dir = OUTPUT)
   }
   // COUNT INCOMING TRUES 
   // FILL IN HERE ...
-  val accumulator = Reg(resetVal = UFix(0, 8))
+  val accumulator = RegReset(UFix(0, 8))
   accumulator := accumulator + io.in
   io.out := accumulator
 }
