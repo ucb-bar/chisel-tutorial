@@ -9,16 +9,16 @@ import scala.util.Random
 
 object Counter {
 
-  def wrapAround(n: UFix, max: UFix) = 
-    Mux(n > max, UFix(0), n)
+  def wrapAround(n: UInt, max: UInt) = 
+    Mux(n > max, UInt(0), n)
 
   // ---------------------------------------- \\
   // Modify this function to increment by the
   // amt only when en is asserted
   // ---------------------------------------- \\
 
-  def counter(max: UFix, en: Bool, amt: UFix) = {
-    val x = RegReset(UFix(0, max.getWidth))
+  def counter(max: UInt, en: Bool, amt: UInt) = {
+    val x = RegReset(UInt(0, max.getWidth))
     when (en) { x := wrapAround(x + amt, max) }
     x
   }
@@ -27,14 +27,14 @@ object Counter {
 
 }
 
-class Counter extends Mod {
+class Counter extends Module {
   val io = new Bundle {
     val inc = Bool(INPUT)
-    val amt = UFix(INPUT, 4)
-    val tot = UFix(OUTPUT, 8)
+    val amt = UInt(INPUT, 4)
+    val tot = UInt(OUTPUT, 8)
   }
 
-  io.tot := counter(UFix(255), io.inc, io.amt)
+  io.tot := counter(UInt(255), io.inc, io.amt)
 
 }
 
@@ -58,8 +58,8 @@ class CounterTest(c: Counter) extends Tester(c, Array(c.io)) {
       val inc = rnd.nextBoolean()
       val amt = rnd.nextInt(maxInt)
       vars(c.io.inc) = Bool(inc)
-      vars(c.io.amt) = UFix(amt)
-      vars(c.io.tot) = UFix(curCnt)
+      vars(c.io.amt) = UInt(amt)
+      vars(c.io.tot) = UInt(curCnt)
       allGood = step(vars) && allGood      
       curCnt = if(inc) intWrapAround(curCnt + amt, 255) else curCnt
     }

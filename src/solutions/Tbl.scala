@@ -4,12 +4,12 @@ import Chisel._
 import scala.collection.mutable.HashMap
 import util.Random
 
-class Tbl extends Mod {
+class Tbl extends Module {
   val io = new Bundle {
-    val addr = UFix(INPUT,  8)
-    val out  = UFix(OUTPUT, 8)
+    val addr = UInt(INPUT,  8)
+    val out  = UInt(OUTPUT, 8)
   }
-  val r = Vec(Range(0, 256).map(UFix(_, width = 8)))
+  val r = Vec(Range(0, 256).map(UInt(_, width = 8)))
   io.out := r(io.addr)
 }
 
@@ -21,8 +21,8 @@ class TblTests(c: Tbl) extends Tester(c, Array(c.io)) {
     for (t <- 0 until 16) {
       vars.clear()
       val addr        = rnd.nextInt(256)
-      vars(c.io.addr) = UFix(addr)
-      vars(c.io.out)  = UFix(addr)
+      vars(c.io.addr) = UInt(addr)
+      vars(c.io.out)  = UInt(addr)
       allGood         = step(vars) && allGood
     }
     allGood

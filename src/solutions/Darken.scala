@@ -4,13 +4,13 @@ import Chisel._
 import Node._
 import scala.collection.mutable.HashMap
 
-class Darken extends Mod {
+class Darken extends Module {
   val io = new Bundle {
     val in  = Bits(INPUT, 8)
     val out = Bits(OUTPUT, 8)
   }
 
-  io.out := io.in << UFix(1)
+  io.out := io.in << UInt(1)
 }
 
 class DarkenTests(c: Darken, val infilename: String, val outfilename: String) extends Tester(c, Array(c.io)) {  

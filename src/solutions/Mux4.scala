@@ -4,7 +4,7 @@ import Chisel._
 import scala.math._
 import scala.collection.mutable.HashMap
 
-class Mux4 extends Mod {
+class Mux4 extends Module {
   val io = new Bundle {
     val in0 = Bits(INPUT,  1)
     val in1 = Bits(INPUT,  1)
@@ -14,17 +14,17 @@ class Mux4 extends Mod {
     val out = Bits(OUTPUT, 1)
   }
 
-  val m0 = Mod(new Mux2())
+  val m0 = Module(new Mux2())
   m0.io.sel := io.sel(0)
   m0.io.in0 := io.in0
   m0.io.in1 := io.in1
 
-  val m1 = Mod(new Mux2())
+  val m1 = Module(new Mux2())
   m1.io.sel := io.sel(0)
   m1.io.in0 := io.in2
   m1.io.in1 := io.in3
 
-  val m2 = Mod(new Mux2())
+  val m2 = Module(new Mux2())
   m2.io.sel := io.sel(1)
   m2.io.in0 := m0.io.out
   m2.io.in1 := m1.io.out

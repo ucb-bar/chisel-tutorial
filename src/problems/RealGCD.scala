@@ -9,7 +9,7 @@ class RealGCDInput extends Bundle {
   val b = Bits(width = 16)
 }
 
-class RealGCD extends Mod {
+class RealGCD extends Module {
   val io  = new Bundle {
     val in  = new FIFOIO(new RealGCDInput()).flip()
     val out = new PipeIO(Bits(width = 16))

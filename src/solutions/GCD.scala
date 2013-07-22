@@ -3,21 +3,21 @@ package TutorialSolutions
 import Chisel._
 import scala.collection.mutable.HashMap
 
-class GCD extends Mod {
+class GCD extends Module {
   val io = new Bundle {
-    val a  = UFix(INPUT,  16)
-    val b  = UFix(INPUT,  16)
+    val a  = UInt(INPUT,  16)
+    val b  = UInt(INPUT,  16)
     val e  = Bool(INPUT)
-    val z  = UFix(OUTPUT, 16)
+    val z  = UInt(OUTPUT, 16)
     val v  = Bool(OUTPUT)
   }
-  val x  = Reg(UFix())
-  val y  = Reg(UFix())
+  val x  = Reg(UInt())
+  val y  = Reg(UInt())
   when   (x > y) { x := x - y }
   unless (x > y) { y := y - x }
   when (io.e) { x := io.a; y := io.b }
   io.z := x
-  io.v := y === UFix(0)
+  io.v := y === UInt(0)
 }
 
 class GCDTests(c: GCD) extends Tester(c, Array(c.io)) {
@@ -29,8 +29,8 @@ class GCDTests(c: GCD) extends Tester(c, Array(c.io)) {
     do {
       val first = (t == 0)
       svars.clear()
-      svars(c.io.a) = UFix(a)
-      svars(c.io.b) = UFix(b)
+      svars(c.io.a) = UInt(a)
+      svars(c.io.b) = UInt(b)
       svars(c.io.e) = Bool(first)
       step(svars, ovars)
       t += 1
