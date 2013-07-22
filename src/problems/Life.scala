@@ -4,26 +4,26 @@ import Chisel._
 import scala.collection.mutable.HashMap
 import util.Random
 
-class Cell(isBorn: Boolean) extends Mod {
+class Cell(isBorn: Boolean) extends Module {
   val io = new Bundle {
     val nbrs = Vec.fill(8){ Bool(INPUT) }
     val out  = Bool(OUTPUT)
   }
   val isAlive = RegReset(Bool(isBorn))
-  val count   = io.nbrs.foldRight(UFix(0, 3))((x: Bool, y: UFix) => x.toUFix + y)
-  when (count < UFix(2)) {
+  val count   = io.nbrs.foldRight(UInt(0, 3))((x: Bool, y: UInt) => x.toUInt + y)
+  when (count < UInt(2)) {
     isAlive := Bool(false)
-  } .elsewhen (count < UFix(4)) {
+  } .elsewhen (count < UInt(4)) {
     isAlive := Bool(true)
-  } .elsewhen (count >= UFix(4)) {
+  } .elsewhen (count >= UInt(4)) {
     isAlive := Bool(false)
-  } .elsewhen(!isAlive && count === UFix(3)) {
+  } .elsewhen(!isAlive && count === UInt(3)) {
     isAlive := Bool(true)
   }
   io.out := isAlive
 }
 
-class Life(val n: Int) extends Mod {
+class Life(val n: Int) extends Module {
   val tot = n*n
   val io = new Bundle {
     val state = Vec.fill(tot){ Bool(OUTPUT) }
@@ -31,7 +31,7 @@ class Life(val n: Int) extends Mod {
   def idx(i: Int, j: Int) = ((j*n+n)%n)+((i+n)%n)
   def nbrIdx(di: Int, dj: Int) = (dj+1)*3 + (di+1)
   val rnd = new Random()
-  val cells = Range(0, tot).map(i => Mod(new Cell(rnd.nextInt(2) == 1)))
+  val cells = Range(0, tot).map(i => Module(new Cell(rnd.nextInt(2) == 1)))
   for (k <- 0 until tot)
     io.state(k) := cells(k).io.out
   for (j <- 0 until n) {

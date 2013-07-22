@@ -5,14 +5,14 @@ import Node._
 import scala.collection.mutable.HashMap
 import util.Random
 
-class Accumulator extends Mod {
+class Accumulator extends Module {
   val io = new Bundle {
-    val in  = UFix(width = 1, dir = INPUT)
-    val out = UFix(width = 8, dir = OUTPUT)
+    val in  = UInt(width = 1, dir = INPUT)
+    val out = UInt(width = 8, dir = OUTPUT)
   }
   // COUNT INCOMING TRUES
   // FILL IN HERE ...
-  val accumulator = RegReset(UFix(0, 8))
+  val accumulator = RegReset(UInt(0, 8))
   accumulator := accumulator + io.in
   io.out := accumulator
 }
@@ -27,7 +27,7 @@ class AccumulatorTests(c: Accumulator) extends Tester(c, Array(c.io)) {
       vars.clear()
       val in         = rnd.nextInt(2) == 1
       vars(c.io.in)  = Bool(in)
-      vars(c.io.out) = UFix(tot)
+      vars(c.io.out) = UInt(tot)
       allGood        = step(vars) && allGood
       if (t > 0 && in) tot += 1
     }
