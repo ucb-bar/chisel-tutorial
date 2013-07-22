@@ -4,11 +4,11 @@ import Chisel._
 import scala.collection.mutable.HashMap
 import scala.util.Random
 
-class Parity extends Mod {
+class Parity extends Module {
   val io = new Bundle {
     val in  = Bool(INPUT)
     val out = Bool(OUTPUT) }
-  val s_even :: s_odd :: Nil = Enum(2){ UFix() }
+  val s_even :: s_odd :: Nil = Enum(2){ UInt() }
   val state  = RegReset(s_even)
   when (io.in) {
     when (state === s_even) { state := s_odd  }

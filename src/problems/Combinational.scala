@@ -4,11 +4,11 @@ import Chisel._
 import scala.collection.mutable.HashMap
 import scala.util.Random
 
-class Combinational extends Mod {
+class Combinational extends Module {
   val io = new Bundle {
-    val x   = UFix(INPUT,  16)
-    val y   = UFix(INPUT,  16)
-    val z   = UFix(OUTPUT, 16)
+    val x   = UInt(INPUT,  16)
+    val y   = UInt(INPUT,  16)
+    val z   = UInt(OUTPUT, 16)
   }
   io.z := io.x + io.y
 }
@@ -23,9 +23,9 @@ class CombinationalTests(c: Combinational) extends Tester(c, Array(c.io)) {
       vars.clear()
       val x = rnd.nextInt(maxInt)
       val y = rnd.nextInt(maxInt)
-      vars(c.io.x) = UFix(x)
-      vars(c.io.y) = UFix(y)
-      vars(c.io.z) = UFix((x + y)&(maxInt-1))
+      vars(c.io.x) = UInt(x)
+      vars(c.io.y) = UInt(y)
+      vars(c.io.z) = UInt((x + y)&(maxInt-1))
       allGood = step(vars) && allGood
     }
     allGood

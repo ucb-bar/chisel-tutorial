@@ -6,32 +6,32 @@ import Literal._;
 import scala.collection.mutable.HashMap
 
 class ReadCmd extends Bundle {
-  val addr = UFix(width = 32);
+  val addr = UInt(width = 32);
 }
 
 class WriteCmd extends ReadCmd {
-  val data = UFix(width = 32)
+  val data = UInt(width = 32)
 }
 
 class Packet extends Bundle {
-  val header = UFix(width = 8)
+  val header = UInt(width = 8)
   val body   = Bits(width = 64)
 }
 
 class RouterIO(n: Int) extends Bundle {
   override def clone = new RouterIO(n).asInstanceOf[this.type]
   val reads   = new DeqIO(new ReadCmd())
-  val replies = new EnqIO(UFix(width = 8))
+  val replies = new EnqIO(UInt(width = 8))
   val writes  = new DeqIO(new WriteCmd())
   val in      = new DeqIO(new Packet())
   val outs    = Vec.fill(n){ new EnqIO(new Packet()) }
 }
 
-class Router extends Mod {
+class Router extends Module {
   val depth = 32
   val n     = 4
   val io    = new RouterIO(n)
-  val tbl   = Mem(depth, UFix(width = sizeof(n)))
+  val tbl   = Mem(depth, UInt(width = sizeof(n)))
   when(io.reads.valid && io.replies.ready) { 
     val cmd = io.reads.deq();  io.replies.enq(tbl(cmd.addr))  
   } .elsewhen(io.writes.valid) { 
@@ -46,7 +46,7 @@ class RouterTests(c: Router) extends Tester(c, Array(c.io)) {
     var allGood = true
     val svars   = new HashMap[Node, Node]()
     val ovars   = new HashMap[Node, Node]()
-    def rd(addr: UFix, data: UFix) = {
+    def rd(addr: UInt, data: UInt) = {
       svars.clear()
       svars(c.io.replies.ready) = Bool(true)
       svars(c.io.reads.valid)   = Bool(true)
@@ -55,7 +55,7 @@ class RouterTests(c: Router) extends Tester(c, Array(c.io)) {
       svars(c.io.replies.ready) = Bool(true)
       step(svars)
     }
-    def wr(addr: UFix, data: UFix)  = {
+    def wr(addr: UInt, data: UInt)  = {
       svars.clear()
       svars(c.io.writes.valid)     = Bool(true)
       svars(c.io.writes.bits.addr) = addr
@@ -68,7 +68,7 @@ class RouterTests(c: Router) extends Tester(c, Array(c.io)) {
           return true
       false
     }
-    def rt(header: UFix, body: Bits)  = {
+    def rt(header: UInt, body: Bits)  = {
       svars.clear()
       for (out <- c.io.outs)
         svars(out.ready)         = Bool(true)
@@ -81,10 +81,10 @@ class RouterTests(c: Router) extends Tester(c, Array(c.io)) {
       true
     }
     step(svars)
-    allGood = rd(UFix(0), UFix(0)) && allGood
-    allGood = wr(UFix(0), UFix(1)) && allGood
-    allGood = rd(UFix(0), UFix(1)) && allGood
-    allGood = rt(UFix(0), Bits(1)) && allGood
+    allGood = rd(UInt(0), UInt(0)) && allGood
+    allGood = wr(UInt(0), UInt(1)) && allGood
+    allGood = rd(UInt(0), UInt(1)) && allGood
+    allGood = rt(UInt(0), Bits(1)) && allGood
     allGood
   }
 }

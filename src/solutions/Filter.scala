@@ -16,7 +16,7 @@ class FilterIO extends Bundle {
   val out = new LinkIO()
 }
 
-class Filter extends Mod {
+class Filter extends Module {
   val io  = new FilterIO()
 
   // -------------------------------- \\
@@ -40,11 +40,11 @@ class FilterTests(c: Filter) extends Tester(c, Array(c.io)) {
       vars.clear()
       val in                = rnd.nextInt(maxInt)
       vars(c.io.in.valid)   = Bool(true)
-      vars(c.io.in.data)    = UFix(in)
+      vars(c.io.in.data)    = UInt(in)
       val isOdd             = (in&1)!=0
       vars(c.io.out.valid)  = Bool(isOdd)
       if (isOdd)
-        vars(c.io.out.data) = UFix(in)
+        vars(c.io.out.data) = UInt(in)
       allGood               = step(vars) && allGood
     }
     allGood

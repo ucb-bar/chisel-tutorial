@@ -4,7 +4,7 @@ import Chisel._
 import scala.collection.mutable.HashMap
 import scala.util.Random
 
-class Functional extends Mod {
+class Functional extends Module {
   val io = new Bundle {
     val x   = Bits(INPUT,  16)
     val y   = Bits(INPUT,  16)

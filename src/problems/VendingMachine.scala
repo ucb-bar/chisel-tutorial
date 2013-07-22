@@ -4,13 +4,13 @@ import Chisel._
 import scala.collection.mutable.HashMap
 import scala.util.Random
 
-class VendingMachine extends Mod {
+class VendingMachine extends Module {
   val io = new Bundle {
     val nickel = Bool(INPUT)
     val dime   = Bool(INPUT)
     val valid  = Bool(OUTPUT) }
   val sIdle :: s5 :: s10 :: s15 :: sOk :: Nil = 
-    Enum(5){ UFix() }
+    Enum(5){ UInt() }
   val state = RegReset(sIdle)
 
   // flush it out ...

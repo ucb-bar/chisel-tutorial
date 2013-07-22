@@ -4,10 +4,10 @@ import Chisel._
 import Node._
 import scala.collection.mutable.HashMap
 
-class Risc extends Mod {
+class Risc extends Module {
   val io = new Bundle {
     val isWr   = Bool(INPUT)
-    val wrAddr = UFix(INPUT, 8)
+    val wrAddr = UInt(INPUT, 8)
     val wrData = Bits(INPUT, 32)
     val boot   = Bool(INPUT)
     val valid  = Bool(OUTPUT)
@@ -15,7 +15,7 @@ class Risc extends Mod {
   }
   val file = Mem(256, Bits(width = 32))
   val code = Mem(256, Bits(width = 32))
-  val pc   = RegReset(UFix(0, 8))
+  val pc   = RegReset(UInt(0, 8))
   
   val add_op :: imm_op :: Nil = Enum(2){ Bits() }
 
@@ -36,19 +36,19 @@ class Risc extends Mod {
   when (io.isWr) {
     code(io.wrAddr) := io.wrData
   } .elsewhen (io.boot) {
-    pc := UFix(0)
+    pc := UInt(0)
   } .otherwise {
     switch(op) {
       is(add_op) { rc := ra + rb }
-      is(imm_op) { rc := (rai << UFix(8)) | rbi }
+      is(imm_op) { rc := (rai << UInt(8)) | rbi }
     }
     io.out := rc
-    when (rci === UFix(255)) {
+    when (rci === UInt(255)) {
       io.valid := Bool(true)
     } .otherwise {
       file(rci) := rc
     }
-    pc := pc + UFix(1)
+    pc := pc + UInt(1)
   }
 }
 
@@ -57,7 +57,7 @@ class RiscTests(c: Risc) extends Tester(c, Array(c.io, c.pc)) {
     var allGood = true
     val svars = new HashMap[Node, Node]()
     val ovars = new HashMap[Node, Node]()
-    def wr(addr: UFix, data: UFix)  = {
+    def wr(addr: UInt, data: UInt)  = {
       svars.clear()
       svars(c.io.isWr)   = Bool(true)
       svars(c.io.wrAddr) = addr
@@ -74,15 +74,15 @@ class RiscTests(c: Risc) extends Tester(c, Array(c.io, c.pc)) {
       svars(c.io.boot)   = Bool(false)
       step(svars, ovars)
     }
-    def I (op: UFix, rc: Int, ra: Int, rb: Int) = 
-      Cat(op, UFix(rc, 8), UFix(ra, 8), UFix(rb, 8))
+    def I (op: UInt, rc: Int, ra: Int, rb: Int) = 
+      Cat(op, UInt(rc, 8), UInt(ra, 8), UInt(rb, 8))
     val app  = Array(I(c.imm_op,   1, 0, 1), // r1 <- 1
                      I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
                      I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
                      I(c.add_op, 255, 1, 0)) // rh <- r1
-    wr(UFix(0), Bits(0)) // skip reset
+    wr(UInt(0), Bits(0)) // skip reset
     for (addr <- 0 until app.length) 
-      wr(UFix(addr), app(addr))
+      wr(UInt(addr), app(addr))
     boot()
     do {
       tick()
