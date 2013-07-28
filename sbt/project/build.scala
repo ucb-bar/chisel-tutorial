@@ -13,6 +13,11 @@ object BuildSettings
       version      := buildVersion,
       scalaVersion := buildScalaVersion,
       scalaSource in Compile := Path.absolute(file(projectdir + "/src" + subdir)),
+      /* To find chisel jars. */
+      resolvers ++= Seq(
+        "Sonatype Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
+        "Sonatype Releases" at "http://oss.sonatype.org/content/repositories/releases"
+      ),
       libraryDependencies += "edu.berkeley.cs" %% "chisel" % "2.0-SNAPSHOT"
     )
   }
