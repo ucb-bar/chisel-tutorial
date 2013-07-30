@@ -12,8 +12,8 @@ class RealGCDInput extends Bundle {
 
 class RealGCD extends Module {
   val io  = new Bundle {
-    val in  = new FIFOIO(new RealGCDInput()).flip()
-    val out = new PipeIO(Bits(width = 16))
+    val in  = new Decoupled(new RealGCDInput()).flip()
+    val out = new Valid(Bits(width = 16))
   }
 
   val x = Reg(UInt())
