@@ -31,7 +31,7 @@ class Router extends Module {
   val depth = 32
   val n     = 4
   val io    = new RouterIO(n)
-  val tbl   = Mem(depth, UInt(width = sizeof(n)))
+  val tbl   = Mem(UInt(width = sizeof(n)), depth)
   when(io.reads.valid && io.replies.ready) { 
     val cmd = io.reads.deq();  io.replies.enq(tbl(cmd.addr))  
   } .elsewhen(io.writes.valid) { 

@@ -16,7 +16,7 @@ class Echo extends Module {
 
   val inSigned = (io.in - UInt(128)).toSInt // convert to two's complement
 
-  val history = Mem(samples, SInt(width = 8))
+  val history = Mem(SInt(width = 8), samples)
   val pos = RegReset(UInt(0, log2Up(samples)))
   pos := pos + UInt(1)
 
