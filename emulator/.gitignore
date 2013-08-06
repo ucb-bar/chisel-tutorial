@@ -1,6 +1,0 @@
-*-makefile
-*.o
-*.cpp
-*.h
-!emulator.h
-*.out
