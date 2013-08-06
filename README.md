@@ -10,8 +10,22 @@ parameterized generators and layered domain-specific hardware languages.
 Visit the [community website](http://chisel.eecs.berkeley.edu/) for more
 information.
 
+Getting the repo
+================
+
+    $ git clone https://github.com/ucb-bar/chisel-tutorial.git
+
 Running the Tutorials
 =====================
 
-$ cd chisel-tutorial/emulator/solutions
-$ make clean check
+First make sure the prerequisites are installed. These include make, gcc
+and [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html).
+
+    # solutions to the partially implemented circuits in  problems/
+    $ cd solutions
+    $ make
+
+    # more complex examples of circuits implemented in Chisel
+    $ cd examples
+    $ make
+
