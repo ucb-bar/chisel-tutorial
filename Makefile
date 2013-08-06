@@ -13,7 +13,7 @@ clean:
 	cd problems && $(MAKE) clean
 	cd solutions && $(MAKE) clean
 	cd examples && $(MAKE) clean
-	-rm test-solutions.xml
+	-rm -f test-solutions.xml
 
 
 .PHONY: solutions examples

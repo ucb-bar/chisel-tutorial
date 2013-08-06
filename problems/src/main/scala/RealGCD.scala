@@ -11,7 +11,7 @@ class RealGCDInput extends Bundle {
 
 class RealGCD extends Module {
   val io  = new Bundle {
-    val in  = new Decoupled(new RealGCDInput()).flip()
+    val in  = Decoupled(new RealGCDInput()).flip()
     val out = new Valid(Bits(width = 16))
   }
 
