@@ -14,7 +14,7 @@ class VendingMachine extends Module {
   val state = RegReset(sIdle)
 
   // flush it out ...
-
+  state := s5
   io.valid := (state === sOk)
 }
 
