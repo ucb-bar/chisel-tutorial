@@ -11,7 +11,7 @@ class VendingMachine extends Module {
     val valid  = Bool(dir = OUTPUT) }
   val sIdle :: s5 :: s10 :: s15 :: sOk :: Nil =
     Enum(5){ UInt() }
-  val state = RegReset(sIdle)
+  val state = Reg(init=sIdle)
   when (state === sIdle) {
     when (io.nickel) { state := s5 }
     when (io.dime)   { state := s10 }
