@@ -9,7 +9,7 @@ class Parity extends Module {
     val in  = Bool(INPUT)
     val out = Bool(OUTPUT) }
   val s_even :: s_odd :: Nil = Enum(2){ UInt() }
-  val state  = RegReset(s_even)
+  val state  = Reg(init=s_even)
   when (io.in) {
     when (state === s_even) { state := s_odd  }
     .otherwise              { state := s_even }

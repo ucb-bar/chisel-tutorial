@@ -12,7 +12,7 @@ class Accumulator extends Module {
   }
   // COUNT INCOMING TRUES
   // FILL IN HERE ...
-  val accumulator = RegReset(UInt(0, 8))
+  val accumulator = Reg(init=UInt(0, 8))
   accumulator := accumulator + io.in
   io.out := accumulator
 }
