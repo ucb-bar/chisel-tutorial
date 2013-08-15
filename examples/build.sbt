@@ -11,5 +11,5 @@ resolvers ++= Seq(
   "Sonatype Releases" at "http://oss.sonatype.org/content/repositories/releases"
 )
 
-libraryDependencies += "edu.berkeley.cs" %% "chisel" % "2.0-SNAPSHOT"
+libraryDependencies += "edu.berkeley.cs" %% "chisel" % "2.0"
 
