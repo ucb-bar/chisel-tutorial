@@ -18,7 +18,7 @@ class RealGCD extends Module {
 
   val x = Reg(UInt())
   val y = Reg(UInt())
-  val first = RegReset(Bool(true))
+  val first = Reg(init=Bool(true))
 
   io.in.ready := first || y === UInt(0)
 
