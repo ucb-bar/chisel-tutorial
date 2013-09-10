@@ -10,7 +10,7 @@ class VendingMachine extends Module {
     val dime   = Bool(dir = INPUT)
     val valid  = Bool(dir = OUTPUT) }
   val sIdle :: s5 :: s10 :: s15 :: sOk :: Nil =
-    Enum(5){ UInt() }
+    Enum(UInt(), 5)
   val state = Reg(init=sIdle)
   when (state === sIdle) {
     when (io.nickel) { state := s5 }
