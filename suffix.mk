@@ -5,7 +5,7 @@ top_srcdir  ?= ..
 srcdir      ?= .
 
 executables := $(filter-out tutorial examples Image Sound,\
-            $(notdir $(basename $(wildcard $(srcdir)/src/main/scala/*.scala))))
+            $(notdir $(basename $(wildcard $(srcdir)/*.scala))))
 
 tut_outs    := $(addsuffix .out, $(executables))
 
@@ -20,9 +20,6 @@ clean:
 emulator: $(tut_outs)
 
 verilog: $(addsuffix .v, $(executables))
-
-
-vpath %.scala $(srcdir)/src/main/scala
 
 test-solutions.xml: $(tut_outs)
 	$(top_srcdir)/sbt/check $(tut_outs) > $@
