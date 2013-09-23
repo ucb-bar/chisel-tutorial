@@ -55,3 +55,6 @@ You can conditionally update a value without a mux by using `when (cond) { foo :
 ### Memo
 The type of memory that's inferred is based on how you handle the read and write enables. This is pretty much the same as how Xilinx and Altera infer memories.
 `run Memo --backend c --targetDir ../emulator --compile --test`
+
+### Mul
+`run Mul --backend c --targetDir ../emulator --compile --test`
