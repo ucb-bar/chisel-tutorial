@@ -33,6 +33,7 @@ and [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html).
 Doing the problems
 =====================
 `cd problems`
+
 `sbt`
 
 ### Mux2
@@ -47,3 +48,6 @@ You can instantiate with `val foo = Module(new Bar())`
 ### Counter
 You can conditionally update a value without a mux by using `when (cond) { foo := bar }`
 `run Counter --backend c --targetDir ../emulator --compile --test`
+
+### Vending Machine
+`run VendingMachine --backend c --targetDir ../emulator --compile --test`
