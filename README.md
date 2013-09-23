@@ -32,7 +32,8 @@ and [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html).
 
 Doing the problems
 =====================
-cd problems
+`cd problems`
+`sbt`
 
 ### Mux2
 This should already work. Try
@@ -42,3 +43,7 @@ This should already work. Try
 
 You can instantiate with `val foo = Module(new Bar())`
 `run Mux4 --backend c --targetDir ../emulator --compile --test`
+
+### Counter
+You can conditionally update a value without a mux by using `when (cond) { foo := bar }`
+`run Counter --backend c --targetDir ../emulator --compile --test`
