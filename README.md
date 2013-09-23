@@ -37,3 +37,8 @@ cd problems
 ### Mux2
 This should already work. Try
 `run Mux2 --backend c --targetDir ../emulator --compile --test`
+
+### Mux4
+
+You can instantiate with `val foo = Module(new Bar())`
+`run Mux4 --backend c --targetDir ../emulator --compile --test`
