@@ -58,3 +58,6 @@ The type of memory that's inferred is based on how you handle the read and write
 
 ### Mul
 `run Mul --backend c --targetDir ../emulator --compile --test`
+
+### RealGCD
+`run RealGCD --backend c --targetDir ../emulator --compile --test`
