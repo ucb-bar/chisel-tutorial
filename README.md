@@ -29,3 +29,11 @@ and [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html).
     $ cd examples
     $ make
 
+
+Doing the problems
+=====================
+cd problems
+
+### Mux2
+This should already work. Try
+`run Mux2 --backend c --targetDir ../emulator --compile --test`
