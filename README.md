@@ -38,26 +38,26 @@ Doing the problems
 
 ### Mux2
 This should already work. Try
-`run Mux2 --backend c --targetDir ../emulator --compile --test`
+`run Mux2 --backend c --targetDir ../emulator --compile --test --genHarness`
 
 ### Mux4
 
 You can instantiate a module with `val foo = Module(new Bar())`
-`run Mux4 --backend c --targetDir ../emulator --compile --test`
+`run Mux4 --backend c --targetDir ../emulator --compile --test --genHarness`
 
 ### Counter
 You can conditionally update a value without a mux by using `when (cond) { foo := bar }`
-`run Counter --backend c --targetDir ../emulator --compile --test`
+`run Counter --backend c --targetDir ../emulator --compile --test --genHarness`
 
 ### Vending Machine
-`run VendingMachine --backend c --targetDir ../emulator --compile --test`
+`run VendingMachine --backend c --targetDir ../emulator --compile --test --genHarness`
 
 ### Memo
 The type of memory that's inferred is based on how you handle the read and write enables. This is pretty much the same as how Xilinx and Altera infer memories.
-`run Memo --backend c --targetDir ../emulator --compile --test`
+`run Memo --backend c --targetDir ../emulator --compile --test --genHarness`
 
 ### Mul
-`run Mul --backend c --targetDir ../emulator --compile --test`
+`run Mul --backend c --targetDir ../emulator --compile --test --genHarness`
 
 ### RealGCD
-`run RealGCD --backend c --targetDir ../emulator --compile --test`
+`run RealGCD --backend c --targetDir ../emulator --compile --test --genHarness`
