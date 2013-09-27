@@ -40,6 +40,39 @@ object TutorialExamples {
       case "Darken" =>
         chiselMainTest(tutArgs, () => Module(new Darken())){
           c => new DarkenTests(c, "../src/in.im24", "out.im24")}
+      case "Adder" =>
+        chiselMainTest(tutArgs, () => Module(new Adder(8))){
+          c => new AdderTests(c)}
+      case "Adder4" =>
+        chiselMainTest(tutArgs, () => Module(new Adder4())){
+          c => new Adder4Tests(c)}
+      case "BasicALU" =>
+        chiselMainTest(tutArgs, () => Module(new BasicALU())){
+          c => new BasicALUTests(c)}
+      case "FullAdder" =>
+        chiselMainTest(tutArgs, () => Module(new FullAdder())){
+          c => new FullAdderTests(c)}
+      case "ByteSelector" =>
+        chiselMainTest(tutArgs, () => Module(new ByteSelector())){
+          c => new ByteSelectorTests(c)}
+      case "HiLoMultiplier" =>
+        chiselMainTest(tutArgs, () => Module(new HiLoMultiplier())){
+          c => new HiLoMultiplierTests(c)}
+      case "ShiftRegister" =>
+        chiselMainTest(tutArgs, () => Module(new ShiftRegister())){
+          c => new ShiftRegisterTests(c)}
+      case "ResetShiftRegister" =>
+        chiselMainTest(tutArgs, () => Module(new ResetShiftRegister())){
+          c => new ResetShiftRegisterTests(c)}
+      case "EnableShiftRegister" =>
+        chiselMainTest(tutArgs, () => Module(new EnableShiftRegister())){
+          c => new EnableShiftRegisterTests(c)}
+      case "LogShifter" =>
+        chiselMainTest(tutArgs, () => Module(new LogShifter())){
+          c => new LogShifterTests(c)}
+      case "Stack" =>
+        chiselMainTest(tutArgs, () => Module(new Stack(8))){
+          c => new StackTests(c)}
     }
   }
 }
