@@ -4,7 +4,8 @@ import Chisel._
 import scala.math._
 import scala.collection.mutable.HashMap
 
-class Accumulator(c: Clock) extends Module(clock = c) {
+
+class ClockedAccumulator(c: Clock) extends Module(clock = c) {
   val io = new Bundle {
     val inc = Decoupled(UInt(width = 32)).flip()
     val sum = Decoupled(UInt(width = 32))
@@ -18,34 +19,35 @@ class Accumulator(c: Clock) extends Module(clock = c) {
   io.sum.bits := accumulator
 }
 
-class Top extends Module {
+class MultiClockDomain extends Module {
   val io = new Bundle {
     val start = Bool(INPUT)
     val sum = Decoupled(UInt(OUTPUT))
   }
   val fastClock = new Clock()
-  val slowClock = Module.implicitClock*3
+  val slowClock = new Clock()
 
-  val a0 = Module(new Accumulator(fastClock))
+  val a0 = Module(new ClockedAccumulator(fastClock))
   a0.io.inc.valid := io.start
   a0.io.inc.bits := UInt(1)
 
   val asyncFifo = Module(new AsyncFifo(UInt(width=32), 32, fastClock, slowClock))
   asyncFifo.io.enq <> a0.io.sum
 
-  val a1 = Module(new Accumulator(slowClock))
+  val a1 = Module(new ClockedAccumulator(slowClock))
   a1.io.inc <> asyncFifo.io.deq
   io.sum.bits := a1.io.sum.bits
   io.sum.valid := a1.io.sum.valid
   a1.io.sum.ready := Bool(true)
 }
 
-class TopTest(c: Top) extends Tester(c, Array(c.io)) {
+class MultiClockDomainTests(c: MultiClockDomain) extends Tester(c, Array(c.io)) {
   defTests {
     // setting up clocks
     val clocks = new HashMap[Clock, Int]
     clocks(Module.implicitClock) = 2
     clocks(c.fastClock) = 4
+    clocks(c.slowClock) = 6
     setClocks(clocks)
 
     // out of reset, but not starting accumulators yet
@@ -74,7 +76,7 @@ class TopTest(c: Top) extends Tester(c, Array(c.io)) {
       }
     }
 
-
     anyPassed && allPassed
   }
 }
+
