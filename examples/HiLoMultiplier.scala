@@ -15,10 +15,10 @@ class HiLoMultiplier() extends Module {
   }
   val mult = io.A * io.B
   io.Lo := mult(15, 0)
-  io.Hi := mult(31, 16)  
+  io.Hi := mult(31, 16)
 }
 
-class HiLoMultiplierTests(c: HiLoMultiplier) extends Tester(c, Array(c.io)) {  
+class HiLoMultiplierTests(c: HiLoMultiplier) extends Tester(c, Array(c.io)) {
   defTests {
     var allGood = true
     val rnd = new Random()
@@ -27,7 +27,7 @@ class HiLoMultiplierTests(c: HiLoMultiplier) extends Tester(c, Array(c.io)) {
       vars.clear()
       val rnd0 = rnd.nextInt(65535)
       val rnd1 = rnd.nextInt(65535)
-      val ref_out = UInt(rnd0 * rnd1)
+      val ref_out = UInt(rnd0 * rnd1, width=32)
       val hi_ref = ref_out(31, 16)
       val lo_ref = ref_out(15, 0)
       vars(c.io.A) = UInt(rnd0)

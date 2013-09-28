@@ -52,6 +52,9 @@ object TutorialExamples {
       case "FullAdder" =>
         chiselMainTest(tutArgs, () => Module(new FullAdder())){
           c => new FullAdderTests(c)}
+      case "FullAdder2" =>
+        chiselMainTest(tutArgs, () => Module(new FullAdder2())){
+          c => new FullAdder2Tests(c)}
       case "ByteSelector" =>
         chiselMainTest(tutArgs, () => Module(new ByteSelector())){
           c => new ByteSelectorTests(c)}
@@ -70,6 +73,12 @@ object TutorialExamples {
       case "LogShifter" =>
         chiselMainTest(tutArgs, () => Module(new LogShifter())){
           c => new LogShifterTests(c)}
+      case "MemorySearch" =>
+        chiselMainTest(tutArgs, () => Module(new MemorySearch())){
+          c => new MemorySearchTests(c)}
+      case "MultiClockDomain" =>
+        chiselMainTest(tutArgs, () => Module(new MultiClockDomain())){
+          c => new MultiClockDomainTests(c)}
       case "Stack" =>
         chiselMainTest(tutArgs, () => Module(new Stack(8))){
           c => new StackTests(c)}

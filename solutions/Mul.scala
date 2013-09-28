@@ -5,6 +5,8 @@ import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
+/** Four-by-four multiply using a look-up table.
+*/
 class Mul extends Module {
   val io = new Bundle {
     val x   = UInt(INPUT,  4)
