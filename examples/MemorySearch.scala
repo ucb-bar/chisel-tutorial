@@ -6,18 +6,17 @@ import scala.collection.mutable.HashMap
 class MemorySearch extends Module {
   val io = new Bundle {
     val target  = UInt(INPUT,  4)
-    val address = UInt(OUTPUT, 3)
     val en      = Bool(INPUT)
-    val done    = Bool(INPUT)
+    val done    = Bool(OUTPUT)
+    val address = UInt(OUTPUT, 3)
   }
   val index = Reg(init = UInt(0, width = 3))
-  val list = Vec(UInt(0), UInt(4), UInt(15), UInt(14), UInt(2), UInt(5), UInt(13)) { UInt(width = 4) }
+  val list = Vec(UInt(0), UInt(4), UInt(15), UInt(14),
+    UInt(2), UInt(5), UInt(13))
   val memVal = list(index)
-
   val done = (memVal === io.target) || (index === UInt(7))
-
-  unless (done === Bool(true)) {
-      index := index + UInt(1)
+  unless (done) {
+    index := index + UInt(1)
   }
   io.done := done
   io.address := index
@@ -35,7 +34,7 @@ class MemorySearchTests(c: MemorySearch) extends Tester(c, Array(c.io)) {
      vars(c.io.done) = Bool(false)
      for (i <- 0 until 2) {
      	 vars(c.io.address) = UInt(i)
-     	 allGood = step(vars) && allGood     
+     	 allGood = step(vars) && allGood
      }
      vars(c.io.done) = Bool(true)
      vars(c.io.address) = UInt(2)
@@ -43,6 +42,6 @@ class MemorySearchTests(c: MemorySearch) extends Tester(c, Array(c.io)) {
      allGood = step(vars) && allGood
      allGood = step(vars) && allGood
      allGood = step(vars) && allGood
-     allGood     
+     allGood
   }
 }

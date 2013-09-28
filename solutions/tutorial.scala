@@ -32,8 +32,8 @@ object TutorialSolutions {
         chiselMainTest(tutArgs, () => Module(new VendingMachine())){
           c => new VendingMachineTests(c)}
       case "MultiClockDomain" =>
-        chiselMainTest(tutArgs, () => Module(new Top())){
-          c => new TopTest(c)}
+        chiselMainTest(tutArgs, () => Module(new MultiClockDomain())){
+          c => new MultiClockDomainTests(c)}
     }
   }
 }
