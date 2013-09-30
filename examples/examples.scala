@@ -16,9 +16,6 @@ object TutorialExamples {
       case "Functional" =>
         chiselMainTest(tutArgs, () => Module(new Functional())){
           c => new FunctionalTests(c)}
-      case "Accumulator" =>
-        chiselMainTest(tutArgs, () => Module(new Accumulator())){
-          c => new AccumulatorTests(c)}
       case "Parity" =>
         chiselMainTest(tutArgs, () => Module(new Parity())){
           c => new ParityTests(c)}
@@ -82,6 +79,15 @@ object TutorialExamples {
       case "Stack" =>
         chiselMainTest(tutArgs, () => Module(new Stack(8))){
           c => new StackTests(c)}
+      case "Mux2" =>
+        chiselMainTest(tutArgs, () => Module(new Mux2())){
+          c => new Mux2Tests(c) }
+      case "MaxN" =>
+        chiselMainTest(tutArgs, () => Module(new MaxN(4, 8))){
+          c => new MaxNTests(c) }
+      case "SlowUpdate" =>
+        chiselMainTest(tutArgs, () => Module(new SlowUpdate(x => x + x))){
+          c => new SlowUpdateTests(c) }
     }
   }
 }

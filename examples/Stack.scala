@@ -2,9 +2,10 @@ package TutorialExamples
 
 import Chisel._
 import scala.collection.mutable.HashMap
+import scala.collection.mutable.{Stack => ScalaStack}
 import scala.util.Random
 
-class Stack(depth:Int) extends Module {
+class Stack(val depth: Int) extends Module {
   val io = new Bundle {
     val dataIn  = UInt(INPUT, 32)
     val dataOut = UInt(OUTPUT, 32)
@@ -24,7 +25,7 @@ class Stack(depth:Int) extends Module {
     sp := sp - UInt(1)
   }
   
-  when(io.en) {
+  when(io.en && (sp >= UInt(0))) {
     dataOut := stack_mem(sp)
   }
 
@@ -32,32 +33,40 @@ class Stack(depth:Int) extends Module {
 }
 
 class StackTests(c: Stack) extends Tester(c, Array(c.io)) {  
+  var nxtDataOut = 0
   defTests {
     var allGood = true
     val vars    = new HashMap[Node, Node]()
     val rnd     = new Random()
+    val stack   = new ScalaStack[Int]()
 
-    /*    
-    var enable = Bool(true)
-    var push = Bool(true)
-    var pop = Bool(true)
-    var dataIn = UInt(width = 32)
-    var dataOut = UInt(width = 32)
-    
-    pop = Bool(false); dataIn = UInt(1)
-    dataOut = UInt(0)
-    
-    vars(c.io.pop) = pop
-    vars(c.io.push) = push
-    vars(c.io.en) = enable
-    vars(c.io.dataIn) = dataIn
-    vars(c.io.dataOut) = dataOut
-    */
-        
-    allGood
-//    allGood        = step(vars) && allGood
+    for (t <- 0 until 16) {
+      var enable  = rnd.nextInt(2) == 0
+      var push    = rnd.nextInt(2) == 0
+      var pop     = rnd.nextInt(2) == 0
+      var dataIn  = rnd.nextInt(256)
+      var dataOut = nxtDataOut
+
+      if (enable) {
+        if (stack.length > 0)
+          nxtDataOut = stack.top
+        if (push && stack.length < c.depth) {
+          stack.push(dataIn)
+        } else if (pop && stack.length > 0) {
+          stack.pop()
+        }
+      }
+
+      vars(c.io.pop)     = Bool(pop)
+      vars(c.io.push)    = Bool(push)
+      vars(c.io.en)      = Bool(enable)
+      vars(c.io.dataIn)  = UInt(dataIn)
+      vars(c.io.dataOut) = UInt(dataOut)
+
+      allGood = step(vars) && allGood
     }
-    
+    allGood
+  }
 }
 
 

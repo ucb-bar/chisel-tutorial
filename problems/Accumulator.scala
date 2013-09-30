@@ -1,4 +1,4 @@
-package TutorialExamples
+package TutorialProblems
 
 import Chisel._
 import Node._
@@ -12,9 +12,7 @@ class Accumulator extends Module {
   }
   // COUNT INCOMING TRUES
   // FILL IN HERE ...
-  val accumulator = Reg(init=UInt(0, 8))
-  accumulator := accumulator + io.in
-  io.out := accumulator
+  io.out := UInt(0)
 }
 
 class AccumulatorTests(c: Accumulator) extends Tester(c, Array(c.io)) {

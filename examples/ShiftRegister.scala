@@ -7,7 +7,7 @@ import util.Random
 
 class ShiftRegister extends Module {
   val io = new Bundle {
-    val in  = UInt(INPUT, 1)
+    val in  = UInt(INPUT,  1)
     val out = UInt(OUTPUT, 1)
   }
   val r0 = Reg(next = io.in)
@@ -19,7 +19,20 @@ class ShiftRegister extends Module {
 
 class ShiftRegisterTests(c: ShiftRegister) extends Tester(c, Array(c.io)) {  
   defTests {
-    val allGood = true
+    var allGood = true
+    val vars    = new HashMap[Node, Node]()
+    val rnd     = new Random()
+    val reg     = Array.fill(4){ 0 }
+    for (t <- 0 until 64) {
+      vars.clear()
+      val in         = rnd.nextInt(2)
+      vars(c.io.in)  = UInt(in)
+      vars(c.io.out) = UInt(reg(3))
+      for (i <- 3 to 1 by -1)
+        reg(i) = reg(i-1)
+      reg(0) = in
+      allGood = (step(vars) || t < 4) && allGood
+    }
     allGood
   }
 }

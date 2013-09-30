@@ -27,6 +27,23 @@ class FullAdder extends Module {
 class FullAdderTests(c: FullAdder) extends Tester(c, Array(c.io)) {  
   defTests {
     var allGood = true
+    val rnd  = new Random()
+    val vars = new HashMap[Node, Node]()
+    for (t <- 0 until 4) {
+      vars.clear()
+      val a    = rnd.nextInt(2)
+      val b    = rnd.nextInt(2)
+      val cin  = rnd.nextInt(2)
+      val res  = a + b + cin
+      val sum  = res & 1
+      val cout = (res >> 1) & 1
+      vars(c.io.a)    = UInt(a)
+      vars(c.io.b)    = UInt(b)
+      vars(c.io.cin)  = UInt(cin)
+      vars(c.io.sum)  = UInt(sum)
+      vars(c.io.cout) = UInt(cout)
+      allGood = step(vars) && allGood
+    }
     allGood
   }
 }
