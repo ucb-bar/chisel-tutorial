@@ -4,7 +4,7 @@ CHISEL_FLAGS :=
 top_srcdir  ?= ..
 srcdir      ?= .
 
-executables := $(filter-out tutorial examples Image Sound,\
+executables := $(filter-out solutions problems examples Image Sound,\
             $(notdir $(basename $(wildcard $(srcdir)/*.scala))))
 
 tut_outs    := $(addsuffix .out, $(executables))
