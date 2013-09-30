@@ -79,15 +79,6 @@ object TutorialExamples {
       case "Stack" =>
         chiselMainTest(tutArgs, () => Module(new Stack(8))){
           c => new StackTests(c)}
-      case "Mux2" =>
-        chiselMainTest(tutArgs, () => Module(new Mux2())){
-          c => new Mux2Tests(c) }
-      case "MaxN" =>
-        chiselMainTest(tutArgs, () => Module(new MaxN(4, 8))){
-          c => new MaxNTests(c) }
-      case "SlowUpdate" =>
-        chiselMainTest(tutArgs, () => Module(new SlowUpdate(x => x + x))){
-          c => new SlowUpdateTests(c) }
     }
   }
 }
