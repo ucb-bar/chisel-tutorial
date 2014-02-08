@@ -43,7 +43,7 @@ class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T]) extends Tester(c,
       val in               = rnd.nextInt(maxInt)
       vars(c.io.in.valid)  = Bool(true)
       vars(c.io.in.bits)   = UInt(in)
-      val isSingleEven     = (in <= 9) && (in&1)!=0
+      val isSingleEven     = (in <= 9) && ((in&1)!=0)
       vars(c.io.out.valid) = Bool(isSingleEven)
       vars(c.io.out.bits)  = UInt(in)
       allGood              = step(vars) && allGood

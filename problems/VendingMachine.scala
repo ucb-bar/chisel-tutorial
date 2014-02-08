@@ -18,7 +18,7 @@ class VendingMachine extends Module {
   io.valid := (state === sOk)
 }
 
-class VendingMachineTests(c: VendingMachine) extends Tester(c, Array(c.io)) {  
+class VendingMachineTests(c: VendingMachine) extends Tester(c, Array(c.io)) {
   defTests {
     var allGood = true
     val vars    = new HashMap[Node, Node]()

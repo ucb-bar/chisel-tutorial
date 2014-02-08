@@ -30,7 +30,7 @@ object Counter {
 class Counter extends Module {
   val io = new Bundle {
     val inc = Bool(INPUT)
-    val amt = UInt(INPUT, 4)
+    val amt = UInt(INPUT,  4)
     val tot = UInt(OUTPUT, 8)
   }
 
