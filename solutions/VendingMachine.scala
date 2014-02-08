@@ -48,10 +48,9 @@ class VendingMachineTests(c: VendingMachine) extends Tester(c, Array(c.io)) {
       vars(c.io.nickel) = Bool(isNickel)
       vars(c.io.dime)   = Bool(isDime)
       val isValid       = money >= 20
+      if (isValid) {money = 0} else {money = money + coin}
       vars(c.io.valid)  = Bool(isValid)
       allGood           = step(vars) && allGood
-      if (t > 0)
-        money           = if (isValid) 0 else (money + coin)
     }
     allGood
   }
