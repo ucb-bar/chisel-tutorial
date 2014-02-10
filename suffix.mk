@@ -14,7 +14,7 @@ all: emulator verilog
 check: test-solutions.xml
 
 clean:
-	-rm -f out.im24 out.wav *.h *.cpp *.o *.out *.v $(executables)
+	-rm -f out.im24 out.wav *.h *.cpp *.o *.out *.v *.vcd $(executables)
 	-rm -rf project/target/ target/
 
 emulator: $(tut_outs)
