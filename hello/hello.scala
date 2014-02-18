@@ -22,7 +22,8 @@ object Hello {
   def main(args: Array[String]): Unit = {
     // Uncomment to ignore command-line args and always build & run C emulator
     // val args = Array("--backend", "c", "--genHarness", "--compile", "--test")
-    chiselMainTest(args, () => Module(new Hello())) {
+    val cutArgs = args.slice(1, args.length)
+    chiselMainTest(cutArgs, () => Module(new Hello())) {
       c => new HelloTests(c) }
   }
 }
