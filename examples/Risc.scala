@@ -1,8 +1,6 @@
 package TutorialExamples
 
 import Chisel._
-import Node._
-import scala.collection.mutable.HashMap
 
 class Risc extends Module {
   val io = new Bundle {
@@ -52,42 +50,37 @@ class Risc extends Module {
   }
 }
 
-class RiscTests(c: Risc) extends Tester(c, Array(c.io, c.pc)) {  
-  defTests {
-    var allGood = true
-    val svars = new HashMap[Node, Node]()
-    val ovars = new HashMap[Node, Node]()
-    def wr(addr: UInt, data: UInt)  = {
-      svars.clear()
-      svars(c.io.isWr)   = Bool(true)
-      svars(c.io.wrAddr) = addr
-      svars(c.io.wrData) = data
-      step(svars, ovars)
-    }
-    def boot()  = {
-      svars.clear()
-      svars(c.io.boot)   = Bool(true)
-      step(svars, ovars)
-    }
-    def tick()  = {
-      svars.clear()
-      svars(c.io.boot)   = Bool(false)
-      step(svars, ovars)
-    }
-    def I (op: UInt, rc: Int, ra: Int, rb: Int) = 
-      Cat(op, UInt(rc, 8), UInt(ra, 8), UInt(rb, 8))
-    val app  = Array(I(c.imm_op,   1, 0, 1), // r1 <- 1
-                     I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
-                     I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
-                     I(c.add_op, 255, 1, 0)) // rh <- r1
-    wr(UInt(0), Bits(0)) // skip reset
-    for (addr <- 0 until app.length) 
-      wr(UInt(addr), app(addr))
-    boot()
-    do {
-      tick()
-    } while (ovars(c.io.valid).litValue() == 0)
-    allGood = ovars(c.io.out).litValue() == 4 && allGood
-    allGood
+class RiscTests(c: Risc) extends Tester(c) {  
+  def wr(addr: UInt, data: UInt)  = {
+    poke(c.io.isWr,   1)
+    poke(c.io.wrAddr, addr.litValue())
+    poke(c.io.wrData, data.litValue())
+    step()
   }
+  def boot()  = {
+    poke(c.io.isWr, 0)
+    poke(c.io.boot, 1)
+    step()
+  }
+  def tick()  = {
+    poke(c.io.isWr, 0)
+    poke(c.io.boot, 0)
+    step()
+  }
+  def I (op: UInt, rc: Int, ra: Int, rb: Int) = 
+    Cat(op, UInt(rc, 8), UInt(ra, 8), UInt(rb, 8))
+  val app  = Array(I(c.imm_op,   1, 0, 1), // r1 <- 1
+                   I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
+                   I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
+                   I(c.add_op, 255, 1, 0)) // rh <- r1
+  wr(UInt(0), Bits(0)) // skip reset
+  for (addr <- 0 until app.length) 
+    wr(UInt(addr), app(addr))
+  boot()
+  var k = 0
+  do {
+    tick(); k += 1
+  } while (peek(c.io.valid) == 0 && k < 10)
+  expect(k < 10, "TIME LIMIT")
+  expect(c.io.out, 4)
 }

@@ -1,9 +1,7 @@
 package TutorialProblems
 
 import Chisel._
-import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
-import scala.util.Random
 
 class Mul extends Module {
   val io = new Bundle {
@@ -22,20 +20,14 @@ class Mul extends Module {
   // -------------------------------- \\
 }
 
-class MulTests(c: Mul) extends Tester(c, Array(c.io)) {
-  defTests {
-    var allGood = true
-    val vars    = new HashMap[Node, Node]()
-    val rnd     = new Random()
-    val maxInt  = 1 << 4
-    for (i <- 0 until 10) {
-      val x = rnd.nextInt(maxInt)
-      val y = rnd.nextInt(maxInt)
-      vars(c.io.x) = UInt(x)
-      vars(c.io.y) = UInt(y)
-      vars(c.io.z) = UInt(x * y)
-      allGood = step(vars) && allGood
-    }
-    allGood
+class MulTests(c: Mul) extends Tester(c) {
+  val maxInt  = 1 << 4
+  for (i <- 0 until 10) {
+    val x = rnd.nextInt(maxInt)
+    val y = rnd.nextInt(maxInt)
+    poke(c.io.x, x)
+    poke(c.io.y, y)
+    step()
+    expect(c.io.z, (x * y))
   }
 }

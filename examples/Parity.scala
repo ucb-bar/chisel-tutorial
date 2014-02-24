@@ -1,8 +1,6 @@
 package TutorialExamples
 
 import Chisel._
-import scala.collection.mutable.HashMap
-import scala.util.Random
 
 class Parity extends Module {
   val io = new Bundle {
@@ -17,21 +15,14 @@ class Parity extends Module {
   io.out := (state === s_odd)
 }
 
-class ParityTests(c: Parity) extends Tester(c, Array(c.io)) {
-  defTests {
-    var allGood = true
-    val vars    = new HashMap[Node, Node]()
-    val rnd     = new Random()
-    var isOdd   = false
-    for (t <- 0 until 10) {
-      vars.clear()
-      val bit        = rnd.nextInt(2)
-      vars(c.io.in)  = Bool(bit == 1)
-      vars(c.io.out) = Bool(isOdd)
-      isOdd          = if (bit == 1) !isOdd else isOdd
-      allGood        = step(vars) && allGood
-    }
-    allGood
+class ParityTests(c: Parity) extends Tester(c) {
+  var isOdd = 0
+  for (t <- 0 until 10) {
+    val bit = rnd.nextInt(2)
+    poke(c.io.in, bit)
+    step()
+    expect(c.io.out, isOdd)
+    isOdd = (isOdd + bit) % 2;
   }
 }
 

@@ -1,9 +1,7 @@
 package TutorialExamples
 
 import Chisel._
-import Node._
 import java.io.File
-import scala.collection.mutable.HashMap
 
 class Echo extends Module {
   val io = new Bundle {
@@ -29,24 +27,19 @@ class Echo extends Module {
   io.out := outUnsigned
 }
 
-class EchoTests(c: Echo, val infilename: String, val outfilename: String) extends Tester(c, Array(c.io)) {  
-  defTests {
-    val svars = new HashMap[Node, Node]()
-    val ovars = new HashMap[Node, Node]()
+class EchoTests(c: Echo, val infilename: String, val outfilename: String) extends Tester(c) {  
+  val in  = WavIn(infilename)
+  val out = WavOut(outfilename, in.getFormat)
 
-    val in  = WavIn(infilename)
-    val out = WavOut(outfilename, in.getFormat)
-
-    var sample = in.read
-    while (sample != -1) {
-      svars(c.io.in) = SInt(sample)
-      step(svars, ovars, isTrace = false)
-      out += ovars(c.io.out).litValue().toByte
-      sample = in.read
-    }
-
-    out.flush
-    out.close
-    true
+  var sample = in.read
+  while (sample != -1) {
+    poke(c.io.in, sample)
+    step()
+    out += peek(c.io.out).toByte
+    sample = in.read
   }
+
+  out.flush
+  out.close
+  ok = true
 }

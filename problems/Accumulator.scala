@@ -2,8 +2,6 @@ package TutorialProblems
 
 import Chisel._
 import Node._
-import scala.collection.mutable.HashMap
-import util.Random
 
 class Accumulator extends Module {
   val io = new Bundle {
@@ -15,20 +13,13 @@ class Accumulator extends Module {
   io.out := UInt(0)
 }
 
-class AccumulatorTests(c: Accumulator) extends Tester(c, Array(c.io)) {
-  defTests {
-    var allGood = true
-    val vars    = new HashMap[Node, Node]()
-    val rnd     = new Random()
-    var tot     = 0
-    for (t <- 0 until 16) {
-      vars.clear()
-      val in         = rnd.nextInt(2) == 1
-      vars(c.io.in)  = Bool(in)
-      vars(c.io.out) = UInt(tot)
-      allGood        = step(vars) && allGood
-      if (in) tot += 1
-    }
-    allGood
+class AccumulatorTests(c: Accumulator) extends Tester(c) {
+  var tot = 0
+  for (t <- 0 until 16) {
+    val in = rnd.nextInt(2)
+    poke(c.io.in, in)
+    step()
+    expect(c.io.out, tot)
+    if (in == 1) tot += 1
   }
 }

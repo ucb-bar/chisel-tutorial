@@ -1,9 +1,6 @@
 package TutorialExamples
 
 import Chisel._
-import Node._
-import scala.collection.mutable.HashMap
-import util.Random
 
 class LogShifter extends Module {
   val io = new Bundle {
@@ -36,10 +33,6 @@ class LogShifter extends Module {
   }
 }
 
-class LogShifterTests(c: LogShifter) extends Tester(c, Array(c.io)) {
-  defTests {
-      val allGood = true
-      allGood
-  }
+class LogShifterTests(c: LogShifter) extends Tester(c) {
 }
 

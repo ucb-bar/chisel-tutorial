@@ -1,7 +1,6 @@
 package TutorialExamples
 
 import Chisel._
-import scala.collection.mutable.HashMap
 import util.Random
 
 class Cell(isBorn: Boolean) extends Module {
@@ -50,23 +49,14 @@ class Life(val n: Int) extends Module {
   }
 }
 
-class LifeTests(c: Life) extends Tester(c, Array(c.io)) {
-  defTests {
-    var allGood = true
-    val vars    = new HashMap[Node, Node]()
-    val ovars   = new HashMap[Node, Node]()
-    var tot     = 0
-    for (t <- 0 until 16) {
-      vars.clear()
-      step(vars, ovars)
-      for (j <- 0 until c.n) {
-        for (i <- 0 until c.n) {
-          print(ovars(c.io.state(c.idx(i, j))).litValue())
-        }
-        println()
+class LifeTests(c: Life) extends Tester(c) {
+  for (t <- 0 until 16) {
+    step()
+    for (j <- 0 until c.n) {
+      for (i <- 0 until c.n) {
+        print(peek(c.io.state(c.idx(i, j))))
       }
+      println()
     }
-    // TODO: WRITE REAL TEST SUITE
-    allGood
   }
 }

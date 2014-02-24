@@ -1,9 +1,6 @@
 package TutorialExamples
 
 import Chisel._
-import Node._
-import scala.collection.mutable.HashMap
-import util.Random
 
 class ByteSelector extends Module {
   val io = new Bundle {
@@ -23,18 +20,12 @@ class ByteSelector extends Module {
   }
 }
 
-class ByteSelectorTests(c: ByteSelector) extends Tester(c, Array(c.io)) {
-  defTests {
-    var allGood = true
-    val vars = new HashMap[Node, Node]()
-    val test_in = 12345678
-    for (t <- 0 until 4) {
-      vars(c.io.in) = UInt(test_in)
-      vars(c.io.offset) = UInt(t, width=2)
-      val ref_out = UInt((test_in >> (t * 8)) & 0xFF, width=8)
-      vars(c.io.out) = ref_out
-      allGood = step(vars) && allGood
-    }
-    allGood
+class ByteSelectorTests(c: ByteSelector) extends Tester(c) {
+  val test_in = 12345678
+  for (t <- 0 until 4) {
+    poke(c.io.in,     test_in)
+    poke(c.io.offset, t)
+    step()
+    expect(c.io.out, (test_in >> (t * 8)) & 0xFF)
   }
 }

@@ -1,9 +1,7 @@
 package TutorialExamples
 
 import Chisel._
-import Node._;
 import Literal._;
-import scala.collection.mutable.HashMap
 
 class ReadCmd extends Bundle {
   val addr = UInt(width = 32);
@@ -37,54 +35,55 @@ class Router extends Module {
   } .elsewhen(io.writes.valid) { 
     val cmd = io.writes.deq(); tbl(cmd.addr) := cmd.data
   } .elsewhen(io.in.valid) {
-    val pkt = io.in.deq(); io.outs(tbl(pkt.header(0))).enq(pkt) 
+    val pkt = io.in.bits
+    val idx = tbl(pkt.header(0))
+    when (io.outs(idx).ready) {
+      io.in.deq(); io.outs(idx).enq(pkt)
+    }
   } 
 }
 
-class RouterTests(c: Router) extends Tester(c, Array(c.io)) {  
-  defTests {
-    var allGood = true
-    val svars   = new HashMap[Node, Node]()
-    val ovars   = new HashMap[Node, Node]()
-    def rd(addr: UInt, data: UInt) = {
-      svars.clear()
-      svars(c.io.replies.ready) = Bool(true)
-      svars(c.io.reads.valid)   = Bool(true)
-      svars(c.io.reads.bits.addr)    = addr
-      svars(c.io.replies.bits)  = data
-      svars(c.io.replies.ready) = Bool(true)
-      step(svars)
-    }
-    def wr(addr: UInt, data: UInt)  = {
-      svars.clear()
-      svars(c.io.writes.valid)     = Bool(true)
-      svars(c.io.writes.bits.addr) = addr
-      svars(c.io.writes.bits.data) = data
-      step(svars)
-    }
-    def isAnyValidOuts(vars: HashMap[Node, Node]): Boolean = {
-      for (out <- c.io.outs)
-        if (vars(out.valid).litValue() == 1)
-          return true
-      false
-    }
-    def rt(header: UInt, body: Bits)  = {
-      svars.clear()
-      for (out <- c.io.outs)
-        svars(out.ready)         = Bool(true)
-      svars(c.io.in.valid)       = Bool(true)
-      svars(c.io.in.bits.header) = header
-      svars(c.io.in.bits.body)   = body
-      do {
-        step(svars, ovars)
-      } while (!isAnyValidOuts(ovars))
-      true
-    }
-    step(svars)
-    allGood = rd(UInt(0), UInt(0)) && allGood
-    allGood = wr(UInt(0), UInt(1)) && allGood
-    allGood = rd(UInt(0), UInt(1)) && allGood
-    allGood = rt(UInt(0), Bits(1)) && allGood
-    allGood
+class RouterTests(c: Router) extends Tester(c) {  
+  def rd(addr: Int, data: Int) = {
+    poke(c.io.in.valid,        0)
+    poke(c.io.writes.valid,    0)
+    poke(c.io.reads.valid,     1)
+    poke(c.io.replies.ready,   1)
+    poke(c.io.reads.bits.addr, addr)
+    step()
+    expect(c.io.replies.bits, data)
   }
+  def wr(addr: Int, data: Int)  = {
+    poke(c.io.in.valid,         0)
+    poke(c.io.reads.valid,      0)
+    poke(c.io.writes.valid,     1)
+    poke(c.io.writes.bits.addr, addr)
+    poke(c.io.writes.bits.data, data)
+    step()
+  }
+  def isAnyValidOuts(): Boolean = {
+    for (out <- c.io.outs)
+      if (peek(out.valid) == 1)
+        return true
+    false
+  }
+  def rt(header: Int, body: Int)  = {
+    for (out <- c.io.outs)
+      poke(out.ready, 1)
+    poke(c.io.reads.valid,    0)
+    poke(c.io.writes.valid,   0)
+    poke(c.io.in.valid,       1)
+    poke(c.io.in.bits.header, header)
+    poke(c.io.in.bits.body,   body)
+    var i = 0
+    do {
+      step()
+      i += 1
+    } while (!isAnyValidOuts() || i > 10)
+    expect(i < 10, "FIND VALID OUT")
+  }
+  rd(0, 0)
+  wr(0, 1)
+  rd(0, 1)
+  rt(0, 1)
 }

@@ -8,6 +8,7 @@ class Hello extends Module {
     val out = UInt(OUTPUT, 8)
   }
   io.out := UInt(33)
+  printf("IO.OUT = %x\n", io.out);
 }
 
 class HelloTests(c: Hello) extends Tester(c, Array(c.io)) {

@@ -1,8 +1,6 @@
 package TutorialExamples
 
 import Chisel._
-import scala.collection.mutable.HashMap
-import util.Random
 
 class Tbl extends Module {
   val io = new Bundle {
@@ -13,19 +11,12 @@ class Tbl extends Module {
   io.out := r(io.addr)
 }
 
-class TblTests(c: Tbl) extends Tester(c, Array(c.io)) {
-  defTests {
-    var allGood = true
-    val vars    = new HashMap[Node, Node]()
-    val rnd     = new Random()
-    for (t <- 0 until 16) {
-      vars.clear()
-      val addr        = rnd.nextInt(256)
-      vars(c.io.addr) = UInt(addr)
-      vars(c.io.out)  = UInt(addr)
-      allGood         = step(vars) && allGood
-    }
-    allGood
+class TblTests(c: Tbl) extends Tester(c) {
+  for (t <- 0 until 16) {
+    val addr = rnd.nextInt(256)
+    poke(c.io.addr, addr)
+    step()
+    expect(c.io.out, addr)
   }
 }
 

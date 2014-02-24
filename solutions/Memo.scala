@@ -1,8 +1,6 @@
 package TutorialSolutions
 
 import Chisel._
-import Node._
-import scala.collection.mutable.HashMap
 
 class Memo extends Module {
   val io = new Bundle {
@@ -32,28 +30,21 @@ class Memo extends Module {
 
 }
 
-class MemoTests(c: Memo) extends Tester(c, Array(c.io)) {
-  defTests {
-    var allGood = true
-    val vars    = new HashMap[Node, Node]()
-    def rd(addr: UInt, data: UInt) = {
-      vars.clear()
-      vars(c.io.ren)   = Bool(true)
-      vars(c.io.rdAddr) = addr
-      vars(c.io.rdData) = data
-      step(vars)
-    }
-    def wr(addr: UInt, data: UInt)  = {
-      vars.clear()
-      vars(c.io.wen)   = Bool(true)
-      vars(c.io.wrAddr) = addr
-      vars(c.io.wrData) = data
-      step(vars)
-    }
-    allGood = wr(UInt(0), UInt(1))  && allGood
-    allGood = rd(UInt(0), UInt(1))  && allGood
-    allGood = wr(UInt(9), UInt(11)) && allGood
-    allGood = rd(UInt(9), UInt(11)) && allGood
-    allGood
+class MemoTests(c: Memo) extends Tester(c) {
+  def rd(addr: Int, data: Int) = {
+    poke(c.io.ren, 1)
+    poke(c.io.rdAddr, addr)
+    step()
+    expect(c.io.rdData, data)
   }
+  def wr(addr: Int, data: Int)  = {
+    poke(c.io.wen,    1)
+    poke(c.io.wrAddr, addr)
+    poke(c.io.wrData, data)
+    step()
+  }
+  wr(0, 1)
+  rd(0, 1)
+  wr(9, 11)
+  rd(9, 11)
 }

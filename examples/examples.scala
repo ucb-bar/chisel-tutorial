@@ -44,8 +44,8 @@ object TutorialExamples {
         chiselMainTest(tutArgs, () => Module(new Adder4())){
           c => new Adder4Tests(c)}
       case "BasicALU" =>
-        chiselMainTest(tutArgs, () => Module(new BasicALU())){
-          c => new BasicALUTests(c)}
+        chiselMainTest(tutArgs, () => Module(new SimpleALU())){
+          c => new SimpleALUTests(c)}
       case "FullAdder" =>
         chiselMainTest(tutArgs, () => Module(new FullAdder())){
           c => new FullAdderTests(c)}
@@ -70,6 +70,9 @@ object TutorialExamples {
       case "LogShifter" =>
         chiselMainTest(tutArgs, () => Module(new LogShifter())){
           c => new LogShifterTests(c)}
+      case "VecSearch" =>
+        chiselMainTest(tutArgs, () => Module(new VecSearch())){
+          c => new VecSearchTests(c)}
       case "MemorySearch" =>
         chiselMainTest(tutArgs, () => Module(new MemorySearch())){
           c => new MemorySearchTests(c)}

@@ -1,9 +1,8 @@
 package TutorialExamples
 
 import Chisel._
-import scala.math._
 import scala.collection.mutable.HashMap
-
+import scala.math._
 
 class ClockedAccumulator(c: Clock) extends Module(clock = c) {
   val io = new Bundle {
@@ -16,67 +15,58 @@ class ClockedAccumulator(c: Clock) extends Module(clock = c) {
   }
   io.inc.ready := io.sum.ready
   io.sum.valid := io.inc.valid
-  io.sum.bits := accumulator
+  io.sum.bits  := accumulator
 }
 
 class MultiClockDomain extends Module {
   val io = new Bundle {
     val start = Bool(INPUT)
-    val sum = Decoupled(UInt(OUTPUT))
+    val sum   = Decoupled(UInt(OUTPUT))
   }
   val fastClock = new Clock()
   val slowClock = new Clock()
 
   val a0 = Module(new ClockedAccumulator(fastClock))
   a0.io.inc.valid := io.start
-  a0.io.inc.bits := UInt(1)
+  a0.io.inc.bits  := UInt(1)
 
   val asyncFifo = Module(new AsyncFifo(UInt(width=32), 32, fastClock, slowClock))
   asyncFifo.io.enq <> a0.io.sum
 
   val a1 = Module(new ClockedAccumulator(slowClock))
   a1.io.inc <> asyncFifo.io.deq
-  io.sum.bits := a1.io.sum.bits
-  io.sum.valid := a1.io.sum.valid
-  a1.io.sum.ready := Bool(true)
+  io.sum.bits     := a1.io.sum.bits
+  io.sum.valid    := a1.io.sum.valid
+  a1.io.sum.ready := io.sum.ready
 }
 
-class MultiClockDomainTests(c: MultiClockDomain) extends Tester(c, Array(c.io)) {
-  defTests {
-    // setting up clocks
-    val clocks = new HashMap[Clock, Int]
-    clocks(Module.implicitClock) = 2
-    clocks(c.fastClock) = 4
-    clocks(c.slowClock) = 6
-    setClocks(clocks)
+class MultiClockDomainTests(c: MultiClockDomain) extends Tester(c) {
+  // setting up clocks
+  val clocks = new HashMap[Clock, Int]
+  clocks(Module.implicitClock) = 2
+  clocks(c.fastClock) = 4
+  clocks(c.slowClock) = 6
+  setClocks(clocks)
 
-    // out of reset, but not starting accumulators yet
-    val svars = new HashMap[Node, Node]()
-    val ovars = new HashMap[Node, Node]()
-    for (i <- 0 until 5) {
-      svars(c.io.start) = Bool(false)
-      svars(c.io.sum.ready) = Bool(false)
-      step(svars, ovars, false)
+  // out of reset, but not starting accumulators yet
+  for (i <- 0 until 5) {
+    poke(c.io.start,     0)
+    poke(c.io.sum.ready, 0)
+    step()
+  }
+
+  var t = 0
+  val answers = Array(0, 0, 1, 3, 6, 10, 15, 21, 28, 36)
+  while (t < 10) {
+    poke(c.io.start,     1)
+    poke(c.io.sum.ready, 1)
+    step()
+    println("DELTA " + delta)
+    // only check outputs on valid && 6 deltas have passed
+    if (peek(c.io.sum.valid) == 1 && (delta % 6 == 0)) {
+      expect(c.io.sum.bits, answers(t))
+      t += 1
     }
-
-    var t = 0
-    val answers = Array(0, 0, 1, 3, 6, 10, 15, 21, 28, 36)
-    var anyPassed = false
-    var allPassed = true
-    while (t < 10) {
-      svars(c.io.start) = Bool(true)
-      svars(c.io.sum.ready) = Bool(true)
-      step(svars, ovars)
-      println(delta)
-      // only check outputs on valid && 6 deltas have passed
-      if (ovars(c.io.sum.valid).litValue() == 1 && (delta % 6 == 0)) {
-        anyPassed = true
-        allPassed = allPassed && answers(t) == ovars(c.io.sum.bits).litValue()
-        t += 1
-      }
-    }
-
-    anyPassed && allPassed
   }
 }
 
