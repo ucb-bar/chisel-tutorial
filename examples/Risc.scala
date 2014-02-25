@@ -50,22 +50,22 @@ class Risc extends Module {
   }
 }
 
-class RiscTests(c: Risc) extends Tester(c) {  
+class RiscTests(c: Risc) extends Testy(c) {  
   def wr(addr: UInt, data: UInt)  = {
     poke(c.io.isWr,   1)
     poke(c.io.wrAddr, addr.litValue())
     poke(c.io.wrData, data.litValue())
-    step()
+    step(1)
   }
   def boot()  = {
     poke(c.io.isWr, 0)
     poke(c.io.boot, 1)
-    step()
+    step(1)
   }
   def tick()  = {
     poke(c.io.isWr, 0)
     poke(c.io.boot, 0)
-    step()
+    step(1)
   }
   def I (op: UInt, rc: Int, ra: Int, rb: Int) = 
     Cat(op, UInt(rc, 8), UInt(ra, 8), UInt(rb, 8))

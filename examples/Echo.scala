@@ -27,14 +27,14 @@ class Echo extends Module {
   io.out := outUnsigned
 }
 
-class EchoTests(c: Echo, val infilename: String, val outfilename: String) extends Tester(c) {  
+class EchoTests(c: Echo, val infilename: String, val outfilename: String) extends Testy(c) {  
   val in  = WavIn(infilename)
   val out = WavOut(outfilename, in.getFormat)
 
   var sample = in.read
   while (sample != -1) {
     poke(c.io.in, sample)
-    step()
+    step(1)
     out += peek(c.io.out).toByte
     sample = in.read
   }

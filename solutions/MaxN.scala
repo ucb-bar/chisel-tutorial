@@ -13,7 +13,7 @@ class MaxN(val n: Int, val w: Int) extends Module {
   io.out := io.ins.reduceLeft(Max2)
 }
 
-class MaxNTests(c: MaxN) extends Tester(c) {
+class MaxNTests(c: MaxN) extends Testy(c) {
   val ins = Array.fill(c.n){ 0 }
   for (i <- 0 until 10) {
     var mx = 0
@@ -22,7 +22,7 @@ class MaxNTests(c: MaxN) extends Tester(c) {
       poke(c.io.ins(i), ins(i))
       mx = if (ins(i) > mx) ins(i) else mx;
     }
-    step()
+    step(1)
     expect(c.io.out, mx)
   }
 }

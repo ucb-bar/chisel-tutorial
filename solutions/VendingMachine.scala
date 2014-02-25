@@ -32,7 +32,7 @@ class VendingMachine extends Module {
   io.valid := (state === sOk)
 }
 
-class VendingMachineTests(c: VendingMachine) extends Tester(c) {  
+class VendingMachineTests(c: VendingMachine) extends Testy(c) {  
   var money = 0
   for (t <- 0 until 20) {
     val coin     = rnd.nextInt(3)*5
@@ -40,7 +40,7 @@ class VendingMachineTests(c: VendingMachine) extends Tester(c) {
     val isDime   = coin == 10
     poke(c.io.nickel, Bool(isNickel).litValue())
     poke(c.io.dime,   Bool(isDime).litValue())
-    step()
+    step(1)
     val isValid = money >= 20
     expect(c.io.valid, Bool(isValid).litValue())
     money = if (isValid) 0 else (money + coin)

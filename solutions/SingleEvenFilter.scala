@@ -31,14 +31,14 @@ class SingleEvenFilter[T <: UInt](dtype: T) extends Filter(dtype) {
   even.io.out   <> io.out
 }
 
-class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T]) extends Tester(c) {
+class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T]) extends Testy(c) {
   val maxInt  = 1 << 16
   for (i <- 0 until 10) {
     val in = rnd.nextInt(maxInt)
     poke(c.io.in.valid, 1)
     poke(c.io.in.bits, in)
     val isSingleEven = (in <= 9) && (in%2 == 1)
-    step()
+    step(1)
     expect(c.io.out.valid, Bool(isSingleEven).litValue())
     expect(c.io.out.bits, in)
   }

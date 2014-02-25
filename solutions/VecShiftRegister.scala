@@ -24,7 +24,7 @@ class VecShiftRegister extends Module {
   io.out := delays(3)
 }
 
-class VecShiftRegisterTests(c: VecShiftRegister) extends Tester(c) { 
+class VecShiftRegisterTests(c: VecShiftRegister) extends Testy(c) { 
   val reg     = Array.fill(4){ 0 }
   val ins     = Array.fill(4){ 0 }
   for (t <- 0 until 16) {
@@ -36,7 +36,7 @@ class VecShiftRegisterTests(c: VecShiftRegister) extends Tester(c) {
       poke(c.io.ins(i), ins(i))
     poke(c.io.load,  load)
     poke(c.io.shift, shift)
-    step()
+    step(1)
     expect(c.io.out, reg(3))
     if (load == 1) {
       for (i <- 0 until 4) 

@@ -23,16 +23,16 @@ class MemorySearch extends Module {
   io.address := index
 }
 
-class MemorySearchTests(c: MemorySearch) extends Tester(c) {
+class MemorySearchTests(c: MemorySearch) extends Testy(c) {
   val list = Array(0, 4, 15, 14, 2, 5, 13)
   for (k <- 0 until 16) {
     val target = rnd.nextInt(16)
     poke(c.io.en,     1)
     poke(c.io.target, target)
-    step()
+    step(1)
     do {
       poke(c.io.en, 0)
-      step()
+      step(1)
     } while (peek(c.io.done) == 0)
     val addr = peek(c.io.address).toInt
     expect(addr == list.length || list(addr) == target, 

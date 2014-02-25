@@ -19,7 +19,7 @@ class GCD extends Module {
   io.v := y === UInt(0)
 }
 
-class GCDTests(c: GCD) extends Tester(c) {
+class GCDTests(c: GCD) extends Testy(c) {
   val (a, b, z) = (64, 48, 16)
   var t = 0
   do {
@@ -27,7 +27,7 @@ class GCDTests(c: GCD) extends Tester(c) {
     poke(c.io.a, a)
     poke(c.io.b, b)
     poke(c.io.e, first)
-    step()
+    step(1)
     t += 1
   } while (t <= 1 || peek(c.io.v) == 0)
   expect(c.io.z, z)

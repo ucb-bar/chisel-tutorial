@@ -29,7 +29,7 @@ class DynamicMemorySearch extends Module {
   io.target := index
 }
 
-class DynamicMemorySearchTests(c: DynamicMemorySearch) extends Tester(c) {
+class DynamicMemorySearchTests(c: DynamicMemorySearch) extends Testy(c) {
   val list = Array.fill(8){ 0 }
   for (k <- 0 until 16) {
     // WRITE A WORD
@@ -39,7 +39,7 @@ class DynamicMemorySearchTests(c: DynamicMemorySearch) extends Tester(c) {
     val data   = rnd.nextInt(16)
     poke(c.io.wrAddr, wrAddr)
     poke(c.io.data,   data)
-    step()
+    step(1)
     list(wrAddr) = data
     // SETUP SEARCH
     // val target   = rnd.nextInt(16)
@@ -47,10 +47,10 @@ class DynamicMemorySearchTests(c: DynamicMemorySearch) extends Tester(c) {
     poke(c.io.isWr, 0)
     poke(c.io.data, target)
     poke(c.io.en,   1)
-    step()
+    step(1)
     do {
       poke(c.io.en, 0)
-      step()
+      step(1)
       peek(c.index); peek(c.io.elt)
     } while (peek(c.io.done) == 0)
     val addr = peek(c.io.target).toInt

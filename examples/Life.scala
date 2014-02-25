@@ -49,9 +49,9 @@ class Life(val n: Int) extends Module {
   }
 }
 
-class LifeTests(c: Life) extends Tester(c) {
+class LifeTests(c: Life) extends Testy(c) {
   for (t <- 0 until 16) {
-    step()
+    step(1)
     for (j <- 0 until c.n) {
       for (i <- 0 until c.n) {
         print(peek(c.io.state(c.idx(i, j))))

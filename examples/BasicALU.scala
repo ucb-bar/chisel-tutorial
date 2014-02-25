@@ -52,7 +52,7 @@ class SimpleALU extends Module {
   }
 }
 
-class SimpleALUTests(c: SimpleALU) extends Tester(c) {  
+class SimpleALUTests(c: SimpleALU) extends Testy(c) {  
   for (a <- 0 until 16) {
     for (b <- 0 until 16) {
       for (opcode <- 0 until 4) {
@@ -69,7 +69,7 @@ class SimpleALUTests(c: SimpleALU) extends Tester(c) {
         poke(c.io.a, a)
         poke(c.io.b, b)
         poke(c.io.opcode, opcode)
-        step()
+        step(1)
         expect(c.io.output, output)
       }
     }

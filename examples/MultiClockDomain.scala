@@ -40,7 +40,7 @@ class MultiClockDomain extends Module {
   a1.io.sum.ready := io.sum.ready
 }
 
-class MultiClockDomainTests(c: MultiClockDomain) extends Tester(c) {
+class MultiClockDomainTests(c: MultiClockDomain) extends Testy(c) {
   // setting up clocks
   val clocks = new HashMap[Clock, Int]
   clocks(Module.implicitClock) = 2
@@ -52,7 +52,7 @@ class MultiClockDomainTests(c: MultiClockDomain) extends Tester(c) {
   for (i <- 0 until 5) {
     poke(c.io.start,     0)
     poke(c.io.sum.ready, 0)
-    step()
+    step(1)
   }
 
   var t = 0
@@ -60,7 +60,7 @@ class MultiClockDomainTests(c: MultiClockDomain) extends Tester(c) {
   while (t < 10) {
     poke(c.io.start,     1)
     poke(c.io.sum.ready, 1)
-    step()
+    step(1)
     println("DELTA " + delta)
     // only check outputs on valid && 6 deltas have passed
     if (peek(c.io.sum.valid) == 1 && (delta % 6 == 0)) {

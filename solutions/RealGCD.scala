@@ -36,13 +36,13 @@ class RealGCD extends Module {
   io.out.valid := y === Bits(0) && !first
 }
 
-class RealGCDTests(c: RealGCD) extends Tester(c) {
+class RealGCDTests(c: RealGCD) extends Testy(c) {
   val inputs = List( (48, 32), (7, 3), (100, 10) )
   val outputs = List( 16, 1, 10)
   // let it spin for a bit
   for (i <- 0 until 5) {
     poke(c.io.in.valid, 0)
-    step()
+    step(1)
   }
 
   var i = 0
@@ -62,7 +62,7 @@ class RealGCDTests(c: RealGCD) extends Tester(c) {
     }
 
     // this advances the clock
-    step()
+    step(1)
 
     // bump counters and check outputs after advancing clock
     if (peek(c.io.in.ready) == 1) i += 1

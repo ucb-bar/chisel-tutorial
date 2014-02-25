@@ -26,7 +26,7 @@ class Mux4 extends Module {
   //-------------------------------------------------------------------------\\
 }
 
-class Mux4Tests(c: Mux4) extends Tester(c) {  
+class Mux4Tests(c: Mux4) extends Testy(c) {  
   for (s0 <- 0 until 2) {
     for (s1 <- 0 until 2) {
       for(i0 <- 0 until 2) {
@@ -38,7 +38,7 @@ class Mux4Tests(c: Mux4) extends Tester(c) {
               poke(c.io.in1, i1)
               poke(c.io.in2, i2)
               poke(c.io.in3, i3)
-              step()
+              step(1)
               val out = if(s1 == 1) {
                           if (s0 == 1) i3 else i2
                         } else {

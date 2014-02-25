@@ -22,7 +22,7 @@ class ResetShiftRegister extends Module {
   io.out := r3
 }
 
-class ResetShiftRegisterTests(c: ResetShiftRegister) extends Tester(c) {  
+class ResetShiftRegisterTests(c: ResetShiftRegister) extends Testy(c) {  
   val ins = Array.fill(5){ 0 }
   var k   = 0
   for (t <- 0 until 16) {
@@ -32,7 +32,7 @@ class ResetShiftRegisterTests(c: ResetShiftRegister) extends Tester(c) {
       ins(k % 5) = in
     poke(c.io.in,    in)
     poke(c.io.shift, shift)
-    step()
+    step(1)
     expect(c.io.out, (if (t < 4) 0 else ins((k + 1) % 5)))
     if (shift == 1)
       k = k + 1

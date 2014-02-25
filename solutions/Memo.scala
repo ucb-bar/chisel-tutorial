@@ -30,18 +30,18 @@ class Memo extends Module {
 
 }
 
-class MemoTests(c: Memo) extends Tester(c) {
+class MemoTests(c: Memo) extends Testy(c) {
   def rd(addr: Int, data: Int) = {
     poke(c.io.ren, 1)
     poke(c.io.rdAddr, addr)
-    step()
+    step(1)
     expect(c.io.rdData, data)
   }
   def wr(addr: Int, data: Int)  = {
     poke(c.io.wen,    1)
     poke(c.io.wrAddr, addr)
     poke(c.io.wrData, data)
-    step()
+    step(1)
   }
   wr(0, 1)
   rd(0, 1)

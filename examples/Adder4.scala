@@ -38,7 +38,7 @@ class Adder4 extends Module {
   io.Cout := Adder3.io.cout
 }
 
-class Adder4Tests(c: Adder4) extends Tester(c) {  
+class Adder4Tests(c: Adder4) extends Testy(c) {  
   val rnd2 = rnd.nextInt(2)
   for (t <- 0 until 4) {
     val rnd0 = rnd.nextInt(16)
@@ -47,7 +47,7 @@ class Adder4Tests(c: Adder4) extends Tester(c) {
     poke(c.io.A,   rnd0)
     poke(c.io.B,   rnd1)
     poke(c.io.Cin, rnd2)
-    step()
+    step(1)
     val rsum = UInt(rnd0 & 0xF) + UInt(rnd1 & 0xF) + UInt(rnd2 & 0x1)
     expect(c.io.Sum, rsum(3, 0).litValue())
     expect(c.io.Cout, rsum(4).litValue())

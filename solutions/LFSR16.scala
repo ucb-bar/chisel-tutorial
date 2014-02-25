@@ -17,12 +17,12 @@ class LFSR16 extends Module {
   io.out := res
 }
 
-class LFSR16Tests(c: LFSR16) extends Tester(c) {
+class LFSR16Tests(c: LFSR16) extends Testy(c) {
   var res = 1
   for (t <- 0 until 16) {
     val inc = rnd.nextInt(2)
     poke(c.io.inc, inc)
-    step()
+    step(1)
     expect(c.io.out, res)
     if (inc == 1) {
       val bit = ((res >> 0) ^ (res >> 2) ^ (res >> 3) ^ (res >> 5) ) & 1;

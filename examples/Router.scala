@@ -43,14 +43,14 @@ class Router extends Module {
   } 
 }
 
-class RouterTests(c: Router) extends Tester(c) {  
+class RouterTests(c: Router) extends Testy(c) {  
   def rd(addr: Int, data: Int) = {
     poke(c.io.in.valid,        0)
     poke(c.io.writes.valid,    0)
     poke(c.io.reads.valid,     1)
     poke(c.io.replies.ready,   1)
     poke(c.io.reads.bits.addr, addr)
-    step()
+    step(1)
     expect(c.io.replies.bits, data)
   }
   def wr(addr: Int, data: Int)  = {
@@ -59,7 +59,7 @@ class RouterTests(c: Router) extends Tester(c) {
     poke(c.io.writes.valid,     1)
     poke(c.io.writes.bits.addr, addr)
     poke(c.io.writes.bits.data, data)
-    step()
+    step(1)
   }
   def isAnyValidOuts(): Boolean = {
     for (out <- c.io.outs)
@@ -77,7 +77,7 @@ class RouterTests(c: Router) extends Tester(c) {
     poke(c.io.in.bits.body,   body)
     var i = 0
     do {
-      step()
+      step(1)
       i += 1
     } while (!isAnyValidOuts() || i > 10)
     expect(i < 10, "FIND VALID OUT")

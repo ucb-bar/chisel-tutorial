@@ -15,12 +15,12 @@ class Parity extends Module {
   io.out := (state === s_odd)
 }
 
-class ParityTests(c: Parity) extends Tester(c) {
+class ParityTests(c: Parity) extends Testy(c) {
   var isOdd = 0
   for (t <- 0 until 10) {
     val bit = rnd.nextInt(2)
     poke(c.io.in, bit)
-    step()
+    step(1)
     expect(c.io.out, isOdd)
     isOdd = (isOdd + bit) % 2;
   }

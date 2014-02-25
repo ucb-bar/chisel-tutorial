@@ -35,7 +35,7 @@ class Counter extends Module {
 
 }
 
-class CounterTest(c: Counter) extends Tester(c) {
+class CounterTest(c: Counter) extends Testy(c) {
   val maxInt  = 16
   var curCnt  = 0
 
@@ -52,7 +52,7 @@ class CounterTest(c: Counter) extends Tester(c) {
     val amt = rnd.nextInt(maxInt)
     poke(c.io.inc, if (inc) 1 else 0)
     poke(c.io.amt, amt)
-    step()
+    step(1)
     expect(c.io.tot, curCnt)
     curCnt = if(inc) intWrapAround(curCnt + amt, 255) else curCnt
   }

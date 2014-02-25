@@ -21,7 +21,7 @@ class FullAdder extends Module {
   io.cout := a_and_b | b_and_cin | a_and_cin
 }
 
-class FullAdderTests(c: FullAdder) extends Tester(c) {  
+class FullAdderTests(c: FullAdder) extends Testy(c) {  
   for (t <- 0 until 4) {
     val a    = rnd.nextInt(2)
     val b    = rnd.nextInt(2)
@@ -32,7 +32,7 @@ class FullAdderTests(c: FullAdder) extends Tester(c) {
     poke(c.io.a, a)
     poke(c.io.b, b)
     poke(c.io.cin, cin)
-    step()
+    step(1)
     expect(c.io.sum, sum)
     expect(c.io.cout, cout)
   }

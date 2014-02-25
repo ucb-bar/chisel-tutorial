@@ -12,12 +12,12 @@ class Accumulator extends Module {
   io.out := accumulator
 }
 
-class AccumulatorTests(c: Accumulator) extends Tester(c) {
+class AccumulatorTests(c: Accumulator) extends Testy(c) {
   var tot = 0
   for (t <- 0 until 16) {
     val in = rnd.nextInt(2)
     poke(c.io.in, in)
-    step()
+    step(1)
     expect(c.io.out, tot)
     if (in == 1) tot += 1
   }

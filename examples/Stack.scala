@@ -33,7 +33,7 @@ class Stack(val depth: Int) extends Module {
   io.dataOut := dataOut
 }
 
-class StackTests(c: Stack) extends Tester(c) {  
+class StackTests(c: Stack) extends Testy(c) {  
   var nxtDataOut = 0
   val stack = new ScalaStack[Int]()
 
@@ -58,7 +58,7 @@ class StackTests(c: Stack) extends Tester(c) {
     poke(c.io.push,   push)
     poke(c.io.en,     enable)
     poke(c.io.dataIn, dataIn)
-    step()
+    step(1)
     expect(c.io.dataOut, dataOut)
   }
 }

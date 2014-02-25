@@ -26,14 +26,14 @@ class EnableShiftRegister extends Module {
   io.out := r3
 }
 
-class EnableShiftRegisterTests(c: EnableShiftRegister) extends Tester(c) {  
+class EnableShiftRegisterTests(c: EnableShiftRegister) extends Testy(c) {  
   val reg = Array.fill(4){ 0 }
   for (t <- 0 until 16) {
     val in    = rnd.nextInt(2)
     val shift = rnd.nextInt(2)
     poke(c.io.in,    in)
     poke(c.io.shift, shift)
-    step()
+    step(1)
     expect(c.io.out, reg(3))
     if (shift == 1) {
       for (i <- 3 to 1 by -1)
