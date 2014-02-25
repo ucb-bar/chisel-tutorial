@@ -1,8 +1,6 @@
 package TutorialExamples
 
 import Chisel._
-import scala.collection.mutable.HashMap
-import scala.util.Random
 
 class Combinational extends Module {
   val io = new Bundle {
@@ -13,22 +11,15 @@ class Combinational extends Module {
   io.z := io.x + io.y
 }
 
-class CombinationalTests(c: Combinational) extends Tester(c, Array(c.io)) {
-  defTests {
-    var allGood = true
-    val vars    = new HashMap[Node, Node]()
-    val rnd     = new Random()
-    val maxInt  = 1 << 16
-    for (i <- 0 until 10) {
-      vars.clear()
-      val x = rnd.nextInt(maxInt)
-      val y = rnd.nextInt(maxInt)
-      vars(c.io.x) = UInt(x)
-      vars(c.io.y) = UInt(y)
-      vars(c.io.z) = UInt((x + y)&(maxInt-1))
-      allGood = step(vars) && allGood
-    }
-    allGood
+class CombinationalTests(c: Combinational) extends Testy(c) {
+  val maxInt = 1 << 16
+  for (i <- 0 until 10) {
+    val x = rnd.nextInt(maxInt)
+    val y = rnd.nextInt(maxInt)
+    poke(c.io.x, x)
+    poke(c.io.y, y)
+    step(1)
+    expect(c.io.z, (x + y)&(maxInt-1))
   }
 }
 

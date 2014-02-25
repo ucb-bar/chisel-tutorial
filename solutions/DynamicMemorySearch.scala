@@ -1,8 +1,6 @@
 package TutorialSolutions
 
 import Chisel._
-import util.Random
-import scala.collection.mutable.HashMap
 
 class DynamicMemorySearch extends Module {
   val io = new Bundle {
@@ -10,14 +8,17 @@ class DynamicMemorySearch extends Module {
     val wrAddr = UInt(INPUT, 3)
     val data   = UInt(INPUT, 4)
     val en     = Bool(INPUT)
-    val target = UInt(OUTPUT, 3)
+    val elt    = UInt(OUTPUT, 4)
+    val target = UInt(OUTPUT, 4)
     val done   = Bool(OUTPUT)
   }
-  val index  = Reg(init = UInt(0, width = 3))
-  val list   = Mem(UInt(width = 4), 8)
-  val memVal = list(index)
-  val done   = !io.en && ((memVal === io.data) || (index === UInt(7)))
+  val index = Reg(init = UInt(0, width = 3))
+  val list  = Mem(UInt(width = 4), 8)
+  val elt   = list(index)
+  io.elt   := elt
+  val done  = !io.en && ((elt === io.data) || (index === UInt(7)))
   when (io.isWr) {
+    printf("WRITING list[%d] = %d\n", io.wrAddr, io.data)
     list(io.wrAddr) := io.data
   } .elsewhen (io.en) {
     index := UInt(0)
@@ -28,37 +29,32 @@ class DynamicMemorySearch extends Module {
   io.target := index
 }
 
-class DynamicMemorySearchTests(c: DynamicMemorySearch) extends Tester(c, Array(c.io)) {
-  defTests {
-    var allGood = true
-    val rnd   = new Random()
-    val ivars = new HashMap[Node, Node]()
-    val ovars = new HashMap[Node, Node]()
-    val list  = Array.fill(8){ 0 }
-    for (k <- 0 until 16) {
-      // WRITE A WORD
-      ivars(c.io.en)      = Bool(false)
-      ivars(c.io.isWr)    = Bool(true)
-      val wrAddr          = rnd.nextInt(8-1)
-      val data            = rnd.nextInt(16)
-      ivars(c.io.wrAddr)  = UInt(wrAddr)
-      ivars(c.io.data)    = UInt(data)
-      step(ivars, ovars)
-      list(wrAddr)        = data
-      // SETUP SEARCH
-      val target          = rnd.nextInt(16)
-      ivars(c.io.isWr)    = Bool(false)
-      ivars(c.io.data)    = UInt(target)
-      ivars(c.io.en)      = Bool(true)
-      step(ivars, ovars)
-      do {
-        ivars(c.io.en) = Bool(false)
-        step(ivars, ovars)
-      } while (ovars(c.io.done).litValue() == 0)
-      val addr = ovars(c.io.target).litValue()
-      println("LOOKING FOR " + target + " FOUND " + addr.toInt)
-      allGood = addr == (list.length-1) || list(addr.toInt) == target
-    }
-    allGood
+class DynamicMemorySearchTests(c: DynamicMemorySearch) extends Testy(c) {
+  val list = Array.fill(8){ 0 }
+  for (k <- 0 until 16) {
+    // WRITE A WORD
+    poke(c.io.en,   0)
+    poke(c.io.isWr, 1)
+    val wrAddr = rnd.nextInt(8-1)
+    val data   = rnd.nextInt(16)
+    poke(c.io.wrAddr, wrAddr)
+    poke(c.io.data,   data)
+    step(1)
+    list(wrAddr) = data
+    // SETUP SEARCH
+    // val target   = rnd.nextInt(16)
+    val target   = data
+    poke(c.io.isWr, 0)
+    poke(c.io.data, target)
+    poke(c.io.en,   1)
+    step(1)
+    do {
+      poke(c.io.en, 0)
+      step(1)
+      peek(c.index); peek(c.io.elt)
+    } while (peek(c.io.done) == 0)
+    val addr = peek(c.io.target).toInt
+    expect(addr == list.length || list(addr) == target, 
+           "LOOKING FOR " + target + " FOUND " + addr)
   }
 }

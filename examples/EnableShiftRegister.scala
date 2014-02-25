@@ -1,9 +1,6 @@
 package TutorialExamples
 
 import Chisel._
-import Node._
-import scala.collection.mutable.HashMap
-import util.Random
 
 class EnableShiftRegister extends Module {
   val io = new Bundle {
@@ -29,26 +26,19 @@ class EnableShiftRegister extends Module {
   io.out := r3
 }
 
-class EnableShiftRegisterTests(c: EnableShiftRegister) extends Tester(c, Array(c.io)) {  
-  defTests {
-    var allGood = true
-    val vars    = new HashMap[Node, Node]()
-    val rnd     = new Random()
-    val reg     = Array.fill(4){ 0 }
-    for (t <- 0 until 16) {
-      vars.clear()
-      val in           = rnd.nextInt(2)
-      val shift        = rnd.nextInt(2) == 0
-      vars(c.io.in)    = UInt(in)
-      vars(c.io.shift) = Bool(shift)
-      vars(c.io.out)   = UInt(reg(3))
-      allGood          = step(vars) && allGood
-      if (shift) {
-        for (i <- 3 to 1 by -1)
-          reg(i) = reg(i-1)
-        reg(0) = in
-      }
+class EnableShiftRegisterTests(c: EnableShiftRegister) extends Testy(c) {  
+  val reg = Array.fill(4){ 0 }
+  for (t <- 0 until 16) {
+    val in    = rnd.nextInt(2)
+    val shift = rnd.nextInt(2)
+    poke(c.io.in,    in)
+    poke(c.io.shift, shift)
+    step(1)
+    expect(c.io.out, reg(3))
+    if (shift == 1) {
+      for (i <- 3 to 1 by -1)
+        reg(i) = reg(i-1)
+      reg(0) = in
     }
-    allGood
   }
 }

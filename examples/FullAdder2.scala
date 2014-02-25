@@ -1,9 +1,6 @@
 package TutorialExamples
 
 import Chisel._
-import Node._
-import scala.collection.mutable.HashMap
-import util.Random
 
 class FullAdder2 extends Module {
   val io = new Bundle {
@@ -24,9 +21,5 @@ class FullAdder2 extends Module {
   io.cout := a_and_b | b_and_cin | a_and_cin
 }
 
-class FullAdder2Tests(c: FullAdder2) extends Tester(c, Array(c.io)) {  
-  defTests {
-    var allGood = true
-    allGood
-  }
+class FullAdder2Tests(c: FullAdder2) extends Testy(c) {  
 }

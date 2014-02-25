@@ -1,9 +1,6 @@
 package TutorialExamples
 
 import Chisel._
-import Node._
-import scala.collection.mutable.HashMap
-import util.Random
 
 class BasicALU extends Module {
   val io = new Bundle {
@@ -38,53 +35,43 @@ class BasicALU extends Module {
 
 class SimpleALU extends Module {
   val io = new Bundle {
-    val a = UInt(INPUT, 4)
-    val b = UInt(INPUT, 4)
-    val opcode = UInt(INPUT, 2)
+    val a      = UInt(INPUT,  4)
+    val b      = UInt(INPUT,  4)
+    val opcode = UInt(INPUT,  2)
     val output = UInt(OUTPUT, 4)
   }
   io.output := UInt(0) 
   when (io.opcode === UInt(0)) {
-    io.output := io.a + io.b   //ADD
+    io.output := io.a + io.b //ADD
   } .elsewhen (io.opcode === UInt(1)) {
-    io.output := io.b - io.b   //SUB
+    io.output := io.a - io.b //SUB
   } .elsewhen (io.opcode === UInt(2)) {
-    io.output := io.a  	       //PASS A
+    io.output := io.a  	     //PASS A
   } .otherwise {
-    io.output := io.b          //PASS B
+    io.output := io.b        //PASS B
   }
 }
 
-class BasicALUTests(c: BasicALU) extends Tester(c, Array(c.io)) {  
-  defTests {
-    var allGood = true
-    val vars = new HashMap[Node, Node]()
-    var a_in = 1
-    var b_in = 2
-    var output = 0
-    var opcode = 0
-    for (a <- 0 until 16) {
-      for (b <- 0 until 16) {
-	for (s <- 0 until 4) {
-	  a_in   = a
-	  b_in   = b
-	  opcode = s
-	  if (opcode == 0) {
-	    output = ((a+b) & 0xF)
-	  } else if (opcode == 1) {
-	    output = ((a-b) & 0xF)
-	  } else if (opcode == 2) {
-	    output = a
-	  } else {
-	    output = b
- 	  }
-          vars(c.io.a) = UInt(a_in)
-	  vars(c.io.b) = UInt(b_in)
-	  vars(c.io.opcode) = UInt(opcode)
-	  vars(c.io.output) = UInt(output)
-	}
+class SimpleALUTests(c: SimpleALU) extends Testy(c) {  
+  for (a <- 0 until 16) {
+    for (b <- 0 until 16) {
+      for (opcode <- 0 until 4) {
+        var output = 0
+        if (opcode == 0) {
+          output = ((a+b) & 0xF)
+        } else if (opcode == 1) {
+          output = ((a-b) & 0xF)
+        } else if (opcode == 2) {
+          output = a
+        } else {
+          output = b
+        }
+        poke(c.io.a, a)
+        poke(c.io.b, b)
+        poke(c.io.opcode, opcode)
+        step(1)
+        expect(c.io.output, output)
       }
     }
-    allGood
   }
 }

@@ -1,7 +1,6 @@
 package TutorialExamples
 
 import Chisel._
-import scala.collection.mutable.HashMap
 
 class GCD extends Module {
   val io = new Bundle {
@@ -20,21 +19,16 @@ class GCD extends Module {
   io.v := y === UInt(0)
 }
 
-class GCDTests(c: GCD) extends Tester(c, Array(c.io)) {
-  defTests {
-    val (a, b, z) = (64, 48, 16)
-    val svars = new HashMap[Node, Node]()
-    val ovars = new HashMap[Node, Node]()
-    var t = 0
-    do {
-      val first = (t == 0)
-      svars.clear()
-      svars(c.io.a) = UInt(a)
-      svars(c.io.b) = UInt(b)
-      svars(c.io.e) = Bool(first)
-      step(svars, ovars)
-      t += 1
-    } while (t <= 1 || ovars(c.io.v).litValue() == 0)
-    ovars(c.io.z).litValue() == z
-  }
+class GCDTests(c: GCD) extends Testy(c) {
+  val (a, b, z) = (64, 48, 16)
+  var t = 0
+  do {
+    val first = if (t == 0) 1 else 0;
+    poke(c.io.a, a)
+    poke(c.io.b, b)
+    poke(c.io.e, first)
+    step(1)
+    t += 1
+  } while (t <= 1 || peek(c.io.v) == 0)
+  expect(c.io.z, z)
 }

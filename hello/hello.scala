@@ -10,12 +10,9 @@ class Hello extends Module {
   io.out := UInt(42)
 }
 
-class HelloTests(c: Hello) extends Tester(c, Array(c.io)) {
-  defTests {
-    val vars = new HashMap[Node, Node]()
-    vars(c.io.out) = UInt(42)
-    step(vars)
-  }
+class HelloTests(c: Hello) extends Testy(c) {
+  step(1)
+  expect(c.io.out, 42)
 }
 
 object Hello {

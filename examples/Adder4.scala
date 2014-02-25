@@ -1,9 +1,6 @@
 package TutorialExamples
 
 import Chisel._
-import Node._
-import scala.collection.mutable.HashMap
-import util.Random
 
 //A 4-bit adder with carry in and carry out
 class Adder4 extends Module {
@@ -41,25 +38,18 @@ class Adder4 extends Module {
   io.Cout := Adder3.io.cout
 }
 
-class Adder4Tests(c: Adder4) extends Tester(c, Array(c.io)) {  
-  defTests {
-    var allGood = true
-    val rnd = new Random()
-    val vars = new HashMap[Node, Node]()
+class Adder4Tests(c: Adder4) extends Testy(c) {  
+  val rnd2 = rnd.nextInt(2)
+  for (t <- 0 until 4) {
+    val rnd0 = rnd.nextInt(16)
+    val rnd1 = rnd.nextInt(16)
     val rnd2 = rnd.nextInt(2)
-    for (t <- 0 until 4) {
-      vars.clear()
-      val rnd0 = rnd.nextInt(16)
-      val rnd1 = rnd.nextInt(16)
-      val rnd2 = rnd.nextInt(2)
-      vars(c.io.A) = UInt(rnd0)
-      vars(c.io.B) = UInt(rnd1)
-      vars(c.io.Cin) = UInt(rnd2)
-      val rsum = UInt(rnd0 & 0xF) + UInt(rnd1 & 0xF) + UInt(rnd2 & 0x1)
-      vars(c.io.Sum) = rsum(3,0)
-      vars(c.io.Cout) = rsum(4)
-      allGood = step(vars) && allGood
-    }
-    allGood
+    poke(c.io.A,   rnd0)
+    poke(c.io.B,   rnd1)
+    poke(c.io.Cin, rnd2)
+    step(1)
+    val rsum = UInt(rnd0 & 0xF) + UInt(rnd1 & 0xF) + UInt(rnd2 & 0x1)
+    expect(c.io.Sum, rsum(3, 0).litValue())
+    expect(c.io.Cout, rsum(4).litValue())
   }
 }
