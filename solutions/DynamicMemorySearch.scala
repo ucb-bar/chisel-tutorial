@@ -18,7 +18,6 @@ class DynamicMemorySearch extends Module {
   io.elt   := elt
   val done  = !io.en && ((elt === io.data) || (index === UInt(7)))
   when (io.isWr) {
-    printf("WRITING list[%d] = %d\n", io.wrAddr, io.data)
     list(io.wrAddr) := io.data
   } .elsewhen (io.en) {
     index := UInt(0)
