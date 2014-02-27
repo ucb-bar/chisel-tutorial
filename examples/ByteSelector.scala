@@ -20,7 +20,7 @@ class ByteSelector extends Module {
   }
 }
 
-class ByteSelectorTests(c: ByteSelector) extends Testy(c) {
+class ByteSelectorTests(c: ByteSelector) extends Tester(c) {
   val test_in = 12345678
   for (t <- 0 until 4) {
     poke(c.io.in,     test_in)

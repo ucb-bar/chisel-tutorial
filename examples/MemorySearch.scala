@@ -23,7 +23,7 @@ class MemorySearch extends Module {
   io.address := index
 }
 
-class MemorySearchTests(c: MemorySearch) extends Testy(c) {
+class MemorySearchTests(c: MemorySearch) extends Tester(c) {
   val list = Array(0, 4, 15, 14, 2, 5, 13)
   for (k <- 0 until 16) {
     val target = rnd.nextInt(16)

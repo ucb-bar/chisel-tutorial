@@ -12,7 +12,7 @@ class Accumulator extends Module {
   io.out := accumulator
 }
 
-class AccumulatorTests(c: Accumulator) extends Testy(c) {
+class AccumulatorTests(c: Accumulator) extends Tester(c) {
   var tot = 0
   for (t <- 0 until 16) {
     val in = rnd.nextInt(2)

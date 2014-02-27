@@ -36,7 +36,7 @@ class RealGCD extends Module {
   io.out.valid := y === Bits(0) && !first
 }
 
-class RealGCDTests(c: RealGCD) extends Testy(c) {
+class RealGCDTests(c: RealGCD) extends Tester(c) {
   val inputs = List( (48, 32), (7, 3), (100, 10) )
   val outputs = List( 16, 1, 10)
   // let it spin for a bit

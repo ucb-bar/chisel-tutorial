@@ -31,7 +31,7 @@ class SingleEvenFilter[T <: UInt](dtype: T) extends Filter(dtype) {
   even.io.out   <> io.out
 }
 
-class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T]) extends Testy(c) {
+class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T]) extends Tester(c) {
   val maxInt  = 1 << 16
   for (i <- 0 until 10) {
     val in = rnd.nextInt(maxInt)

@@ -50,7 +50,7 @@ class Risc extends Module {
   }
 }
 
-class RiscTests(c: Risc) extends Testy(c) {  
+class RiscTests(c: Risc) extends Tester(c) {  
   def wr(addr: UInt, data: UInt)  = {
     poke(c.io.isWr,   1)
     poke(c.io.wrAddr, addr.litValue())

@@ -33,7 +33,7 @@ class Stack(val depth: Int) extends Module {
   io.dataOut := dataOut
 }
 
-class StackTests(c: Stack) extends Testy(c) {  
+class StackTests(c: Stack) extends Tester(c) {  
   var nxtDataOut = 0
   val stack = new ScalaStack[Int]()
 

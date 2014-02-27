@@ -11,7 +11,7 @@ class Combinational extends Module {
   io.z := io.x + io.y
 }
 
-class CombinationalTests(c: Combinational) extends Testy(c) {
+class CombinationalTests(c: Combinational) extends Tester(c) {
   val maxInt = 1 << 16
   for (i <- 0 until 10) {
     val x = rnd.nextInt(maxInt)

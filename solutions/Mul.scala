@@ -27,7 +27,7 @@ class Mul extends Module {
   // -------------------------------- \\
 }
 
-class MulTests(c: Mul) extends Testy(c) {
+class MulTests(c: Mul) extends Tester(c) {
   val maxInt  = 1 << 4
   for (i <- 0 until 10) {
     val x = rnd.nextInt(maxInt)

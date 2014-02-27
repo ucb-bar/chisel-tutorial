@@ -19,7 +19,7 @@ class GCD extends Module {
   io.v := y === UInt(0)
 }
 
-class GCDTests(c: GCD) extends Testy(c) {
+class GCDTests(c: GCD) extends Tester(c) {
   val (a, b, z) = (64, 48, 16)
   var t = 0
   do {

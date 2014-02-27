@@ -13,7 +13,7 @@ class MaxN(val n: Int, val w: Int) extends Module {
   io.out := io.ins.reduceLeft(Max2)
 }
 
-class MaxNTests(c: MaxN) extends Testy(c) {
+class MaxNTests(c: MaxN) extends Tester(c) {
   val ins = Array.fill(c.n){ 0 }
   for (i <- 0 until 10) {
     var mx = 0

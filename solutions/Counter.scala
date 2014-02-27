@@ -35,7 +35,7 @@ class Counter extends Module {
 
 }
 
-class CounterTest(c: Counter) extends Testy(c) {
+class CounterTest(c: Counter) extends Tester(c) {
   val maxInt  = 16
   var curCnt  = 0
 

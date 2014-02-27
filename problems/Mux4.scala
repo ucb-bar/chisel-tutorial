@@ -27,7 +27,7 @@ class Mux4 extends Module {
   m0.io.in1 := io.in1
 }
 
-class Mux4Tests(c: Mux4) extends Testy(c) {  
+class Mux4Tests(c: Mux4) extends Tester(c) {  
   for (s0 <- 0 until 2) {
     for (s1 <- 0 until 2) {
       for(i0 <- 0 until 2) {

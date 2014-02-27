@@ -22,7 +22,7 @@ class ResetShiftRegister extends Module {
   io.out := r3
 }
 
-class ResetShiftRegisterTests(c: ResetShiftRegister) extends Testy(c) {  
+class ResetShiftRegisterTests(c: ResetShiftRegister) extends Tester(c) {  
   val ins = Array.fill(5){ 0 }
   var k   = 0
   for (t <- 0 until 16) {

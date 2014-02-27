@@ -14,7 +14,7 @@ class ShiftRegister extends Module {
   io.out := r3
 }
 
-class ShiftRegisterTests(c: ShiftRegister) extends Testy(c) {  
+class ShiftRegisterTests(c: ShiftRegister) extends Tester(c) {  
   val reg     = Array.fill(4){ 0 }
   for (t <- 0 until 64) {
     val in = rnd.nextInt(2)

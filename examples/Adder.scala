@@ -31,7 +31,7 @@ class Adder(val n:Int) extends Module {
   io.Cout := carry(n)
 }
 
-class AdderTests(c: Adder) extends Testy(c) {
+class AdderTests(c: Adder) extends Tester(c) {
   for (t <- 0 until 4) {
     val rnd0 = rnd.nextInt(c.n)
     val rnd1 = rnd.nextInt(c.n)

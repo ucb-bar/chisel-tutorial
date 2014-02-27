@@ -21,7 +21,7 @@ class FullAdder extends Module {
   io.cout := a_and_b | b_and_cin | a_and_cin
 }
 
-class FullAdderTests(c: FullAdder) extends Testy(c) {  
+class FullAdderTests(c: FullAdder) extends Tester(c) {  
   for (t <- 0 until 4) {
     val a    = rnd.nextInt(2)
     val b    = rnd.nextInt(2)

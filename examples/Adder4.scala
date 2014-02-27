@@ -38,7 +38,7 @@ class Adder4 extends Module {
   io.Cout := Adder3.io.cout
 }
 
-class Adder4Tests(c: Adder4) extends Testy(c) {  
+class Adder4Tests(c: Adder4) extends Tester(c) {  
   val rnd2 = rnd.nextInt(2)
   for (t <- 0 until 4) {
     val rnd0 = rnd.nextInt(16)

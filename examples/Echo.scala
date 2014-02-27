@@ -27,7 +27,7 @@ class Echo extends Module {
   io.out := outUnsigned
 }
 
-class EchoTests(c: Echo, val infilename: String, val outfilename: String) extends Testy(c) {  
+class EchoTests(c: Echo, val infilename: String, val outfilename: String) extends Tester(c) {  
   val in  = WavIn(infilename)
   val out = WavOut(outfilename, in.getFormat)
 

@@ -13,7 +13,7 @@ class Functional extends Module {
   io.z := clb(io.x, io.y, io.x, io.y)
 }
 
-class FunctionalTests(c: Functional) extends Testy(c) {
+class FunctionalTests(c: Functional) extends Tester(c) {
   val maxInt = 1 << 16
   for (i <- 0 until 10) {
     val x = rnd.nextInt(maxInt)

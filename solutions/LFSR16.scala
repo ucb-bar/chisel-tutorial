@@ -17,7 +17,7 @@ class LFSR16 extends Module {
   io.out := res
 }
 
-class LFSR16Tests(c: LFSR16) extends Testy(c) {
+class LFSR16Tests(c: LFSR16) extends Tester(c) {
   var res = 1
   for (t <- 0 until 16) {
     val inc = rnd.nextInt(2)

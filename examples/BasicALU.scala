@@ -52,7 +52,7 @@ class SimpleALU extends Module {
   }
 }
 
-class SimpleALUTests(c: SimpleALU) extends Testy(c) {  
+class SimpleALUTests(c: SimpleALU) extends Tester(c) {  
   for (a <- 0 until 16) {
     for (b <- 0 until 16) {
       for (opcode <- 0 until 4) {

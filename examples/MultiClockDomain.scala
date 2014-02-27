@@ -40,7 +40,7 @@ class MultiClockDomain extends Module {
   a1.io.sum.ready := io.sum.ready
 }
 
-class MultiClockDomainTests(c: MultiClockDomain) extends Testy(c) {
+class MultiClockDomainTests(c: MultiClockDomain) extends Tester(c) {
   // setting up clocks
   val clocks = new HashMap[Clock, Int]
   clocks(Module.implicitClock) = 2

@@ -15,7 +15,7 @@ class VecSearch extends Module {
   io.out := elts(index)
 }
 
-class VecSearchTests(c: VecSearch) extends Testy(c) {
+class VecSearchTests(c: VecSearch) extends Tester(c) {
   val list = Array(0, 4, 15, 14, 2, 5, 13)
   for (elt <- list) {
     step(1)

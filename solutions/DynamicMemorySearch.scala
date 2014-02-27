@@ -28,7 +28,7 @@ class DynamicMemorySearch extends Module {
   io.target := index
 }
 
-class DynamicMemorySearchTests(c: DynamicMemorySearch) extends Testy(c) {
+class DynamicMemorySearchTests(c: DynamicMemorySearch) extends Tester(c) {
   val list = Array.fill(8){ 0 }
   for (k <- 0 until 16) {
     // WRITE A WORD

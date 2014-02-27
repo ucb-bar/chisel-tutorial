@@ -15,7 +15,7 @@ class Parity extends Module {
   io.out := (state === s_odd)
 }
 
-class ParityTests(c: Parity) extends Testy(c) {
+class ParityTests(c: Parity) extends Tester(c) {
   var isOdd = 0
   for (t <- 0 until 10) {
     val bit = rnd.nextInt(2)

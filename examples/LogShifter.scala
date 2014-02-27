@@ -33,6 +33,6 @@ class LogShifter extends Module {
   }
 }
 
-class LogShifterTests(c: LogShifter) extends Testy(c) {
+class LogShifterTests(c: LogShifter) extends Tester(c) {
 }
 

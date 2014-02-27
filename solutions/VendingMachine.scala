@@ -32,7 +32,7 @@ class VendingMachine extends Module {
   io.valid := (state === sOk)
 }
 
-class VendingMachineTests(c: VendingMachine) extends Testy(c) {  
+class VendingMachineTests(c: VendingMachine) extends Tester(c) {  
   var money = 0
   for (t <- 0 until 20) {
     val coin     = rnd.nextInt(3)*5

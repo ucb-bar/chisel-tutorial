@@ -15,7 +15,7 @@ class HiLoMultiplier() extends Module {
   io.Hi := mult(31, 16)
 }
 
-class HiLoMultiplierTests(c: HiLoMultiplier) extends Testy(c) {
+class HiLoMultiplierTests(c: HiLoMultiplier) extends Tester(c) {
   for (t <- 0 until 4) {
     val rnd0 = rnd.nextInt(65535)
     val rnd1 = rnd.nextInt(65535)

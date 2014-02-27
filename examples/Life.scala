@@ -49,7 +49,7 @@ class Life(val n: Int) extends Module {
   }
 }
 
-class LifeTests(c: Life) extends Testy(c) {
+class LifeTests(c: Life) extends Tester(c) {
   for (t <- 0 until 16) {
     step(1)
     for (j <- 0 until c.n) {
