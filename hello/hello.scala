@@ -10,7 +10,7 @@ class Hello extends Module {
   io.out := UInt(42)
 }
 
-class HelloTests(c: Hello) extends Testy(c) {
+class HelloTests(c: Hello) extends Tester(c) {
   step(1)
   expect(c.io.out, 42)
 }
