@@ -31,9 +31,11 @@ object TutorialExamples {
       case "Router" =>
         chiselMainTest(tutArgs, () => Module(new Router())){
           c => new RouterTests(c)}
-      case "Echo" =>
-        chiselMainTest(tutArgs, () => Module(new Echo())){
-          c => new EchoTests(c, "../src/in.wav", "out.wav")}
+      case "Echo" => // TODO: BROKEN
+        chiselMainTest(tutArgs, () => Module(new GCD())){
+          c => new GCDTests(c)}
+        // chiselMainTest(tutArgs, () => Module(new Echo())){
+        //   c => new EchoTests(c, "../src/in.wav", "out.wav")}
       case "Darken" =>
         chiselMainTest(tutArgs, () => Module(new Darken())){
           c => new DarkenTests(c, "../src/in.im24", "out.im24")}

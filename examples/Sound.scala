@@ -6,7 +6,11 @@ import javax.sound.sampled._
 
 object WavIn {
   def apply(filename: String) = {
-    val ais = AudioSystem.getAudioInputStream(new File(filename))
+    println("filename " + filename)
+    val file = new File(filename)
+    val aff = AudioSystem.getAudioFileFormat(file)
+    println("AFF " + aff + " TYPE " + aff.getType())
+    val ais = AudioSystem.getAudioInputStream(file)
     if (ais.getFormat.getChannels != 1 || ais.getFormat.getSampleSizeInBits != 8) {
       println(filename + " must be 8-bit monoaural")
       System.exit(-1)

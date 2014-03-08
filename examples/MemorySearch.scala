@@ -33,7 +33,7 @@ class MemorySearchTests(c: MemorySearch) extends Tester(c) {
     do {
       poke(c.io.en, 0)
       step(1)
-    } while (peek(c.io.done) == 0)
+    } while (peek(c.io.done) == 0 && t < 20)
     val addr = peek(c.io.address).toInt
     expect(addr == list.length || list(addr) == target, 
            "LOOKING FOR " + target + " FOUND " + addr)

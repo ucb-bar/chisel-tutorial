@@ -21,14 +21,12 @@ class GCD extends Module {
 
 class GCDTests(c: GCD) extends Tester(c) {
   val (a, b, z) = (64, 48, 16)
-  var t = 0
   do {
     val first = if (t == 0) 1 else 0;
     poke(c.io.a, a)
     poke(c.io.b, b)
     poke(c.io.e, first)
     step(1)
-    t += 1
   } while (t <= 1 || peek(c.io.v) == 0)
   expect(c.io.z, z)
 }

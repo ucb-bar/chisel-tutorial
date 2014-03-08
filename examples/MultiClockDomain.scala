@@ -55,7 +55,6 @@ class MultiClockDomainTests(c: MultiClockDomain) extends Tester(c) {
     step(1)
   }
 
-  var t = 0
   val answers = Array(0, 0, 1, 3, 6, 10, 15, 21, 28, 36)
   while (t < 10) {
     poke(c.io.start,     1)
@@ -65,7 +64,6 @@ class MultiClockDomainTests(c: MultiClockDomain) extends Tester(c) {
     // only check outputs on valid && 6 deltas have passed
     if (peek(c.io.sum.valid) == 1 && (delta % 6 == 0)) {
       expect(c.io.sum.bits, answers(t))
-      t += 1
     }
   }
 }
