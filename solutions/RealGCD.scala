@@ -47,12 +47,10 @@ class RealGCDTests(c: RealGCD) extends Tester(c) {
 
   var i = 0
   var j = 0
-  var t = 0
 
   var anyPassed = false
 
   while(t < 100 && (i < 3 || j < 3)) {
-    t += 1
     if (i < 3) {
       poke(c.io.in.bits.a, inputs(i)._1)
       poke(c.io.in.bits.b, inputs(i)._2)
