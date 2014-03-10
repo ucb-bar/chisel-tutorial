@@ -25,7 +25,7 @@ class ResetShiftRegister extends Module {
 class ResetShiftRegisterTests(c: ResetShiftRegister) extends Tester(c) {  
   val ins = Array.fill(5){ 0 }
   var k   = 0
-  for (t <- 0 until 16) {
+  for (n <- 0 until 16) {
     val in    = rnd.nextInt(2)
     val shift = rnd.nextInt(2)
     if (shift == 1) 
@@ -33,7 +33,7 @@ class ResetShiftRegisterTests(c: ResetShiftRegister) extends Tester(c) {
     poke(c.io.in,    in)
     poke(c.io.shift, shift)
     step(1)
-    expect(c.io.out, (if (t < 4) 0 else ins((k + 1) % 5)))
+    expect(c.io.out, (if (n < 4) 0 else ins((k + 1) % 5)))
     if (shift == 1)
       k = k + 1
   }
