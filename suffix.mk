@@ -9,15 +9,17 @@ executables := $(filter-out solutions problems examples Image Sound,\
 
 tut_outs    := $(addsuffix .out, $(executables))
 
-all: emulator verilog
+all: dreamer # emulator verilog
 
 check: test-solutions.xml
 
 clean:
-	-rm -f out.im24 out.wav *.h *.cpp *.o *.out *.v *.vcd $(executables)
+	-rm -f out.im24 out.wav *.h *.hex *.flo *.cpp *.o *.out *.v *.vcd $(executables)
 	-rm -rf project/target/ target/
 
 emulator: $(tut_outs)
+
+dreamer: $(addsuffix .hex, $(executables))
 
 verilog: $(addsuffix .v, $(executables))
 
@@ -25,7 +27,10 @@ test-solutions.xml: $(tut_outs)
 	$(top_srcdir)/sbt/check $(tut_outs) > $@
 
 %.out: %.scala
-	$(SBT) "run $(notdir $(basename $<)) --genHarness --compile --test --backend c  $(CHISEL_FLAGS)" | tee $@
+	$(SBT) "run $(notdir $(basename $<)) --genHarness --compile --test --backend c $(CHISEL_FLAGS)" | tee $@
+
+%.hex: %.scala
+	$(SBT) "run $(notdir $(basename $<)) --backend flo --genHarness --compile --test $(CHISEL_FLAGS)"
 
 %.v: %.scala
 	$(SBT) "run $(notdir $(basename $<)) --genHarness --backend v $(CHISEL_FLAGS)"

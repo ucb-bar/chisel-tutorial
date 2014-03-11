@@ -4,9 +4,9 @@ import Chisel._
 
 class ResetShiftRegister extends Module {
   val io = new Bundle {
-    val in     = UInt(INPUT, 4)
+    val in    = UInt(INPUT, 4)
     val shift = Bool(INPUT)
-    val out    = UInt(OUTPUT, 4)
+    val out   = UInt(OUTPUT, 4)
   }
   // Register reset to zero
   val r0 = Reg(init = UInt(0, width = 4))
