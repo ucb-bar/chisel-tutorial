@@ -24,16 +24,18 @@ class MemorySearch extends Module {
 }
 
 class MemorySearchTests(c: MemorySearch) extends Tester(c) {
-  val list = Array(0, 4, 15, 14, 2, 5, 13)
-  for (k <- 0 until 16) {
+  val list = c.elts.map(int(_)) 
+  val n = 8
+  val maxT = n * (list.length + 3)
+  for (k <- 0 until n) {
     val target = rnd.nextInt(16)
     poke(c.io.en,     1)
     poke(c.io.target, target)
     step(1)
+    poke(c.io.en,     0)
     do {
-      poke(c.io.en, 0)
       step(1)
-    } while (peek(c.io.done) == 0 && t < 20)
+    } while (peek(c.io.done) == 0 && t < maxT)
     val addr = peek(c.io.address).toInt
     expect(addr == list.length || list(addr) == target, 
            "LOOKING FOR " + target + " FOUND " + addr)
