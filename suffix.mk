@@ -9,7 +9,7 @@ executables := $(filter-out solutions problems examples Image Sound,\
 
 tut_outs    := $(addsuffix .out, $(executables))
 
-all: dreamer # emulator verilog
+all: emulator verilog # dreamer
 
 check: test-solutions.xml
 
