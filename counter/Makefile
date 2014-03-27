@@ -4,7 +4,7 @@ CHISEL_FLAGS :=
 top_srcdir  ?= ..
 srcdir      ?= .
 
-executables := $(filter-out examples Image Sound MemroySearch MultiClockDomain,\
+executables := $(filter-out examples Image Sound MultiClockDomain,\
             $(notdir $(basename $(wildcard $(srcdir)/*.scala))))
 
 wrappers := GCD Adder4 Risc
