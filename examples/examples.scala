@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import scala.collection.mutable.ArrayBuffer
 
 object TutorialExamples {
   def main(args: Array[String]): Unit = {
@@ -42,6 +43,9 @@ object TutorialExamples {
       case "Adder" =>
         chiselMainTest(tutArgs, () => Module(new Adder(8))){
           c => new AdderTests(c)}
+      case "Fame" =>
+        chiselMainTest(tutArgs.slice(0, tutArgs.length - 1) ++ Array("Chisel.Fame1CppBackend", "--debug", "--vcd", "--ioDebug"), () => Module(new FameTransform())){
+          c => new FameTests(c)}
       case "Adder4" =>
         chiselMainTest(tutArgs, () => Module(new Adder4())){
           c => new Adder4Tests(c)}
