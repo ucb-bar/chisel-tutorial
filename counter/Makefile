@@ -18,13 +18,13 @@ clean:
 counterc: $(addsuffix .out, $(executables))
 counterw: $(addsuffix .out, $(wrappers))
 counterv: $(addsuffix .v, $(executables))
-counterfpga: $(addsuffix .v, $(wrappers))
+#counterfpga: $(addsuffix .v, $(wrappers))
 
 %.out: %.scala
-	$(SBT) "run $(notdir $(basename $@)) --genHarness --compile --test --debug --backend counterc $(CHISEL_FLAGS)" | tee $@
+	$(SBT) "run $(notdir $(basename $@)) --genHarness --compile --test --backend counterc $(CHISEL_FLAGS)" | tee $@
 
 %Wrapper.out: %.scala
-	$(SBT) "run $(notdir $(basename $@)) --genHarness --compile --test --debug --backend counterw $(CHISEL_FLAGS)" | tee $@
+	$(SBT) "run $(notdir $(basename $@)) --genHarness --compile --test --backend counterw $(CHISEL_FLAGS)" | tee $@
 
 %.v: %.scala
 	$(SBT) "run $(notdir $(basename $@)) --backend counterv $(CHISEL_FLAGS)"
@@ -32,4 +32,4 @@ counterfpga: $(addsuffix .v, $(wrappers))
 %Wrapper.v: %.scala
 	$(SBT) "run $(notdir $(basename $@)) --backend counterfpga $(CHISEL_FLAGS)"
 
-.PHONY: default all clean counterc counterw counterv counterfpga
+.PHONY: default all clean counterc counterw counterv counterfpga 
