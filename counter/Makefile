@@ -12,7 +12,7 @@ wrappers := $(addsuffix Wrapper, GCD Adder4 Risc)
 all: counterc counterw counterv counterfpga
 
 clean:
-	-rm -f out.im24 out.wav *.h *.hex *.flo *.cpp *.o *.out *.v *.vcd $(executables) $(wrappers) SimpleALU
+	-rm -f out.im24 out.wav *.h *.hex *.flo *.cpp *.o *.out *.v *.vcd *.debug $(executables) $(wrappers) SimpleALU
 	-rm -rf project/target/ target/
 
 counterc: $(addsuffix .out, $(executables))
