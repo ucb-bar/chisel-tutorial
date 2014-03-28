@@ -1,6 +1,6 @@
 SBT          := sbt
 CHISEL_FLAGS :=
- 
+DEBUG_FLAGS  := $(CHISEL_FLAGS) --debug --vcd 
 top_srcdir  ?= ..
 srcdir      ?= .
 
@@ -19,6 +19,8 @@ counterc: $(addsuffix .out, $(executables))
 counterw: $(addsuffix .out, $(wrappers))
 counterv: $(addsuffix .v, $(executables))
 #counterfpga: $(addsuffix .v, $(wrappers))
+counterc-debug: $(addsuffix .debug, $(executables))
+counterw-debug: $(addsuffix .debug, $(wrappers))
 
 %.out: %.scala
 	$(SBT) "run $(notdir $(basename $@)) --genHarness --compile --test --backend counterc $(CHISEL_FLAGS)" | tee $@
@@ -26,10 +28,16 @@ counterv: $(addsuffix .v, $(executables))
 %Wrapper.out: %.scala
 	$(SBT) "run $(notdir $(basename $@)) --genHarness --compile --test --backend counterw $(CHISEL_FLAGS)" | tee $@
 
+%.debug: %.scala
+	$(SBT) "run $(notdir $(basename $@)) --genHarness --compile --test --backend counterc $(DEBUG_FLAGS)" | tee $@
+
+%Wrapper.debug: %.scala
+	$(SBT) "run $(notdir $(basename $@)) --genHarness --compile --test --backend counterw $(DEBUG_FLAGS)" | tee $@
+
 %.v: %.scala
 	$(SBT) "run $(notdir $(basename $@)) --backend counterv $(CHISEL_FLAGS)"
 
 %Wrapper.v: %.scala
 	$(SBT) "run $(notdir $(basename $@)) --backend counterfpga $(CHISEL_FLAGS)"
 
-.PHONY: default all clean counterc counterw counterv counterfpga 
+.PHONY: default all clean counterc counterw counterv counterfpga counterc-debug counterw-debug 
