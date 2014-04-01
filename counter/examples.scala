@@ -1,13 +1,23 @@
 package TutorialExamples
 
 import Chisel._
-import scala.collection.mutable.ArrayBuffer
+
+// class CppBackannotation extends CppBackend with Backannotation
 
 object TutorialExamples {
   def main(args: Array[String]): Unit = {
     val tutArgs = args.slice(1, args.length)
     val res =
     args(0) match {
+      case "GCDWrapper" =>
+        chiselMainTest(tutArgs, () => Module(new GCDWrapper())){
+          c => new GCDWrapperTests(c)}
+      case "Adder4Wrapper" =>
+        chiselMainTest(tutArgs, () => Module(new Adder4Wrapper())){
+          c => new Adder4WrapperTests(c)}
+      case "RiscWrapper" =>
+        chiselMainTest(tutArgs, () => Module(new RiscWrapper())){
+          c => new RiscWrapperTests(c)}
       case "GCD" =>
         chiselMainTest(tutArgs, () => Module(new GCD())){
           c => new GCDTests(c)}
@@ -33,8 +43,11 @@ object TutorialExamples {
         chiselMainTest(tutArgs, () => Module(new Router())){
           c => new RouterTests(c)}
       case "Echo" => // TODO: BROKEN
+        chiselMain(tutArgs, () => Module(new GCD))
+        /*
         chiselMainTest(tutArgs, () => Module(new GCD())){
           c => new GCDTests(c)}
+        */
         // chiselMainTest(tutArgs, () => Module(new Echo())){
         //   c => new EchoTests(c, "../src/in.wav", "out.wav")}
       case "Darken" =>
@@ -43,9 +56,6 @@ object TutorialExamples {
       case "Adder" =>
         chiselMainTest(tutArgs, () => Module(new Adder(8))){
           c => new AdderTests(c)}
-      case "Fame" =>
-        chiselMainTest(tutArgs.slice(0, tutArgs.length - 1) ++ Array("Chisel.Fame1CppBackend", "--debug", "--vcd", "--ioDebug"), () => Module(new FameTransform())){
-          c => new FameTests(c)}
       case "Adder4" =>
         chiselMainTest(tutArgs, () => Module(new Adder4())){
           c => new Adder4Tests(c)}

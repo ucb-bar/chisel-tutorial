@@ -9,11 +9,15 @@ solutions:
 examples:
 	cd examples && $(MAKE)
 
+counter:
+	cd counter && $(MAKE)
+
 clean:
 	cd problems && $(MAKE) clean
 	cd solutions && $(MAKE) clean
 	cd examples && $(MAKE) clean
+	cd counter && $(MAKE) clean
 	-rm -f test-solutions.xml
 
 
-.PHONY: solutions examples
+.PHONY: solutions examples counter
