@@ -14,7 +14,7 @@ object Counter {
   // amt only when en is asserted
   // ---------------------------------------- \\
 
-  def counter(max: UInt, en: Bool, amt: UInt) = {
+  def counter(max: UInt, en: Bool, amt: UInt): UInt = {
     val x = Reg(init=UInt(0, max.getWidth))
     when (en) { x := wrapAround(x + amt, max) }
     x
@@ -31,7 +31,7 @@ class Counter extends Module {
     val tot = UInt(OUTPUT, 8)
   }
 
-  io.tot := counter(UInt(255), io.inc, io.amt)
+  io.tot := Counter.counter(UInt(255), io.inc, io.amt)
 
 }
 

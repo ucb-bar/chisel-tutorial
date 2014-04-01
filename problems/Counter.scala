@@ -31,7 +31,7 @@ class Counter extends Module {
     val tot = UInt(OUTPUT, 8)
   }
 
-  io.tot := counter(UInt(255), io.inc, io.amt)
+  io.tot := Counter.counter(UInt(255), io.inc, io.amt)
 
 }
 
