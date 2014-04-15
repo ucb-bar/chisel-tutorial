@@ -43,7 +43,7 @@ class MultiClockDomain extends Module {
 class MultiClockDomainTests(c: MultiClockDomain) extends Tester(c) {
   // setting up clocks
   val clocks = new HashMap[Clock, Int]
-  clocks(Module.implicitClock) = 2
+  clocks(Driver.implicitClock) = 2
   clocks(c.fastClock) = 4
   clocks(c.slowClock) = 6
   setClocks(clocks)
