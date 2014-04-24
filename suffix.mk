@@ -1,4 +1,5 @@
-SBT          := sbt
+SBT          ?= sbt
+SBT_FLAGS    ?= -Dsbt.log.noformat=true
 CHISEL_FLAGS :=
 
 top_srcdir  ?= ..
@@ -35,4 +36,7 @@ test-solutions.xml: $(tut_outs)
 %.v: %.scala
 	$(SBT) "run $(notdir $(basename $<)) --genHarness --backend v $(CHISEL_FLAGS)"
 
-.PHONY: all check clean emulator verilog
+smoke:
+	$(SBT) $(SBT_FLAGS) compile
+
+.PHONY: all check clean emulator verilog smoke
