@@ -28,13 +28,13 @@ test-solutions.xml: $(tut_outs)
 	$(top_srcdir)/sbt/check $(tut_outs) > $@
 
 %.out: %.scala
-	$(SBT) "run $(notdir $(basename $<)) --genHarness --compile --test --backend c $(CHISEL_FLAGS)" | tee $@
+	$(SBT) $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --compile --test --backend c $(CHISEL_FLAGS)" | tee $@
 
 %.hex: %.scala
-	$(SBT) "run $(notdir $(basename $<)) --backend flo --genHarness --compile --test $(CHISEL_FLAGS)"
+	$(SBT) $(SBT_FLAGS) "run $(notdir $(basename $<)) --backend flo --genHarness --compile --test $(CHISEL_FLAGS)"
 
 %.v: %.scala
-	$(SBT) "run $(notdir $(basename $<)) --genHarness --backend v $(CHISEL_FLAGS)"
+	$(SBT) $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --backend v $(CHISEL_FLAGS)"
 
 smoke:
 	$(SBT) $(SBT_FLAGS) compile

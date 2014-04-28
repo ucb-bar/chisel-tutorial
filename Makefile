@@ -1,4 +1,5 @@
 top_srcdir  ?= .
+RM_DIRS 	:= emulator project target
 
 check: solutions examples
 	$(top_srcdir)/sbt/check `find solutions examples -name '*.out'` > test-solutions.xml
@@ -17,8 +18,8 @@ clean:
 	cd solutions && $(MAKE) clean
 	cd examples && $(MAKE) clean
 	cd counter && $(MAKE) clean
-	-rm -f test-solutions.xml
-
+	-$(RM) test-solutions.xml
+	$(RM) -r $(RM_DIRS)
 
 .PHONY: problems solutions examples counter smoke
 
