@@ -1,5 +1,15 @@
 SBT          ?= sbt
 SBT_FLAGS    ?= -Dsbt.log.noformat=true
+
+# If a chiselVersion is defined, use that.
+ifneq (,$(chiselVersion))
+CHISEL_SMOKE_VERSION	:= $(chiselVersion)
+CHISEL_CHECK_VERSION	:= $(chiselVersion)
+else
+CHISEL_SMOKE_VERSION	?= 2.3-SNAPSHOT
+CHISEL_CHECK_VERSION	?= 2.3-SNAPSHOT
+endif
+
 CHISEL_FLAGS :=
 
 top_srcdir  ?= ..
@@ -12,6 +22,7 @@ tut_outs    := $(addsuffix .out, $(executables))
 
 all: emulator verilog # dreamer
 
+check:  SBT_FLAGS += -DchiselVersion="$(CHISEL_CHECK_VERSION)"
 check: test-solutions.xml
 
 clean:
@@ -36,6 +47,7 @@ test-solutions.xml: $(tut_outs)
 %.v: %.scala
 	$(SBT) $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --backend v $(CHISEL_FLAGS)"
 
+smoke:  SBT_FLAGS += -DchiselVersion="$(CHISEL_SMOKE_VERSION)"
 smoke:
 	$(SBT) $(SBT_FLAGS) compile
 
