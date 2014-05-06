@@ -14,9 +14,11 @@ SBT_FLAGS    ?= -Dsbt.log.noformat=true
 ifneq (,$(chiselVersion))
 CHISEL_SMOKE_VERSION	:= $(chiselVersion)
 CHISEL_CHECK_VERSION	:= $(chiselVersion)
+CHISEL_DEFAULT_VERSION	:= $(chiselVersion)
 else
 CHISEL_SMOKE_VERSION	?= 2.3-SNAPSHOT
 CHISEL_CHECK_VERSION	?= 2.3-SNAPSHOT
+CHISEL_DEFAULT_VERSION	?= latest.release
 endif
 
 CHISEL_FLAGS :=
@@ -28,6 +30,10 @@ executables := $(filter-out solutions problems examples Image Sound,\
             $(notdir $(basename $(wildcard $(srcdir)/*.scala))))
 
 tut_outs    := $(addsuffix .out, $(executables))
+
+
+default:  SBT_FLAGS += -DchiselVersion="$(CHISEL_DEFAULT_VERSION)"
+default: all
 
 all: emulator verilog # dreamer
 
