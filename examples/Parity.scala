@@ -21,8 +21,8 @@ class ParityTests(c: Parity) extends Tester(c) {
     val bit = rnd.nextInt(2)
     poke(c.io.in, bit)
     step(1)
-    expect(c.io.out, isOdd)
     isOdd = (isOdd + bit) % 2;
+    expect(c.io.out, isOdd)
   }
 }
 
