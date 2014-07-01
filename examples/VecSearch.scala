@@ -18,7 +18,7 @@ class VecSearch extends Module {
 class VecSearchTests(c: VecSearch) extends Tester(c) {
   val list = c.elts.map(int(_)) 
   for (elt <- list) {
-    step(1)
     expect(c.io.out, elt)
+    step(1)
   }
 }
