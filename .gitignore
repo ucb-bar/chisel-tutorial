@@ -1,0 +1,8 @@
+# These are generated when we run the build
+/examples/*.hex
+/examples/*.flo
+/examples/*.vcd
+/examples/ref/
+/examples/target/
+/examples/project/target/
+/examples/out.im24
