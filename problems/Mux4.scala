@@ -1,7 +1,6 @@
 package TutorialProblems
 
 import Chisel._
-import scala.math._
 
 class Mux4 extends Module {
   val io = new Bundle {

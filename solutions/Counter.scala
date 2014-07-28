@@ -2,7 +2,6 @@ package TutorialSolutions
 
 import Chisel._
 import Counter._
-import scala.collection.mutable.ArrayBuffer
 
 object Counter {
 

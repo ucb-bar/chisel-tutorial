@@ -1,7 +1,6 @@
 package TutorialProblems
 
 import Chisel._
-import Node._
 
 class Accumulator extends Module {
   val io = new Bundle {
@@ -19,7 +18,7 @@ class AccumulatorTests(c: Accumulator) extends Tester(c) {
     val in = rnd.nextInt(2)
     poke(c.io.in, in)
     step(1)
-    expect(c.io.out, tot)
     if (in == 1) tot += 1
+    expect(c.io.out, tot)
   }
 }
