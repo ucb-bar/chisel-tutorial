@@ -1,7 +1,6 @@
 package TutorialProblems
 
 import Chisel._
-import Node._
 import Counter._
 
 object Counter {
@@ -14,7 +13,7 @@ object Counter {
   // amt only when en is asserted
   // ---------------------------------------- \\
 
-  def counter(max: UInt, en: Bool, amt: UInt) = {
+  def counter(max: UInt, en: Bool, amt: UInt): UInt = {
     val x = Reg(init=UInt(0, max.getWidth))
     x := wrapAround(x + UInt(1), max)
     x
@@ -44,7 +43,7 @@ class CounterTest(c: Counter) extends Tester(c) {
 
   // let it spin for a bit
   for (i <- 0 until 5) {
-    step(vars, isTrace = false)
+    step(1)
   }
 
   for (i <- 0 until 10) {
@@ -53,8 +52,8 @@ class CounterTest(c: Counter) extends Tester(c) {
     poke(c.io.inc, if (inc) 1 else 0)
     poke(c.io.amt, amt)
     step(1)
-    expect(c.io.tot, curCnt)
     curCnt = if(inc) intWrapAround(curCnt + amt, 255) else curCnt
+    expect(c.io.tot, curCnt)
   }
 }
 

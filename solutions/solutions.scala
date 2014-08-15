@@ -46,9 +46,6 @@ object TutorialSolutions {
       case "VendingMachine" =>
         chiselMainTest(tutArgs, () => Module(new VendingMachine())){
           c => new VendingMachineTests(c)}
-      case "FIR" =>
-        chiselMainTest(tutArgs, () => Module(new FIR())){
-          c => new FIRTests(c)}
     }
   }
 }

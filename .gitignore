@@ -1,0 +1,21 @@
+# These are generated when we run the build
+/emulator/
+/examples/*.hex
+/examples/*.flo
+/examples/*.vcd
+/examples/ref/
+/examples/target/
+/examples/project/target/
+/examples/out.im24
+/hello/*.cpp
+/hello/*.h
+/hello/*.o
+/hello/*.out
+/hello/*.v
+/hello/Hello
+/hello/project/target/
+/hello/target/
+/problems/project/target/
+/problems/target/
+/solutions/project/target/
+/solutions/target/

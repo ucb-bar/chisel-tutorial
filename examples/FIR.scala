@@ -1,4 +1,4 @@
-package TutorialSolutions
+package TutorialExamples
 
 import Chisel._
 import scala.collection.mutable.ArrayBuffer

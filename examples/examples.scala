@@ -89,6 +89,9 @@ object TutorialExamples {
       case "Stack" =>
         chiselMainTest(tutArgs, () => Module(new Stack(8))){
           c => new StackTests(c)}
+      case "FIR" =>
+        chiselMainTest(tutArgs, () => Module(new FIR())){
+          c => new FIRTests(c)}
     }
   }
 }

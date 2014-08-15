@@ -33,8 +33,8 @@ class ResetShiftRegisterTests(c: ResetShiftRegister) extends Tester(c) {
     poke(c.io.in,    in)
     poke(c.io.shift, shift)
     step(1)
-    expect(c.io.out, (if (n < 4) 0 else ins((k + 1) % 5)))
     if (shift == 1)
       k = k + 1
+    expect(c.io.out, (if (n < 4) 0 else ins((k + 1) % 5)))
   }
 }

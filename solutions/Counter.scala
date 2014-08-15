@@ -2,7 +2,6 @@ package TutorialSolutions
 
 import Chisel._
 import Counter._
-import scala.collection.mutable.ArrayBuffer
 
 object Counter {
 
@@ -53,8 +52,8 @@ class CounterTest(c: Counter) extends Tester(c) {
     poke(c.io.inc, if (inc) 1 else 0)
     poke(c.io.amt, amt)
     step(1)
-    expect(c.io.tot, curCnt)
     curCnt = if(inc) intWrapAround(curCnt + amt, 255) else curCnt
+    expect(c.io.tot, curCnt)
   }
 }
 
