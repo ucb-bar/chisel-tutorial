@@ -8,11 +8,9 @@ class LFSR16 extends Module {
     val out = UInt(OUTPUT, 16)
   }
   val res = Reg(init = UInt(1, 16))
-  printf("INC %d", io.inc)
   when (io.inc) { 
     val nxt_res = Cat(res(0)^res(2)^res(3)^res(5), res(15,1)) 
     res := nxt_res
-    printf(" NXT %d\n", nxt_res)
   }
   io.out := res
 }
