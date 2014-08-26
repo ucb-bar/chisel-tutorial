@@ -1,7 +1,6 @@
 package Hello
 
 import Chisel._
-import scala.collection.mutable.HashMap
 
 class Hello extends Module {
   val io = new Bundle { 
@@ -17,11 +16,7 @@ class HelloTests(c: Hello) extends Tester(c) {
 
 object Hello {
   def main(args: Array[String]): Unit = {
-    val margs = Array("--backend", "c", "--genHarness", "--compile", "--test")
-    chiselMainTest(margs, () => Module(new Hello())) {
+    chiselMainTest(args, () => Module(new Hello())) {
       c => new HelloTests(c) }
-    // Uncomment to allow command-line args
-    // val margs = args.slice(1, args.length)
-    // chiselMain(margs, () => Module(new Hello())) 
   }
 }
