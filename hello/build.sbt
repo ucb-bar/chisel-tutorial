@@ -1,4 +1,10 @@
 scalaVersion := "2.10.2"
 
-addSbtPlugin("com.github.scct" % "sbt-scct" % "0.2")
+resolvers ++= Seq(
+  "scct-github-repository" at "http://mtkopone.github.com/scct/maven-repo"
+)
+
+libraryDependencies += 
+  "edu.berkeley.cs" %% "chisel" % "latest.release"
+
 

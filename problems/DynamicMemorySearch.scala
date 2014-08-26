@@ -2,19 +2,19 @@ package TutorialProblems
 
 import Chisel._
 
-class DynamicMemorySearch extends Module {
+class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
   val io = new Bundle {
     val isWr   = Bool(INPUT)
-    val wrAddr = UInt(INPUT, 3)
-    val data   = UInt(INPUT, 4)
+    val wrAddr = UInt(INPUT,  log2Up(n))
+    val data   = UInt(INPUT,  w)
     val en     = Bool(INPUT)
-    val target = UInt(OUTPUT, 3)
+    val target = UInt(OUTPUT, log2Up(n))
     val done   = Bool(OUTPUT)
   }
-  val index  = Reg(init = UInt(0, width = 3))
-  val memVal = UInt(0) // TODO replace here with mem
-  val done   = !io.en && ((memVal === io.data) || (index === UInt(7)))
-  // TODO handle writes to memory (isWr, wrAddr, data)
+  val index  = Reg(init = UInt(0, width = log2Up(n)))
+  val memVal = UInt(0)
+  val done   = !io.en && ((memVal === io.data) || (index === UInt(n-1)))
+  // ...
   when (io.en) {
     index := UInt(0)
   } .elsewhen (done === Bool(false)) {
@@ -25,19 +25,19 @@ class DynamicMemorySearch extends Module {
 }
 
 class DynamicMemorySearchTests(c: DynamicMemorySearch) extends Tester(c) {
-  val list = Array.fill(8){ 0 }
+  val list = Array.fill(c.n){ 0 }
   for (k <- 0 until 16) {
     // WRITE A WORD
-    poke(c.io.en, 0)
+    poke(c.io.en,   0)
     poke(c.io.isWr, 1)
-    val wrAddr = rnd.nextInt(8-1)
-    val data = rnd.nextInt(15) + 1 // can't be 0
+    val wrAddr = rnd.nextInt(c.n-1)
+    val data = rnd.nextInt((1 << c.w) - 1) + 1 // can't be 0
     poke(c.io.wrAddr, wrAddr)
     poke(c.io.data,   data)
     step(1)
     list(wrAddr) = data
     // SETUP SEARCH
-    val target = if (k>12) rnd.nextInt(16) else data
+    val target = if (k > 12) rnd.nextInt(1 << c.w) else data
     poke(c.io.isWr, 0)
     poke(c.io.data, target)
     poke(c.io.en, 1)

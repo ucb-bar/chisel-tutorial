@@ -16,14 +16,26 @@ object TutorialProblems {
       case "VecShiftRegister" =>
         chiselMainTest(tutArgs, () => Module(new VecShiftRegister())){
           c => new VecShiftRegisterTests(c)}
+      case "VecShiftRegisterSimple" =>
+        chiselMainTest(tutArgs, () => Module(new VecShiftRegisterSimple())){
+          c => new VecShiftRegisterSimpleTests(c)}
+      case "VecShiftRegisterParam" =>
+        chiselMainTest(tutArgs, () => Module(new VecShiftRegisterParam(6, 8))){
+          c => new VecShiftRegisterParamTests(c)}
       case "SingleEvenFilter" =>
         chiselMainTest(tutArgs, () => Module(new SingleEvenFilter(UInt(width = 16)))){
           c => new SingleEvenFilterTests(c)}
       case "MaxN" =>
         chiselMainTest(tutArgs, () => Module(new MaxN(8, 16))){
           c => new MaxNTests(c)}
+      case "Max2" =>
+        chiselMainTest(tutArgs, () => Module(new Max2())){
+          c => new Max2Tests(c)}
+      case "Adder" =>
+        chiselMainTest(tutArgs, () => Module(new Adder(8))){
+          c => new AdderTests(c)}
       case "DynamicMemorySearch" =>
-        chiselMainTest(tutArgs, () => Module(new DynamicMemorySearch())){
+        chiselMainTest(tutArgs, () => Module(new DynamicMemorySearch(8, 4))){
           c => new DynamicMemorySearchTests(c)}
       case "RealGCD" => 
         chiselMainTest(tutArgs, () => Module(new RealGCD())){

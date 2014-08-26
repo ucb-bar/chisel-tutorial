@@ -17,10 +17,11 @@ class HelloTests(c: Hello) extends Tester(c) {
 
 object Hello {
   def main(args: Array[String]): Unit = {
-    // Uncomment to ignore command-line args and always build & run C emulator
-    // val args = Array("--backend", "c", "--genHarness", "--compile", "--test")
-    val cutArgs = args.slice(1, args.length)
-    chiselMainTest(cutArgs, () => Module(new Hello())) {
+    val margs = Array("--backend", "c", "--genHarness", "--compile", "--test")
+    chiselMainTest(margs, () => Module(new Hello())) {
       c => new HelloTests(c) }
+    // Uncomment to allow command-line args
+    // val margs = args.slice(1, args.length)
+    // chiselMain(margs, () => Module(new Hello())) 
   }
 }

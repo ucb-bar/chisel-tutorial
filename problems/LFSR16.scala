@@ -7,7 +7,7 @@ class LFSR16 extends Module {
     val inc = Bool(INPUT)
     val out = UInt(OUTPUT, 16)
   }
-  // COMPUTER LFSR16 HERE
+  // COMPUTE LFSR16 HERE
   io.out := UInt(0)
 }
 
