@@ -1,4 +1,4 @@
-ALLSETS	= csxxx-01 csxxx-02 csxxx-03
+ALLSETS	= getting-started csxxx-01 csxxx-02
 .PHONY:	$(ALLSETS)
 
 $(ALLSETS):	SBT_FLAGS += -DchiselVersion="2.3-SNAPSHOT"
@@ -11,9 +11,9 @@ $(ALLSETS):	SBT_FLAGS += -DchiselVersion="2.3-SNAPSHOT"
 
 default:	$(ALLSETS)
 
-csxxx-01:	Max2.out Accumulator.out
+getting-started:	Accumulator.out LFSR16.out VecShiftRegisterSimple.out Adder.out Max2.out DynamicMemorySearch.out VecShiftRegisterParam.out Mul.out 
 
-csxxx-02:	Counter.out
+csxxx-01:	Counter.out
 
-csxxx-03:	VendingMachine.out
+csxxx-02:	VendingMachine.out
 
