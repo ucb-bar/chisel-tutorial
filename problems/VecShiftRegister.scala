@@ -26,7 +26,6 @@ class VecShiftRegisterTests(c: VecShiftRegister) extends Tester(c) {
     poke(c.io.load,  load)
     poke(c.io.shift, shift)
     step(1)
-    expect(c.io.out, reg(3))
     if (load == 1) {
       for (i <- 0 until 4) 
         reg(i) = ins(i)
@@ -35,5 +34,6 @@ class VecShiftRegisterTests(c: VecShiftRegister) extends Tester(c) {
         reg(i) = reg(i-1)
       reg(0) = ins(0)
     }
+    expect(c.io.out, reg(3))
   }
 }
