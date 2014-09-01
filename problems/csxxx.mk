@@ -1,7 +1,7 @@
 ALLSETS	= getting-started csxxx-01 csxxx-02
 .PHONY:	$(ALLSETS)
 
-$(ALLSETS):	SBT_FLAGS += -DchiselVersion="2.3-SNAPSHOT"
+$(ALLSETS):	SBT_FLAGS += -DchiselVersion="$(CHISEL_DEFAULT_VERSION)"
 
 %.out: %.scala
 	if ! ( set -e -o pipefail; $(SBT) $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --compile --test --backend c $(CHISEL_FLAGS)" | tee $@ ) \
