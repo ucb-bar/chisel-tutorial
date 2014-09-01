@@ -8,7 +8,7 @@ class Max2 extends Module {
     val in1 = UInt(INPUT,  8)
     val out = UInt(OUTPUT, 8)
   }
-  io.out := Mux(io.in0 > io.in0, io.in0, io.in1)
+  io.out := Mux(io.in0 > io.in1, io.in0, io.in1)
 }
 
 class Max2Tests(c: Max2) extends Tester(c) {
