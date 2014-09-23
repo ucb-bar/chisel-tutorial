@@ -16,7 +16,8 @@ class HelloTests(c: Hello) extends Tester(c) {
 
 object Hello {
   def main(args: Array[String]): Unit = {
-    chiselMainTest(args, () => Module(new Hello())) {
+    val tutArgs = args.slice(1, args.length)
+    chiselMainTest(tutArgs, () => Module(new Hello())) {
       c => new HelloTests(c) }
   }
 }
