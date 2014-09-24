@@ -4,11 +4,11 @@ top_srcdir  ?= .
 RM_DIRS 	:= emulator project/target target
 
 # All subdirectories
-ALL_SUB_DIRS	:= examples problems solutions
+ALL_SUB_DIRS	:= examples hello problems solutions
 
 # Subdirectories that currently build cleanly,
 # for use in check, smoke
-TUT_SUB_DIRS	:= examples solutions
+TUT_SUB_DIRS	:= examples hello solutions
 
 # Subdirectory targets.
 SUB_DIR_TARGETS	:= check clean smoke
