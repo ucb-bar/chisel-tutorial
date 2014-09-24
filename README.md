@@ -55,7 +55,7 @@ Completing the Tutorials
 To learn Chisel, we recommend learning by example and just trying things out.
 To help with this, we have produced exercises (`/problems`) which have clearly
 marked places to complete their functionality and simple test cases. You can
-compare your work with our sample solutions (`/soltuions`).
+compare your work with our sample solutions (`/solutions`).
 
 To speed things up, we will keep sbt running. To get started:
 
