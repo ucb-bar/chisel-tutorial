@@ -43,10 +43,9 @@ class FIRTests(c: FIR) extends Tester(c) {
     poke(c.io.x, lx.litValue())
     val res = x * c.ws(0).floLitValue + px * c.ws(1).floLitValue
     println("TST X = " + x + " Flo(x) " + lx.floLitValue + " RES = " + res);
-    px  = x
+    val expectedFloat = java.lang.Float.intBitsToFloat(Flo(res).litValue().toInt)
+    expect(c.io.z, expectedFloat)
     step(1)
-    expect(c.io.z, Flo(res).litValue())
+    px  = x
   }
-  // CURRENTLY FAILS
-  ok = true
 }
