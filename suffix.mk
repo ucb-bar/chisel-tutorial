@@ -1,15 +1,6 @@
 SBT          ?= sbt
 SBT_FLAGS    ?= -Dsbt.log.noformat=true
 
-# Invoke recipes passing the shell '-e -o pipefail' flags: the first
-# failing command in a recipe will cause the recipe to fail immediately.
-# Otherwise, if a pipeline is involved, the exit code will be the exit code
-# of the last element of the pipeline, which if we're using 'tee", will
-# always be 'true' (success).
-.SHELLFLAGS	:= -e -o pipefail
-# Unfortunately, GNU Make 3.81 doesn't support/honor this, so we need to
-# be explicit and add the options to individual commands.
-
 # If a chiselVersion is defined, use that.
 ifneq (,$(chiselVersion))
 CHISEL_SMOKE_VERSION	:= $(chiselVersion)
