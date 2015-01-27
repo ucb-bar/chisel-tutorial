@@ -49,7 +49,7 @@ test-solutions.xml: $(tut_outs)
 # We should be able to do this with .POSIX: or .SHELLFLAGS but they don't
 # appear to be support by Make 3.81
 %.out: %.scala
-	set -e -o pipefail; $(SBT) $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --compile --test --backend c $(CHISEL_FLAGS)" | tee $@
+	set -e -o pipefail; $(SBT) $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --compile --test --backend c --vcd $(CHISEL_FLAGS)" | tee $@
 
 %.hex: %.scala
 	$(SBT) $(SBT_FLAGS) "run $(notdir $(basename $<)) --backend flo --genHarness --compile --test $(CHISEL_FLAGS)"
