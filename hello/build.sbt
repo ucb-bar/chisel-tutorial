@@ -1,8 +1,12 @@
+organization := "edu.berkeley.cs"
+
+version := "2.3-SNAPSHOT"
+
+name := "chisel-tutorial"
+
 scalaVersion := "2.10.2"
 
-resolvers ++= Seq(
-  "scct-github-repository" at "http://mtkopone.github.com/scct/maven-repo"
-)
+addSbtPlugin("com.github.scct" % "sbt-scct" % "0.2")
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-language:reflectiveCalls")
 
