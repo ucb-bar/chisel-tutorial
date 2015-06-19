@@ -91,12 +91,12 @@ class Fame3Responder extends Module {
     val req = new FameDecoupledIO(new MemReq).flip
     val resp = new FameDecoupledIO(new MemResp)
   }
-  val fireTgtClk = Bool()
+  val fireTgtClk = Wire(Bool())
   //target machine
   val mem = Mem(UInt(width = 16), 16)
   val receiveReq :: sendResp :: Nil = Enum(UInt(), 2)
   val targetState = Reg(init = receiveReq)
-  val nextTargetState = UInt()
+  val nextTargetState = Wire(UInt())
   when(fireTgtClk){
     targetState := nextTargetState
   }

@@ -9,7 +9,7 @@ class VecShiftRegister extends Module {
     val shift = Bool(INPUT)
     val out   = UInt(OUTPUT, 4)
   }
-  val delays = Vec.fill(4){ Reg(UInt()) }
+  val delays = Reg(Vec.fill(4){ UInt() })
   when (io.load) {
     delays(0) := io.ins(0)
     delays(1) := io.ins(1)

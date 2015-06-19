@@ -2,19 +2,14 @@ SBT          ?= sbt
 SBT_FLAGS    ?= -Dsbt.log.noformat=true
 
 # If a chiselVersion is defined, use that.
-# Otherwise, if we're making "smoke" use the snapshot.
 # Otherwise, use the latest release.
 ifneq (,$(chiselVersion))
 SBT_FLAGS += -DchiselVersion="$(chiselVersion)"
 else
-ifneq (,$(filter smoke,$(MAKECMDGOALS)))
-SBT_FLAGS += -DchiselVersion="2.3-SNAPSHOT"
-else
 SBT_FLAGS += -DchiselVersion="latest.release"
 endif
-endif
 
-CHISEL_FLAGS :=
+CHISEL_FLAGS := --minimumCompatibility 3.0.0
 
 top_srcdir  ?= ..
 srcdir      ?= .
