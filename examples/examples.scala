@@ -5,6 +5,18 @@ import scala.collection.mutable.ArrayBuffer
 import scala.collection.immutable.HashMap
 
 object TutorialExamples {
+  def filterArgs(args: Array[String], amap: HashMap[String, String]): Array[String] = {
+    val newArgs = ArrayBuffer[String]()
+    for (arg <- args) {
+      if (amap.contains(arg)) {
+        newArgs += amap(arg)
+      } else {
+        newArgs += arg
+      }
+    }
+    newArgs.toArray
+  }
+
   def main(args: Array[String]): Unit = {
     val tutArgs = args.slice(1, args.length)
     val res =

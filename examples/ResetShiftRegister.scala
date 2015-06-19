@@ -24,7 +24,6 @@ class ResetShiftRegister extends Module {
 
 class ResetShiftRegisterTests(c: ResetShiftRegister) extends Tester(c) {
   val ins = Array.fill(4){ 0 }
-  val regs = Array.fill(4){ 0 }
   var k   = 0
   for (n <- 0 until 16) {
     val in    = rnd.nextInt(16)
