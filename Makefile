@@ -1,5 +1,8 @@
 top_srcdir  ?= .
 
+# Determine where the output is generated
+include objdirroot.mk
+
 # Directories removed by make clean
 RM_DIRS 	:= emulator project/target target
 
@@ -57,15 +60,15 @@ $(ALL_SUB_DIRS):
 # GenSubDirTargets generates a dependency:
 # check: $(_checkers)
 check:
-	$(top_srcdir)/sbt/check `find solutions examples -name '*.out'` > test-solutions.xml
+	$(top_srcdir)/sbt/check `find $(objdirroot) -name '*.out'` > $(objdirroot)/test-solutions.xml
 
 jenkins-build:	clean smoke check
 
 # GenSubDirTargets generates a dependency:
 # clean: $(_cleaners)
 clean:
-	$(RM) test-solutions.xml
-	$(RM) -r $(RM_DIRS)
+	$(RM) $(objdirroot)/test-solutions.xml
+	if [ "$(RM_DIRS)" ] ; then $(RM) -r $(RM_DIRS); fi
 
 # GenSubDirTargets generates dependencies:
 # smoke: $(_smokeers)

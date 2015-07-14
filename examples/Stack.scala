@@ -14,7 +14,7 @@ class Stack(val depth: Int) extends Module {
     val dataOut = UInt(OUTPUT, 32)
   }
 
-  val stack_mem = Mem(UInt(width = 32), depth, seqRead = false)
+  val stack_mem = Mem(UInt(width = 32), depth)
   val sp        = Reg(init = UInt(0, width = log2Up(depth+1)))
   val dataOut   = Reg(init = UInt(0, width = 32))
 

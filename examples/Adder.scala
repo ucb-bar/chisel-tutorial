@@ -27,7 +27,7 @@ class Adder(val n:Int) extends Module {
     carry(i+1) := FAs(i).cout
     sum(i) := FAs(i).sum.toBool()
   }
-  io.Sum := sum.toBits().toUInt()
+  io.Sum := sum.toBits.toUInt()
   io.Cout := carry(n)
 }
 
