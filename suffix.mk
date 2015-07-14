@@ -14,7 +14,7 @@ CHISEL_FLAGS := --minimumCompatibility 3.0.0
 top_srcdir  ?= ..
 srcdir      ?= .
 
-executables := $(filter-out solutions problems examples Image Sound,\
+executables := $(filter-out solutions problems examples Image Sound Fame,\
             $(notdir $(basename $(wildcard $(srcdir)/*.scala))))
 
 tut_outs    := $(addsuffix .out, $(executables))
