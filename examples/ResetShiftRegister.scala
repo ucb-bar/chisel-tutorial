@@ -26,7 +26,7 @@ class ResetShiftRegisterTests(c: ResetShiftRegister) extends Tester(c) {
   val ins = Array.fill(5){ 0 }
   var k   = 0
   for (n <- 0 until 16) {
-    val in    = rnd.nextInt(2)
+    val in    = rnd.nextInt(16)
     val shift = rnd.nextInt(2)
     if (shift == 1) 
       ins(k % 5) = in
@@ -35,6 +35,6 @@ class ResetShiftRegisterTests(c: ResetShiftRegister) extends Tester(c) {
     step(1)
     if (shift == 1)
       k = k + 1
-    expect(c.io.out, (if (n < 4) 0 else ins((k + 1) % 5)))
+    expect(c.io.out, (if (n < 3) 0 else ins((k + 1) % 5)))
   }
 }
