@@ -36,7 +36,7 @@ class FIR extends Module {
 */
 
 class FIRTests(c: FIR) extends Tester(c) {
-  var px = 0.0
+  var px = 0.0f
   for (i <- 0 until 10) {
     val x = rnd.nextFloat()
     val lx = Flo(x)
