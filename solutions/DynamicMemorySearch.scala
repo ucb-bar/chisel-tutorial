@@ -14,15 +14,15 @@ class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
   val index  = Reg(init = UInt(0, width = log2Up(n)))
   val list   = Mem(UInt(width = w), n)
   val memVal = list(index)
-  val done   = !io.en && ((memVal === io.data) || (index === UInt(n-1)))
+  val over   = !io.en && ((memVal === io.data) || (index === UInt(n-1)))
   when (io.isWr) {
     list(io.wrAddr) := io.data
   } .elsewhen (io.en) {
     index := UInt(0)
-  } .elsewhen (done === Bool(false)) {
+  } .elsewhen (over === Bool(false)) {
     index := index + UInt(1)
   }
-  io.done   := done
+  io.done   := over
   io.target := index
 }
 

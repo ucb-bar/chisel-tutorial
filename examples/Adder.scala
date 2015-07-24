@@ -13,8 +13,8 @@ class Adder(val n:Int) extends Module {
   }
   //create a vector of FullAdders
   val FAs   = Vec.fill(n){ Module(new FullAdder()).io }
-  val carry = Wire(Vec.fill(n+1){ UInt(width = 1) })
-  val sum   = Wire(Vec.fill(n){ Bool() })
+  val carry = Wire(Vec(UInt(width = 1), n+1))
+  val sum   = Wire(Vec(Bool(), n))
 
   //first carry is the top level carry in
   carry(0) := io.Cin

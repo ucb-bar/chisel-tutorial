@@ -7,7 +7,7 @@ class MaxN(val n: Int, val w: Int) extends Module {
   private def Max2(x: UInt, y: UInt) = Mux(x > y, x, y)
 
   val io = new Bundle {
-    val ins = Vec.fill(n){ UInt(INPUT, w) }
+    val ins = Vec(UInt(INPUT, w), n)
     val out = UInt(OUTPUT, w)
   }
   io.out := io.ins.reduceLeft(Max2)

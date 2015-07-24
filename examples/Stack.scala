@@ -16,7 +16,7 @@ class Stack(val depth: Int) extends Module {
 
   val stack_mem = Mem(UInt(width = 32), depth)
   val sp        = Reg(init = UInt(0, width = log2Up(depth+1)))
-  val dataOut   = Reg(init = UInt(0, width = 32))
+  val out       = Reg(init = UInt(0, width = 32))
 
   when (io.en) {
     when(io.push && (sp < UInt(depth))) {
@@ -26,11 +26,11 @@ class Stack(val depth: Int) extends Module {
       sp := sp - UInt(1)
     }
     when (sp > UInt(0)) {
-      dataOut := stack_mem(sp - UInt(1))
+      out := stack_mem(sp - UInt(1))
     }
   }
 
-  io.dataOut := dataOut
+  io.dataOut := out
 }
 
 class StackTests(c: Stack) extends Tester(c) {  

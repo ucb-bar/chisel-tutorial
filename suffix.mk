@@ -67,6 +67,8 @@ outs: $(tut_outs)
 
 dreamer: $(addsuffix .hex, $(executables))
 
+dreamer: $(addsuffix .hex, $(executables))
+
 verilog: $(addsuffix .v, $(executables))
 
 $(objdir)/test-solutions.xml: $(tut_outs)

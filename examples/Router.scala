@@ -22,7 +22,7 @@ class RouterIO(n: Int) extends Bundle {
   val replies = new EnqIO(UInt(width = 8))
   val writes  = new DeqIO(new WriteCmd())
   val in      = new DeqIO(new Packet())
-  val outs    = Vec.fill(n){ new EnqIO(new Packet()) }
+  val outs    = Vec(new EnqIO(new Packet()), n)
 }
 
 class Router extends Module {
@@ -30,6 +30,7 @@ class Router extends Module {
   val n     = 4
   val io    = new RouterIO(n)
   val tbl   = Mem(UInt(width = sizeof(n)), depth)
+  io.init()
   when(io.reads.valid && io.replies.ready) { 
     val cmd = io.reads.deq();  io.replies.enq(tbl(cmd.addr))  
   } .elsewhen(io.writes.valid) { 
