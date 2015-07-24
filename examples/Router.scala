@@ -17,7 +17,7 @@ class Packet extends Bundle {
 }
 
 class RouterIO(n: Int) extends Bundle {
-  override def cloneType = new RouterIO(n).asInstanceOf[this.type]
+  override def doCloneType = new RouterIO(n).asInstanceOf[this.type]
   val reads   = new DeqIO(new ReadCmd())
   val replies = new EnqIO(UInt(width = 8))
   val writes  = new DeqIO(new WriteCmd())

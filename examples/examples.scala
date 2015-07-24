@@ -33,9 +33,6 @@ object TutorialExamples {
       case "Parity" =>
         chiselMainTest(tutArgs, () => Module(new Parity())){
           c => new ParityTests(c)}
-      case "Tst" =>
-        chiselMainTest(tutArgs, () => Module(new Tst())){
-          c => new TstTests(c)}
       case "Tbl" =>
         chiselMainTest(tutArgs, () => Module(new Tbl())){
           c => new TblTests(c)}
