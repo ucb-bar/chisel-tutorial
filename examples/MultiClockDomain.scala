@@ -4,7 +4,7 @@ import Chisel._
 import scala.collection.mutable.HashMap
 import scala.math._
 
-class ClockedAccumulator(c: Clock) extends Module(clock = c) {
+class ClockedAccumulator(c: Clock) extends Module(c) {
   val io = new Bundle {
     val inc = Decoupled(UInt(width = 32)).flip()
     val sum = Decoupled(UInt(width = 32))
