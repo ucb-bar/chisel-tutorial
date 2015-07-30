@@ -17,7 +17,7 @@ class Packet extends Bundle {
 }
 
 class RouterIO(n: Int) extends Bundle {
-  override def doCloneType = new RouterIO(n).asInstanceOf[this.type]
+  override def cloneType = new RouterIO(n).asInstanceOf[this.type]
   val reads   = new DeqIO(new ReadCmd())
   val replies = new EnqIO(UInt(width = 8))
   val writes  = new DeqIO(new WriteCmd())
@@ -30,7 +30,6 @@ class Router extends Module {
   val n     = 4
   val io    = new RouterIO(n)
   val tbl   = Mem(UInt(width = sizeof(n)), depth)
-  io.init()
   when(io.reads.valid && io.replies.ready) { 
     val cmd = io.reads.deq();  io.replies.enq(tbl(cmd.addr))  
   } .elsewhen(io.writes.valid) { 
