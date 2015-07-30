@@ -28,7 +28,7 @@ class Life(val n: Int) extends Module {
     val state = Vec(Bool(OUTPUT), tot)
   }
   def idx(i: Int, j: Int) = ((j+n)%n)*n+((i+n)%n)
-  val rnd = new Random()
+  val rnd = new Random(1)
   val cells = Range(0, tot).map(i => Module(new Cell(rnd.nextInt(2) == 1)))
   for (k <- 0 until tot)
     io.state(k) := cells(k).io.out
