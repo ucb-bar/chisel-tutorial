@@ -54,7 +54,32 @@ class LifeTests(c: Life) extends Tester(c) {
   // Disable printing when peeking state variables
   this.isTrace = false
 
-  for (t <- 0 until 16) {
+  def clear_board() = {
+    for (i <- 0 until c.n*c.n)
+      poke(c.cells(i).isAlive, 0)
+  }
+
+  def init_blinker() = {
+    clear_board
+    poke(c.cells(44).isAlive, 1)
+    poke(c.cells(45).isAlive, 1)
+    poke(c.cells(46).isAlive, 1)
+  }
+
+  def init_glider() = {
+    clear_board
+    poke(c.cells(2).isAlive, 1)
+    poke(c.cells(13).isAlive, 1)
+    poke(c.cells(21).isAlive, 1)
+    poke(c.cells(22).isAlive, 1)
+    poke(c.cells(23).isAlive, 1)
+  }
+
+  // uncomment one of these
+  //init_blinker
+  init_glider
+
+  for (t <- 0 until 50) {
     // Print column number
     print("  ")
     for (j <- 0 until c.n)
@@ -68,7 +93,11 @@ class LifeTests(c: Life) extends Tester(c) {
 
       // Print cell state
       for (i <- 0 until c.n) {
-        print(peek(c.io.state(j*c.n+i)))
+        var s = peek(c.io.state(j*c.n+i))
+        if (s == 1)
+          print("X")
+        else
+          print(".")
       }
 
       println()
