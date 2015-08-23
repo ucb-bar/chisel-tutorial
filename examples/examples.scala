@@ -24,7 +24,7 @@ object TutorialExamples {
         chiselMainTest(tutArgs, () => Module(new Tbl())){
           c => new TblTests(c)}
       case "Life" =>
-        chiselMainTest(tutArgs, () => Module(new Life(3))){
+        chiselMainTest(tutArgs, () => Module(new Life(10))){
           c => new LifeTests(c)}
       case "Risc" =>
         chiselMainTest(tutArgs, () => Module(new Risc())){
