@@ -22,19 +22,25 @@ class ResetShiftRegister extends Module {
   io.out := r3
 }
 
-class ResetShiftRegisterTests(c: ResetShiftRegister) extends Tester(c) {  
-  val ins = Array.fill(5){ 0 }
-  var k   = 0
-  for (n <- 0 until 16) {
-    val in    = rnd.nextInt(16)
-    val shift = rnd.nextInt(2)
-    if (shift == 1) 
-      ins(k % 5) = in
-    poke(c.io.in,    in)
-    poke(c.io.shift, shift)
-    step(1)
-    if (shift == 1)
-      k = k + 1
-    expect(c.io.out, (if (n < 3) 0 else ins((k + 1) % 5)))
+trait ResetShiftRegisterTests extends Tests {
+  def tests(c: ResetShiftRegister) {
+    val ins = Array.fill(5){ 0 }
+    var k   = 0
+    for (n <- 0 until 16) {
+      val in    = rnd.nextInt(16)
+      val shift = rnd.nextInt(2)
+      if (shift == 1) 
+        ins(k % 5) = in
+      poke(c.io.in,    in)
+      poke(c.io.shift, shift)
+      step(1)
+      if (shift == 1)
+        k = k + 1
+      expect(c.io.out, (if (n < 3) 0 else ins((k + 1) % 5)))
+    }
   }
+}
+
+class ResetShiftRegisterTester(c: ResetShiftRegister) extends Tester(c) with ResetShiftRegisterTests {
+  tests(c)
 }

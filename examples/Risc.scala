@@ -50,37 +50,43 @@ class Risc extends Module {
   }
 }
 
-class RiscTests(c: Risc) extends Tester(c) {  
-  def wr(addr: UInt, data: UInt)  = {
-    poke(c.io.isWr,   1)
-    poke(c.io.wrAddr, addr.litValue())
-    poke(c.io.wrData, data.litValue())
-    step(1)
+trait RiscTests extends Tests {
+  def tests(c: Risc) {
+    def wr(addr: UInt, data: UInt)  = {
+      poke(c.io.isWr,   1)
+      poke(c.io.wrAddr, addr.litValue())
+      poke(c.io.wrData, data.litValue())
+      step(1)
+    }
+    def boot()  = {
+      poke(c.io.isWr, 0)
+      poke(c.io.boot, 1)
+      step(1)
+    }
+    def tick()  = {
+      poke(c.io.isWr, 0)
+      poke(c.io.boot, 0)
+      step(1)
+    }
+    def I (op: UInt, rc: Int, ra: Int, rb: Int) = 
+      Cat(op, UInt(rc, 8), UInt(ra, 8), UInt(rb, 8))
+    val app  = Array(I(c.imm_op,   1, 0, 1), // r1 <- 1
+                     I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
+                     I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
+                     I(c.add_op, 255, 1, 0)) // rh <- r1
+    wr(UInt(0), Bits(0)) // skip reset
+    for (addr <- 0 until app.length) 
+      wr(UInt(addr), app(addr))
+    boot()
+    var k = 0
+    do {
+      tick(); k += 1
+    } while (peek(c.io.valid) == 0 && k < 10)
+    expect(k < 10, "TIME LIMIT")
+    expect(c.io.out, 4)
   }
-  def boot()  = {
-    poke(c.io.isWr, 0)
-    poke(c.io.boot, 1)
-    step(1)
-  }
-  def tick()  = {
-    poke(c.io.isWr, 0)
-    poke(c.io.boot, 0)
-    step(1)
-  }
-  def I (op: UInt, rc: Int, ra: Int, rb: Int) = 
-    Cat(op, UInt(rc, 8), UInt(ra, 8), UInt(rb, 8))
-  val app  = Array(I(c.imm_op,   1, 0, 1), // r1 <- 1
-                   I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
-                   I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
-                   I(c.add_op, 255, 1, 0)) // rh <- r1
-  wr(UInt(0), Bits(0)) // skip reset
-  for (addr <- 0 until app.length) 
-    wr(UInt(addr), app(addr))
-  boot()
-  var k = 0
-  do {
-    tick(); k += 1
-  } while (peek(c.io.valid) == 0 && k < 10)
-  expect(k < 10, "TIME LIMIT")
-  expect(c.io.out, 4)
+}
+
+class RiscTester(c: Risc) extends Tester(c) with RiscTests { 
+  tests(c) 
 }

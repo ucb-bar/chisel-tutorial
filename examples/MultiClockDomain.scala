@@ -40,31 +40,38 @@ class MultiClockDomain extends Module {
   a1.io.sum.ready := io.sum.ready
 }
 
-class MultiClockDomainTests(c: MultiClockDomain) extends Tester(c) {
+trait MultiClockDomainTests extends Tests {
   // setting up clocks
   val clocks = new HashMap[Clock, Int]
-  clocks(Driver.implicitClock) = 2
-  clocks(c.fastClock) = 4
-  clocks(c.slowClock) = 6
-  setClocks(clocks)
-
-  // out of reset, but not starting accumulators yet
-  for (i <- 0 until 5) {
-    poke(c.io.start,     0)
-    poke(c.io.sum.ready, 0)
-    step(1)
-  }
-
   val answers = Array(0, 0, 1, 3, 6, 10, 15, 21, 28, 36)
-  while (t < 10) {
-    poke(c.io.start,     1)
-    poke(c.io.sum.ready, 1)
-    step(1)
-    println("DELTA " + delta)
-    // only check outputs on valid && 6 deltas have passed
-    if (peek(c.io.sum.valid) == 1 && (delta % 6 == 0)) {
-      expect(c.io.sum.bits, answers(t))
+  
+  def tests(c: MultiClockDomain) {
+    clocks(Driver.implicitClock) = 2
+    clocks(c.fastClock) = 4
+    clocks(c.slowClock) = 6
+    setClocks(clocks)
+
+    // out of reset, but not starting accumulators yet
+    for (i <- 0 until 5) {
+      poke(c.io.start,     0)
+      poke(c.io.sum.ready, 0)
+      step(1)
+    }
+
+    while (t < 10) {
+      poke(c.io.start,     1)
+      poke(c.io.sum.ready, 1)
+      step(1)
+      println("DELTA " + delta)
+      // only check outputs on valid && 6 deltas have passed
+      if (peek(c.io.sum.valid) == 1 && (delta % 6 == 0)) {
+        expect(c.io.sum.bits, answers(t))
+      }
     }
   }
+}
+
+class MultiClockDomainTester(c: MultiClockDomain) extends Tester(c) with MultiClockDomainTests {
+  tests(c)
 }
 

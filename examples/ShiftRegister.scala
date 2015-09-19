@@ -14,15 +14,21 @@ class ShiftRegister extends Module {
   io.out := r3
 }
 
-class ShiftRegisterTests(c: ShiftRegister) extends Tester(c) {  
-  val reg     = Array.fill(4){ 0 }
-  for (t <- 0 until 64) {
-    val in = rnd.nextInt(2)
-    poke(c.io.in, in)
-    step(1)
-    for (i <- 3 to 1 by -1)
-      reg(i) = reg(i-1)
-    reg(0) = in
-    if (t >= 4) expect(c.io.out, reg(3))
+trait ShiftRegisterTests extends Tests {
+  def tests(c: ShiftRegister) {
+    val reg     = Array.fill(4){ 0 }
+    for (t <- 0 until 64) {
+      val in = rnd.nextInt(2)
+      poke(c.io.in, in)
+      step(1)
+      for (i <- 3 to 1 by -1)
+        reg(i) = reg(i-1)
+      reg(0) = in
+      if (t >= 4) expect(c.io.out, reg(3))
+    }
   }
+}
+
+class ShiftRegisterTester(c: ShiftRegister) extends Tester(c) with ShiftRegisterTests {
+  tests(c)  
 }

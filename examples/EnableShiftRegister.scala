@@ -26,19 +26,25 @@ class EnableShiftRegister extends Module {
   io.out := r3
 }
 
-class EnableShiftRegisterTests(c: EnableShiftRegister) extends Tester(c) {  
-  val reg = Array.fill(4){ 0 }
-  for (t <- 0 until 16) {
-    val in    = rnd.nextInt(16)
-    val shift = rnd.nextInt(2)
-    poke(c.io.in,    in)
-    poke(c.io.shift, shift)
-    step(1)
-    if (shift == 1) {
-      for (i <- 3 to 1 by -1)
-        reg(i) = reg(i-1)
-      reg(0) = in
+trait EnableShiftRegisterTests extends Tests {
+  def tests(c: EnableShiftRegister) {
+    val reg = Array.fill(4){ 0 }
+    for (t <- 0 until 16) {
+      val in    = rnd.nextInt(16)
+      val shift = rnd.nextInt(2)
+      poke(c.io.in,    in)
+      poke(c.io.shift, shift)
+      step(1)
+      if (shift == 1) {
+        for (i <- 3 to 1 by -1)
+          reg(i) = reg(i-1)
+        reg(0) = in
+      }
+      expect(c.io.out, reg(3))
     }
-    expect(c.io.out, reg(3))
   }
+}
+
+class EnableShiftRegisterTester(c: EnableShiftRegister) extends Tester(c) with EnableShiftRegisterTests {
+  tests(c)  
 }
