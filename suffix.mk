@@ -67,8 +67,6 @@ outs: $(tut_outs)
 
 dreamer: $(addsuffix .hex, $(executables))
 
-dreamer: $(addsuffix .hex, $(executables))
-
 verilog: $(addsuffix .v, $(executables))
 
 $(objdir)/test-solutions.xml: $(tut_outs)
@@ -77,7 +75,7 @@ $(objdir)/test-solutions.xml: $(tut_outs)
 # We need to set the shell options -e -o pipefail here or the exit
 # code will be the exit code of the last element of the pipeline - the tee.
 # We should be able to do this with .POSIX: or .SHELLFLAGS but they don't
-# appear to be support by Make 3.81
+# appear to be supported by Make 3.81
 ifeq (3.0,$(chiselVersion))
 # Chisel3 directory
 include $(top_srcdir)/chisel3/rules.mk
