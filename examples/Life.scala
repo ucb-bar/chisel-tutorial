@@ -5,7 +5,7 @@ import util.Random
 
 class Cell(isBorn: Boolean) extends Module {
   val io = new Bundle {
-    val nbrs = Vec(Bool(INPUT), 8)
+    val nbrs = Vec(8, Bool(INPUT))
     val out  = Bool(OUTPUT)
   }
   val isAlive = Reg(init=Bool(isBorn))
@@ -25,7 +25,7 @@ class Cell(isBorn: Boolean) extends Module {
 class Life(val n: Int) extends Module {
   val tot = n*n
   val io = new Bundle {
-    val state = Vec(Bool(OUTPUT), tot)
+    val state = Vec(tot, Bool(OUTPUT))
   }
   def idx(i: Int, j: Int) = ((j+n)%n)*n+((i+n)%n)
   val rnd = new Random(1)

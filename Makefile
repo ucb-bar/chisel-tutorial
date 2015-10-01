@@ -14,7 +14,7 @@ ALL_SUB_DIRS	:= examples hello problems solutions
 TUT_SUB_DIRS	:= examples hello solutions
 
 # Subdirectory targets.
-SUB_DIR_TARGETS	:= check clean smoke
+SUB_DIR_TARGETS	:= check clean compile smoke
 
 # Target-specific subdirectories
 check_SUB_DIRS	:= $(TUT_SUB_DIRS)
@@ -51,7 +51,7 @@ endef
 # Generate the cross product of target_SUB_DIRS and SUB_DIR_TARGETS
 $(foreach t,$(SUB_DIR_TARGETS),$(eval $(call GenSubDirTargets,$t)))
 
-.PHONY: $(ALL_SUB_DIRS) check clean jenkins-build smoke
+.PHONY: $(ALL_SUB_DIRS) check clean compile jenkins-build smoke
 
 # Generate the generic "make default in sub-directory".
 $(ALL_SUB_DIRS):
@@ -72,3 +72,6 @@ clean:
 
 # GenSubDirTargets generates dependencies:
 # smoke: $(_smokeers)
+
+# GenSubDirTargets generates dependencies:
+# compile: $(_compileers)

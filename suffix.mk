@@ -92,7 +92,7 @@ $(objdir)/%.v: %.scala
 	"$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --backend v --targetDir $(objdir) $(CHISEL_FLAGS)"
 endif
 
-smoke:
+compile smoke:
 	"$(SBT)" $(SBT_FLAGS) compile
 
 .PHONY: all check clean outs verilog smoke
