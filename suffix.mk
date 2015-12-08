@@ -14,10 +14,6 @@ else
 SBT_FLAGS += -DchiselVersion="latest.release"
 endif
 
-ifneq (3.0,$(chiselVersion))
-CHISEL_FLAGS := --minimumCompatibility 3.0.0
-endif
-
 top_srcdir  ?= ..
 srcdir      ?= .
 
