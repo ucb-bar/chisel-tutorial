@@ -7,29 +7,29 @@ class BasicALU extends Module {
     val a = UInt(INPUT, 4)
     val b = UInt(INPUT, 4)
     val opcode = UInt(INPUT, 4)
-    val output = UInt(OUTPUT, 4)
+    val out = UInt(OUTPUT, 4)
   }
-  io.output := UInt(0) //THIS SEEMS LIKE A HACK/BUG
+  io.out := UInt(0) //THIS SEEMS LIKE A HACK/BUG
   when (io.opcode === UInt(0)) {
-    io.output := io.a //pass A
+    io.out := io.a //pass A
   } .elsewhen (io.opcode === UInt(1)) {
-    io.output := io.b //pass B
+    io.out := io.b //pass B
   } .elsewhen (io.opcode === UInt(2)) {
-    io.output := io.a + UInt(1) //increment A by 1
+    io.out := io.a + UInt(1) //increment A by 1
   } .elsewhen (io.opcode === UInt(3)) {
-    io.output := io.a - UInt(1) //increment B by 1
+    io.out := io.a - UInt(1) //increment B by 1
   } .elsewhen (io.opcode === UInt(4)) {
-    io.output := io.a + UInt(4) //increment A by 4
+    io.out := io.a + UInt(4) //increment A by 4
   } .elsewhen (io.opcode === UInt(5)) {
-    io.output := io.a - UInt(4) //decrement A by 4
+    io.out := io.a - UInt(4) //decrement A by 4
   } .elsewhen (io.opcode === UInt(6)) {
-    io.output := io.a + io.b //add A and B
+    io.out := io.a + io.b //add A and B
   } .elsewhen (io.opcode === UInt(7)) {
-    io.output := io.a - io.b //subtract B from A
+    io.out := io.a - io.b //subtract B from A
   } .elsewhen (io.opcode === UInt(8)) {
-    io.output := io.a < io.b //set on A less than B
+    io.out := io.a < io.b //set on A less than B
   } .otherwise { 
-    io.output :=  (io.a === io.b).toUInt() //set on A equal to B
+    io.out :=  (io.a === io.b).toUInt() //set on A equal to B
   }
 }
 
@@ -38,17 +38,17 @@ class SimpleALU extends Module {
     val a      = UInt(INPUT,  4)
     val b      = UInt(INPUT,  4)
     val opcode = UInt(INPUT,  2)
-    val output = UInt(OUTPUT, 4)
+    val out = UInt(OUTPUT, 4)
   }
-  io.output := UInt(0) 
+  io.out := UInt(0) 
   when (io.opcode === UInt(0)) {
-    io.output := io.a + io.b //ADD
+    io.out := io.a + io.b //ADD
   } .elsewhen (io.opcode === UInt(1)) {
-    io.output := io.a - io.b //SUB
+    io.out := io.a - io.b //SUB
   } .elsewhen (io.opcode === UInt(2)) {
-    io.output := io.a  	     //PASS A
+    io.out := io.a  	     //PASS A
   } .otherwise {
-    io.output := io.b        //PASS B
+    io.out := io.b        //PASS B
   }
 }
 
@@ -74,7 +74,7 @@ class SimpleALUTests(c: SimpleALU) extends Tester(c) {
         poke(c.io.b, b)
         poke(c.io.opcode, opcode)
         step(1)
-        expect(c.io.output, output)
+        expect(c.io.out, output)
   }
       // }}}
 }

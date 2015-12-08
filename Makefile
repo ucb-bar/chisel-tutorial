@@ -1,5 +1,8 @@
 top_srcdir  ?= .
 
+# Determine where the output is generated
+include objdirroot.mk
+
 # Directories removed by make clean
 RM_DIRS 	:= emulator project/target target
 
@@ -11,7 +14,7 @@ ALL_SUB_DIRS	:= examples hello problems solutions
 TUT_SUB_DIRS	:= examples hello solutions
 
 # Subdirectory targets.
-SUB_DIR_TARGETS	:= check clean smoke
+SUB_DIR_TARGETS	:= check clean compile smoke
 
 # Target-specific subdirectories
 check_SUB_DIRS	:= $(TUT_SUB_DIRS)
@@ -48,7 +51,7 @@ endef
 # Generate the cross product of target_SUB_DIRS and SUB_DIR_TARGETS
 $(foreach t,$(SUB_DIR_TARGETS),$(eval $(call GenSubDirTargets,$t)))
 
-.PHONY: $(ALL_SUB_DIRS) check clean jenkins-build smoke
+.PHONY: $(ALL_SUB_DIRS) check clean compile jenkins-build smoke
 
 # Generate the generic "make default in sub-directory".
 $(ALL_SUB_DIRS):
@@ -57,15 +60,18 @@ $(ALL_SUB_DIRS):
 # GenSubDirTargets generates a dependency:
 # check: $(_checkers)
 check:
-	$(top_srcdir)/sbt/check `find solutions examples -name '*.out'` > test-solutions.xml
+	$(top_srcdir)/sbt/check `find $(objdirroot) -name '*.out'` > $(objdirroot)/test-solutions.xml
 
 jenkins-build:	clean smoke check
 
 # GenSubDirTargets generates a dependency:
 # clean: $(_cleaners)
 clean:
-	$(RM) test-solutions.xml
-	$(RM) -r $(RM_DIRS)
+	$(RM) $(objdirroot)/test-solutions.xml
+	if [ "$(RM_DIRS)" ] ; then $(RM) -r $(RM_DIRS); fi
 
 # GenSubDirTargets generates dependencies:
 # smoke: $(_smokeers)
+
+# GenSubDirTargets generates dependencies:
+# compile: $(_compileers)

@@ -2,8 +2,21 @@ package TutorialExamples
 
 import Chisel._
 import scala.collection.mutable.ArrayBuffer
+import scala.collection.immutable.HashMap
 
 object TutorialExamples {
+  def filterArgs(args: Array[String], amap: HashMap[String, String]): Array[String] = {
+    val newArgs = ArrayBuffer[String]()
+    for (arg <- args) {
+      if (amap.contains(arg)) {
+        newArgs += amap(arg)
+      } else {
+        newArgs += arg
+      }
+    }
+    newArgs.toArray
+  }
+
   def main(args: Array[String]): Unit = {
     val tutArgs = args.slice(1, args.length)
     val res =
@@ -14,9 +27,9 @@ object TutorialExamples {
       case "Combinational" =>
         chiselMainTest(tutArgs, () => Module(new Combinational())){
           c => new CombinationalTests(c)}
-      case "Functional" =>
-        chiselMainTest(tutArgs, () => Module(new Functional())){
-          c => new FunctionalTests(c)}
+      case "Functionality" =>
+        chiselMainTest(tutArgs, () => Module(new Functionality())){
+          c => new FunctionalityTests(c)}
       case "Parity" =>
         chiselMainTest(tutArgs, () => Module(new Parity())){
           c => new ParityTests(c)}
@@ -32,11 +45,6 @@ object TutorialExamples {
       case "Router" =>
         chiselMainTest(tutArgs, () => Module(new Router())){
           c => new RouterTests(c)}
-      case "Echo" => // TODO: BROKEN
-        chiselMainTest(tutArgs, () => Module(new GCD())){
-          c => new GCDTests(c)}
-        // chiselMainTest(tutArgs, () => Module(new Echo())){
-        //   c => new EchoTests(c, "../src/in.wav", "out.wav")}
       case "Darken" =>
         chiselMainTest(tutArgs, () => Module(new Darken())){
           c => new DarkenTests(c, "../src/in.im24", "out.im24")}
@@ -46,7 +54,7 @@ object TutorialExamples {
       case "Adder4" =>
         chiselMainTest(tutArgs, () => Module(new Adder4())){
           c => new Adder4Tests(c)}
-      case "BasicALU" =>
+      case "SimpleALU" =>
         chiselMainTest(tutArgs, () => Module(new SimpleALU())){
           c => new SimpleALUTests(c)}
       case "FullAdder" =>
@@ -79,9 +87,6 @@ object TutorialExamples {
       case "MemorySearch" =>
         chiselMainTest(tutArgs, () => Module(new MemorySearch())){
           c => new MemorySearchTests(c)}
-      case "MultiClockDomain" =>
-        chiselMainTest(tutArgs, () => Module(new MultiClockDomain())){
-          c => new MultiClockDomainTests(c)}
       case "Stack" =>
         chiselMainTest(tutArgs, () => Module(new Stack(8))){
           c => new StackTests(c)}

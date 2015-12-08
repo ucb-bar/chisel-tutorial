@@ -39,12 +39,10 @@ class FIRTests(c: FIR) extends Tester(c) {
   var px = 0.0f
   for (i <- 0 until 10) {
     val x = rnd.nextFloat()
-    val lx = Flo(x)
-    poke(c.io.x, lx.litValue())
+    poke(c.io.x, x)
     val res = x * c.ws(0).floLitValue + px * c.ws(1).floLitValue
-    println("TST X = " + x + " Flo(x) " + lx.floLitValue + " RES = " + res);
-    val expectedFloat = java.lang.Float.intBitsToFloat(Flo(res).litValue().toInt)
-    expect(c.io.z, expectedFloat)
+    println("TST X = " + x + " RES = " + res);
+    expect(c.io.z, res)
     step(1)
     px  = x
   }

@@ -11,7 +11,7 @@ class Memo extends Module {
     val rdAddr  = UInt(INPUT,  8)
     val rdData  = UInt(OUTPUT, 8)
   }
-  val mem = Mem(UInt(width = 8), 256)
+  val mem = Mem(256, UInt(width = 8))
 
   // --------------------------------------------------- \\
   // When wen is asserted, write wrData to mem at wrAddr 
