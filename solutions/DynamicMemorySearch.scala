@@ -28,6 +28,15 @@ class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
 
 class DynamicMemorySearchTests(c: DynamicMemorySearch) extends Tester(c) {
   val list = Array.fill(c.n){ 0 }
+  // Initialize the memory.
+  for (k <- 0 until c.n) {
+    poke(c.io.en, 0)
+    poke(c.io.isWr, 1)
+    poke(c.io.wrAddr, k)
+    poke(c.io.data, 0)
+    step(1)
+  }
+
   for (k <- 0 until 16) {
     // WRITE A WORD
     poke(c.io.en,   0)
