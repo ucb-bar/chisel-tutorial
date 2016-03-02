@@ -13,13 +13,13 @@ class MemorySearch extends Module {
   val elts  = Vec(UInt(0), UInt(4), UInt(15), UInt(14),
                   UInt(2), UInt(5), UInt(13))
   val elt   = elts(index)
-  val done  = !io.en && ((elt === io.target) || (index === UInt(7)))
+  val over  = !io.en && ((elt === io.target) || (index === UInt(7)))
   when (io.en) {
     index := UInt(0)
-  } .elsewhen (!done) {
+  } .elsewhen (!over) {
     index := index + UInt(1)
   }
-  io.done    := done
+  io.done    := over
   io.address := index
 }
 

@@ -1,7 +1,6 @@
 package TutorialExamples
 
 import Chisel._
-import Literal._;
 
 class ReadCmd extends Bundle {
   val addr = UInt(width = 32);
@@ -17,19 +16,19 @@ class Packet extends Bundle {
 }
 
 class RouterIO(n: Int) extends Bundle {
-  override def clone = new RouterIO(n).asInstanceOf[this.type]
+  override def cloneType = new RouterIO(n).asInstanceOf[this.type]
   val reads   = new DeqIO(new ReadCmd())
   val replies = new EnqIO(UInt(width = 8))
   val writes  = new DeqIO(new WriteCmd())
   val in      = new DeqIO(new Packet())
-  val outs    = Vec.fill(n){ new EnqIO(new Packet()) }
+  val outs    = Vec(n, new EnqIO(new Packet()))
 }
 
 class Router extends Module {
   val depth = 32
   val n     = 4
   val io    = new RouterIO(n)
-  val tbl   = Mem(UInt(width = sizeof(n)), depth)
+  val tbl   = Mem(depth, UInt(width = BigInt(n).bitLength))
   when(io.reads.valid && io.replies.ready) { 
     val cmd = io.reads.deq();  io.replies.enq(tbl(cmd.addr))  
   } .elsewhen(io.writes.valid) { 

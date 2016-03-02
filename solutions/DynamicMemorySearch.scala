@@ -12,22 +12,31 @@ class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
     val done   = Bool(OUTPUT)
   }
   val index  = Reg(init = UInt(0, width = log2Up(n)))
-  val list   = Mem(UInt(width = w), n)
+  val list   = Mem(n, UInt(width = w))
   val memVal = list(index)
-  val done   = !io.en && ((memVal === io.data) || (index === UInt(n-1)))
+  val over   = !io.en && ((memVal === io.data) || (index === UInt(n-1)))
   when (io.isWr) {
     list(io.wrAddr) := io.data
   } .elsewhen (io.en) {
     index := UInt(0)
-  } .elsewhen (done === Bool(false)) {
+  } .elsewhen (over === Bool(false)) {
     index := index + UInt(1)
   }
-  io.done   := done
+  io.done   := over
   io.target := index
 }
 
 class DynamicMemorySearchTests(c: DynamicMemorySearch) extends Tester(c) {
   val list = Array.fill(c.n){ 0 }
+  // Initialize the memory.
+  for (k <- 0 until c.n) {
+    poke(c.io.en, 0)
+    poke(c.io.isWr, 1)
+    poke(c.io.wrAddr, k)
+    poke(c.io.data, 0)
+    step(1)
+  }
+
   for (k <- 0 until 16) {
     // WRITE A WORD
     poke(c.io.en,   0)
