@@ -4,7 +4,7 @@ top_srcdir  ?= .
 include objdirroot.mk
 
 # Directories removed by make clean
-RM_DIRS 	:= emulator project/target target
+RM_DIRS 	:= emulator project/target target $(objdirroot)
 
 # All subdirectories
 ALL_SUB_DIRS	:= examples hello problems solutions
@@ -67,8 +67,7 @@ jenkins-build:	clean smoke check
 # GenSubDirTargets generates a dependency:
 # clean: $(_cleaners)
 clean:
-	$(RM) $(objdirroot)/test-solutions.xml
-	if [ "$(RM_DIRS)" ] ; then $(RM) -r $(RM_DIRS); fi
+	if [ -n "$(RM_DIRS)" ] ; then $(RM) -r $(RM_DIRS); fi
 
 # GenSubDirTargets generates dependencies:
 # smoke: $(_smokeers)

@@ -16,7 +16,7 @@ def main(args, junit_file):
             test_status = 'FAILED'
             test_time = 0
             for line in outfile.readlines():
-                look = re.match(r'RAN \d+ CYCLES (PASSED)|(FAILED)', line)
+                look = re.match(r'RAN \d+ CYCLES (PASSED)|(FAILED)', line) or re.match(r'(PASSED|FAILED)', line)
                 if look:
                     test_status = look.group(1)
                 look = re.match(r'.*Total time: (\S+) s,', line)
