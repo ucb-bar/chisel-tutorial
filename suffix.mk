@@ -53,7 +53,7 @@ default: all
 
 all: outs verilog # dreamer
 
-check: $(objdir)/test-solutions.xml
+check: $(objdir) $(objdir)/test-solutions.xml
 
 clean: $(filter-out $(wildcard $objdir),$(objdir)) $(objdir)
 	cd $(objdir) && $(RM) $(generated_files)
