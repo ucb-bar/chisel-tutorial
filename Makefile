@@ -5,6 +5,7 @@ include objdirroot.mk
 
 # Directories removed by make clean
 RM_DIRS 	:= emulator project/target target $(objdirroot)
+CLEAN_DIRS	:= doc
 
 # All subdirectories
 ALL_SUB_DIRS	:= examples hello problems solutions
@@ -51,7 +52,7 @@ endef
 # Generate the cross product of target_SUB_DIRS and SUB_DIR_TARGETS
 $(foreach t,$(SUB_DIR_TARGETS),$(eval $(call GenSubDirTargets,$t)))
 
-.PHONY: $(ALL_SUB_DIRS) check clean compile jenkins-build smoke
+.PHONY: $(ALL_SUB_DIRS) check clean compile jenkins-build smoke doc
 
 # Generate the generic "make default in sub-directory".
 $(ALL_SUB_DIRS):
@@ -68,6 +69,12 @@ jenkins-build:	clean smoke check
 # clean: $(_cleaners)
 clean:
 	if [ -n "$(RM_DIRS)" ] ; then $(RM) -r $(RM_DIRS); fi
+	if [ -n "$(CLEAN_DIRS)" ] ; then \
+	    for dir in $(CLEAN_DIRS); do $(MAKE) -C $$dir clean; done; \
+	fi
+
+doc:
+	(cd doc && $(MAKE) all)
 
 # GenSubDirTargets generates dependencies:
 # smoke: $(_smokeers)
