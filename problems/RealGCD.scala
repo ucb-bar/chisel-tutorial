@@ -39,5 +39,5 @@ class RealGCDTests(c: RealGCD) extends Tester(c) {
     expect(c.io.out.bits, outputs(i))
     i += 1;
   } while (t < 100 && i < 3)
-  if (t >= 100) ok = false
+  if (t >= 100) fail
 }

@@ -24,6 +24,4 @@ class MaxNTests(c: MaxN) extends Tester(c) {
     // FILL THIS IN HERE
     expect(c.io.out, 1)
   }
-  // REMOVE THIS
-  ok = true
 }

@@ -742,7 +742,6 @@ subclasses of the \code{Tester} class:
 \begin{scala}
 class Tester[T <: Module] (val c: T, val isTrace: Boolean = true) {
   var t: Int
-  var ok: Boolean
   val rnd: Random
   def int(x: Boolean): BigInt
   def int(x: Int): BigInt
