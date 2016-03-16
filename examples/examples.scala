@@ -48,6 +48,9 @@ object TutorialExamples {
       case "Darken" =>
         chiselMainTest(tutArgs, () => Module(new Darken())){
           c => new DarkenTests(c, "../src/in.im24", "out.im24")}
+          // Chisel2-3 compatibility since this "test" is silent.
+	  val pfString = if (ChiselError.hasErrors) "FAILED" else "PASSED"
+          println(s"${pfString} -- ${args(0)}")
       case "Adder" =>
         chiselMainTest(tutArgs, () => Module(new Adder(8))){
           c => new AdderTests(c)}
