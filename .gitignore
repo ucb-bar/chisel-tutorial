@@ -9,3 +9,8 @@
 /solutions/project/target/
 /solutions/target/
 /generated*/
+.idea
+*.h
+*.cpp
+*.o
+*.iml
