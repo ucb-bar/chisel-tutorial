@@ -1,6 +1,7 @@
 package TutorialSolutions
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class VecShiftRegister extends Module {
   val io = new Bundle {
@@ -24,7 +25,7 @@ class VecShiftRegister extends Module {
   io.out := delays(3)
 }
 
-class VecShiftRegisterTests(c: VecShiftRegister) extends Tester(c) { 
+class VecShiftRegisterTests(c: VecShiftRegister) extends ClassicTester(c) {
   val reg     = Array.fill(4){ 0 }
   val ins     = Array.fill(4){ 0 }
   // Initialize the delays.

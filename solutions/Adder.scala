@@ -1,6 +1,7 @@
 package TutorialSolutions
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class Adder(val w: Int) extends Module {
   val io = new Bundle {
@@ -11,7 +12,7 @@ class Adder(val w: Int) extends Module {
   io.out := io.in0 + io.in1
 }
 
-class AdderTests(c: Adder) extends Tester(c) {
+class AdderTests(c: Adder) extends ClassicTester(c) {
   for (i <- 0 until 10) {
     val in0 = rnd.nextInt(1 << c.w)
     val in1 = rnd.nextInt(1 << c.w)

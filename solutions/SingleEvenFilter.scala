@@ -1,6 +1,7 @@
 package TutorialSolutions
 
 import Chisel._
+import Chisel.hwiotesters._
 
 abstract class Filter[T <: Data](dtype: T) extends Module {
   val io = new Bundle {
@@ -31,7 +32,7 @@ class SingleEvenFilter[T <: UInt](dtype: T) extends Filter(dtype) {
   io.out        := even.io.out
 }
 
-class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T]) extends Tester(c) {
+class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T]) extends ClassicTester(c) {
   val maxInt  = 1 << 16
   for (i <- 0 until 10) {
     val in = rnd.nextInt(maxInt)

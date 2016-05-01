@@ -1,6 +1,7 @@
 package TutorialSolutions
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class RealGCDInput extends Bundle {
   val a = Bits(width = 16)
@@ -37,7 +38,7 @@ class RealGCD extends Module {
   }
 }
 
-class RealGCDTests(c: RealGCD) extends Tester(c) {
+class RealGCDTests(c: RealGCD) extends ClassicTester(c) {
   val inputs = List( (48, 32), (7, 3), (100, 10) )
   val outputs = List( 16, 1, 10)
 

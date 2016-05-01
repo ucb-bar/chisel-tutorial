@@ -1,6 +1,7 @@
 package TutorialSolutions
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class VendingMachineSwitch extends Module {
   val io = new Bundle {
@@ -35,7 +36,7 @@ class VendingMachineSwitch extends Module {
   io.valid := (state ===s_ok)
 }
 
-class VendingMachineSwitchTests(c: VendingMachineSwitch) extends Tester(c) {
+class VendingMachineSwitchTests(c: VendingMachineSwitch) extends ClassicTester(c) {
   var money = 0
   var isValid = false
   for (t <- 0 until 20) {

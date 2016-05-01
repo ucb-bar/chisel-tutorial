@@ -1,6 +1,7 @@
 package TutorialSolutions
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class Memo extends Module {
   val io = new Bundle {
@@ -30,7 +31,7 @@ class Memo extends Module {
 
 }
 
-class MemoTests(c: Memo) extends Tester(c) {
+class MemoTests(c: Memo) extends ClassicTester(c) {
   def rd(addr: Int, data: Int) = {
     poke(c.io.ren, 1)
     poke(c.io.rdAddr, addr)

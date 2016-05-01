@@ -1,6 +1,7 @@
 package TutorialSolutions
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class Accumulator extends Module {
   val io = new Bundle {
@@ -12,7 +13,7 @@ class Accumulator extends Module {
   io.out := accumulator
 }
 
-class AccumulatorTests(c: Accumulator) extends Tester(c) {
+class AccumulatorTests(c: Accumulator) extends ClassicTester(c) {
   var tot = 0
   for (t <- 0 until 16) {
     val in = rnd.nextInt(2)

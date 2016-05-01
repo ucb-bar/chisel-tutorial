@@ -1,6 +1,7 @@
 package TutorialSolutions
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class Max2 extends Module {
   val io = new Bundle {
@@ -11,7 +12,7 @@ class Max2 extends Module {
   io.out := Mux(io.in0 > io.in1, io.in0, io.in1)
 }
 
-class Max2Tests(c: Max2) extends Tester(c) {
+class Max2Tests(c: Max2) extends ClassicTester(c) {
   for (i <- 0 until 10) {
     // FILL THIS IN HERE
     val in0 = rnd.nextInt(256)

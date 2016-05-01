@@ -1,6 +1,7 @@
 package TutorialSolutions
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class Mux4 extends Module {
   val io = new Bundle {
@@ -38,7 +39,7 @@ class Mux4 extends Module {
   io.out := m2.io.out
 }
 
-class Mux4Tests(c: Mux4) extends Tester(c) {  
+class Mux4Tests(c: Mux4) extends ClassicTester(c) {
   for (s0 <- 0 until 2) {
     for (s1 <- 0 until 2) {
       for(i0 <- 0 until 2) {
