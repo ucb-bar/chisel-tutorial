@@ -4,9 +4,3 @@
 [submodule "chisel-testers"]
 	path = chisel-testers
 	url = git@github.com:ucb-bar/chisel-testers.git
-[submodule "hello/chisel-testers"]
-	path = hello/chisel-testers
-	url = git@github.com:ucb-bar/chisel-testers.git
-[submodule "hello/chisel3"]
-	path = hello/chisel3
-	url = git@github.com:ucb-bar/chisel3.git
