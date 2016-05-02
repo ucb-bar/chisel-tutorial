@@ -1,6 +1,7 @@
 package TutorialProblems
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class VendingMachine extends Module {
   val io = new Bundle {
@@ -16,7 +17,7 @@ class VendingMachine extends Module {
   io.valid := (state === sOk)
 }
 
-class VendingMachineTests(c: VendingMachine) extends Tester(c) {  
+class VendingMachineTests(c: VendingMachine) extends ClassicTester(c) {
   var money = 0
   var isValid = false
   for (t <- 0 until 20) {
@@ -25,8 +26,8 @@ class VendingMachineTests(c: VendingMachine) extends Tester(c) {
     val isDime   = coin == 10
 
     // Advance circuit
-    poke(c.io.nickel, Bool(isNickel).litValue())
-    poke(c.io.dime,   Bool(isDime).litValue())
+    poke(c.io.nickel, if (isNickel) 1 else 0)
+    poke(c.io.dime,   if (isDime) 1 else 0)
     step(1)
 
     // Advance model
@@ -34,6 +35,6 @@ class VendingMachineTests(c: VendingMachine) extends Tester(c) {
     isValid = money >= 20
 
     // Compare
-    expect(c.io.valid, Bool(isValid).litValue())
+    expect(c.io.valid, if (isValid) 1 else 0)
   }
 }

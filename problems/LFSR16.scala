@@ -1,6 +1,7 @@
 package TutorialProblems
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class LFSR16 extends Module {
   val io = new Bundle {
@@ -11,7 +12,7 @@ class LFSR16 extends Module {
   io.out := UInt(0)
 }
 
-class LFSR16Tests(c: LFSR16) extends Tester(c) {
+class LFSR16Tests(c: LFSR16) extends ClassicTester(c) {
   var res = 1
   for (t <- 0 until 16) {
     val inc = rnd.nextInt(2)

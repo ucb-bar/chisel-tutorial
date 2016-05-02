@@ -1,18 +1,19 @@
 package TutorialProblems
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class VecShiftRegisterSimple extends Module {
   val io = new Bundle {
     val in  = UInt(INPUT,  8)
     val out = UInt(OUTPUT, 8)
   }
-  val delays = Reg(Vec(4, UInt(width = 8)))
+  val delays = Reg(init = Vec.fill(4)(UInt(0, width = 8)))
   /// fill in here ...
   io.out := UInt(0)
 }
 
-class VecShiftRegisterSimpleTests(c: VecShiftRegisterSimple) extends Tester(c) { 
+class VecShiftRegisterSimpleTests(c: VecShiftRegisterSimple) extends ClassicTester(c) {
   val reg = Array.fill(4){ 0 }
   for (t <- 0 until 16) {
     val in = rnd.nextInt(256)

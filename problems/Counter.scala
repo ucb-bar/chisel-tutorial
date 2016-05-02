@@ -1,6 +1,7 @@
 package TutorialProblems
 
 import Chisel._
+import Chisel.hwiotesters._
 import Counter._
 
 object Counter {
@@ -34,7 +35,7 @@ class Counter extends Module {
 
 }
 
-class CounterTest(c: Counter) extends Tester(c) {
+class CounterTest(c: Counter) extends ClassicTester(c) {
   val maxInt  = 16
   var curCnt  = 0
 

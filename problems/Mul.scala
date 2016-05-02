@@ -1,6 +1,7 @@
 package TutorialProblems
 
 import Chisel._
+import Chisel.hwiotesters._
 import scala.collection.mutable.ArrayBuffer
 
 class Mul extends Module {
@@ -20,7 +21,7 @@ class Mul extends Module {
   // -------------------------------- \\
 }
 
-class MulTests(c: Mul) extends Tester(c) {
+class MulTests(c: Mul) extends ClassicTester(c) {
   val maxInt  = 1 << 4
   for (i <- 0 until 10) {
     val x = rnd.nextInt(maxInt)

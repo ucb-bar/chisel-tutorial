@@ -1,6 +1,7 @@
 package TutorialProblems
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
   val io = new Bundle {
@@ -24,7 +25,7 @@ class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
   io.target := index
 }
 
-class DynamicMemorySearchTests(c: DynamicMemorySearch) extends Tester(c) {
+class DynamicMemorySearchTests(c: DynamicMemorySearch) extends ClassicTester(c) {
   val list = Array.fill(c.n){ 0 }
   // Initialize the memory.
   for (k <- 0 until c.n) {
@@ -57,8 +58,8 @@ class DynamicMemorySearchTests(c: DynamicMemorySearch) extends Tester(c) {
     } while (peek(c.io.done) == 0)
     val addr = peek(c.io.target).toInt
     if (list contains target)
-      expect(list(addr) == target, "LOOKING FOR " + target + " FOUND " + addr)
+      assert(list(addr) == target, "LOOKING FOR " + target + " FOUND " + addr)
     else
-      expect(addr==(list.length-1), "LOOKING FOR " + target + " FOUND " + addr)
+      assert(addr==(list.length-1), "LOOKING FOR " + target + " FOUND " + addr)
   }
 }

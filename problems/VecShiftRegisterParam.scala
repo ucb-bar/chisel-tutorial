@@ -1,6 +1,7 @@
 package TutorialProblems
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class VecShiftRegisterParam(val n: Int, val w: Int) extends Module {
   val io = new Bundle {
@@ -11,7 +12,7 @@ class VecShiftRegisterParam(val n: Int, val w: Int) extends Module {
   io.out := UInt(0)
 }
 
-class VecShiftRegisterParamTests(c: VecShiftRegisterParam) extends Tester(c) { 
+class VecShiftRegisterParamTests(c: VecShiftRegisterParam) extends ClassicTester(c) {
   val reg = Array.fill(c.n){ 0 }
   for (t <- 0 until 16) {
     val in = rnd.nextInt(1 << c.w)
