@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class FullAdder extends Module {
   val io = new Bundle {
@@ -21,7 +22,7 @@ class FullAdder extends Module {
   io.cout := a_and_b | b_and_cin | a_and_cin
 }
 
-class FullAdderTests(c: FullAdder) extends Tester(c) {  
+class FullAdderTests(c: FullAdder) extends ClassicTester(c) {
   for (t <- 0 until 4) {
     val a    = rnd.nextInt(2)
     val b    = rnd.nextInt(2)

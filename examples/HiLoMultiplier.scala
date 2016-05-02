@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 //A 4-bit adder with carry in and carry out
 class HiLoMultiplier() extends Module {
@@ -15,15 +16,15 @@ class HiLoMultiplier() extends Module {
   io.Hi := mult(31, 16)
 }
 
-class HiLoMultiplierTests(c: HiLoMultiplier) extends Tester(c) {
+class HiLoMultiplierTests(c: HiLoMultiplier) extends ClassicTester(c) {
   for (t <- 0 until 4) {
     val rnd0 = rnd.nextInt(65535)
     val rnd1 = rnd.nextInt(65535)
-    val ref_out = UInt(rnd0 * rnd1, width=32)
+    val ref_out = rnd0 * rnd1
     poke(c.io.A, rnd0)
     poke(c.io.B, rnd1)
     step(1)
-    expect(c.io.Lo, ref_out(15, 0).litValue())
-    expect(c.io.Hi, ref_out(31, 16).litValue())
+    expect(c.io.Lo, ref_out & BigInt("ffff", 16))
+    expect(c.io.Hi, (ref_out & BigInt("ffff0000", 16)) >> 16)
   }
 }

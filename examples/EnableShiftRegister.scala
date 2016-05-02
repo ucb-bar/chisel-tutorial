@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class EnableShiftRegister extends Module {
   val io = new Bundle {
@@ -26,7 +27,7 @@ class EnableShiftRegister extends Module {
   io.out := r3
 }
 
-class EnableShiftRegisterTests(c: EnableShiftRegister) extends Tester(c) {  
+class EnableShiftRegisterTests(c: EnableShiftRegister) extends ClassicTester(c) {
   val reg = Array.fill(4){ 0 }
   for (t <- 0 until 16) {
     val in    = rnd.nextInt(16)

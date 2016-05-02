@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class Parity extends Module {
   val io = new Bundle {
@@ -15,7 +16,7 @@ class Parity extends Module {
   io.out := (state === s_odd)
 }
 
-class ParityTests(c: Parity) extends Tester(c) {
+class ParityTests(c: Parity) extends ClassicTester(c) {
   var isOdd = 0
   for (t <- 0 until 10) {
     val bit = rnd.nextInt(2)

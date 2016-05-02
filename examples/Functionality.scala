@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class Functionality extends Module {
   val io = new Bundle {
@@ -13,7 +14,7 @@ class Functionality extends Module {
   io.z := clb(io.x, io.y, io.x, io.y)
 }
 
-class FunctionalityTests(c: Functionality) extends Tester(c) {
+class FunctionalityTests(c: Functionality) extends ClassicTester(c) {
   val maxInt = 1 << 16
   for (i <- 0 until 10) {
     val x = rnd.nextInt(maxInt)

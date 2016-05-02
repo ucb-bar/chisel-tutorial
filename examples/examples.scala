@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.immutable.HashMap
 
@@ -22,80 +23,82 @@ object TutorialExamples {
     val res =
     args(0) match {
       case "GCD" =>
-        chiselMainTest(tutArgs, () => Module(new GCD())){
+        chiselMainTest(tutArgs, () => new GCD()){
           c => new GCDTests(c)}
       case "Combinational" =>
-        chiselMainTest(tutArgs, () => Module(new Combinational())){
+        chiselMainTest(tutArgs, () => new Combinational()){
           c => new CombinationalTests(c)}
       case "Functionality" =>
-        chiselMainTest(tutArgs, () => Module(new Functionality())){
+        chiselMainTest(tutArgs, () => new Functionality()){
           c => new FunctionalityTests(c)}
       case "Parity" =>
-        chiselMainTest(tutArgs, () => Module(new Parity())){
+        chiselMainTest(tutArgs, () => new Parity()){
           c => new ParityTests(c)}
       case "Tbl" =>
-        chiselMainTest(tutArgs, () => Module(new Tbl())){
+        chiselMainTest(tutArgs, () => new Tbl()){
           c => new TblTests(c)}
       case "Life" =>
-        chiselMainTest(tutArgs, () => Module(new Life(3))){
+        chiselMainTest(tutArgs, () => new Life(3)){
           c => new LifeTests(c)}
       case "Risc" =>
-        chiselMainTest(tutArgs, () => Module(new Risc())){
+        chiselMainTest(tutArgs, () => new Risc()){
           c => new RiscTests(c)}
       case "Router" =>
-        chiselMainTest(tutArgs, () => Module(new Router())){
+        chiselMainTest(tutArgs, () => new Router()){
           c => new RouterTests(c)}
       case "Darken" =>
-        chiselMainTest(tutArgs, () => Module(new Darken())){
+        chiselMainTest(tutArgs, () => new Darken()){
           c => new DarkenTests(c, "../src/in.im24", "out.im24")}
           // Chisel2-3 compatibility since this "test" is silent.
-	  val pfString = if (ChiselError.hasErrors) "FAILED" else "PASSED"
-          println(s"${pfString} -- ${args(0)}")
+          //val pfString = if (ChiselError.hasErrors) "FAILED" else "PASSED"
+          //println(s"${pfString} -- ${args(0)}")
       case "Adder" =>
-        chiselMainTest(tutArgs, () => Module(new Adder(8))){
+        chiselMainTest(tutArgs, () => new Adder(8)){
           c => new AdderTests(c)}
       case "Adder4" =>
-        chiselMainTest(tutArgs, () => Module(new Adder4())){
+        chiselMainTest(tutArgs, () => new Adder4()){
           c => new Adder4Tests(c)}
       case "SimpleALU" =>
-        chiselMainTest(tutArgs, () => Module(new SimpleALU())){
+        chiselMainTest(tutArgs, () => new SimpleALU()){
           c => new SimpleALUTests(c)}
       case "FullAdder" =>
-        chiselMainTest(tutArgs, () => Module(new FullAdder())){
+        chiselMainTest(tutArgs, () => new FullAdder()){
           c => new FullAdderTests(c)}
       case "FullAdder2" =>
-        chiselMainTest(tutArgs, () => Module(new FullAdder2())){
+        chiselMainTest(tutArgs, () => new FullAdder2()){
           c => new FullAdder2Tests(c)}
       case "ByteSelector" =>
-        chiselMainTest(tutArgs, () => Module(new ByteSelector())){
+        chiselMainTest(tutArgs, () => new ByteSelector()){
           c => new ByteSelectorTests(c)}
       case "HiLoMultiplier" =>
-        chiselMainTest(tutArgs, () => Module(new HiLoMultiplier())){
+        chiselMainTest(tutArgs, () => new HiLoMultiplier()){
           c => new HiLoMultiplierTests(c)}
       case "ShiftRegister" =>
-        chiselMainTest(tutArgs, () => Module(new ShiftRegister())){
+        chiselMainTest(tutArgs, () => new ShiftRegister()){
           c => new ShiftRegisterTests(c)}
       case "ResetShiftRegister" =>
-        chiselMainTest(tutArgs, () => Module(new ResetShiftRegister())){
+        chiselMainTest(tutArgs, () => new ResetShiftRegister()){
           c => new ResetShiftRegisterTests(c)}
       case "EnableShiftRegister" =>
-        chiselMainTest(tutArgs, () => Module(new EnableShiftRegister())){
+        chiselMainTest(tutArgs, () => new EnableShiftRegister()){
           c => new EnableShiftRegisterTests(c)}
       case "LogShifter" =>
-        chiselMainTest(tutArgs, () => Module(new LogShifter())){
+        chiselMainTest(tutArgs, () => new LogShifter()){
           c => new LogShifterTests(c)}
       case "VecSearch" =>
-        chiselMainTest(tutArgs, () => Module(new VecSearch())){
+        chiselMainTest(tutArgs, () => new VecSearch()){
           c => new VecSearchTests(c)}
-      case "MemorySearch" =>
-        chiselMainTest(tutArgs, () => Module(new MemorySearch())){
-          c => new MemorySearchTests(c)}
       case "Stack" =>
-        chiselMainTest(tutArgs, () => Module(new Stack(8))){
+        chiselMainTest(tutArgs, () => new Stack(8)) {
           c => new StackTests(c)}
-      case "FIR" =>
-        chiselMainTest(tutArgs, () => Module(new FIR())){
-          c => new FIRTests(c)}
+      /*comment out MemorySearch because Chisel3 ClassicTester doesn't support peek/poke on internal signals*/
+      /*case "MemorySearch" =>
+        chiselMainTest(tutArgs, () => new MemorySearch()){
+          c => new MemorySearchTests(c)}*/
+      /*comment out FIR for now due to lack of Flo support*/
+      /*case "FIR" =>
+      chiselMainTest(tutArgs, () => new FIR()){
+        c => new FIRTests(c)*/
     }
   }
 }

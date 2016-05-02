@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class LogShifter extends Module {
   val io = new Bundle {
@@ -33,6 +34,6 @@ class LogShifter extends Module {
   }
 }
 
-class LogShifterTests(c: LogShifter) extends Tester(c) {
+class LogShifterTests(c: LogShifter) extends ClassicTester(c) {
 }
 

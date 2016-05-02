@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 import scala.collection.mutable.ArrayBuffer
 
 object Delays {
@@ -13,13 +14,32 @@ object GenFIR {
     (ws, Delays(x, ws.length, i)).zipped.map( _ * _ ).reduce( _ + _ )
 }
 
+
+/* comment this out for now because we don't have Flo support in Chisel 3 yet*/
+/*
 class FIR extends Module {
   val io = new Bundle { val x = Flo(INPUT); val z = Flo(OUTPUT) }
   val ws = Array(Flo(0.25), Flo(0.75))
   io.z  := GenFIR(ws, io.x, Flo(0))
 }
+*/
 
-// FIR filter
+/*
+class FIRTests(c: FIR) extends ClassicTester(c) {
+  var px = 0.0f
+  for (i <- 0 until 10) {
+    val x = rnd.nextFloat()
+    poke(c.io.x, x)
+    val res = x * c.ws(0).floLitValue + px * c.ws(1).floLitValue
+    println("TST X = " + x + " RES = " + res);
+    expect(c.io.z, res)
+    step(1)
+    px  = x
+  }
+}
+*/
+
+// Old FIR filter?
 /*
 class FIR extends Module {
   val io = new Bundle {
@@ -35,15 +55,3 @@ class FIR extends Module {
 }
 */
 
-class FIRTests(c: FIR) extends Tester(c) {
-  var px = 0.0f
-  for (i <- 0 until 10) {
-    val x = rnd.nextFloat()
-    poke(c.io.x, x)
-    val res = x * c.ws(0).floLitValue + px * c.ws(1).floLitValue
-    println("TST X = " + x + " RES = " + res);
-    expect(c.io.z, res)
-    step(1)
-    px  = x
-  }
-}

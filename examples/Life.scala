@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 import util.Random
 
 class Cell(isBorn: Boolean) extends Module {
@@ -48,7 +49,7 @@ class Life(val n: Int) extends Module {
   }
 }
 
-class LifeTests(c: Life) extends Tester(c) {
+class LifeTests(c: Life) extends ClassicTester(c) {
   for (t <- 0 until 16) {
     step(1)
     for (j <- 0 until c.n) {

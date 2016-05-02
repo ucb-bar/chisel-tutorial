@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class MemorySearch extends Module {
   val io = new Bundle {
@@ -23,7 +24,9 @@ class MemorySearch extends Module {
   io.address := index
 }
 
-class MemorySearchTests(c: MemorySearch) extends Tester(c) {
+/* commented out for now because Chisel3 ClassicTester doesn't support access to module internal signals */
+/*
+class MemorySearchTests(c: MemorySearch) extends ClassicTester(c) {
   val list = c.elts.map(int(_)) 
   val n = 8
   val maxT = n * (list.length + 3)
@@ -41,3 +44,4 @@ class MemorySearchTests(c: MemorySearch) extends Tester(c) {
            "LOOKING FOR " + target + " FOUND " + addr)
   }
 }
+*/

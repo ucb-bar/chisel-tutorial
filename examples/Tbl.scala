@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class Tbl extends Module {
   val io = new Bundle {
@@ -11,7 +12,7 @@ class Tbl extends Module {
   io.out := r(io.addr)
 }
 
-class TblTests(c: Tbl) extends Tester(c) {
+class TblTests(c: Tbl) extends ClassicTester(c) {
   for (t <- 0 until 16) {
     val addr = rnd.nextInt(256)
     poke(c.io.addr, addr)

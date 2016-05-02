@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class ReadCmd extends Bundle {
   val addr = UInt(width = 32);
@@ -39,10 +40,10 @@ class Router extends Module {
     when (io.outs(idx).ready) {
       io.in.deq(); io.outs(idx).enq(pkt)
     }
-  } 
+  }
 }
 
-class RouterTests(c: Router) extends Tester(c) {  
+class RouterTests(c: Router) extends ClassicTester(c) {
   def rd(addr: Int, data: Int) = {
     poke(c.io.in.valid,        0)
     poke(c.io.writes.valid,    0)
@@ -79,7 +80,7 @@ class RouterTests(c: Router) extends Tester(c) {
       step(1)
       i += 1
     } while (!isAnyValidOuts() || i > 10)
-    expect(i < 10, "FIND VALID OUT")
+    assert(i < 10, "FIND VALID OUT")
   }
   rd(0, 0)
   wr(0, 1)

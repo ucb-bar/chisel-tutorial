@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class ByteSelector extends Module {
   val io = new Bundle {
@@ -20,7 +21,7 @@ class ByteSelector extends Module {
   }
 }
 
-class ByteSelectorTests(c: ByteSelector) extends Tester(c) {
+class ByteSelectorTests(c: ByteSelector) extends ClassicTester(c) {
   val test_in = 12345678
   for (t <- 0 until 4) {
     poke(c.io.in,     test_in)

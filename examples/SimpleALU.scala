@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class BasicALU extends Module {
   val io = new Bundle {
@@ -52,7 +53,7 @@ class SimpleALU extends Module {
   }
 }
 
-class SimpleALUTests(c: SimpleALU) extends Tester(c) {  
+class SimpleALUTests(c: SimpleALU) extends ClassicTester(c) {
   for (n <- 0 until 64) {
     val a      = rnd.nextInt(16)
     val b      = rnd.nextInt(16)

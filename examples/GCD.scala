@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class GCD extends Module {
   val io = new Bundle {
@@ -19,7 +20,7 @@ class GCD extends Module {
   io.v := y === UInt(0)
 }
 
-class GCDTests(c: GCD) extends Tester(c) {
+class GCDTests(c: GCD) extends ClassicTester(c) {
   val (a, b, z) = (64, 48, 16)
   do {
     val first = if (t == 0) 1 else 0;

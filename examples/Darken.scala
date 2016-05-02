@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class Darken extends Module {
   val io = new Bundle {
@@ -11,7 +12,7 @@ class Darken extends Module {
   io.out := io.in << UInt(1)
 }
 
-class DarkenTests(c: Darken, val infilename: String, val outfilename: String) extends Tester(c, false) {  
+class DarkenTests(c: Darken, val infilename: String, val outfilename: String) extends ClassicTester(c) {
   val inPic  = Image(infilename)
   val outPic = Image(inPic.w, inPic.h, inPic.d)
   step(1)

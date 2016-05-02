@@ -1,6 +1,7 @@
 package TutorialExamples
 
 import Chisel._
+import Chisel.hwiotesters._
 
 class Risc extends Module {
   val io = new Bundle {
@@ -50,10 +51,10 @@ class Risc extends Module {
   }
 }
 
-class RiscTests(c: Risc) extends Tester(c) {  
-  def wr(addr: UInt, data: UInt)  = {
+class RiscTests(c: Risc) extends ClassicTester(c) {
+  def wr(addr: BigInt, data: UInt)  = {
     poke(c.io.isWr,   1)
-    poke(c.io.wrAddr, addr.litValue())
+    poke(c.io.wrAddr, addr)
     poke(c.io.wrData, data.litValue())
     step(1)
   }
@@ -73,14 +74,14 @@ class RiscTests(c: Risc) extends Tester(c) {
                    I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
                    I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
                    I(c.add_op, 255, 1, 0)) // rh <- r1
-  wr(UInt(0), Bits(0)) // skip reset
+  wr(0, Bits(0)) // skip reset
   for (addr <- 0 until app.length) 
-    wr(UInt(addr), app(addr))
+    wr(addr, app(addr))
   boot()
   var k = 0
   do {
     tick(); k += 1
   } while (peek(c.io.valid) == 0 && k < 10)
-  expect(k < 10, "TIME LIMIT")
+  assert(k < 10, "TIME LIMIT")
   expect(c.io.out, 4)
 }
