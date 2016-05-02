@@ -40,7 +40,7 @@ class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T]) extends ClassicTe
     poke(c.io.in.bits, in)
     val isSingleEven = (in <= 9) && (in%2 == 1)
     step(1)
-    expect(c.io.out.valid, Bool(isSingleEven).litValue())
+    expect(c.io.out.valid, if (isSingleEven) 1 else 0)
     expect(c.io.out.bits, in)
   }
 }

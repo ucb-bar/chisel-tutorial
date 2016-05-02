@@ -42,8 +42,8 @@ class VendingMachineTests(c: VendingMachine) extends ClassicTester(c) {
     val isDime   = coin == 10
 
     // Advance circuit
-    poke(c.io.nickel, Bool(isNickel).litValue())
-    poke(c.io.dime,   Bool(isDime).litValue())
+    poke(c.io.nickel, if (isNickel) 1 else 0)
+    poke(c.io.dime,   if (isDime) 1 else 0)
     step(1)
 
     // Advance model
@@ -51,6 +51,6 @@ class VendingMachineTests(c: VendingMachine) extends ClassicTester(c) {
     isValid = money >= 20
 
     // Compare
-    expect(c.io.valid, Bool(isValid).litValue())
+    expect(c.io.valid, if (isValid) 1 else 0)
   }
 }
