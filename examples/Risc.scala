@@ -51,11 +51,16 @@ class Risc extends Module {
   }
 }
 
+object Opcodes {
+  val add_op = 0
+  val imm_op = 1
+}
+
 class RiscTests(c: Risc) extends ClassicTester(c) {
-  def wr(addr: BigInt, data: UInt)  = {
+  def wr(addr: BigInt, data: BigInt)  = {
     poke(c.io.isWr,   1)
     poke(c.io.wrAddr, addr)
-    poke(c.io.wrData, data.litValue())
+    poke(c.io.wrData, data)
     step(1)
   }
   def boot()  = {
@@ -68,13 +73,26 @@ class RiscTests(c: Risc) extends ClassicTester(c) {
     poke(c.io.boot, 0)
     step(1)
   }
+  /*
   def I (op: UInt, rc: Int, ra: Int, rb: Int) = 
     Cat(op, UInt(rc, 8), UInt(ra, 8), UInt(rb, 8))
+*/
+
+  def I (op: Int, rc: Int, ra: Int, rb: Int) = 
+    ((op & 1) << 24) | ((rc & Integer.parseInt("FF", 16)) << 16) | ((ra & Integer.parseInt("FF", 16)) << 8) | (rb & Integer.parseInt("FF", 16))
+/*
   val app  = Array(I(c.imm_op,   1, 0, 1), // r1 <- 1
                    I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
                    I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
                    I(c.add_op, 255, 1, 0)) // rh <- r1
-  wr(0, Bits(0)) // skip reset
+*/
+
+  val app  = Array(I(Opcodes.imm_op,   1, 0, 1), // r1 <- 1
+                   I(Opcodes.add_op,   1, 1, 1), // r1 <- r1 + r1
+                   I(Opcodes.add_op,   1, 1, 1), // r1 <- r1 + r1
+                   I(Opcodes.add_op, 255, 1, 0)) // rh <- r1
+
+  wr(0, 0) // skip reset
   for (addr <- 0 until app.length) 
     wr(addr, app(addr))
   boot()
