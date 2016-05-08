@@ -5,5 +5,3 @@
 val chiselVersion_h = System.getProperty("chiselVersion", "3.0")
 
 libraryDependencies ++= ( if (chiselVersion_h != "None" ) ("edu.berkeley.cs" %% "chisel3" % chiselVersion_h) :: Nil; else Nil)
-
-libraryDependencies += "edu.berkeley.cs" %% "chisel-hwiotesters" % "1.0"
