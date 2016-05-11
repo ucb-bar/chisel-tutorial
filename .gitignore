@@ -15,3 +15,6 @@
 *.cpp
 *.o
 *.iml
+*.im24
+*.swp
+*.out

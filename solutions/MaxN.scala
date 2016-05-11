@@ -1,7 +1,7 @@
 package TutorialSolutions
 
 import Chisel._
-import Chisel.hwiotesters._
+import Chisel.iotesters._
 
 class MaxN(val n: Int, val w: Int) extends Module {
 

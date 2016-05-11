@@ -1,7 +1,7 @@
 package TutorialProblems
 
 import Chisel._
-import Chisel.hwiotesters._
+import Chisel.iotesters._
 
 class VecShiftRegisterParam(val n: Int, val w: Int) extends Module {
   val io = new Bundle {

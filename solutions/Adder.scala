@@ -1,7 +1,7 @@
 package TutorialSolutions
 
 import Chisel._
-import Chisel.hwiotesters._
+import Chisel.iotesters._
 
 class Adder(val w: Int) extends Module {
   val io = new Bundle {

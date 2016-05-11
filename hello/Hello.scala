@@ -1,7 +1,7 @@
 package Hello
 
 import Chisel._
-import Chisel.hwiotesters._
+import Chisel.iotesters._
 
 class Hello extends Module {
   val io = new Bundle { 

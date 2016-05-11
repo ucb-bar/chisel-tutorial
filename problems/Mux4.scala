@@ -1,7 +1,7 @@
 package TutorialProblems
 
 import Chisel._
-import Chisel.hwiotesters._
+import Chisel.iotesters._
 
 class Mux4 extends Module {
   val io = new Bundle {

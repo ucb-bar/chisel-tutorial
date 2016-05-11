@@ -1,7 +1,7 @@
 package TutorialExamples
 
 import Chisel._
-import Chisel.hwiotesters._
+import Chisel.iotesters._
 
 class MemorySearch extends Module {
   val io = new Bundle {

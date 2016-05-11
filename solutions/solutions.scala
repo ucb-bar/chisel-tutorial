@@ -1,7 +1,7 @@
 package TutorialSolutions
 
 import Chisel._
-import Chisel.hwiotesters._
+import Chisel.iotesters._
 
 object TutorialSolutions {
   def main(args: Array[String]): Unit = { 

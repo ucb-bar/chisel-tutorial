@@ -1,7 +1,7 @@
 package TutorialExamples
 
 import Chisel._
-import Chisel.hwiotesters._
+import Chisel.iotesters._
 import scala.io.Source
 import java.io.FileOutputStream
 import java.io.File

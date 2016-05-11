@@ -1,3 +1,5 @@
+SHELL=/bin/bash
+
 top_srcdir  ?= ..
 
 # Override the default "make check" dependency since running tests

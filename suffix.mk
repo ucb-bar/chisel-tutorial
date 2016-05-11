@@ -80,13 +80,13 @@ $(objdir)/%.dot: %.scala
 	set -e -o pipefail; "$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --backend dot --targetDir $(objdir) $(CHISEL_FLAGS)"
 
 $(objdir)/%.out: %.scala
-	set -e -o pipefail; "$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --compile --test --backend c --vcd --targetDir $(objdir) $(CHISEL_FLAGS)" | tee $@
+	set -e -o pipefail; "$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --compile --test --backend c --vcd --v --targetDir $(objdir) $(CHISEL_FLAGS)" | tee $@
 
 $(objdir)/%.hex: %.scala
-	"$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --backend flo --genHarness --compile --test --targetDir $(objdir) $(CHISEL_FLAGS)"
+	"$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --backend flo --genHarness --compile --test --v --targetDir $(objdir) $(CHISEL_FLAGS)"
 
 $(objdir)/%.v: %.scala
-	"$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --backend v --targetDir $(objdir) $(CHISEL_FLAGS)"
+	"$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --backend v --v --targetDir $(objdir) $(CHISEL_FLAGS)"
 endif
 
 compile smoke:
