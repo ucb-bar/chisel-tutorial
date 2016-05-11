@@ -1,10 +1,6 @@
 SBT          ?= sbt
 SBT_FLAGS    ?= -Dsbt.log.noformat=true
 
-# Don't use any built-in rules.
-MAKEFLAGS += --no-builtin-rules
-.SUFFIXES:
-
 # If a chiselVersion is defined, use that.
 # Otherwise, use the latest release.
 ifneq (,$(chiselVersion))
