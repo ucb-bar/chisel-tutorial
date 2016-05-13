@@ -1,7 +1,7 @@
 Chisel Tutorials
 ================
 
-These are the tutorials for [Chisel](https://github.com/ucb-bar/chisel).
+These are the tutorials for [Chisel](https://github.com/ucb-bar/chisel3).
 
 Chisel is an open-source hardware construction language developed
 at UC Berkeley that supports advanced hardware design using highly
@@ -15,6 +15,9 @@ Getting the Repo
 ----------------
 
     $ git clone https://github.com/ucb-bar/chisel-tutorial.git
+    $ cd chisel-tutorial
+    $ git fetch origin
+    $ git checkout chisel3_classic_tester
 
 
 Executing Chisel
@@ -31,7 +34,8 @@ This will generate and test a simple block (`Hello`) that always outputs the
 number 42. You should see `[success]` on the last line of output (from sbt) and
 `PASSED` on the line before indicating the block passed the testcase. If you
 are doing this for the first time, sbt will automatically download the
-appropriate versions of Chisel and Scala and cache them (usually in `~/.ivy2`).
+appropriate versions of Chisel3, the Chisel Testers harness
+and Scala and cache them (usually in `~/.ivy2`).
 
 
 ####Manual Execution
@@ -96,6 +100,32 @@ memories.
 
     > run RealGCD --backend c --targetDir ../emulator --compile --test --genHarness
 
+
+To check that all of your solutions are correct:
+
+    $ cd problems
+    $ make
+
+
+To run all of our reference solutions:
+
+    $ cd solutions
+    $ make
+
+
+Chisel3 Tester Usage
+--------------------
+The examples provided in the problems, solutions, and examples folders utilize the ClassicTester,
+which provides the same semantics as the Chisel2 Testers and drive a Verilator based C++ emulator in
+the backend. The ClassicTester implementation supports both the Chisel2 like chiselMainTest
+interface as well as a new interface that allows the C++ emulator to be compiled independently from
+the running of the tests. The example provided in the problems, solutions, and examples folders
+utilize the Chisel2 like chiselMainTest interface. The example provided in the
+example_independent_cpp folder utilize the new interface that allow the C++ emulator to be compiled
+independently from the running of the tests. To see this usage in action:
+
+    $ cd examples_independent_cpp
+    $ make
 
 
 Learning More Chisel

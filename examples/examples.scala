@@ -43,9 +43,10 @@ object TutorialExamples {
       case "Risc" =>
         chiselMainTest(tutArgs, () => new Risc()){
           c => new RiscTests(c)}
-      case "Router" =>
+      /* comment out Router for now due to unresolved Chisel3 compatibility issue */
+      /*case "Router" =>
         chiselMainTest(tutArgs, () => new Router()){
-          c => new RouterTests(c)}
+          c => new RouterTests(c)}*/
       case "Darken" =>
         chiselMainTest(tutArgs, () => new Darken()){
           c => new DarkenTests(c, "../src/in.im24", "out.im24")}
