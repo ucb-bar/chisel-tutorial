@@ -6,18 +6,16 @@ import java.io._
 
 object genCpp {
   def apply(dutGen: ()=> Chisel.Module, cppHarnessFilePath: String, testDirPath: String) = {
-    val dutFirrtlIR = Chisel.Driver.emit(dutGen)
     val dutCircuit = Chisel.Driver.elaborate(dutGen)
     val dutName = dutCircuit.name
-    val verilogFilePath = s"${testDirPath}/${dutName}.v"
 
-    // Parse circuit into FIRRTL
-    val circuit = firrtl.Parser.parse(dutFirrtlIR.split("\n"))
-
-    val writer = new PrintWriter(new File(verilogFilePath))
-    // Compile to verilog
-    firrtl.VerilogCompiler.run(circuit, writer)
-    writer.close()
+    // Dump FIRRTL IR
+    val firrtlIRFilePath = s"${testDirPath}/${dutCircuit.name}.ir"
+    Chisel.Driver.dumpFirrtl(dutCircuit, Some(new File(firrtlIRFilePath)))
+    // Generate Verilog
+    val verilogFilePath = s"${testDirPath}/${dutCircuit.name}.v"
+    //val v = new PrintWriter(new File(s"${dir}/${dutCircuit.name}.v"))
+    firrtl.Driver.compile(firrtlIRFilePath, verilogFilePath, new firrtl.VerilogCompiler())
 
     val verilogFileName = verilogFilePath.split("/").last
     val cppBinaryPath = s"${testDirPath}/V${dutName}"
