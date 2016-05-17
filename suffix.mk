@@ -6,12 +6,12 @@ MAKEFLAGS += --no-builtin-rules
 .SUFFIXES:
 
 # If a chiselVersion is defined, use that.
-# Otherwise, use the latest release.
+# Otherwise, use the latest 2.x release.
 ifneq (,$(chiselVersion))
 SBT_FLAGS += -DchiselVersion="$(chiselVersion)"
 objdirext := _$(chiselVersion)
 else
-SBT_FLAGS += -DchiselVersion="latest.release"
+SBT_FLAGS += -DchiselVersion="2.+"
 endif
 
 top_srcdir  ?= ..
