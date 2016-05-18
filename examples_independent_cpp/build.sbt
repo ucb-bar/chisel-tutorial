@@ -6,23 +6,9 @@ name := "chisel-tutorial"
 
 scalaVersion := "2.11.7"
 
-// Provide a managed dependency on chisel.
-// The default version is "3.0".
-// This may be overridden if -DchiselVersion="" is supplied on the command line.
+// Provide a managed dependency on chisel.iotesters.
 
-val chiselVersion = System.getProperty("chiselVersion", "3.0")
-
-libraryDependencies ++= (
-  if (chiselVersion != "None" ) {
-      if (chiselVersion.charAt(0)> '2') {
-        ("edu.berkeley.cs" %% "chisel3" % chiselVersion) :: ("edu.berkeley.cs" %% "chisel-iotesters" % "1.1-BETA-SNAPSHOT") :: Nil
-      }
-      else {
-        ("edu.berkeley.cs" %% "chisel" % chiselVersion) :: Nil
-      }
-  }
-  else Nil
-)
+libraryDependencies ++= "edu.berkeley.cs" %% "chisel-iotesters" % "1.1-BETA-SNAPSHOT"
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-language:reflectiveCalls")
 

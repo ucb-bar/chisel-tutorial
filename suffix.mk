@@ -4,10 +4,8 @@ SBT_FLAGS    ?= -Dsbt.log.noformat=true
 # If a chiselVersion is defined, use that.
 # Otherwise, use the latest release.
 ifneq (,$(chiselVersion))
-SBT_FLAGS += -DchiselVersion="$(chiselVersion)"
 objdirext := _$(chiselVersion)
 else
-SBT_FLAGS += -DchiselVersion="latest.release"
 endif
 
 top_srcdir  ?= ..
