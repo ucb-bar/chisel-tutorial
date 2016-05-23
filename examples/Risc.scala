@@ -56,7 +56,7 @@ object Opcodes {
   val imm_op = 1
 }
 
-class RiscTests(c: Risc) extends ClassicTester(c) {
+class RiscTests(c: Risc, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   def wr(addr: BigInt, data: BigInt)  = {
     poke(c.io.isWr,   1)
     poke(c.io.wrAddr, addr)

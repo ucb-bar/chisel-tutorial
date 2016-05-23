@@ -32,7 +32,7 @@ class Adder(val n:Int) extends Module {
   io.Cout := carry(n)
 }
 
-class AdderTests(c: Adder) extends ClassicTester(c) {
+class AdderTests(c: Adder, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   for (t <- 0 until 4) {
     val rnd0 = rnd.nextInt(c.n)
     val rnd1 = rnd.nextInt(c.n)

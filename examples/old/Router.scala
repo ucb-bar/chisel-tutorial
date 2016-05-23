@@ -43,7 +43,7 @@ class Router extends Module {
   }
 }
 
-class RouterTests(c: Router) extends ClassicTester(c) {
+class RouterTests(c: Router, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   def rd(addr: Int, data: Int) = {
     poke(c.io.in.valid,        0)
     poke(c.io.writes.valid,    0)

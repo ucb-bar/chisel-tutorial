@@ -25,7 +25,7 @@ class FIR extends Module {
 */
 
 /*
-class FIRTests(c: FIR) extends ClassicTester(c) {
+class FIRTests(c: FIR, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   var px = 0.0f
   for (i <- 0 until 10) {
     val x = rnd.nextFloat()

@@ -22,5 +22,5 @@ class FullAdder2 extends Module {
   io.cout := a_and_b | b_and_cin | a_and_cin
 }
 
-class FullAdder2Tests(c: FullAdder2) extends ClassicTester(c) {
+class FullAdder2Tests(c: FullAdder2, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
 }

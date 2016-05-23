@@ -12,7 +12,7 @@ class Combinational extends Module {
   io.z := io.x + io.y
 }
 
-class CombinationalTests(c: Combinational) extends ClassicTester(c) {
+class CombinationalTests(c: Combinational, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   val maxInt = 1 << 16
   for (i <- 0 until 10) {
     val x = rnd.nextInt(maxInt)

@@ -12,7 +12,7 @@ class Tbl extends Module {
   io.out := r(io.addr)
 }
 
-class TblTests(c: Tbl) extends ClassicTester(c) {
+class TblTests(c: Tbl, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   for (t <- 0 until 16) {
     val addr = rnd.nextInt(256)
     poke(c.io.addr, addr)

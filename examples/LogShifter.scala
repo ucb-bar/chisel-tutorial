@@ -34,6 +34,6 @@ class LogShifter extends Module {
   }
 }
 
-class LogShifterTests(c: LogShifter) extends ClassicTester(c) {
+class LogShifterTests(c: LogShifter, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
 }
 

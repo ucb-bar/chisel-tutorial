@@ -21,7 +21,7 @@ class ByteSelector extends Module {
   }
 }
 
-class ByteSelectorTests(c: ByteSelector) extends ClassicTester(c) {
+class ByteSelectorTests(c: ByteSelector, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   val test_in = 12345678
   for (t <- 0 until 4) {
     poke(c.io.in,     test_in)

@@ -34,7 +34,7 @@ class Stack(val depth: Int) extends Module {
   io.dataOut := out
 }
 
-class StackTests(c: Stack) extends ClassicTester(c) {
+class StackTests(c: Stack, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   var nxtDataOut = 0
   var dataOut = 0
   val stack = new ScalaStack[Int]()

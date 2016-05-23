@@ -20,7 +20,7 @@ class GCD extends Module {
   io.v := y === UInt(0)
 }
 
-class GCDTests(c: GCD) extends ClassicTester(c) {
+class GCDTests(c: GCD, backend: Option[Backend] = None) extends ClassicTester(c, _backend=backend) {
   val (a, b, z) = (64, 48, 16)
   do {
     val first = if (t == 0) 1 else 0;

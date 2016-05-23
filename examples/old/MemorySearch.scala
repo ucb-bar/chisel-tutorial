@@ -26,7 +26,7 @@ class MemorySearch extends Module {
 
 /* commented out for now because Chisel3 ClassicTester doesn't support access to module internal signals */
 /*
-class MemorySearchTests(c: MemorySearch) extends ClassicTester(c) {
+class MemorySearchTests(c: MemorySearch, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   val list = c.elts.map(int(_)) 
   val n = 8
   val maxT = n * (list.length + 3)

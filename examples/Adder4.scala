@@ -39,7 +39,7 @@ class Adder4 extends Module {
   io.Cout := Adder3.io.cout
 }
 
-class Adder4Tests(c: Adder4) extends ClassicTester(c) {
+class Adder4Tests(c: Adder4, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   val rnd2 = rnd.nextInt(2)
   for (t <- 0 until 4) {
     val rnd0 = rnd.nextInt(16)
