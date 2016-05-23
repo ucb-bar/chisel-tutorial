@@ -39,7 +39,7 @@ class Mux4 extends Module {
   io.out := m2.io.out
 }
 
-class Mux4Tests(c: Mux4) extends ClassicTester(c) {
+class Mux4Tests(c: Mux4, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   for (s0 <- 0 until 2) {
     for (s1 <- 0 until 2) {
       for(i0 <- 0 until 2) {

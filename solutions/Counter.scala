@@ -35,7 +35,7 @@ class Counter extends Module {
 
 }
 
-class CounterTest(c: Counter) extends ClassicTester(c) {
+class CounterTest(c: Counter, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   val maxInt  = 16
   var curCnt  = 0
 

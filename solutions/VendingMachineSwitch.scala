@@ -36,7 +36,7 @@ class VendingMachineSwitch extends Module {
   io.valid := (state ===s_ok)
 }
 
-class VendingMachineSwitchTests(c: VendingMachineSwitch) extends ClassicTester(c) {
+class VendingMachineSwitchTests(c: VendingMachineSwitch, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   var money = 0
   var isValid = false
   for (t <- 0 until 20) {

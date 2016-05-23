@@ -25,7 +25,7 @@ class VecShiftRegister extends Module {
   io.out := delays(3)
 }
 
-class VecShiftRegisterTests(c: VecShiftRegister) extends ClassicTester(c) {
+class VecShiftRegisterTests(c: VecShiftRegister, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   val reg     = Array.fill(4){ 0 }
   val ins     = Array.fill(4){ 0 }
   // Initialize the delays.

@@ -32,7 +32,7 @@ class SingleEvenFilter[T <: UInt](dtype: T) extends Filter(dtype) {
   io.out        := even.io.out
 }
 
-class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T]) extends ClassicTester(c) {
+class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T], b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
   val maxInt  = 1 << 16
   for (i <- 0 until 10) {
     val in = rnd.nextInt(maxInt)
