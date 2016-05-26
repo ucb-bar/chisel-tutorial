@@ -49,7 +49,7 @@ object TutorialExamples {
           (c,p) => new RouterTests(c,p)}*/
       case "Darken" =>
         runClassicTester(() => new Darken()){
-          (c,p) => new DarkenTests(c, "../src/in.im24", "out.im24")}
+          (c,p) => new DarkenTests(c, "../src/in.im24", "out.im24", p)}
           // Chisel2-3 compatibility since this "test" is silent.
           //val pfString = if (ChiselError.hasErrors) "FAILED" else "PASSED"
           //println(s"${pfString} -- ${args(0)}")
