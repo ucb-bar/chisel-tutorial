@@ -14,7 +14,7 @@ class VecShiftRegister extends Module {
   io.out := UInt(0)
 }
 
-class VecShiftRegisterTests(c: VecShiftRegister) extends ClassicTester(c) {
+class VecShiftRegisterTests(c: VecShiftRegister, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val reg     = Array.fill(4){ 0 }
   val ins     = Array.fill(4){ 0 }
   // Initialize the delays.

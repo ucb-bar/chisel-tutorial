@@ -21,7 +21,7 @@ class Mul extends Module {
   // -------------------------------- \\
 }
 
-class MulTests(c: Mul) extends ClassicTester(c) {
+class MulTests(c: Mul, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val maxInt  = 1 << 4
   for (i <- 0 until 10) {
     val x = rnd.nextInt(maxInt)
