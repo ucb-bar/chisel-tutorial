@@ -12,7 +12,7 @@ class Darken extends Module {
   io.out := io.in << UInt(1)
 }
 
-class DarkenTests(c: Darken, val infilename: String, val outfilename: String, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
+class DarkenTests(c: Darken, val infilename: String, val outfilename: String, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val inPic  = Image(infilename)
   val outPic = Image(inPic.w, inPic.h, inPic.d)
   step(1)

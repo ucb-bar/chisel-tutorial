@@ -23,7 +23,7 @@ class ResetShiftRegister extends Module {
   io.out := r3
 }
 
-class ResetShiftRegisterTests(c: ResetShiftRegister, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
+class ResetShiftRegisterTests(c: ResetShiftRegister, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val ins = Array.fill(4){ 0 }
   val regs = Array.fill(4){ 0 }
   var k   = 0

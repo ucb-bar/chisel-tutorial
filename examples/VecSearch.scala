@@ -17,7 +17,7 @@ class VecSearch extends Module {
   io.out := elts(index)
 }
 
-class VecSearchTests(c: VecSearch, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
+class VecSearchTests(c: VecSearch, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val list = VecSearchTest.pattern
   for (elt <- list) {
     expect(c.io.out, elt)

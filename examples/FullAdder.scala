@@ -22,7 +22,7 @@ class FullAdder extends Module {
   io.cout := a_and_b | b_and_cin | a_and_cin
 }
 
-class FullAdderTests(c: FullAdder, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
+class FullAdderTests(c: FullAdder, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   for (t <- 0 until 4) {
     val a    = rnd.nextInt(2)
     val b    = rnd.nextInt(2)

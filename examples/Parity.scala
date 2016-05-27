@@ -16,7 +16,7 @@ class Parity extends Module {
   io.out := (state === s_odd)
 }
 
-class ParityTests(c: Parity, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
+class ParityTests(c: Parity, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   var isOdd = 0
   for (t <- 0 until 10) {
     val bit = rnd.nextInt(2)

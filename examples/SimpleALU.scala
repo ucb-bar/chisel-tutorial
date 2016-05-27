@@ -53,7 +53,7 @@ class SimpleALU extends Module {
   }
 }
 
-class SimpleALUTests(c: SimpleALU, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
+class SimpleALUTests(c: SimpleALU, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   for (n <- 0 until 64) {
     val a      = rnd.nextInt(16)
     val b      = rnd.nextInt(16)

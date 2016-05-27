@@ -27,7 +27,7 @@ class EnableShiftRegister extends Module {
   io.out := r3
 }
 
-class EnableShiftRegisterTests(c: EnableShiftRegister, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
+class EnableShiftRegisterTests(c: EnableShiftRegister, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val reg = Array.fill(4){ 0 }
   for (t <- 0 until 16) {
     val in    = rnd.nextInt(16)

@@ -49,7 +49,7 @@ class Life(val n: Int) extends Module {
   }
 }
 
-class LifeTests(c: Life, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
+class LifeTests(c: Life, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   for (t <- 0 until 16) {
     step(1)
     for (j <- 0 until c.n) {

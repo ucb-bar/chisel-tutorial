@@ -23,83 +23,68 @@ object TutorialExamples {
     val res =
     args(0) match {
       case "GCD" =>
-        runClassicTester(() => new GCD()){
+        runPeekPokeTester(() => new GCD()){
           (c,p) => new GCDTests(c,p)}
       case "Combinational" =>
-        runClassicTester(() => new Combinational()){
+        runPeekPokeTester(() => new Combinational()){
           (c,p) => new CombinationalTests(c,p)}
       case "Functionality" =>
-        runClassicTester(() => new Functionality()){
+        runPeekPokeTester(() => new Functionality()){
           (c,p) => new FunctionalityTests(c,p)}
       case "Parity" =>
-        runClassicTester(() => new Parity()){
+        runPeekPokeTester(() => new Parity()){
           (c,p) => new ParityTests(c,p)}
       case "Tbl" =>
-        runClassicTester(() => new Tbl()){
+        runPeekPokeTester(() => new Tbl()){
           (c,p) => new TblTests(c,p)}
       case "Life" =>
-        runClassicTester(() => new Life(3)){
+        runPeekPokeTester(() => new Life(3)){
           (c,p) => new LifeTests(c,p)}
       case "Risc" =>
-        runClassicTester(() => new Risc()){
+        runPeekPokeTester(() => new Risc()){
           (c,p) => new RiscTests(c,p)}
-      /* comment out Router for now due to unresolved Chisel3 compatibility issue */
-      /*case "Router" =>
-        runClassicTester(() => new Router()){
-          (c,p) => new RouterTests(c,p)}*/
       case "Darken" =>
-        runClassicTester(() => new Darken()){
+        runPeekPokeTester(() => new Darken()){
           (c,p) => new DarkenTests(c, "../src/in.im24", "out.im24", p)}
-          // Chisel2-3 compatibility since this "test" is silent.
-          //val pfString = if (ChiselError.hasErrors) "FAILED" else "PASSED"
-          //println(s"${pfString} -- ${args(0)}")
       case "Adder" =>
-        runClassicTester(() => new Adder(8)){
+        runPeekPokeTester(() => new Adder(8)){
           (c,p) => new AdderTests(c,p)}
       case "Adder4" =>
-        runClassicTester(() => new Adder4()){
+        runPeekPokeTester(() => new Adder4()){
           (c,p) => new Adder4Tests(c,p)}
       case "SimpleALU" =>
-        runClassicTester(() => new SimpleALU()){
+        runPeekPokeTester(() => new SimpleALU()){
           (c,p) => new SimpleALUTests(c,p)}
       case "FullAdder" =>
-        runClassicTester(() => new FullAdder()){
+        runPeekPokeTester(() => new FullAdder()){
           (c,p) => new FullAdderTests(c,p)}
       case "FullAdder2" =>
-        runClassicTester(() => new FullAdder2()){
+        runPeekPokeTester(() => new FullAdder2()){
           (c,p) => new FullAdder2Tests(c,p)}
       case "ByteSelector" =>
-        runClassicTester(() => new ByteSelector()){
+        runPeekPokeTester(() => new ByteSelector()){
           (c,p) => new ByteSelectorTests(c,p)}
       case "HiLoMultiplier" =>
-        runClassicTester(() => new HiLoMultiplier()){
+        runPeekPokeTester(() => new HiLoMultiplier()){
           (c,p) => new HiLoMultiplierTests(c,p)}
       case "ShiftRegister" =>
-        runClassicTester(() => new ShiftRegister()){
+        runPeekPokeTester(() => new ShiftRegister()){
           (c,p) => new ShiftRegisterTests(c,p)}
       case "ResetShiftRegister" =>
-        runClassicTester(() => new ResetShiftRegister()){
+        runPeekPokeTester(() => new ResetShiftRegister()){
           (c,p) => new ResetShiftRegisterTests(c,p)}
       case "EnableShiftRegister" =>
-        runClassicTester(() => new EnableShiftRegister()){
+        runPeekPokeTester(() => new EnableShiftRegister()){
           (c,p) => new EnableShiftRegisterTests(c,p)}
       case "LogShifter" =>
-        runClassicTester(() => new LogShifter()){
+        runPeekPokeTester(() => new LogShifter()){
           (c,p) => new LogShifterTests(c,p)}
       case "VecSearch" =>
-        runClassicTester(() => new VecSearch()){
+        runPeekPokeTester(() => new VecSearch()){
           (c,p) => new VecSearchTests(c,p)}
       case "Stack" =>
-        runClassicTester(() => new Stack(8)) {
+        runPeekPokeTester(() => new Stack(8)) {
           (c,p) => new StackTests(c,p)}
-      /*comment out MemorySearch because Chisel3 ClassicTester doesn't support peek/poke on internal signals*/
-      /*case "MemorySearch" =>
-        runClassicTester(() => new MemorySearch()){
-          (c,p) => new MemorySearchTests(c,p)}*/
-      /*comment out FIR for now due to lack of Flo support*/
-      /*case "FIR" =>
-      runClassicTester(() => new FIR()){
-        (c,p) => new FIRTests(c,p)*/
     }
   }
 }
