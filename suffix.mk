@@ -2,13 +2,15 @@ SBT          ?= sbt
 SBT_FLAGS    ?= -Dsbt.log.noformat=true
 
 # If a chiselVersion is defined, use that.
-# Otherwise, use the latest release.
+# Otherwise, use the latest 3.0 release.
 ifneq (,$(chiselVersion))
 SBT_FLAGS += -DchiselVersion="$(chiselVersion)"
 objdirext := _$(chiselVersion)
 else
-SBT_FLAGS += -DchiselVersion="latest.release"
+SBT_FLAGS += -DchiselVersion="3.0-BETA-SNAPSHOT"
 endif
+
+CHISEL_FLAGS ?=
 
 top_srcdir  ?= ..
 srcdir      ?= .
@@ -47,7 +49,7 @@ tut_outs    := $(addsuffix .out, $(executables))
 
 default: all
 
-all: outs verilog # dreamer
+all: outs
 
 check: $(objdir) $(objdir)/test-solutions.xml
 
@@ -57,38 +59,22 @@ clean: $(filter-out $(wildcard $objdir),$(objdir)) $(objdir)
 
 outs: $(tut_outs)
 
-dreamer: $(addsuffix .hex, $(executables))
-
-verilog: $(addsuffix .v, $(executables))
-
 $(objdir)/test-solutions.xml: $(tut_outs)
+
+test-solutions.xml: $(tut_outs)
 	$(top_srcdir)/sbt/check $(tut_outs) > $@
 
 # We need to set the shell options -e -o pipefail here or the exit
 # code will be the exit code of the last element of the pipeline - the tee.
 # We should be able to do this with .POSIX: or .SHELLFLAGS but they don't
 # appear to be supported by Make 3.81
-ifeq (3.0,$(chiselVersion))
-# Chisel3 directory
-include $(top_srcdir)/chisel3/rules.mk
-else
-$(objdir)/%.dot: %.scala
-	set -e -o pipefail; "$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --backend dot --targetDir $(objdir) $(CHISEL_FLAGS)"
-
 $(objdir)/%.out: %.scala
-	set -e -o pipefail; "$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --compile --test --backend c --vcd --targetDir $(objdir) $(CHISEL_FLAGS)" | tee $@
-
-$(objdir)/%.hex: %.scala
-	"$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --backend flo --genHarness --compile --test --targetDir $(objdir) $(CHISEL_FLAGS)"
-
-$(objdir)/%.v: %.scala
-	"$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --backend v --targetDir $(objdir) $(CHISEL_FLAGS)"
-endif
+	set -e -o pipefail; "$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) $(CHISEL_FLAGS)" | tee $@
 
 compile smoke:
 	"$(SBT)" $(SBT_FLAGS) compile
 
-.PHONY: all check clean outs verilog smoke
+.PHONY: all check clean outs smoke
 
 # Last resort target. The first dependency will be the object directory,
 # but only if it doesn't already exist.
