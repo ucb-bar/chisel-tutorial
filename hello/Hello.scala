@@ -10,7 +10,7 @@ class Hello extends Module {
   io.out := UInt(42)
 }
 
-class HelloTests(c: Hello) extends ClassicTester(c) {
+class HelloTests(c: Hello, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   step(1)
   expect(c.io.out, 42)
 }
@@ -18,7 +18,9 @@ class HelloTests(c: Hello) extends ClassicTester(c) {
 object Hello {
   def main(args: Array[String]): Unit = {
     val tutArgs = args.slice(1, args.length)
-    chiselMainTest(tutArgs, () => new Hello()) {
-      c => new HelloTests(c) }
+    val res = runPeekPokeTester(() => new Hello()){(c,b) => new HelloTests(c,b)}
+    if(!res) {
+      System.exit(1)
+    }
   }
 }

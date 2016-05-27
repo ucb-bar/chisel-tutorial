@@ -17,7 +17,7 @@ Getting the Repo
     $ git clone https://github.com/ucb-bar/chisel-tutorial.git
     $ cd chisel-tutorial
     $ git fetch origin
-    $ git checkout chisel3_classic_tester
+    $ git checkout chisel3
 
 
 Executing Chisel
@@ -39,19 +39,9 @@ and Scala and cache them (usually in `~/.ivy2`).
 
 
 ####Manual Execution
-The make recipe above automically invoked sbt to use Chisel's C backend to
-generate a C emulator and ran it against the testcase. To do it mannually:
+The make recipe above automically invoked sbt run the native Scala firrtl interpreter to run the test case specified the the HelloTests class. To do it mannually:
 
-    $ sbt "run Hello --backend c --compile --test --genHarness"
-
-To generate a waveform (`Hello.vcd`) of the testcase execution:
-
-    $ sbt "run Hello --backend c --compile --test --genHarness --vcd"
-
-To generate Verilog instead of a C emulator:
-
-    $ sbt "run Hello --backend v --genHarness"
-
+    $ sbt "run Hello"
 
 Completing the Tutorials
 ------------------------
@@ -69,36 +59,36 @@ To speed things up, we will keep sbt running. To get started:
 #### Mux2
 This should already work. Try
 
-    > run Mux2 --backend c --targetDir ../emulator --compile --test --genHarness
+    > run Mux2
 
 #### Mux4
 You can instantiate a module with `val foo = Module(new Bar())`
 
-    > run Mux4 --backend c --targetDir ../emulator --compile --test --genHarness
+    > run Mux4
 
 #### Counter
 You can conditionally update a value without a mux by using `when (cond) { foo := bar }`
 
-    > run Counter --backend c --targetDir ../emulator --compile --test --genHarness
+    > run Counter
 
 #### Vending Machine
 
-    > run VendingMachine --backend c --targetDir ../emulator --compile --test --genHarness`
+    > run VendingMachine
 
 #### Memo
 The type of memory that's inferred is based on how you handle the read and
 write enables. This is pretty much the same as how Xilinx and Altera infer
 memories.
 
-    > run Memo --backend c --targetDir ../emulator --compile --test --genHarness
+    > run Memo
 
 #### Mul
 
-    > run Mul --backend c --targetDir ../emulator --compile --test --genHarness
+    > run Mul
 
 #### RealGCD
 
-    > run RealGCD --backend c --targetDir ../emulator --compile --test --genHarness
+    > run RealGCD
 
 
 To check that all of your solutions are correct:
@@ -111,22 +101,6 @@ To run all of our reference solutions:
 
     $ cd solutions
     $ make
-
-
-Chisel3 Tester Usage
---------------------
-The examples provided in the problems, solutions, and examples folders utilize the ClassicTester,
-which provides the same semantics as the Chisel2 Testers and drive a Verilator based C++ emulator in
-the backend. The ClassicTester implementation supports both the Chisel2 like chiselMainTest
-interface as well as a new interface that allows the C++ emulator to be compiled independently from
-the running of the tests. The example provided in the problems, solutions, and examples folders
-utilize the Chisel2 like chiselMainTest interface. The example provided in the
-example_independent_cpp folder utilize the new interface that allow the C++ emulator to be compiled
-independently from the running of the tests. To see this usage in action:
-
-    $ cd examples_independent_cpp
-    $ make
-
 
 Learning More Chisel
 --------------------
