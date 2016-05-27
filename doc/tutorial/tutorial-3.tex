@@ -718,13 +718,14 @@ the \code{Mux4} interface.
 
 Now that we have defined modules, we will discuss how we actually run and test a circuit.  Chisel produces \verb$Firrtl$
 intermediate representation (IR).  \verb$Firrtl$ can be interpreted directly or can be translated into either
- \verb@C++@ or Verilog.   In order to build a circuit we need to call \code{chiselMain}:
+ \verb@C++@ or Verilog.   In order to build a circuit we need to call \code{runPeekPokeTester} from a scala main:
 
 \begin{scala}
 object tutorial {
   def main(args: Array[String]) = {
     runPeekPokeTester(() => new GCD()){
-      (c,p) => new GCDTests(c,p)}
+      (c,p) => new GCDTests(c,p)
+    }
   }
 }
 \end{scala}
@@ -740,29 +741,7 @@ object tutorial {
 Testing is a crucial part of circuit design,
 and thus in Chisel we provide a mechanism for
 testing circuits by providing test vectors within Scala using
-subclasses of the \code{ClassicTests} trait:
-
-\begin{scala}
-private [iotesters] trait ClassicTests {
-  type DUT <: Module
-  def dut: DUT
-  def t: Long
-  def rnd: Random
-  implicit def int(x: Boolean): BigInt
-  implicit def int(x: Int):     BigInt
-  implicit def int(x: Long):    BigInt
-  implicit def int(x: Bits):    BigInt
-  def reset(n: Int): Unit
-  def step(n: Int): Unit
-  def poke(data: Bits, x: BigInt): Unit
-  def peek(data: Bits): BigInt
-  def expect(good: Boolean, msg: => String): Boolean
-  def expect(data: Bits, expected: BigInt, msg: => String = ""): Boolean
-  def finish: Boolean
-}
-\end{scala}
-
-\noindent
+tester method calls
 which binds a tester to a module
 and allows users to write tests using the given debug protocol.  In particular, users utilize:
 \begin{itemize}
@@ -812,15 +791,23 @@ class Mux2Tests(c: Mux2) extends Tester(c) {
 \end{scala}
 
 \noindent
-assignments for each input of \verb+Mux2+ is set to the appropriate values using \verb+poke+. For this particular example, we are testing the \verb+Mux2+ by hardcoding the inputs to some known values and checking if the output corresponds to the known one. To do this, on each iteration we generate appropriate inputs to the module and tell the simulation to assign these values to the inputs of the device we are testing \verb+c+, step the circuit, and test the expected value.  
+assignments for each input of \verb+Mux2+ is set to the appropriate values using \verb+poke+. For this particular
+example, we are testing the \verb+Mux2+ by hardcoding the inputs to some known values and checking
+if the output corresponds to the known one. To do this, on each iteration we generate appropriate inputs
+to the module and tell the simulation to assign these values to the inputs of the device we are testing \verb+c+, step the circuit, and test the expected value.
 \comment{Maybe elaborate a little bit what a step does. I assume it is one clock tick
 Is a step needed as well for testing plain combinational circuits?}
 Finally, the following shows how the tester is invoked:
 
 \begin{scala}
-chiselMainTest(args + "--test", () => Module(new Mux2())){ 
-  c => new Mux2Tests(c) 
-}
+  def main(args: Array[String]): Unit = {
+    args(0) match {
+      case "GCD" =>
+        runPeekPokeTester(() => new GCD()){
+          (c,p) => new GCDTests(c,p)}
+        }
+    }
+ }
 \end{scala}
 
 Other command arguments are as follows:
