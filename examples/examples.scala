@@ -86,6 +86,9 @@ object TutorialExamples {
         runPeekPokeTester(() => new Stack(8)) {
           (c,p) => new StackTests(c,p)}
     }
+    if(!res) {
+      System.exit(1)
+    }
   }
 }
 

@@ -14,7 +14,7 @@ class Mux2 extends Module {
   io.out := (io.sel & io.in1) | (~io.sel & io.in0)
 }
 
-class Mux2Tests(c: Mux2, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
+class Mux2Tests(c: Mux2, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val n = pow(2, 3).toInt
   for (s <- 0 until 2) {
     for (i0 <- 0 until 2) {
