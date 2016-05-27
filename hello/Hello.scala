@@ -18,7 +18,7 @@ class HelloTests(c: Hello, b: Option[Backend] = None) extends PeekPokeTester(c, 
 object Hello {
   def main(args: Array[String]): Unit = {
     val tutArgs = args.slice(1, args.length)
-    val res = runPeekPokeTester(() => new Hello()){(c,p) => new HelloTests(c,p)}
+    val res = runPeekPokeTester(() => new Hello()){(c,b) => new HelloTests(c,b)}
     if(!res) {
       System.exit(1)
     }
