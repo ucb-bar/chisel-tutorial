@@ -73,7 +73,7 @@
 %  %\vspace*{-0.1in}
 %  }
 
-\title{Chisel 2.2 Tutorial}
+\title{Chisel 3.0 Tutorial (Beta)}
 \author{Jonathan Bachrach, Krste Asanovi\'{c}, John Wawrzynek \\
 EECS Department, UC Berkeley\\
 {\tt  \{jrb|krste|johnw\}@eecs.berkeley.edu}
@@ -540,7 +540,7 @@ Vecs create an indexable vector of elements, and are constructed as
 follows:
 \begin{scala}
 // Vector of 5 23-bit signed integers.
-val myVec = Vec.fill(5){ SInt(width = 23) } 
+val myVec = Vec(5, SInt(width = 23))
 
 // Connect to one element of vector. 
 val reg3  = myVec(3) 
@@ -562,7 +562,7 @@ structures:
 \begin{scala}
 class BigBundle extends Bundle {
  // Vector of 5 23-bit signed integers.
- val myVec = Vec.fill(5) { SInt(width = 23) } 
+ val myVec = Vec(5, SInt(width = 23))
  val flag  = Bool()
  // Previously defined bundle.
  val f     = new MyFloat()              
@@ -714,14 +714,17 @@ the Scala \code{new} keyword to create a
 new object.  We then wire them up to one another and to the ports of
 the \code{Mux4} interface.
 
-\section{Running and Testing Examples}
+\section{Running Examples}
 
-Now that we have defined modules, we will discuss how we actually run and test a circuit.  Chisel translates into either \verb@C++@ or Verilog.   In order to build a circuit we need to call \code{chiselMain}:
+Now that we have defined modules, we will discuss how we actually run and test a circuit.  Chisel produces \verb$Firrtl$
+intermediate representation (IR).  \verb$Firrtl$ can be interpreted directly or can be translated into either
+ \verb@C++@ or Verilog.   In order to build a circuit we need to call \code{chiselMain}:
 
 \begin{scala}
 object tutorial {
   def main(args: Array[String]) = {
-    chiselMain(args, () => Module(new Mux2()))
+    runPeekPokeTester(() => new GCD()){
+      (c,p) => new GCDTests(c,p)}
   }
 }
 \end{scala}
@@ -730,32 +733,32 @@ object tutorial {
 \begin{center}
 \includegraphics[width=0.45\textwidth]{../tutorial/figs/DUT.pdf}
 \end{center}
-\caption{DUT run using a Tester object in Scala with stdin and stdout connected}
+\caption{DUT is tested under the control of Tester object}
 \label{fig:dut}
 \end{figure}
  
 Testing is a crucial part of circuit design, 
 and thus in Chisel we provide a mechanism for
 testing circuits by providing test vectors within Scala using
-subclasses of the \code{Tester} class:
+subclasses of the \code{ClassicTests} trait:
 
 \begin{scala}
-class Tester[T <: Module] (val c: T, val isTrace: Boolean = true) {
-  var t: Int
-  val rnd: Random
-  def int(x: Boolean): BigInt
-  def int(x: Int): BigInt
-  def int(x: Bits): BigInt
-  def reset(n: Int = 1)
-  def step(n: Int): Int
-  def pokeAt(data: Mem[T], index: Int, x: BigInt)
-  def poke(data: Bits, x: BigInt)
-  def poke(data: Aggregate, x: Array[BigInt])
-  def peekAt(data: Mem[T], index: Int)
+private [iotesters] trait ClassicTests {
+  type DUT <: Module
+  def dut: DUT
+  def t: Long
+  def rnd: Random
+  implicit def int(x: Boolean): BigInt
+  implicit def int(x: Int):     BigInt
+  implicit def int(x: Long):    BigInt
+  implicit def int(x: Bits):    BigInt
+  def reset(n: Int): Unit
+  def step(n: Int): Unit
+  def poke(data: Bits, x: BigInt): Unit
   def peek(data: Bits): BigInt
-  def peek(data: Aggregate): Array[BigInt]
-  def expect (good: Boolean, msg: String): Boolean
-  def expect (data: Bits, target: BigInt): Boolean
+  def expect(good: Boolean, msg: => String): Boolean
+  def expect(data: Bits, expected: BigInt, msg: => String = ""): Boolean
+  def finish: Boolean
 }
 \end{scala}
 
@@ -1296,25 +1299,12 @@ does not support combinational (asynchronous) reads (anymore). The read address
 needs to be registered.}
 
 
-\begin{scala}
-object Mem {
-  def apply[T <: Data](type: T, depth: Int, 
-          seqRead: Boolean = false): Mem
-}
-
-class Mem[T <: Data](type: T, depth: Int,
-      seqRead: Boolean = false)
-    extends Updateable {
-  def apply(idx: UInt): T
-}
-\end{scala}
-
 Ports into Mems are created by applying a \code{UInt} index.  A 32-entry
 register file with one write port and two combinational read ports might be
 expressed as follows:
 
 \begin{scala}
-val rf = Mem(UInt(width = 64), 32)
+val rf = Mem(32, UInt(width = 64))
 when (wen) { rf(waddr) := wdata }
 val dout1 = rf(waddr1)
 val dout2 = rf(waddr2)
@@ -1326,7 +1316,7 @@ one-write port SRAM might be described as follows:
 
 \begin{scala}
 val ram1r1w =
-  Mem(UInt(width = 32), 1024, seqRead = true)
+  Mem(1024, UInt(width = 32))
 val reg_raddr = Reg(UInt())
 when (wen) { ram1r1w(waddr) := wdata }
 when (ren) { reg_raddr := raddr }
@@ -1337,8 +1327,7 @@ Single-ported SRAMs can be inferred when the read and write conditions are
 mutually exclusive in the same \code{when} chain:
 
 \begin{scala}
-val ram1p = 
-  Mem(UInt(width = 32), 1024, seqRead = true)
+val ram1p = Mem(1024, UInt(width = 32))
 val reg_raddr = Reg(UInt())
 when (wen) { ram1p(waddr) := wdata }
 .elsewhen (ren) { reg_raddr := raddr }
@@ -1353,7 +1342,7 @@ undefined.
 the corresponding mask bit is set.
 
 \begin{scala}
-val ram = Mem(UInt(width = 32), 256)
+val ram = Mem(256, UInt(width = 32))
 when (wen) { ram.write(waddr, wdata, wmask) }
 \end{scala}
 
@@ -1375,7 +1364,7 @@ when (wen) { ram.write(waddr, wdata, wmask) }
 % The device records while \verb+button+ is \verb+true+, or plays back when \verb+false+.
 
 
-\section{Interfaces and Bulk Connections}
+\section{Interfaces \& Bulk Connections}
 \label{sec:interfaces}
 
 For more sophisticated modules it is often useful to define and
@@ -1388,7 +1377,7 @@ users can make changes in large interfaces in one place reducing the
 number of updates required when adding or removing pieces of the
 interface.
 
-\subsection{Port Classes, Subclasses, and Nesting}
+\subsection{Ports: Subclasses  \& Nesting}
 
 As we saw earlier, users can define their own interfaces by defining a class that subclasses \verb+Bundle+.  
 For example, a user could define a simple link for handshaking data as follows:
@@ -1447,17 +1436,17 @@ we utilize the \verb+Vec+ constructor:
 
 \begin{scala}
 class CrossbarIo(n: Int) extends Bundle {
-  val in  = Vec.fill(n){ new PLink().flip() }
+  val in  = Vec(n, new PLink().flip())
   val sel = UInt(INPUT, sizeof(n))
-  val out = Vec.fill(n){ new PLink() }
+  val out = Vec(n, new PLink())
 }
 \end{scala}
 
 % \begin{scala}
 % class CrossbarIo(n: Int) extends Bundle {
-%   val in  = Vec.fill(n){ UInt(w, INPUT) }
-%   val sel = Vec.fill(n){ UInt(sizeof(n),  INPUT) }
-%   val out = Vec.fill(n){ UInt(w, OUTPUT) }
+%   val in  = Vec(n, UInt(w, INPUT))
+%   val sel = Vec(n, UInt(sizeof(n),  INPUT))
+%   val out = Vec(n, UInt(w, OUTPUT))
 % }
 % \end{scala}
 
@@ -1595,7 +1584,7 @@ completely connect up the CPU interface.
 % Module correspond to Verilog modules
 % Cell is a sub-module, Chisel Module
 
-\section{Functional Creation of Modules}
+\section{Functional Module Creation}
 \label{sec:funconstructor}
 
 It is also useful to be able to make a functional interface for
@@ -1640,7 +1629,7 @@ class Mux4 extends Module {
 
 Selecting inputs is so useful that Chisel builds it in and calls it
 \code{Mux}.  However, unlike \code{Mux2} defined above, the builtin version allows any datatype on
-\code{in0} and \code{in1} as long as they have a common super class.
+\code{in0} and \code{in1} as long as they are the same subclass of \code{Data}.
 In Section~\ref{sec:parameterization} we will see how to define this
 ourselves.
 
@@ -1705,7 +1694,7 @@ Note that the cases (eg. c1, c2) must be in parentheses.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Polymorphism and Parameterization}
+\section{Polymorphism and \newline Parameterization}
 \label{sec:parameterization}
 
 Scala is a strongly typed language and uses parameterized types to specify generic functions and classes.  
@@ -1899,162 +1888,8 @@ class Fifo[T <: Data] (data: T, n: Int)
 
 \section{Multiple Clock Domains}
 
-Chisel 2.0 introduces support of multiple clock domains.  
+Chisel 3.0 does not yet support of multiple clock domains. That support will be coming shortly.
 
-\subsection{Creating Clock domains}
-
-In order to use multiple clock domains, users must create multiple clocks.  
-In Chisel, clocks are first class nodes created with a reset signal parameter and defined as follows:
-
-\begin{scala}
-class Clock (reset: Bool) extends Node {
-  def reset: Bool // returns reset pin
-}
-\end{scala}
-
-\noindent
-% Having reset in clock makes it easier to pass around.
-In Chisel there is a builtin implicit clock that state elements use by default:
-
-\begin{scala}
-var implicitClock = new Clock( implicitReset )
-\end{scala}
-
-The clock for state elements and modules can be defined using an additional named parameter called clock:
-
-\begin{scala}
-Reg(... clock: Clock = implicitClock)
-Mem(... clock: Clock = implicitClock)
-Module(... clock: Clock = implicitClock)
-\end{scala}
-
-\subsection{Crossing Clock Domains}
-
-There are two ways that circuits can be defined to send data between clock domains.
-The first and most primitive way is by using a synchronizer circuit comprised of two registers as follows:
-
-\begin{scala}
-// signalA is in clock domain clockA, 
-// want a version in clockB as signalB
-val s1 = Reg(init = UInt(0), clock = clockB)
-val s2 = Reg(init = UInt(0), clock = clockB)
-s1      := signalA
-s2      := s1; 
-signalB := s2
-\end{scala}
-
-\noindent
-Due to metastability issues, this technique is limited to communicating one bit data between domains.
-
-The second and more general way to send data between domains is by using an asynchronous fifo:
-
-\begin{scala}
-class AsyncFifo[T<:Data]
-    (gen: T, entries: Int, enq_clk: Clock, deq_clock: Clock)
-  extends Module
-\end{scala}
-
-\noindent
-When get a version of signalA from clock domains clockA to clockB by
-specifying the standard fifo parameters and the two clocks and then using the
-standard decoupled ready/valid signals:
-
-\begin{scala}
-val fifo =
-  new AsyncFifo(Uint(width = 32), 2, clockA, clockB)
-fifo.io.enq.bits  := signalA
-signalB           := fifo.io.deq.bits
-fifo.io.enq.valid := condA
-fifo.io.deq.ready := condB
-...
-\end{scala}
-
-\subsection{Backend Specific Multiple Clock Domains}
-
-Each Chisel backend requires the user to setup and control multiple clocks
-in a backend specific manner.  For the purposes of showing how to drive a
-multi clock design, consider the example of hardware with two modules
-communicating using an AsyncFifo with each module on separate clocks:
-\verb+fastClock+ and \verb+slowClock+.
-
-\subsubsection{C++}
-
-%MS: looks like the generated clock code is now a little bit different.
-In the C++ backend, for every clock \verb+i+ there is a
-\begin{itemize}
-\item \verb+size_t clk+.len field representing the clock \verb+i+'s period,
-\item \verb+clock_lo_i+ and \verb+clock_hi_i+, 
-\item \verb+int reset()+ function which ensures that all \verb+clock_lo+ and \verb+clock_hi+ functions are called at least once, and
-\item \verb+int clock(reset)+ function which computes min delta, invokes appropriate \verb+clock_lo+ and \verb+clock_hi+'s and returns min delta used.
-\end{itemize}
-
-\noindent
-In order to set up a C++ simulation, the user 
-\begin{itemize}
-\item initializes all period fields to desired period
-\item initializes all count fields to desired phase, 
-\item calls \verb+reset+ and then
-\item repeated calls clock to step the simulation.
-\end{itemize}
-
-\noindent
-The following is a C++ example of a main function for the \verb+slowClock+ / \verb+fastClock+ example:
-
-\begin{scala}
-int main(int argc, char** argv) {
-  ClkDomainTest_t dut;
-  dut.init(1);
-  dut.clk = 2;
-  dut.clk_cnt = 1;
-  dut.fastClock = 4;
-  dut.fastClock_cnt = 0;
-  dut.slowClock = 6;
-  dut.slowClock_cnt = 0;
-  for (int i = 0; i < 12; i ++) 
-    dut.reset();
-  for (int i = 0; i < 96; i ++) 
-    dut.clock(LIT<1>(0));
-}
-\end{scala}
-
-\subsubsection{Verilog}
-
-In Verilog, 
-
-\begin{itemize}
-\item Chisel creates a new port for each clock / reset,
-\item Chisel wires all the clocks to the top module, and
-\item the user must create an \verb+always+ block clock driver for every clock \verb+i+.
-\end{itemize}
-
-\noindent
-The following is a Verilog example of a top level harness to drive the  \verb+slowClock+ / \verb+fastClock+ example circuit:
-
-\begin{scala}
-module emulator;
-  reg fastClock = 0, slowClock = 0, 
-      resetFast = 1, resetSlow = 1;
-  wire [31:0] add, mul, test;
-  always #2 fastClock = ~fastClock;
-  always #4 slowClock = ~slowClock;
-  initial begin
-     #8 
-     resetFast = 0;
-     resetSlow = 0;
-     #400
-     $finish;
-  end
-  ClkDomainTest dut (
-     .fastClock(fastClock),
-     .slowClock(slowClock),
-     .io_resetFast(resetFast),
-     .io_resetSlow(resetSlow),
-     .io_add(add), .io_mul(mul), .io_test(test));
-endmodule
-\end{scala}
-
-\noindent
-See \url{http://www.asic-world.com/verilog/verifaq2.html} for more information about simulating clocks in Verilog.
 
 \section{Acknowlegements}
 
