@@ -14,7 +14,7 @@ class MaxN(val n: Int, val w: Int) extends Module {
   io.out := io.ins.reduceLeft(Max2)
 }
 
-class MaxNTests(c: MaxN, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
+class MaxNTests(c: MaxN, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val ins = Array.fill(c.n){ 0 }
   for (i <- 0 until 10) {
     var mx = 0

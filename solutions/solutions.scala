@@ -9,59 +9,63 @@ object TutorialSolutions {
     val res = 
     args(0) match {
       case "Accumulator" =>
-        runClassicTester(() => new Accumulator()){
+        runPeekPokeTester(() => new Accumulator()){
           (c,p) => new AccumulatorTests(c,p)}
       case "LFSR16" =>
-        runClassicTester(() => new LFSR16()){
+        runPeekPokeTester(() => new LFSR16()){
           (c,p) => new LFSR16Tests(c,p)}
       case "SingleEvenFilter" =>
-        runClassicTester(() => new SingleEvenFilter(UInt(width = 16))){
+        runPeekPokeTester(() => new SingleEvenFilter(UInt(width = 16))){
           (c,p) => new SingleEvenFilterTests(c,p)}
       case "VecShiftRegister" =>
-        runClassicTester(() => new VecShiftRegister()){
+        runPeekPokeTester(() => new VecShiftRegister()){
           (c,p) => new VecShiftRegisterTests(c,p)}
       case "VecShiftRegisterSimple" =>
-        runClassicTester(() => new VecShiftRegisterSimple()){
+        runPeekPokeTester(() => new VecShiftRegisterSimple()){
           (c,p) => new VecShiftRegisterSimpleTests(c,p)}
       case "VecShiftRegisterParam" =>
-        runClassicTester(() => new VecShiftRegisterParam(8, 4)){
+        runPeekPokeTester(() => new VecShiftRegisterParam(8, 4)){
           (c,p) => new VecShiftRegisterParamTests(c,p)}
       case "Max2" =>
-        runClassicTester(() => new Max2()){
+        runPeekPokeTester(() => new Max2()){
           (c,p) => new Max2Tests(c,p)}
       case "MaxN" =>
-        runClassicTester(() => new MaxN(8, 16)){
+        runPeekPokeTester(() => new MaxN(8, 16)){
           (c,p) => new MaxNTests(c,p)}
       case "Adder" =>
-        runClassicTester(() => new Adder(8)){
+        runPeekPokeTester(() => new Adder(8)){
           (c,p) => new AdderTests(c,p)}
       case "DynamicMemorySearch" =>
-        runClassicTester(() => new DynamicMemorySearch(8, 4)){
+        runPeekPokeTester(() => new DynamicMemorySearch(8, 4)){
           (c,p) => new DynamicMemorySearchTests(c,p)}
       case "RealGCD" => 
-        runClassicTester(() => new RealGCD()){
+        runPeekPokeTester(() => new RealGCD()){
           (c,p) => new RealGCDTests(c,p)}
       case "Mux2" => 
-        runClassicTester(() => new Mux2()){
+        runPeekPokeTester(() => new Mux2()){
           (c,p) => new Mux2Tests(c,p)}
       case "Mux4" =>
-        runClassicTester(() => new Mux4()){
+        runPeekPokeTester(() => new Mux4()){
           (c,p) => new Mux4Tests(c,p)}
       case "Memo" => 
-        runClassicTester(() => new Memo()){
+        runPeekPokeTester(() => new Memo()){
           (c,p) => new MemoTests(c,p)}
       case "Mul" => 
-        runClassicTester(() => new Mul()){
+        runPeekPokeTester(() => new Mul()){
           (c,p) => new MulTests(c,p)}
       case "Counter" =>
-        runClassicTester(() => new Counter()){
+        runPeekPokeTester(() => new Counter()){
           (c,p) => new CounterTest(c,p)}
       case "VendingMachine" =>
-        runClassicTester(() => new VendingMachine()){
+        runPeekPokeTester(() => new VendingMachine()){
           (c,p) => new VendingMachineTests(c,p)}
       case "VendingMachineSwitch" =>
-        runClassicTester(() => new VendingMachineSwitch()){
+        runPeekPokeTester(() => new VendingMachineSwitch()){
           (c,p) => new VendingMachineSwitchTests(c,p)}
+    }
+
+    if(!res) {
+      System.exit(1)
     }
   }
 }

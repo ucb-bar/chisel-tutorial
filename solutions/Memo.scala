@@ -31,7 +31,7 @@ class Memo extends Module {
 
 }
 
-class MemoTests(c: Memo, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
+class MemoTests(c: Memo, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   def rd(addr: Int, data: Int) = {
     poke(c.io.ren, 1)
     poke(c.io.rdAddr, addr)

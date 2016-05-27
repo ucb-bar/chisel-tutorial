@@ -33,7 +33,7 @@ class VendingMachine extends Module {
   io.valid := (state === sOk)
 }
 
-class VendingMachineTests(c: VendingMachine, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
+class VendingMachineTests(c: VendingMachine, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   var money = 0
   var isValid = false
   for (t <- 0 until 20) {

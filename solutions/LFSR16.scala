@@ -16,7 +16,7 @@ class LFSR16 extends Module {
   io.out := res
 }
 
-class LFSR16Tests(c: LFSR16, b: Option[Backend] = None) extends ClassicTester(c, _backend=b) {
+class LFSR16Tests(c: LFSR16, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   var res = 1
   for (t <- 0 until 16) {
     val inc = rnd.nextInt(2)
