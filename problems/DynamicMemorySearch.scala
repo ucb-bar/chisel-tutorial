@@ -25,7 +25,7 @@ class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
   io.target := index
 }
 
-class DynamicMemorySearchTests(c: DynamicMemorySearch) extends ClassicTester(c) {
+class DynamicMemorySearchTests(c: DynamicMemorySearch, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val list = Array.fill(c.n){ 0 }
   // Initialize the memory.
   for (k <- 0 until c.n) {

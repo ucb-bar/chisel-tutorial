@@ -3,62 +3,66 @@ package TutorialProblems
 import Chisel._
 import Chisel.iotesters._
 
-object TutorialProblems {
+object TutorialSolutions {
   def main(args: Array[String]): Unit = { 
-    val tutArgs = args.slice(1, args.length) 
+    val tutArgs = args.slice(1, args.length)
     val res = 
     args(0) match {
       case "Accumulator" =>
-        chiselMainTest(tutArgs, () => new Accumulator()){
-          c => new AccumulatorTests(c)}
+        runPeekPokeTester(() => new Accumulator()){
+          (c,p) => new AccumulatorTests(c,p)}
       case "LFSR16" =>
-        chiselMainTest(tutArgs, () => new LFSR16()){
-          c => new LFSR16Tests(c)}
-      case "VecShiftRegister" =>
-        chiselMainTest(tutArgs, () => new VecShiftRegister()){
-          c => new VecShiftRegisterTests(c)}
-      case "VecShiftRegisterSimple" =>
-        chiselMainTest(tutArgs, () => new VecShiftRegisterSimple()){
-          c => new VecShiftRegisterSimpleTests(c)}
-      case "VecShiftRegisterParam" =>
-        chiselMainTest(tutArgs, () => new VecShiftRegisterParam(6, 8)){
-          c => new VecShiftRegisterParamTests(c)}
+        runPeekPokeTester(() => new LFSR16()){
+          (c,p) => new LFSR16Tests(c,p)}
       case "SingleEvenFilter" =>
-        chiselMainTest(tutArgs, () => new SingleEvenFilter(UInt(width = 16))){
-          c => new SingleEvenFilterTests(c)}
-      case "MaxN" =>
-        chiselMainTest(tutArgs, () => new MaxN(8, 16)){
-          c => new MaxNTests(c)}
+        runPeekPokeTester(() => new SingleEvenFilter(UInt(width = 16))){
+          (c,p) => new SingleEvenFilterTests(c,p)}
+      case "VecShiftRegister" =>
+        runPeekPokeTester(() => new VecShiftRegister()){
+          (c,p) => new VecShiftRegisterTests(c,p)}
+      case "VecShiftRegisterSimple" =>
+        runPeekPokeTester(() => new VecShiftRegisterSimple()){
+          (c,p) => new VecShiftRegisterSimpleTests(c,p)}
+      case "VecShiftRegisterParam" =>
+        runPeekPokeTester(() => new VecShiftRegisterParam(8, 4)){
+          (c,p) => new VecShiftRegisterParamTests(c,p)}
       case "Max2" =>
-        chiselMainTest(tutArgs, () => new Max2()){
-          c => new Max2Tests(c)}
+        runPeekPokeTester(() => new Max2()){
+          (c,p) => new Max2Tests(c,p)}
+      case "MaxN" =>
+        runPeekPokeTester(() => new MaxN(8, 16)){
+          (c,p) => new MaxNTests(c,p)}
       case "Adder" =>
-        chiselMainTest(tutArgs, () => new Adder(8)){
-          c => new AdderTests(c)}
+        runPeekPokeTester(() => new Adder(8)){
+          (c,p) => new AdderTests(c,p)}
       case "DynamicMemorySearch" =>
-        chiselMainTest(tutArgs, () => new DynamicMemorySearch(8, 4)){
-          c => new DynamicMemorySearchTests(c)}
+        runPeekPokeTester(() => new DynamicMemorySearch(8, 4)){
+          (c,p) => new DynamicMemorySearchTests(c,p)}
       case "RealGCD" => 
-        chiselMainTest(tutArgs, () => new RealGCD()){
-          c => new RealGCDTests(c)}
+        runPeekPokeTester(() => new RealGCD()){
+          (c,p) => new RealGCDTests(c,p)}
       case "Mux2" => 
-        chiselMainTest(tutArgs, () => new Mux2()){
-          c => new Mux2Tests(c)}
+        runPeekPokeTester(() => new Mux2()){
+          (c,p) => new Mux2Tests(c,p)}
       case "Mux4" =>
-        chiselMainTest(tutArgs, () => new Mux4()){
-          c => new Mux4Tests(c)}
+        runPeekPokeTester(() => new Mux4()){
+          (c,p) => new Mux4Tests(c,p)}
       case "Memo" => 
-        chiselMainTest(tutArgs, () => new Memo()){
-          c => new MemoTests(c)}
+        runPeekPokeTester(() => new Memo()){
+          (c,p) => new MemoTests(c,p)}
       case "Mul" => 
-        chiselMainTest(tutArgs, () => new Mul()){
-          c => new MulTests(c)}
+        runPeekPokeTester(() => new Mul()){
+          (c,p) => new MulTests(c,p)}
       case "Counter" =>
-        chiselMainTest(tutArgs, () => new Counter()){
-          c => new CounterTest(c)}
+        runPeekPokeTester(() => new Counter()){
+          (c,p) => new CounterTest(c,p)}
       case "VendingMachine" =>
-        chiselMainTest(tutArgs, () => new VendingMachine()){
-          c => new VendingMachineTests(c)}
+        runPeekPokeTester(() => new VendingMachine()){
+          (c,p) => new VendingMachineTests(c,p)}
+    }
+
+    if(!res) {
+      System.exit(1)
     }
   }
 }

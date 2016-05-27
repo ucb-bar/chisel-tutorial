@@ -18,7 +18,7 @@ class RealGCD extends Module {
 
 }
 
-class RealGCDTests(c: RealGCD) extends ClassicTester(c) {
+class RealGCDTests(c: RealGCD, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val inputs = List( (48, 32), (7, 3), (100, 10) )
   val outputs = List( 16, 1, 10)
 

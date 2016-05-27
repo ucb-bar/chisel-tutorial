@@ -27,7 +27,7 @@ class Mux4 extends Module {
   m0.io.in1 := io.in1
 }
 
-class Mux4Tests(c: Mux4) extends ClassicTester(c) {
+class Mux4Tests(c: Mux4, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   for (s0 <- 0 until 2) {
     for (s1 <- 0 until 2) {
       for(i0 <- 0 until 2) {
