@@ -22,6 +22,11 @@ check_SUB_DIRS	:= $(TUT_SUB_DIRS)
 clean_SUB_DIRS	:= $(ALL_SUB_DIRS)
 smoke_SUB_DIRS	:= $(TUT_SUB_DIRS)
 
+# The default is to run tests in all the tutorial sub-directories
+#  with the exception of problems.
+
+default: check
+
 # A Make "subroutine" to build target $1 in directory $2
 # We generate specifc target.subdirectory phony targets, rather
 # than simply using something like:
