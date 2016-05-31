@@ -1,16 +1,6 @@
-package TutorialSolutions
+package solutions
 
-import Chisel._
 import Chisel.iotesters._
-
-class Adder(val w: Int) extends Module {
-  val io = new Bundle {
-    val in0 = UInt(INPUT,  w)
-    val in1 = UInt(INPUT,  w)
-    val out = UInt(OUTPUT, w)
-  }
-  io.out := io.in0 + io.in1
-}
 
 class AdderTests(c: Adder, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   for (i <- 0 until 10) {
@@ -20,5 +10,12 @@ class AdderTests(c: Adder, b: Option[Backend] = None) extends PeekPokeTester(c, 
     poke(c.io.in1, in1)
     step(1)
     expect(c.io.out, (in0 + in1)&((1 << c.w)-1))
+  }
+}
+
+class AdderTester extends ChiselFlatSpec {
+  "Adder" should "correctly add randomly generated numbers" in {
+    runPeekPokeTester(() => new Adder(16)){
+      (c,b) => new AdderTests(c,b)}
   }
 }
