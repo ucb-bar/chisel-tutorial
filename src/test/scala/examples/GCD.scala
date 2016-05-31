@@ -1,6 +1,5 @@
 package examples
 
-import Chisel._
 import Chisel.iotesters._
 
 class GCDTests(c: GCD, backend: Option[Backend] = None) extends PeekPokeTester(c, _backend=backend) {

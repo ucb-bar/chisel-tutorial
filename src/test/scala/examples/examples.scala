@@ -1,11 +1,10 @@
 package examples
 
-import Chisel._
 import Chisel.iotesters._
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.immutable.HashMap
 
-object TutorialExamples {
+object Examples {
   def filterArgs(args: Array[String], amap: HashMap[String, String]): Array[String] = {
     val newArgs = ArrayBuffer[String]()
     for (arg <- args) {

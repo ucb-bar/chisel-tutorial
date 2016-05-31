@@ -18,3 +18,9 @@ class AdderTests(c: Adder, b: Option[Backend] = None) extends PeekPokeTester(c, 
     expect(c.io.Cout, rsum & (BigInt(1) << c.n))
   }
 }
+
+class AdderTester extends ChiselFlatSpec {
+  "a" should "b" in {
+    new AdderTests(new Adder(16))
+  }
+}
