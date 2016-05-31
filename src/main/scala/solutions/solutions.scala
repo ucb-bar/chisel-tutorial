@@ -1,9 +1,9 @@
-package TutorialSolutions
+package solutions
 
 import Chisel._
 import Chisel.iotesters._
 
-object TutorialSolutions {
+object Solutions {
   def main(args: Array[String]): Unit = { 
     val tutArgs = args.slice(1, args.length)
     val res = 
