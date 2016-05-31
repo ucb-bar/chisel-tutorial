@@ -10,3 +10,12 @@ class VecSearchTests(c: VecSearch, b: Option[Backend] = None) extends PeekPokeTe
     step(1)
   }
 }
+
+class VecSearchTester extends ChiselFlatSpec {
+  "VecSearch" should "correctly look for element in vector" in {
+    runPeekPokeTester(() => new VecSearch) {
+      (c,b) => new VecSearchTests(c,b)
+    }
+  }
+}
+

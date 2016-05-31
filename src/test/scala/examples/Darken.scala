@@ -17,3 +17,10 @@ class DarkenTests(c: Darken, val infilename: String, val outfilename: String, b:
   }
   outPic.write(outfilename)
 }
+
+class DarkenTester extends ChiselFlatSpec {
+  "Darken" should "darken an image" in {
+    runPeekPokeTester(() => new Darken()){
+      (c,b) => new DarkenTests(c, "src/test/resources/in.im24", "out.im24", b)}
+  }
+}

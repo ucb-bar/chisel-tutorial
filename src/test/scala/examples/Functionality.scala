@@ -14,3 +14,11 @@ class FunctionalityTests(c: Functionality, b: Option[Backend] = None) extends Pe
     expect(c.io.z, (x & y) | (~x & y))
   }
 }
+
+class FunctionalityTester extends ChiselFlatSpec {
+  "Functionality" should "demonstrate usage of functions that generate code" in {
+    runPeekPokeTester(() => new Functionality) {
+      (c,b) => new FunctionalityTests(c,b)
+    }
+  }
+}

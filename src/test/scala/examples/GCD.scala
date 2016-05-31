@@ -13,3 +13,11 @@ class GCDTests(c: GCD, backend: Option[Backend] = None) extends PeekPokeTester(c
   } while (t <= 1 || peek(c.io.v) == 0)
   expect(c.io.z, z)
 }
+
+class GCDTester extends ChiselFlatSpec {
+  "GCD" should "correctly compute GCD of two numbers" in {
+    runPeekPokeTester(() => new GCD) {
+      (c,b) => new GCDTests(c,b)
+    }
+  }
+}

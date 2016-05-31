@@ -19,3 +19,11 @@ class FullAdderTests(c: FullAdder, b: Option[Backend] = None) extends PeekPokeTe
     expect(c.io.cout, cout)
   }
 }
+
+class FullAdderTester extends ChiselFlatSpec {
+  "FullAdder" should "correctly add randomly generated numbers and show carry" in {
+    runPeekPokeTester(() => new FullAdder) {
+      (c,b) => new FullAdderTests(c,b)
+    }
+  }
+}

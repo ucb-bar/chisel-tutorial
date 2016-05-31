@@ -14,3 +14,12 @@ class ParityTests(c: Parity, b: Option[Backend] = None) extends PeekPokeTester(c
   }
 }
 
+class ParityTester extends ChiselFlatSpec {
+  "Parity" should "correctly compute parity of two numbers" in {
+    runPeekPokeTester(() => new Parity) {
+      (c,b) => new ParityTests(c,b)
+    }
+  }
+}
+
+

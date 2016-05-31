@@ -18,3 +18,11 @@ class Adder4Tests(c: Adder4, b: Option[Backend] = None) extends PeekPokeTester(c
     expect(c.io.Cout, rsum >> 4)
   }
 }
+
+class Adder4Tester extends ChiselFlatSpec {
+  "Adder4" should "correctly add randomly generated numbers" in {
+    runPeekPokeTester(() => new Adder4){
+      (c,b) => new Adder4Tests(c,b)}
+  }
+}
+

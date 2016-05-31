@@ -15,3 +15,12 @@ class ShiftRegisterTests(c: ShiftRegister, b: Option[Backend] = None) extends Pe
     if (t >= 4) expect(c.io.out, reg(3))
   }
 }
+
+class ShiftRegisterTester extends ChiselFlatSpec {
+  "ShiftRegister" should "shift a number through a series of registers" in {
+    runPeekPokeTester(() => new ShiftRegister) {
+      (c,b) => new ShiftRegisterTests(c,b)
+    }
+  }
+}
+

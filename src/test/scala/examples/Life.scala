@@ -15,3 +15,12 @@ class LifeTests(c: Life, b: Option[Backend] = None) extends PeekPokeTester(c, _b
     }
   }
 }
+
+class LifeTester extends ChiselFlatSpec {
+  "Life" should "implement transition rules for Conway's life game" in {
+    runPeekPokeTester(() => new Life(3)) {
+      (c,b) => new LifeTests(c,b)
+    }
+  }
+}
+

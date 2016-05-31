@@ -57,9 +57,6 @@ object Examples {
       case "FullAdder" =>
         runPeekPokeTester(() => new FullAdder()){
           (c,b) => new FullAdderTests(c,b)}
-      case "FullAdder2" =>
-        runPeekPokeTester(() => new FullAdder2()){
-          (c,b) => new FullAdder2Tests(c,b)}
       case "ByteSelector" =>
         runPeekPokeTester(() => new ByteSelector()){
           (c,b) => new ByteSelectorTests(c,b)}

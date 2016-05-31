@@ -15,3 +15,10 @@ class CombinationalTests(c: Combinational, b: Option[Backend] = None) extends Pe
   }
 }
 
+class CombinationalTester extends ChiselFlatSpec {
+  "Combinational" should "correctly add randomly generated numbers" in {
+    runPeekPokeTester(() => new Combinational){
+      (c,b) => new CombinationalTests(c,b)}
+  }
+}
+

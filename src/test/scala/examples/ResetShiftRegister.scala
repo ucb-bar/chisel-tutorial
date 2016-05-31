@@ -20,3 +20,11 @@ class ResetShiftRegisterTests(c: ResetShiftRegister, b: Option[Backend] = None) 
     expect(c.io.out, (if (k < 4) 0 else ins(k % 4)))
   }
 }
+
+class ResetShiftRegisterTester extends ChiselFlatSpec {
+  "ResetShiftRegister" should "correctly compute ResetShiftRegister of two numbers" in {
+    runPeekPokeTester(() => new ResetShiftRegister) {
+      (c,b) => new ResetShiftRegisterTests(c,b)
+    }
+  }
+}

@@ -12,3 +12,12 @@ class ByteSelectorTests(c: ByteSelector, b: Option[Backend] = None) extends Peek
     expect(c.io.out, (test_in >> (t * 8)) & 0xFF)
   }
 }
+
+class ByteSelectorTester extends ChiselFlatSpec {
+  "ByteSelector" should "correctly select correct bits from an input" in {
+    runPeekPokeTester(() => new ByteSelector){
+      (c,b) => new ByteSelectorTests(c,b)}
+  }
+}
+
+

@@ -38,4 +38,13 @@ class StackTests(c: Stack, b: Option[Backend] = None) extends PeekPokeTester(c, 
   }
 }
 
+class StackTester extends ChiselFlatSpec {
+  "Stack" should "correctly support basic stack operations" in {
+    runPeekPokeTester(() => new Stack(depth = 8)) {
+      (c,b) => new StackTests(c,b)
+    }
+  }
+}
+
+
 

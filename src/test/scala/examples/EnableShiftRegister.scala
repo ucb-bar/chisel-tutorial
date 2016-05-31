@@ -19,3 +19,11 @@ class EnableShiftRegisterTests(c: EnableShiftRegister, b: Option[Backend] = None
     expect(c.io.out, reg(3))
   }
 }
+
+class EnableShiftRegisterTester extends ChiselFlatSpec {
+  "EnableShiftRegister" should "create a pipeline of registers and shift them each cycle" in {
+    runPeekPokeTester(() => new EnableShiftRegister) {
+      (c,b) => new EnableShiftRegisterTests(c,b)
+    }
+  }
+}

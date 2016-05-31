@@ -29,3 +29,12 @@ class SimpleALUTests(c: SimpleALU, b: Option[Backend] = None) extends PeekPokeTe
   }
       // }}}
 }
+
+class SimpleALUTester extends ChiselFlatSpec {
+  "SimpleALU" should "perform correct math operation on dynamic operand" in {
+    runPeekPokeTester(() => new SimpleALU) {
+      (c,b) => new SimpleALUTests(c,b)
+    }
+  }
+}
+

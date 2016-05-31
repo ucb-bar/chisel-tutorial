@@ -50,3 +50,12 @@ class RiscTests(c: Risc, b: Option[Backend] = None) extends PeekPokeTester(c, _b
   assert(k < 10, "TIME LIMIT")
   expect(c.io.out, 4)
 }
+
+class RiscTester extends ChiselFlatSpec {
+  "Risc" should "run simple fsm implementation" in {
+    runPeekPokeTester(() => new Risc) {
+      (c,b) => new RiscTests(c,b)
+    }
+  }
+}
+

@@ -15,3 +15,11 @@ class HiLoMultiplierTests(c: HiLoMultiplier, b: Option[Backend] = None) extends 
     expect(c.io.Hi, (ref_out & BigInt("ffff0000", 16)) >> 16)
   }
 }
+
+class HiLoMultiplierTester extends ChiselFlatSpec {
+  "HiLoMultiplier" should "multiply two numbers returning result as a hi and low output" in {
+    runPeekPokeTester(() => new HiLoMultiplier) {
+      (c,b) => new HiLoMultiplierTests(c,b)
+    }
+  }
+}
