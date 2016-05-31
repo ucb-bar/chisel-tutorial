@@ -1,7 +1,7 @@
 package examples
 
 import Chisel._
-import Chisel.iotesters._
+
 
 object VecSearchTest {
   val pattern = Array(0, 4, 15, 14, 2, 5, 13)
@@ -13,6 +13,6 @@ class VecSearch extends Module {
   }
   val index = Reg(init = UInt(0, width = 3))
   val elts  = Wire(init = Vec(VecSearchTest.pattern.map(UInt(_, 4))))
-  index := index + UInt(1)
+  index := index + 1.U
   io.out := elts(index)
 }

@@ -1,7 +1,7 @@
 package examples
 
 import Chisel._
-import Chisel.iotesters._
+
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.{Stack => ScalaStack}
 import scala.util.Random
@@ -22,12 +22,12 @@ class Stack(val depth: Int) extends Module {
   when (io.en) {
     when(io.push && (sp < UInt(depth))) {
       stack_mem(sp) := io.dataIn
-      sp := sp + UInt(1)
-    } .elsewhen(io.pop && (sp > UInt(0))) {
-      sp := sp - UInt(1)
+      sp := sp + 1.U
+    } .elsewhen(io.pop && (sp > 0.U)) {
+      sp := sp - 1.U
     }
-    when (sp > UInt(0)) {
-      out := stack_mem(sp - UInt(1))
+    when (sp > 0.U) {
+      out := stack_mem(sp - 1.U)
     }
   }
 

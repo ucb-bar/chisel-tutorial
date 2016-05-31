@@ -1,7 +1,7 @@
 package examples
 
 import Chisel._
-import Chisel.iotesters._
+
 
 class Darken extends Module {
   val io = new Bundle {
@@ -9,5 +9,5 @@ class Darken extends Module {
     val out = Bits(OUTPUT, 8)
   }
 
-  io.out := io.in << UInt(1)
+  io.out := io.in << 1.U
 }

@@ -1,7 +1,7 @@
 package examples
 
 import Chisel._
-import Chisel.iotesters._
+
 
 //A 4-bit adder with carry in and carry out
 class HiLoMultiplier() extends Module {

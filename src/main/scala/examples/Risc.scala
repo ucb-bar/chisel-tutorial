@@ -1,7 +1,7 @@
 package examples
 
 import Chisel._
-import Chisel.iotesters._
+
 
 class Risc extends Module {
   val io = new Bundle {
@@ -35,19 +35,19 @@ class Risc extends Module {
   when (io.isWr) {
     code(io.wrAddr) := io.wrData
   } .elsewhen (io.boot) {
-    pc := UInt(0)
+    pc := 0.U
   } .otherwise {
     switch(op) {
       is(add_op) { rc := ra + rb }
-      is(imm_op) { rc := (rai << UInt(8)) | rbi }
+      is(imm_op) { rc := (rai << 8.U) | rbi }
     }
     io.out := rc
-    when (rci === UInt(255)) {
+    when (rci === 255.U) {
       io.valid := Bool(true)
     } .otherwise {
       file(rci) := rc
     }
-    pc := pc + UInt(1)
+    pc := pc + 1.U
   }
 }
 

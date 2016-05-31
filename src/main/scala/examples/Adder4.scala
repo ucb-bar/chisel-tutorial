@@ -1,7 +1,7 @@
 package examples
 
 import Chisel._
-import Chisel.iotesters._
+
 
 //A 4-bit adder with carry in and carry out
 class Adder4 extends Module {
@@ -35,6 +35,6 @@ class Adder4 extends Module {
   Adder3.io.a := io.A(3)
   Adder3.io.b := io.B(3)
   Adder3.io.cin := Adder2.io.cout
-  io.Sum := Cat(Adder3.io.sum, s2).toUInt()
+  io.Sum := Cat(Adder3.io.sum, s2).asUInt()
   io.Cout := Adder3.io.cout
 }

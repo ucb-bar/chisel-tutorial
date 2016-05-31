@@ -1,7 +1,7 @@
 package examples
 
 import Chisel._
-import Chisel.iotesters._
+
 
 class GCD extends Module {
   val io = new Bundle {
@@ -17,5 +17,5 @@ class GCD extends Module {
   unless (x > y) { y := y - x }
   when (io.e) { x := io.a; y := io.b }
   io.z := x
-  io.v := y === UInt(0)
+  io.v := y === 0.U
 }

@@ -1,7 +1,7 @@
 package examples
 
 import Chisel._
-import Chisel.iotesters._
+
 
 class EnableShiftRegister extends Module {
   val io = new Bundle {
