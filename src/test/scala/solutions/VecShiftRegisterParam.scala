@@ -1,19 +1,6 @@
 package solutions
 
-import Chisel._
 import Chisel.iotesters._
-
-class VecShiftRegisterParam(val n: Int, val w: Int) extends Module {
-  val io = new Bundle {
-    val in  = UInt(INPUT,  w)
-    val out = UInt(OUTPUT, w)
-  }
-  val delays = Reg(init = Vec.fill(n)(UInt(0, width = w)))
-  for (i <- n-1 to 1 by -1)
-    delays(i) := delays(i-1) 
-  delays(0) := io.in
-  io.out := delays(n-1)
-}
 
 class VecShiftRegisterParamTests(c: VecShiftRegisterParam, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val reg = Array.fill(c.n){ 0 }

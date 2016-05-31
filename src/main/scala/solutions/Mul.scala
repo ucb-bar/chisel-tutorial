@@ -1,7 +1,6 @@
 package solutions
 
 import Chisel._
-import Chisel.iotesters._
 import scala.collection.mutable.ArrayBuffer
 
 /** Four-by-four multiply using a look-up table.
@@ -26,16 +25,4 @@ class Mul extends Module {
   io.z := tbl((io.x << UInt(4)) | io.y)
 
   // -------------------------------- \\
-}
-
-class MulTests(c: Mul, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
-  val maxInt  = 1 << 4
-  for (i <- 0 until 10) {
-    val x = rnd.nextInt(maxInt)
-    val y = rnd.nextInt(maxInt)
-    poke(c.io.x, x)
-    poke(c.io.y, y)
-    step(1)
-    expect(c.io.z, (x * y))
-  }
 }

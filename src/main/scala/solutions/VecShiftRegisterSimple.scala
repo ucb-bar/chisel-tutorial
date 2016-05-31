@@ -1,7 +1,6 @@
 package solutions
 
 import Chisel._
-import Chisel.iotesters._
 
 class VecShiftRegisterSimple extends Module {
   val io = new Bundle {
@@ -14,17 +13,4 @@ class VecShiftRegisterSimple extends Module {
   delays(2) := delays(1)
   delays(3) := delays(2)
   io.out    := delays(3)
-}
-
-class VecShiftRegisterSimpleTests(c: VecShiftRegisterSimple, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
-  val reg = Array.fill(4){ 0 }
-  for (t <- 0 until 16) {
-    val in = rnd.nextInt(256)
-    poke(c.io.in, in)
-    step(1)
-    for (i <- 3 to 1 by -1)
-      reg(i) = reg(i-1)
-    reg(0) = in
-    expect(c.io.out, reg(3))
-  }
 }
