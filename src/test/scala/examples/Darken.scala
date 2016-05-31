@@ -1,6 +1,6 @@
 package examples
 
-import Chisel._
+
 import Chisel.iotesters._
 
 class DarkenTests(c: Darken, val infilename: String, val outfilename: String, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {

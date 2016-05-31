@@ -1,6 +1,6 @@
 package examples
 
-import Chisel._
+
 import Chisel.iotesters._
 import util.Random
 

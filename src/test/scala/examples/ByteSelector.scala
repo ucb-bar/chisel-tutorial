@@ -1,6 +1,6 @@
 package examples
 
-import Chisel._
+
 import Chisel.iotesters._
 
 class ByteSelectorTests(c: ByteSelector, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
@@ -19,5 +19,3 @@ class ByteSelectorTester extends ChiselFlatSpec {
       (c,b) => new ByteSelectorTests(c,b)}
   }
 }
-
-

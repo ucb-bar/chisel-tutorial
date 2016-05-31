@@ -1,6 +1,6 @@
 package examples
 
-import Chisel._
+
 import Chisel.iotesters._
 
 class CombinationalTests(c: Combinational, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {

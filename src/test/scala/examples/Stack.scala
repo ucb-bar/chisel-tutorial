@@ -1,6 +1,6 @@
 package examples
 
-import Chisel._
+
 import Chisel.iotesters._
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.{Stack => ScalaStack}
