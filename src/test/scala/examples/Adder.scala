@@ -1,6 +1,5 @@
 package examples
 
-import Chisel._
 import Chisel.iotesters._
 
 class AdderTests(c: Adder, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
@@ -20,7 +19,8 @@ class AdderTests(c: Adder, b: Option[Backend] = None) extends PeekPokeTester(c, 
 }
 
 class AdderTester extends ChiselFlatSpec {
-  "a" should "b" in {
-    new AdderTests(new Adder(16))
+  "Adder" should "correctly add randomly generated numbers" in {
+    runPeekPokeTester(() => new Adder(16)){
+      (c,b) => new AdderTests(c,b)}
   }
 }
