@@ -1,16 +1,6 @@
-package TutorialProblems
+package problems
 
-import Chisel._
 import Chisel.iotesters._
-
-class LFSR16 extends Module {
-  val io = new Bundle {
-    val inc = Bool(INPUT)
-    val out = UInt(OUTPUT, 16)
-  }
-  // COMPUTE LFSR16 HERE
-  io.out := UInt(0)
-}
 
 class LFSR16Tests(c: LFSR16, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   var res = 1

@@ -1,17 +1,6 @@
-package TutorialProblems
+package problems
 
-import Chisel._
 import Chisel.iotesters._
-
-class Adder(val w: Int) extends Module {
-  // fill in here
-  val io = new Bundle {
-    val in0 = UInt(INPUT,  1)
-    val in1 = UInt(INPUT,  1)
-    val out = UInt(OUTPUT, 1)
-  }
-  io.out := UInt(0)
-}
 
 class AdderTests(c: Adder, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   for (i <- 0 until 10) {
