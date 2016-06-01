@@ -1,4 +1,4 @@
-package TutorialProblems
+package problems
 
 import Chisel._
 import Chisel.iotesters._
