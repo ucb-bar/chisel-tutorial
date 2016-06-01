@@ -1,18 +1,7 @@
 package problems
 
-import Chisel._
 import Chisel.iotesters._
 import scala.math._
-
-class Mux2 extends Module {
-  val io = new Bundle {
-    val sel = Bits(INPUT,  1)
-    val in0 = Bits(INPUT,  1)
-    val in1 = Bits(INPUT,  1)
-    val out = Bits(OUTPUT, 1)
-  }
-  io.out := (io.sel & io.in1) | (~io.sel & io.in0)
-}
 
 class Mux2Tests(c: Mux2, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val n = pow(2, 3).toInt

@@ -1,22 +1,6 @@
 package problems
 
-import Chisel._
 import Chisel.iotesters._
-
-class RealGCDInput extends Bundle {
-  val a = Bits(width = 16)
-  val b = Bits(width = 16)
-}
-
-class RealGCD extends Module {
-  val io  = new Bundle {
-    val in  = Decoupled(new RealGCDInput()).flip()
-    val out = Valid(Bits(width = 16))
-  }
-
-  // flush this out ...
-
-}
 
 class RealGCDTests(c: RealGCD, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val inputs = List( (48, 32), (7, 3), (100, 10) )
@@ -37,6 +21,7 @@ class RealGCDTests(c: RealGCD, b: Option[Backend] = None) extends PeekPokeTester
       poke(c.io.in.valid, 0)
       step(1)
     } while (t < 100 && (peek(c.io.out.valid) == 0))
+
     expect(c.io.out.bits, outputs(i))
     i += 1;
   } while (t < 100 && i < 3)

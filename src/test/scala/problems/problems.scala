@@ -3,7 +3,7 @@ package problems
 import Chisel._
 import Chisel.iotesters._
 
-object TutorialSolutions {
+object Problems {
   def main(args: Array[String]): Unit = { 
     val tutArgs = args.slice(1, args.length)
     val res = 

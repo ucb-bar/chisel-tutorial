@@ -1,25 +1,6 @@
 package problems
 
-import Chisel._
 import Chisel.iotesters._
-import scala.collection.mutable.ArrayBuffer
-
-class Mul extends Module {
-  val io = new Bundle {
-    val x   = UInt(INPUT,  4)
-    val y   = UInt(INPUT,  4)
-    val z   = UInt(OUTPUT, 8)
-  }
-  val muls = new ArrayBuffer[UInt]()
-
-  // -------------------------------- \\
-  // Calculate io.z = io.x * io.y by
-  // building filling out muls
-  // -------------------------------- \\
-
-
-  // -------------------------------- \\
-}
 
 class MulTests(c: Mul, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val maxInt  = 1 << 4

@@ -1,17 +1,6 @@
 package problems
 
-import Chisel._
 import Chisel.iotesters._
-
-class VecShiftRegisterSimple extends Module {
-  val io = new Bundle {
-    val in  = UInt(INPUT,  8)
-    val out = UInt(OUTPUT, 8)
-  }
-  val delays = Reg(init = Vec.fill(4)(UInt(0, width = 8)))
-  /// fill in here ...
-  io.out := UInt(0)
-}
 
 class VecShiftRegisterSimpleTests(c: VecShiftRegisterSimple, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
   val reg = Array.fill(4){ 0 }
