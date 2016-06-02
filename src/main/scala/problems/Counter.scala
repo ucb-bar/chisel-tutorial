@@ -6,7 +6,7 @@ import Counter._
 object Counter {
 
   def wrapAround(n: UInt, max: UInt) = 
-    Mux(n > max, UInt(0), n)
+    Mux(n > max, 0.U, n)
 
   // ---------------------------------------- \\
   // Modify this function to increment by the
@@ -15,7 +15,7 @@ object Counter {
 
   def counter(max: UInt, en: Bool, amt: UInt): UInt = {
     val x = Reg(init=UInt(0, max.getWidth))
-    x := wrapAround(x + UInt(1), max)
+    x := wrapAround(x + 1.U, max)
     x
   }
 
@@ -30,6 +30,6 @@ class Counter extends Module {
     val tot = UInt(OUTPUT, 8)
   }
 
-  io.tot := Counter.counter(UInt(255), io.inc, io.amt)
+  io.tot := Counter.counter(255.U, io.inc, io.amt)
 
 }

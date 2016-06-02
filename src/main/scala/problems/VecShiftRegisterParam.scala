@@ -8,5 +8,5 @@ class VecShiftRegisterParam(val n: Int, val w: Int) extends Module {
     val out = UInt(OUTPUT, w)
   }
   /// fill in here ...
-  io.out := UInt(0)
+  io.out := 0.U
 }

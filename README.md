@@ -40,9 +40,13 @@ Completing the Tutorials
 ------------------------
 
 To learn Chisel, we recommend learning by example and just trying things out.
-To help with this, we have produced exercises (`/problems`) which have clearly
+To help with this, we have produced exercises with circuits (`src/main/scala/problems`) and their
+ associated test harnesses (`src/test/scala/problems`) which have clearly
 marked places to complete their functionality and simple test cases. You can
-compare your work with our sample solutions (`/solutions`).
+compare your work with our sample solutions in (`src/main/scala/solutions`) and (`src/test/scala/solutions`).  This 
+hierarchical organization and separation of circuits and tests is a good practice and we encourage you to understand it
+and use it in the future.  Typically whe.n you work on a problem you will have two open editor windows (vi, emacs, IDE, 
+etc) one to edit the circuit and the other to edit the tests.
 
 To speed things up, we will keep sbt running. To get started:
 
@@ -85,23 +89,22 @@ memories.
 
 To check that all of your solutions are correct:
 
-    $ cd problems
-    $ make
+    $ ./run-problems.sh all
 
 
 To run all of our reference solutions:
 
-    $ cd solutions
-    $ make
+    $ ./run-solutions.sh all
+
+Note: ./run-problems.sh, ./run-solutions.sh, ./run-examples.sh are convenience scripts to invoke tests
 
 Learning More Chisel
 --------------------
 In addition to the problems and the solutions, we have also provided some
-examples of more complex circuits (`/examples`). You should take a look at the
-source and test them out:
+examples of more complex circuits (`src/main/scala/examples`) and (`src/test/scala/examples`). You should take a 
+look at the source and test them out:
 
-    $ cd examples
-    $ make
+    $ ./run-examples.sh all
 
 On our [website](http://chisel.eecs.berkeley.edu/) we also have posted
 [documentation](https://chisel.eecs.berkeley.edu/documentation.html).

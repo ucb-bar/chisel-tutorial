@@ -229,14 +229,14 @@ values.  Bundles and Vecs will be covered later.
 Constant or literal values are expressed using Scala integers or
 strings passed to constructors for the types:
 \begin{scala}
-UInt(1)       // decimal 1-bit lit from Scala Int.
-UInt("ha")    // hexadecimal 4-bit lit from string.
-UInt("o12")   // octal 4-bit lit from string.
-UInt("b1010") // binary 4-bit lit from string.
+1.U       // decimal 1-bit lit from Scala Int.
+"ha".U    // hexadecimal 4-bit lit from string.
+"o12".U   // octal 4-bit lit from string.
+"b1010".U // binary 4-bit lit from string.
 
-SInt(5)    // signed decimal 4-bit lit from Scala Int.
+5.S    // signed decimal 4-bit lit from Scala Int.
 SInt(-8)   // negative decimal 4-bit lit from Scala Int.
-UInt(5)    // unsigned decimal 3-bit lit from Scala Int.
+5.U    // unsigned decimal 3-bit lit from Scala Int.
 
 Bool(true) // Bool lits from Scala lits.
 Bool(false)
@@ -366,8 +366,8 @@ UInt, and Bool. Returns Bool.} \\
 \multicolumn{2}{|l|}{Shifts. Valid on SInt and UInt.} \\
 \hline
 \hline
-\verb@val twoToTheX = SInt(1) << x@  & Logical left shift. \\
-\verb@val hiBits = x >> UInt(16)@          & Right shift (logical on UInt and\&
+\verb@val twoToTheX = 1.S << x@  & Logical left shift. \\
+\verb@val hiBits = x >> 16.U@          & Right shift (logical on UInt and\&
 arithmetic on SInt). \\
 % \verb@val scaledX = x >>> 3@  & Arithmetic right shift, copies in sign bits. \\
 \hline
@@ -378,7 +378,7 @@ arithmetic on SInt). \\
 \verb@val xLSB = x(0)@  & Extract single bit, LSB has index 0. \\
 \verb@val xTopNibble = x(15,12)@  & Extract bit field  from end to start
 bit position. \\
-\verb@val usDebt = Fill(3, UInt("hA"))@ & Replicate a bit string multiple times. \\
+\verb@val usDebt = Fill(3, "hA".U)@ & Replicate a bit string multiple times. \\
 \verb@val float = Cat(sign,exponent,mantissa)@ & Concatenates bit fields, with first argument on left.\\
 \hline
 \hline
@@ -716,21 +716,8 @@ the \code{Mux4} interface.
 
 \section{Running Examples}
 
-Now that we have defined modules, we will discuss how we actually run and test a circuit.  Chisel produces \verb$Firrtl$
-intermediate representation (IR).  \verb$Firrtl$ can be interpreted directly or can be translated into \verb@Verilog@, which can then be used to generate a C++ simulator through verilator. For convinience, we can generate verilog directly from a Chisel Module by calling \code{Chisel.iotesters.chiselMain} from a scala main:
+Now that we have defined modules, we will discuss how we actually run and test a circuit.
 
-\begin{scala}
-object tutorial {
-  def main(args: Array[String]) = {
-    Chisel.iotesters.chiselMain(Array("--backend", "v"), () => new GCD())
-  }
-}
-\end{scala}
-
-\noindent
-\begin{commentary}
-NOTE: chiselMain is a carry over from Chisel2 and exists for backwards compatibility reasons. We will provide a cleaner programmtic interface in the near future.
-\end{commentary}
 %\begin{figure}
 %\begin{center}
 %\includegraphics[width=0.45\textwidth]{../tutorial/figs/DUT.pdf}
@@ -751,6 +738,12 @@ and allows users to write tests using the given debug protocol.  In particular, 
 \item \code{peek} to read port and state values, and
 \item \code{expect} to compare peeked circuit values to expected arguments.
 \end{itemize}
+
+\begin{commentary}
+Chisel produces \verb$Firrtl$
+intermediate representation (IR).  \verb$Firrtl$ can be interpreted directly or can be translated into \verb@Verilog@,
+which can then be used to generate a C++ simulator through verilator.
+\end{commentary}
 
 \noindent
 For example, in the following:
@@ -774,10 +767,13 @@ class Mux2Tests(c: Mux2, b: Option[Backend] = None) extends PeekPokeTester(c, _b
 \end{scala}
 
 \noindent
-assignments for each input of \verb+Mux2+ is set to the appropriate values using \verb+poke+. For this particular
+assignments for each input of \verb+Mux2+ are set to the appropriate values using \verb+poke+. For this particular
 example, we are testing the \verb+Mux2+ by hardcoding the inputs to some known values and checking
 if the output corresponds to the known one. To do this, on each iteration we generate appropriate inputs
-to the module and tell the simulation to assign these values to the inputs of the device we are testing \verb+c+, step the circuit 1 clock cycle, and test the expected value. Steps are necessary to update registers and the combinational logic driven by registers. For pure combinational paths, poke alone is sufficient to update all combinational paths connected to the poked input wire.
+to the module and tell the simulation to assign these values to the inputs of the device we are testing \verb+c+, step
+the circuit 1 clock cycle, and test the expected value. Steps are necessary to update registers and the combinational
+logic driven by registers. For pure combinational paths, poke alone is sufficient to update all combinational paths
+connected to the poked input wire.
 
 Finally, the following the tester is invoked by calling \code{runPeekPokeTester}:
 
@@ -832,7 +828,7 @@ around back to zero (i.e., modulo \verb!max+1!), we write:
 \begin{scala}
 def counter(max: UInt) = {
   val x = Reg(init = UInt(0, max.getWidth))
-  x := Mux(x === max, UInt(0), x + UInt(1))
+  x := Mux(x === max, 0.U, x + 1.U)
   x
 }
 \end{scala}
@@ -852,7 +848,7 @@ For example, we can build a pulse generator by outputting true when
 a counter reaches zero:
 \begin{scala}
 // Produce pulse every n cycles.
-def pulse(n: UInt) = counter(n - UInt(1)) === UInt(0)
+def pulse(n: UInt) = counter(n - 1.U) === 0.U
 \end{scala}
 
 \noindent
@@ -890,7 +886,7 @@ val pcPlus4  = UInt()
 val brTarget = UInt()
 val pcNext   = Mux(io.ctrl.pcSel, brTarget, pcPlus4)
 val pcReg    = Reg(next = pcNext, init = UInt(0, 32))
-pcPlus4     := pcReg + UInt(4)
+pcPlus4     := pcReg + 4.U
 ...
 brTarget    := addOut
 \end{scala}
@@ -912,13 +908,13 @@ in the form of the \code{when} construct to support this style of
 sequential logic description. For example,
 % MS: the following is not working (anymore), it results in a single bit register
 % with the incrementing code.
-% val r = Reg(UInt(16))
+% val r = Reg(16.U)
 % MS: is there any meaning having a single, unnamed parameter for Reg()?
 % MS: should this be allowed?
 \begin{scala}
 val r = Reg(init = UInt(0, 16))
 when (cond) {
-  r := r + UInt(1)
+  r := r + 1.U
 }
 \end{scala}
 
@@ -933,8 +929,8 @@ defined with \code{val}.
 In a sequence of conditional updates, the last conditional update
 whose condition is true takes priority.  For example,
 \begin{scala}
-when (c1) { r := UInt(1) }
-when (c2) { r := UInt(2) }
+when (c1) { r := 1.U }
+when (c2) { r := 2.U }
 \end{scala}
 
 \noindent
@@ -1004,9 +1000,9 @@ appears.  The same is possible for combinational circuits (update
 of a \code{Wire}). Note that all combinational
 circuits need a default value. For example:
 \begin{scala}
-r := SInt(3); s := SInt(3)
-when (c1)   { r := SInt(1); s := SInt(1) }
-when (c2)   { r := SInt(2) }
+r := 3.S; s := 3.S
+when (c1)   { r := 1.S; s := 1.S }
+when (c2)   { r := 2.S }
 \end{scala}
 
 \noindent
@@ -1224,7 +1220,7 @@ create a small ROM initialized to \verb+1, 2, 4, 8+ and
 loop through all values using a counter as an address generator as follows:
 
 \begin{scala}
-val m = Vec(Array(UInt(1), UInt(2), UInt(4), UInt(8)))
+val m = Vec(Array(1.U, 2.U, 4.U, 8.U))
 val r = m(counter(UInt(m.length)))
 \end{scala}
 
@@ -1318,7 +1314,7 @@ when (wen) { ram.write(waddr, wdata, wmask) }
 %     val addr   = counter(UInt(n))
 %     val ram    = Mem(n)
 %     ram(addr) := button
-%     ram(Mux(button(), UInt(0), addr))
+%     ram(Mux(button(), 0.U, addr))
 %   } 
 % \end{scala}
 % 
@@ -1615,7 +1611,7 @@ Chisel also provides \code{MuxLookup} which is an n-way indexed multiplexer:
 
 \begin{scala}
 MuxLookup(idx, default, 
-          Array(UInt(0) -> a, UInt(1) -> b, ...))
+          Array(0.U -> a, 1.U -> b, ...))
 \end{scala}
 
 \noindent
@@ -1623,8 +1619,8 @@ which can be rewritten in terms of:\verb+MuxCase+ as follows:
 
 \begin{scala}
 MuxCase(default, 
-        Array((idx === UInt(0)) -> a, 
-              (idx === UInt(1)) -> b, ...))
+        Array((idx === 0.U) -> a,
+              (idx === 1.U) -> b, ...))
 \end{scala}
 
 \noindent
@@ -1682,7 +1678,7 @@ otherwise it causes a Scala compilation type error.
 For example,
 
 \begin{scala}
-Mux(c, UInt(10), UInt(11))
+Mux(c, 10.U, 11.U)
 \end{scala}
 
 \noindent
@@ -1791,7 +1787,7 @@ class Fifo[T <: Data] (type: T, n: Int)
   val do_enq       = io.enq_rdy && io.enq_val
   val do_deq       = io.deq_rdy && io.deq_val
   val is_empty     = !is_full && (enq_ptr === deq_ptr)
-  val deq_ptr_inc  = deq_ptr + UInt(1)
+  val deq_ptr_inc  = deq_ptr + 1.U
   val enq_ptr_inc  = enq_ptr + UInt(1)
   val is_full_next = 
     Mux(do_enq && ~do_deq && (enq_ptr_inc === deq_ptr), 

@@ -18,9 +18,9 @@ class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
   when (io.isWr) {
     list(io.wrAddr) := io.data
   } .elsewhen (io.en) {
-    index := UInt(0)
+    index := 0.U
   } .elsewhen (over === Bool(false)) {
-    index := index + UInt(1)
+    index := index + 1.U
   }
   io.done   := over
   io.target := index

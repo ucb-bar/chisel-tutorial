@@ -9,5 +9,5 @@ class VecShiftRegisterSimple extends Module {
   }
   val delays = Reg(init = Vec.fill(4)(UInt(0, width = 8)))
   /// fill in here ...
-  io.out := UInt(0)
+  io.out := 0.U
 }

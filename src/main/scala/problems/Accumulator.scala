@@ -9,5 +9,5 @@ class Accumulator extends Module {
   }
   // COUNT INCOMING TRUES
   // FILL IN HERE ...
-  io.out := UInt(0)
+  io.out := 0.U
 }

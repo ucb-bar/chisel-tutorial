@@ -15,7 +15,7 @@ class PredicateFilter[T <: Data](dtype: T, f: T => Bool) extends Filter(dtype) {
 
 object SingleFilter {
   def apply[T <: UInt](dtype: T) = 
-    Module(new PredicateFilter(dtype, (x: T) => x <= UInt(9)))
+    Module(new PredicateFilter(dtype, (x: T) => x <= 9.U))
 }
 
 object EvenFilter {

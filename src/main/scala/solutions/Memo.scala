@@ -23,7 +23,7 @@ class Memo extends Module {
   when (io.wen) { mem(io.wrAddr) := io.wrData }
   
   // read
-  io.rdData := UInt(0)
+  io.rdData := 0.U
   when (io.ren) { io.rdData := mem(io.rdAddr) }
 
   // --------------------------------------------------- \\

@@ -8,5 +8,5 @@ class LFSR16 extends Module {
     val out = UInt(OUTPUT, 16)
   }
   // COMPUTE LFSR16 HERE
-  io.out := UInt(0)
+  io.out := 0.U
 }

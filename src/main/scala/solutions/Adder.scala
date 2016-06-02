@@ -8,5 +8,6 @@ class Adder(val w: Int) extends Module {
     val in1 = UInt(INPUT,  w)
     val out = UInt(OUTPUT, w)
   }
+  val x = "h0".U
   io.out := io.in0 + io.in1
 }

@@ -22,7 +22,7 @@ class Mul extends Module {
     for (j <- 0 until 16)
       muls += UInt(i * j, width = 8)
   val tbl = Vec(muls)
-  io.z := tbl((io.x << UInt(4)) | io.y)
+  io.z := tbl((io.x << 4.U) | io.y)
 
   // -------------------------------- \\
 }

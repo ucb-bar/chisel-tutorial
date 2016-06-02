@@ -10,5 +10,5 @@ class VecShiftRegister extends Module {
     val out   = UInt(OUTPUT, 4)
   }
   // FILL IN LOADABLE SHIFT REGISTER USING VEC 
-  io.out := UInt(0)
+  io.out := 0.U
 }
