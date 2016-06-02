@@ -1,9 +1,0 @@
-circuit Hello : 
-  module Hello : 
-    input clk : Clock
-    input reset : UInt<1>
-    output io : {out : UInt<8>}
-    
-    io is invalid
-    io.out <= UInt<6>("h02a") @[Hello.scala 10:10] 
-    

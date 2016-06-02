@@ -24,11 +24,10 @@ Executing Chisel
 ----------------
 
 ####Testing Your System
-First make sure the prerequisites are installed. These include make, gcc
-and [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html).
+First make sure that you have sbt (the scala build tool) installed. See details
+in [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html).
 
-    $ cd hello
-    $ make
+    $ sbt run
 
 This will generate and test a simple block (`Hello`) that always outputs the
 number 42. You should see `[success]` on the last line of output (from sbt) and
@@ -36,12 +35,6 @@ number 42. You should see `[success]` on the last line of output (from sbt) and
 are doing this for the first time, sbt will automatically download the
 appropriate versions of Chisel3, the Chisel Testers harness
 and Scala and cache them (usually in `~/.ivy2`).
-
-
-####Manual Execution
-The make recipe above automically invoked sbt run the native Scala firrtl interpreter to run the test case specified the the HelloTests class. To do it mannually:
-
-    $ sbt "run Hello"
 
 Completing the Tutorials
 ------------------------
@@ -53,42 +46,41 @@ compare your work with our sample solutions (`/solutions`).
 
 To speed things up, we will keep sbt running. To get started:
 
-    $ cd problems
     $ sbt
 
 #### Mux2
 This should already work. Try
 
-    > run Mux2
+    > test:run-main problems.Launcher Mux2
 
 #### Mux4
 You can instantiate a module with `val foo = Module(new Bar())`
 
-    > run Mux4
+    > test:run-main problems.Launcher Mux4
 
 #### Counter
 You can conditionally update a value without a mux by using `when (cond) { foo := bar }`
 
-    > run Counter
+    > test:run-main problems.Launcher Counter
 
 #### Vending Machine
 
-    > run VendingMachine
+    > test:run-main problems.Launcher VendingMachine
 
 #### Memo
 The type of memory that's inferred is based on how you handle the read and
 write enables. This is pretty much the same as how Xilinx and Altera infer
 memories.
 
-    > run Memo
+    > test:run-main problems.Launcher Memo
 
 #### Mul
 
-    > run Mul
+    > test:run-main problems.Launcher Mul
 
 #### RealGCD
 
-    > run RealGCD
+    > test:run-main problems.Launcher RealGCD
 
 
 To check that all of your solutions are correct:
