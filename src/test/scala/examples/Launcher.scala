@@ -2,8 +2,6 @@ package examples
 
 import Chisel.iotesters._
 import utils.TutorialRunner
-import scala.collection.mutable.ArrayBuffer
-import scala.collection.immutable.HashMap
 
 object Launcher {
   val examples = Map(
@@ -44,7 +42,7 @@ object Launcher {
       },
       "Darken" -> { (backendName: String) =>
         runPeekPokeTester(() => new Darken(), backendName) {
-          (c, b) => new DarkenTests(c, "../src/in.im24", "o" +
+          (c, b) => new DarkenTests(c, "src/test/resources/in.im24", "o" +
             "u,t.im24", b)
         }
       },

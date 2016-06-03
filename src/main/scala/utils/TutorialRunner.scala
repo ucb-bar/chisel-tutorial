@@ -14,31 +14,40 @@ object TutorialRunner {
       args
     }
 
+    var successful = 0
     val errors = new ArrayBuffer[String]
     for(testName <- problemsToRun) {
       tutorialMap.get(testName) match {
         case Some(test) =>
-          println(s"running problem $testName")
+          println(s"Starting tutorial $testName")
           try {
-            if(! test(backendName)) {
-              errors += s"Problem $testName: test error occurred"
+            if(test(backendName)) {
+              successful += 1
+            }
+            else {
+              errors += s"Tutorial $testName: test error occurred"
             }
           }
           catch {
             case exception: Exception =>
               exception.printStackTrace()
-              errors += s"Problem $testName: exception ${exception.getMessage}"
+              errors += s"Tutorial $testName: exception ${exception.getMessage}"
             case t : Throwable =>
-              errors += s"Problem $testName: throwable ${t.getMessage}"
+              errors += s"Tutorial $testName: throwable ${t.getMessage}"
           }
         case _ =>
-          errors += s"Bad problem name: $testName"
+          errors += s"Bad tutorial name: $testName"
       }
 
     }
+    if(successful > 0) {
+      println(s"Tutorials passing: $successful")
+    }
     if(errors.nonEmpty) {
-      println(s"${errors.length} errors occurred" + ("=" * 60))
+      println("=" * 80)
+      println(s"Errors: ${errors.length}: in the following tutorials")
       println(errors.mkString("\n"))
+      println("=" * 80)
       System.exit(1)
     }
   }
