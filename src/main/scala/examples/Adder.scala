@@ -28,6 +28,6 @@ class Adder(val n:Int) extends Module {
     carry(i+1) := FAs(i).cout
     sum(i) := FAs(i).sum.toBool()
   }
-  io.Sum := Cat(sum)
+  io.Sum := Cat(sum.reverse)
   io.Cout := carry(n)
 }

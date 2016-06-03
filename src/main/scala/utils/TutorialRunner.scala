@@ -39,7 +39,7 @@ object TutorialRunner {
     if(errors.nonEmpty) {
       println(s"${errors.length} errors occurred" + ("=" * 60))
       println(errors.mkString("\n"))
+      System.exit(1)
     }
-
   }
 }
