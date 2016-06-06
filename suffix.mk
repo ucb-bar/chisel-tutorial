@@ -8,6 +8,7 @@ SBT_FLAGS += -DchiselVersion="$(chiselVersion)"
 objdirext := _$(chiselVersion)
 else
 SBT_FLAGS += -DchiselVersion="3.0-BETA-SNAPSHOT"
+objdirext := _3.0
 endif
 
 CHISEL_FLAGS ?=
@@ -50,6 +51,8 @@ tut_outs    := $(addsuffix .out, $(executables))
 default: all
 
 all: outs
+
+tut_outs:	$(objdir)
 
 check: $(objdir) $(objdir)/test-solutions.xml
 
