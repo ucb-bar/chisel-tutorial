@@ -3,11 +3,16 @@ SBT_FLAGS    ?= -Dsbt.log.noformat=true
 
 # If a chiselVersion is defined, use that.
 # Otherwise, use the latest 3.0 release.
-ifneq (,$(chiselVersion))
-SBT_FLAGS += -DchiselVersion="$(chiselVersion)"
-objdirext := _$(chiselVersion)
+ifneq (,$(chisel3Version))
+SBT_FLAGS += -Dchisel3Version="$(chisel3Version)"
+objdirext := _$(chisel3Version)
 else
-SBT_FLAGS += -DchiselVersion="3.0-BETA-SNAPSHOT"
+SBT_FLAGS += -Dchisel3Version="3.0-BETA-SNAPSHOT"
+endif
+ifneq (,$(iotestersVersion))
+SBT_FLAGS += -Dchisel-iotestersVersion="$(iotestersVersion)"
+else
+SBT_FLAGS += -Dchisel-iotestersVersion="1.1-BETA-SNAPSHOT"
 endif
 
 CHISEL_FLAGS ?=

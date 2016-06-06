@@ -1,7 +1,7 @@
 top_srcdir  ?= .
 
 # Determine where the output is generated
-include objdirroot.mk
+include suffix.mk
 
 # Directories removed by make clean
 RM_DIRS 	:= emulator project/target target $(objdirroot)
