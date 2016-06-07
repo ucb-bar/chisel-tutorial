@@ -53,7 +53,7 @@ default: all
 
 all: outs
 
-tut_outs:	$(objdir)
+$(tut_outs):	$(objdir)
 
 check: $(objdir) $(objdir)/test-solutions.xml
 
@@ -97,4 +97,3 @@ Makefile : ;
 # If we don't have an output directory, here is the rule to make it.
 $(objdir):
 	mkdir -p $@
-	if [ "$(incdir)" ] ;  then cp -p $(addprefix $(incdir)/,$(emulator_includes)) $@ ; fi
