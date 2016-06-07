@@ -72,10 +72,6 @@ $(objdir)/test-solutions.xml: $(tut_outs)
 # code will be the exit code of the last element of the pipeline - the tee.
 # We should be able to do this with .POSIX: or .SHELLFLAGS but they don't
 # appear to be supported by Make 3.81
-ifeq (3.0,$(chiselVersion))
-# Chisel3 directory
-include $(top_srcdir)/chisel3/rules.mk
-else
 $(objdir)/%.dot: %.scala
 	set -e -o pipefail; "$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --backend dot --targetDir $(objdir) $(CHISEL_FLAGS)"
 
@@ -87,7 +83,6 @@ $(objdir)/%.hex: %.scala
 
 $(objdir)/%.v: %.scala
 	"$(SBT)" $(SBT_FLAGS) "run $(notdir $(basename $<)) --genHarness --backend v --targetDir $(objdir) $(CHISEL_FLAGS)"
-endif
 
 compile smoke:
 	"$(SBT)" $(SBT_FLAGS) compile
