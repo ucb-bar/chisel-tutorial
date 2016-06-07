@@ -1,9 +1,0 @@
-circuit Adder : 
-  module Adder : 
-    input clk : Clock
-    input reset : UInt<1>
-    output io : {flip in0 : UInt<1>, flip in1 : UInt<1>, out : UInt<1>}
-    
-    io is invalid
-    io.out <= UInt<1>("h00") @[Adder.scala 13:10] 
-    
