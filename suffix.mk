@@ -5,10 +5,8 @@ SBT_FLAGS    ?= -Dsbt.log.noformat=true
 # Otherwise, use the latest 3.0 release.
 ifneq (,$(chisel3Version))
 SBT_FLAGS += -Dchisel3Version="$(chisel3Version)"
-objdirext := _$(chisel3Version)
 else
 SBT_FLAGS += -Dchisel3Version="3.0-BETA-SNAPSHOT"
-objdirext := _3.0
 endif
 ifneq (,$(iotestersVersion))
 SBT_FLAGS += -Dchisel-iotestersVersion="$(iotestersVersion)"
@@ -20,8 +18,6 @@ CHISEL_FLAGS ?=
 
 top_srcdir  ?= ..
 srcdir      ?= .
-
-include $(top_srcdir)/objdirroot.mk
 
 # Determine where we are
 curdir	:= $(abspath $(CURDIR))
