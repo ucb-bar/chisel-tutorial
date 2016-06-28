@@ -1,14 +1,4 @@
 # These are generated when we run the build
-/emulator/
-/examples/target/
-/examples/project/target/
-/hello/project/target/
-/hello/project/project/
-/hello/target/
-/problems/project/target/
-/problems/target/
-/solutions/project/target/
-/solutions/target/
 /generated*/
 .idea
 *.h
@@ -18,3 +8,4 @@
 *.im24
 *.swp
 *.out
+/bin/

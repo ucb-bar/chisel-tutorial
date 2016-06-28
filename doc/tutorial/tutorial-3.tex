@@ -1788,7 +1788,7 @@ class Fifo[T <: Data] (type: T, n: Int)
   val do_deq       = io.deq_rdy && io.deq_val
   val is_empty     = !is_full && (enq_ptr === deq_ptr)
   val deq_ptr_inc  = deq_ptr + 1.U
-  val enq_ptr_inc  = enq_ptr + UInt(1)
+  val enq_ptr_inc  = enq_ptr + 1.U
   val is_full_next = 
     Mux(do_enq && ~do_deq && (enq_ptr_inc === deq_ptr), 
         Bool(true),
