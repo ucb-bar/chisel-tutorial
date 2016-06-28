@@ -1,9 +1,9 @@
 package examples
 
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class DarkenTests(c: Darken, val infilename: String, val outfilename: String, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class DarkenTests(c: Darken, val infilename: String, val outfilename: String, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   val inPic  = Image(infilename)
   val outPic = Image(inPic.w, inPic.h, inPic.d)
   step(1)

@@ -1,6 +1,6 @@
 package examples
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 import utils.TutorialRunner
 
 object Launcher {

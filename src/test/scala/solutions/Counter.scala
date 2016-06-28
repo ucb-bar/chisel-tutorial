@@ -1,8 +1,8 @@
 package solutions
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class CounterTest(c: Counter, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class CounterTest(c: Counter, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   val maxInt  = 16
   var curCnt  = 0
 

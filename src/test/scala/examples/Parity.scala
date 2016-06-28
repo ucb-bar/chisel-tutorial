@@ -1,9 +1,9 @@
 package examples
 
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class ParityTests(c: Parity, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class ParityTests(c: Parity, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   var isOdd = 0
   for (t <- 0 until 10) {
     val bit = rnd.nextInt(2)

@@ -1,7 +1,7 @@
 package problems
 
 import Chisel._
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 import utils.TutorialRunner
 
 import scala.collection.mutable.ArrayBuffer

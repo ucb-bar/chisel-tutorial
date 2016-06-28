@@ -1,12 +1,12 @@
 package examples
 
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.{Stack => ScalaStack}
 import scala.util.Random
 
-class StackTests(c: Stack, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class StackTests(c: Stack, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   var nxtDataOut = 0
   var dataOut = 0
   val stack = new ScalaStack[Int]()

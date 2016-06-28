@@ -1,9 +1,9 @@
 package examples
 
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class CombinationalTests(c: Combinational, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class CombinationalTests(c: Combinational, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   val maxInt = 1 << 16
   for (i <- 0 until 10) {
     val x = rnd.nextInt(maxInt)

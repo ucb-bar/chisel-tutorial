@@ -1,9 +1,9 @@
 package examples
 
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class ShiftRegisterTests(c: ShiftRegister, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class ShiftRegisterTests(c: ShiftRegister, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   val reg     = Array.fill(4){ 0 }
   for (t <- 0 until 64) {
     val in = rnd.nextInt(2)

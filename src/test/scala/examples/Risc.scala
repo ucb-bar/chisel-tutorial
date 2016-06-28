@@ -1,9 +1,9 @@
 package examples
 
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class RiscTests(c: Risc, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class RiscTests(c: Risc, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   def wr(addr: BigInt, data: BigInt)  = {
     poke(c.io.isWr,   1)
     poke(c.io.wrAddr, addr)

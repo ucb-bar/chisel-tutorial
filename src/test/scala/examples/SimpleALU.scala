@@ -1,9 +1,9 @@
 package examples
 
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class SimpleALUTests(c: SimpleALU, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class SimpleALUTests(c: SimpleALU, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   for (n <- 0 until 64) {
     val a      = rnd.nextInt(16)
     val b      = rnd.nextInt(16)

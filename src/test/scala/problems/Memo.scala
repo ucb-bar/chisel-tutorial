@@ -1,8 +1,8 @@
 package problems
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class MemoTests(c: Memo, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class MemoTests(c: Memo, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   def rd(addr: Int, data: Int) = {
     poke(c.io.ren, 1)
     poke(c.io.rdAddr, addr)

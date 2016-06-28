@@ -1,8 +1,8 @@
 package examples
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class GCDTests(c: GCD, backend: Option[Backend] = None) extends PeekPokeTester(c, _backend=backend) {
+class GCDTests(c: GCD, backend: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=backend) {
   val (a, b, z) = (64, 48, 16)
   do {
     val first = if (t == 0) 1 else 0;

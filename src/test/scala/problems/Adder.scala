@@ -1,8 +1,8 @@
 package problems
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class AdderTests(c: Adder, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class AdderTests(c: Adder, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   for (i <- 0 until 10) {
     val in0 = rnd.nextInt(1 << c.w)
     val in1 = rnd.nextInt(1 << c.w)

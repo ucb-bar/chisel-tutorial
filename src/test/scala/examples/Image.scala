@@ -1,7 +1,7 @@
 package examples
 
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 import scala.io.Source
 import java.io.FileOutputStream
 import java.io.File

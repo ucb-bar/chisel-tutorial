@@ -1,9 +1,9 @@
 package solutions
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 import scala.math._
 
-class Mux2Tests(c: Mux2, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class Mux2Tests(c: Mux2, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   val n = pow(2, 3).toInt
   for (s <- 0 until 2) {
     for (i0 <- 0 until 2) {

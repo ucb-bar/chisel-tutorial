@@ -1,8 +1,8 @@
 package problems
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class LFSR16Tests(c: LFSR16, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class LFSR16Tests(c: LFSR16, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   var res = 1
   for (t <- 0 until 16) {
     val inc = rnd.nextInt(2)

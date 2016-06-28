@@ -1,9 +1,9 @@
 package examples
 
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class ByteSelectorTests(c: ByteSelector, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class ByteSelectorTests(c: ByteSelector, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   val test_in = 12345678
   for (t <- 0 until 4) {
     poke(c.io.in,     test_in)

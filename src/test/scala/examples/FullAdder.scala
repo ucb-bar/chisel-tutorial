@@ -1,9 +1,9 @@
 package examples
 
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class FullAdderTests(c: FullAdder, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class FullAdderTests(c: FullAdder, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   for (t <- 0 until 4) {
     val a    = rnd.nextInt(2)
     val b    = rnd.nextInt(2)

@@ -1,9 +1,9 @@
 package solutions
 
 import Chisel._
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T], b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T], b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   val maxInt  = 1 << 16
   for (i <- 0 until 10) {
     val in = rnd.nextInt(maxInt)

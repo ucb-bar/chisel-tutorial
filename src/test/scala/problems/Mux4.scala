@@ -1,8 +1,8 @@
 package problems
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class Mux4Tests(c: Mux4, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class Mux4Tests(c: Mux4, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   for (s0 <- 0 until 2) {
     for (s1 <- 0 until 2) {
       for(i0 <- 0 until 2) {

@@ -1,9 +1,9 @@
 package examples
 
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class TblTests(c: Tbl, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class TblTests(c: Tbl, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   for (t <- 0 until 16) {
     val addr = rnd.nextInt(256)
     poke(c.io.addr, addr)

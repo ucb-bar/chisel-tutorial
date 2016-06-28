@@ -1,10 +1,10 @@
 package examples
 
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 import util.Random
 
-class LifeTests(c: Life, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class LifeTests(c: Life, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   for (t <- 0 until 16) {
     step(1)
     for (j <- 0 until c.n) {

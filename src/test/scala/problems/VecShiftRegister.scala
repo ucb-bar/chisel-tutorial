@@ -1,8 +1,8 @@
 package problems
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class VecShiftRegisterTests(c: VecShiftRegister, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class VecShiftRegisterTests(c: VecShiftRegister, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   val reg     = Array.fill(4){ 0 }
   val ins     = Array.fill(4){ 0 }
   // Initialize the delays.

@@ -1,8 +1,8 @@
 package solutions
 
-import Chisel.iotesters._
+import Chisel.iotesters.{ Backend => TesterBackend, _ }
 
-class RealGCDTests(c: RealGCD, b: Option[Backend] = None) extends PeekPokeTester(c, _backend=b) {
+class RealGCDTests(c: RealGCD, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
   val inputs = List( (48, 32), (7, 3), (100, 10) )
   val outputs = List( 16, 1, 10)
 
