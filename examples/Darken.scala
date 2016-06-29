@@ -24,5 +24,4 @@ class DarkenTests(c: Darken, val infilename: String, val outfilename: String) ex
     outPic.data(i) = out.toByte
   }
   outPic.write(outfilename)
-  ok = true
 }

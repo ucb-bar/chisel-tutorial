@@ -11,8 +11,8 @@ class Risc extends Module {
     val valid  = Bool(OUTPUT)
     val out    = Bits(OUTPUT, 32)
   }
-  val file = Mem(Bits(width = 32), 256)
-  val code = Mem(Bits(width = 32), 256)
+  val file = Mem(256, Bits(width = 32))
+  val code = Mem(256, Bits(width = 32))
   val pc   = Reg(init=UInt(0, 8))
   
   val add_op :: imm_op :: Nil = Enum(Bits(), 2)
@@ -25,7 +25,7 @@ class Risc extends Module {
 
   val ra = Mux(rai === Bits(0), Bits(0), file(rai))
   val rb = Mux(rbi === Bits(0), Bits(0), file(rbi))
-  val rc = Bits(width = 32)
+  val rc = Wire(Bits(width = 32))
 
   io.valid := Bool(false)
   io.out   := Bits(0)

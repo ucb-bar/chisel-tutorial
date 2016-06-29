@@ -26,9 +26,9 @@ object EvenFilter {
 class SingleEvenFilter[T <: UInt](dtype: T) extends Filter(dtype) {
   val single = SingleFilter(dtype)
   val even   = EvenFilter(dtype)
-  io.in         <> single.io.in
-  single.io.out <> even.io.in
-  even.io.out   <> io.out
+  single.io.in  := io.in
+  even.io.in    := single.io.out
+  io.out        := even.io.out
 }
 
 class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T]) extends Tester(c) {

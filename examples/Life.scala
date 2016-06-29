@@ -5,7 +5,7 @@ import util.Random
 
 class Cell(isBorn: Boolean) extends Module {
   val io = new Bundle {
-    val nbrs = Vec.fill(9){ Bool(INPUT) }
+    val nbrs = Vec(9, Bool(INPUT))
     val out  = Bool(OUTPUT)
   }
   val isAlive = Reg(init=Bool(isBorn))
@@ -25,11 +25,11 @@ class Cell(isBorn: Boolean) extends Module {
 class Life(val n: Int) extends Module {
   val tot = n*n
   val io = new Bundle {
-    val state = Vec.fill(tot){ Bool(OUTPUT) }
+    val state = Vec(tot, Bool(OUTPUT))
   }
   def idx(i: Int, j: Int) = ((j*n+n*n)%(n*n))+((i+n)%n)
   def nbrIdx(di: Int, dj: Int) = (dj+1)*3 + (di+1)
-  val rnd = new Random()
+  val rnd = new Random(1)
   val cells = Range(0, tot).map(i => Module(new Cell(rnd.nextInt(2) == 1)))
   for (k <- 0 until tot)
     io.state(k) := cells(k).io.out
@@ -49,10 +49,9 @@ class Life(val n: Int) extends Module {
   }
 }
 
-class LifeTests(c: Life) extends Tester(c) {
+class LifeTests(c: Life) extends Tester(c, isTrace = false) {
 
   // Disable printing when peeking state variables
-  this.isTrace = false
 
   def clear_board() = {
     for (i <- 0 until c.n*c.n)

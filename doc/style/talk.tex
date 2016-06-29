@@ -1,0 +1,38 @@
+\lstset{basicstyle={\footnotesize\ttfamily}}
+
+\usetheme[height=8mm]{Rochester}
+\setbeamersize{text margin left=3mm} 
+\setbeamersize{text margin right=3mm} 
+\setbeamertemplate{navigation symbols}{}
+
+\definecolor{Cobalt}{rgb}{0.25,0.125,0.70}
+\definecolor{RedOrange}{rgb}{0.8,0.25,0.0}
+% \definecolor{RedOrange}{rgb}{0.8,0.775,0.25}
+\def\frametitledefaultcolor{Cobalt}
+\def\frametitleproblemcolor{RedOrange}
+
+\lstset{basicstyle={\footnotesize\ttfamily}}
+
+\setbeamertemplate{frametitle}
+{
+\vskip-7mm
+\textbf{\insertframetitle}\hfill\insertframenumber
+}
+\setbeamercolor{frametitle}{bg=\frametitledefaultcolor}
+
+\newenvironment{sample}{\VerbatimEnvironment\begin{footnotesize}\begin{semiverbatim}}{\end{semiverbatim}\end{footnotesize}}
+
+\newenvironment{FramedSemiVerb}%
+{\begin{Sbox}\begin{minipage}{.94\textwidth}\begin{semiverbatim}}%
+{\end{semiverbatim}\end{minipage}\end{Sbox}
+\setlength{\fboxsep}{8pt}\fbox{\TheSbox}}
+
+\newenvironment{FramedVerb}%
+{\VerbatimEnvironment
+\begin{Sbox}\begin{minipage}{.94\textwidth}\begin{Verbatim}}%
+{\end{Verbatim}\end{minipage}\end{Sbox}
+\setlength{\fboxsep}{8pt}\fbox{\TheSbox}}
+
+% \newenvironment{sample}{\VerbatimEnvironment\begin{footnotesize}\begin{Verbatim}}{\end{Verbatim}\end{footnotesize}}
+\newcommand{\code}[1]{\begin{footnotesize}{\tt #1}\end{footnotesize}}
+\newcommand{\comment}[1]{{\color{Green}\it\smaller #1}}
