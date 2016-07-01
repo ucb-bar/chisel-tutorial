@@ -1,3 +1,4 @@
+// See LICENSE.txt for license details.
 package examples
 
 import java.io.File

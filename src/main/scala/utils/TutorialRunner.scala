@@ -1,3 +1,4 @@
+// See LICENSE.txt for license details.
 // See LICENSE for license details.
 
 package utils

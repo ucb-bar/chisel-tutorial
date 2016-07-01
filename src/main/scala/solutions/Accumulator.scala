@@ -1,3 +1,4 @@
+// See LICENSE.txt for license details.
 package solutions
 
 import Chisel._

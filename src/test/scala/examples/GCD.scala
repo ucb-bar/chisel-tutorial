@@ -1,3 +1,4 @@
+// See LICENSE.txt for license details.
 package examples
 
 import Chisel.iotesters.{ Backend => TesterBackend, _ }
