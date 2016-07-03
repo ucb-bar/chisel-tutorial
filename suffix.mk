@@ -1,3 +1,5 @@
+SHELL        = /bin/bash
+
 SBT          ?= sbt
 SBT_FLAGS    ?= -Dsbt.log.noformat=true
 
