@@ -18,9 +18,11 @@ class HiLoMultiplierTests(c: HiLoMultiplier, b: Option[TesterBackend] = None) ex
 }
 
 class HiLoMultiplierTester extends ChiselFlatSpec {
-  "HiLoMultiplier" should "multiply two numbers returning result as a hi and low output" in {
-    runPeekPokeTester(() => new HiLoMultiplier) {
-      (c,b) => new HiLoMultiplierTests(c,b)
+  behavior of "HiLoMultiplier"
+  backends foreach {backend =>
+    it should s"multiply two numbers returning result as a hi and low output $backend" in {
+      runPeekPokeTester(() => new HiLoMultiplier, backend) {
+        (c,b) => new HiLoMultiplierTests(c,b)} should be (true)
     }
   }
 }

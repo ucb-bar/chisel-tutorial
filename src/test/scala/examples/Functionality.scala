@@ -17,9 +17,11 @@ class FunctionalityTests(c: Functionality, b: Option[TesterBackend] = None) exte
 }
 
 class FunctionalityTester extends ChiselFlatSpec {
-  "Functionality" should "demonstrate usage of functions that generate code" in {
-    runPeekPokeTester(() => new Functionality) {
-      (c,b) => new FunctionalityTests(c,b)
+  behavior of "Functionality"
+  backends foreach {backend =>
+    it should s"demonstrate usage of functions that generate code in $backend" in {
+      runPeekPokeTester(() => new Functionality, backend) {
+        (c,b) => new FunctionalityTests(c,b)} should be (true)
     }
   }
 }

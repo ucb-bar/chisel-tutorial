@@ -15,8 +15,11 @@ class ByteSelectorTests(c: ByteSelector, b: Option[TesterBackend] = None) extend
 }
 
 class ByteSelectorTester extends ChiselFlatSpec {
-  "ByteSelector" should "correctly select correct bits from an input" in {
-    runPeekPokeTester(() => new ByteSelector){
-      (c,b) => new ByteSelectorTests(c,b)}
+  behavior of "ByteSelector"
+  backends foreach {backend =>
+    it should s"correctly select correct bits from an input in $backend" in {
+      runPeekPokeTester(() => new ByteSelector, backend){
+        (c,b) => new ByteSelectorTests(c,b)} should be (true)
+    }
   }
 }

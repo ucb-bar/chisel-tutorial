@@ -10,7 +10,7 @@ class LifeTests(c: Life, b: Option[TesterBackend] = None) extends PeekPokeTester
     step(1)
     for (j <- 0 until c.n) {
       for (i <- 0 until c.n) {
-        print(peek(c.io.state(c.idx(i, j))))
+        peek(c.io.state(c.idx(i, j)))
       }
       println()
     }
@@ -18,9 +18,11 @@ class LifeTests(c: Life, b: Option[TesterBackend] = None) extends PeekPokeTester
 }
 
 class LifeTester extends ChiselFlatSpec {
-  "Life" should "implement transition rules for Conway's life game" in {
-    runPeekPokeTester(() => new Life(3)) {
-      (c,b) => new LifeTests(c,b)
+  behavior of "Life"
+  backends foreach {backend =>
+    it should s"implement transition rules for Conway's life game in $backend" in {
+      runPeekPokeTester(() => new Life(3), backend) {
+        (c,b) => new LifeTests(c,b)} should be (true)
     }
   }
 }

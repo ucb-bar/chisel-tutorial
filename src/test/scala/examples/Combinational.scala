@@ -17,9 +17,12 @@ class CombinationalTests(c: Combinational, b: Option[TesterBackend] = None) exte
 }
 
 class CombinationalTester extends ChiselFlatSpec {
-  "Combinational" should "correctly add randomly generated numbers" in {
-    runPeekPokeTester(() => new Combinational){
-      (c,b) => new CombinationalTests(c,b)}
+  behavior of "Combinational"
+  backends foreach {backend =>
+    it should s"correctly add randomly generated numbers in $backend" in {
+      runPeekPokeTester(() => new Combinational, backend){
+        (c,b) => new CombinationalTests(c,b)} should be (true)
+    }
   }
 }
 

@@ -16,9 +16,11 @@ class GCDTests(c: GCD, backend: Option[TesterBackend] = None) extends PeekPokeTe
 }
 
 class GCDTester extends ChiselFlatSpec {
-  "GCD" should "correctly compute GCD of two numbers" in {
-    runPeekPokeTester(() => new GCD) {
-      (c,b) => new GCDTests(c,b)
+  behavior of "GCD"
+  backends foreach { backend =>
+    it should s"correctly compute GCD of two numbers in $backend" in {
+      runPeekPokeTester(() => new GCD, backend) {
+        (c,b) => new GCDTests(c,b)} should be (true)
     }
   }
 }

@@ -13,9 +13,11 @@ class VecSearchTests(c: VecSearch, b: Option[TesterBackend] = None) extends Peek
 }
 
 class VecSearchTester extends ChiselFlatSpec {
-  "VecSearch" should "correctly look for element in vector" in {
-    runPeekPokeTester(() => new VecSearch) {
-      (c,b) => new VecSearchTests(c,b)
+  behavior of "VecSearch"
+  backends foreach {backend =>
+    it should s"correctly look for element in vector in $backend" in {
+      runPeekPokeTester(() => new VecSearch, backend) {
+        (c,b) => new VecSearchTests(c,b)} should be (true)
     }
   }
 }

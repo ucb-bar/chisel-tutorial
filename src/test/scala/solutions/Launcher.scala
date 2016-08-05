@@ -48,7 +48,7 @@ object Launcher {
       }
     },
     "Adder" -> { (backendName: String) =>
-      runPeekPokeTester(() => new Adder(8), backendName) {
+      runPeekPokeTester(() => new AdderSol(8), backendName) {
         (c, b) => new AdderTests(c, b)
       }
     },

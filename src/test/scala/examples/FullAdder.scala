@@ -22,9 +22,11 @@ class FullAdderTests(c: FullAdder, b: Option[TesterBackend] = None) extends Peek
 }
 
 class FullAdderTester extends ChiselFlatSpec {
-  "FullAdder" should "correctly add randomly generated numbers and show carry" in {
-    runPeekPokeTester(() => new FullAdder) {
-      (c,b) => new FullAdderTests(c,b)
+  behavior of "FullAdder"
+  backends foreach {backend =>
+    it should s"correctly add randomly generated numbers and show carry in $backend" in {
+      runPeekPokeTester(() => new FullAdder, backend) {
+        (c,b) => new FullAdderTests(c,b)} should be (true)
     }
   }
 }

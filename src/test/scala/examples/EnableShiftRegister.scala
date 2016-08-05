@@ -22,9 +22,11 @@ class EnableShiftRegisterTests(c: EnableShiftRegister, b: Option[TesterBackend] 
 }
 
 class EnableShiftRegisterTester extends ChiselFlatSpec {
-  "EnableShiftRegister" should "create a pipeline of registers and shift them each cycle" in {
-    runPeekPokeTester(() => new EnableShiftRegister) {
-      (c,b) => new EnableShiftRegisterTests(c,b)
+  behavior of "EnableShiftRegister"
+  backends foreach {backend =>
+    it should s"create a pipeline of registers and shift them each cycle in $backend" in {
+      runPeekPokeTester(() => new EnableShiftRegister, backend) {
+        (c,b) => new EnableShiftRegisterTests(c,b)} should be (true)
     }
   }
 }

@@ -23,9 +23,11 @@ class ResetShiftRegisterTests(c: ResetShiftRegister, b: Option[TesterBackend] = 
 }
 
 class ResetShiftRegisterTester extends ChiselFlatSpec {
-  "ResetShiftRegister" should "correctly compute ResetShiftRegister of two numbers" in {
-    runPeekPokeTester(() => new ResetShiftRegister) {
-      (c,b) => new ResetShiftRegisterTests(c,b)
+  behavior of "ResetShiftRegister"
+  backends foreach {backend =>
+    it should s"correctly compute ResetShiftRegister of two numbers in $backend" in {
+      runPeekPokeTester(() => new ResetShiftRegister, backend) {
+        (c,b) => new ResetShiftRegisterTests(c,b)} should be (true)
     }
   }
 }

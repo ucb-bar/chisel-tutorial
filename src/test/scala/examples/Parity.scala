@@ -16,9 +16,11 @@ class ParityTests(c: Parity, b: Option[TesterBackend] = None) extends PeekPokeTe
 }
 
 class ParityTester extends ChiselFlatSpec {
-  "Parity" should "correctly compute parity of two numbers" in {
-    runPeekPokeTester(() => new Parity) {
-      (c,b) => new ParityTests(c,b)
+  behavior of "Parity"
+  backends foreach {backend =>
+    it should s"correctly compute parity of two numbers $backend" in {
+      runPeekPokeTester(() => new Parity, backend) {
+        (c,b) => new ParityTests(c,b)} should be (true)
     }
   }
 }

@@ -26,19 +26,12 @@ class RiscTests(c: Risc, b: Option[TesterBackend] = None) extends PeekPokeTester
     Cat(op, UInt(rc, 8), UInt(ra, 8), UInt(rb, 8))
 */
 
-  def I (op: Int, rc: Int, ra: Int, rb: Int) = 
-    ((op & 1) << 24) | ((rc & Integer.parseInt("FF", 16)) << 16) | ((ra & Integer.parseInt("FF", 16)) << 8) | (rb & Integer.parseInt("FF", 16))
-/*
+  def I (op: Chisel.UInt, rc: Int, ra: Int, rb: Int) = 
+    ((op.litValue() & 1) << 24) | ((rc & Integer.parseInt("FF", 16)) << 16) | ((ra & Integer.parseInt("FF", 16)) << 8) | (rb & Integer.parseInt("FF", 16))
   val app  = Array(I(c.imm_op,   1, 0, 1), // r1 <- 1
                    I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
                    I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
                    I(c.add_op, 255, 1, 0)) // rh <- r1
-*/
-
-  val app  = Array(I(Opcodes.imm_op,   1, 0, 1), // r1 <- 1
-                   I(Opcodes.add_op,   1, 1, 1), // r1 <- r1 + r1
-                   I(Opcodes.add_op,   1, 1, 1), // r1 <- r1 + r1
-                   I(Opcodes.add_op, 255, 1, 0)) // rh <- r1
 
   wr(0, 0) // skip reset
   for (addr <- 0 until app.length) 
@@ -53,9 +46,11 @@ class RiscTests(c: Risc, b: Option[TesterBackend] = None) extends PeekPokeTester
 }
 
 class RiscTester extends ChiselFlatSpec {
-  "Risc" should "run simple fsm implementation" in {
-    runPeekPokeTester(() => new Risc) {
-      (c,b) => new RiscTests(c,b)
+  behavior of "Risc"
+  backends foreach {backend =>
+    it should s"run simple fsm implementation in $backend" in {
+      runPeekPokeTester(() => new Risc, backend) {
+        (c,b) => new RiscTests(c,b)} should be (true)
     }
   }
 }

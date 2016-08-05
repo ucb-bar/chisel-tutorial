@@ -15,8 +15,11 @@ class AccumulatorTests(c: Accumulator, b: Option[TesterBackend] = None) extends 
 }
 
 class AccumulatorTester extends ChiselFlatSpec {
-  "Accumulator" should "correctly accumulate randomly generated numbers" in {
-    runPeekPokeTester(() => new Accumulator){
-      (c,b) => new AccumulatorTests(c,b)}
+  behavior of "Accumulator"
+  backends foreach {backend =>
+    it should s"correctly accumulate randomly generated numbers in $backend" in {
+      runPeekPokeTester(() => new Accumulator, backend){
+        (c,b) => new AccumulatorTests(c,b)} should be (true)
+    }
   }
 }

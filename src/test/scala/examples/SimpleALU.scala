@@ -32,9 +32,11 @@ class SimpleALUTests(c: SimpleALU, b: Option[TesterBackend] = None) extends Peek
 }
 
 class SimpleALUTester extends ChiselFlatSpec {
-  "SimpleALU" should "perform correct math operation on dynamic operand" in {
-    runPeekPokeTester(() => new SimpleALU) {
-      (c,b) => new SimpleALUTests(c,b)
+  behavior of "SimpleALU"
+  backends foreach {backend =>
+    it should s"perform correct math operation on dynamic operand in $backend" in {
+      runPeekPokeTester(() => new SimpleALU, backend) {
+        (c,b) => new SimpleALUTests(c,b)} should be (true)
     }
   }
 }

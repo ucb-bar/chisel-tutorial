@@ -14,9 +14,11 @@ class TblTests(c: Tbl, b: Option[TesterBackend] = None) extends PeekPokeTester(c
 }
 
 class TblTester extends ChiselFlatSpec {
-  "Tbl" should "implement a table of numbers" in {
-    runPeekPokeTester(() => new Tbl) {
-      (c,b) => new TblTests(c,b)
+  behavior of "Tbl"
+  backends foreach {backend =>
+    it should s"implement a table of numbers in $backend" in {
+      runPeekPokeTester(() => new Tbl, backend) {
+        (c,b) => new TblTests(c,b)} should be (true)
     }
   }
 }

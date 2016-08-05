@@ -22,8 +22,11 @@ class AdderTests(c: Adder, b: Option[TesterBackend] = None) extends PeekPokeTest
 }
 
 class AdderTester extends ChiselFlatSpec {
-  "Adder" should "correctly add randomly generated numbers" in {
-    runPeekPokeTester(() => new Adder(8)){
-      (c,b) => new AdderTests(c,b)} should be (true)
+  behavior of "Adder"
+  backends foreach {backend =>
+    it should s"correctly add randomly generated numbers $backend" in {
+      runPeekPokeTester(() => new Adder(8), backend){
+        (c,b) => new AdderTests(c,b)} should be (true)
+    }
   }
 }

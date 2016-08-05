@@ -27,8 +27,11 @@ class CounterTest(c: Counter, b: Option[TesterBackend] = None) extends PeekPokeT
 }
 
 class CounterTester extends ChiselFlatSpec {
-  "Counter" should "correctly count randomly generated numbers" in {
-    runPeekPokeTester(() => new Counter){
-      (c,b) => new CounterTest(c,b)}
+  behavior of "Counter"
+  backends foreach {backend =>
+    it should s"correctly count randomly generated numbers in $backend" in {
+      runPeekPokeTester(() => new Counter, backend){
+        (c,b) => new CounterTest(c,b)} should be (true)
+    }
   }
 }

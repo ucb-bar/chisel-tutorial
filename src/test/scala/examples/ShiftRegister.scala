@@ -18,9 +18,11 @@ class ShiftRegisterTests(c: ShiftRegister, b: Option[TesterBackend] = None) exte
 }
 
 class ShiftRegisterTester extends ChiselFlatSpec {
-  "ShiftRegister" should "shift a number through a series of registers" in {
-    runPeekPokeTester(() => new ShiftRegister) {
-      (c,b) => new ShiftRegisterTests(c,b)
+  behavior of "ShiftRegister"
+  backends foreach {backend =>
+    it should s"shift a number through a series of registers in $backend" in {
+      runPeekPokeTester(() => new ShiftRegister, backend) {
+        (c,b) => new ShiftRegisterTests(c,b)} should be (true)
     }
   }
 }
