@@ -2,9 +2,9 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class FullAdderTests(c: FullAdder, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class FullAdderTests(c: FullAdder) extends PeekPokeTester(c) {
   for (t <- 0 until 4) {
     val a    = rnd.nextInt(2)
     val b    = rnd.nextInt(2)
@@ -22,9 +22,10 @@ class FullAdderTests(c: FullAdder, b: Option[TesterBackend] = None) extends Peek
 }
 
 class FullAdderTester extends ChiselFlatSpec {
-  "FullAdder" should "correctly add randomly generated numbers and show carry" in {
-    runPeekPokeTester(() => new FullAdder) {
-      (c,b) => new FullAdderTests(c,b)
+  behavior of "FullAdder"
+  backends foreach {backend =>
+    it should s"correctly add randomly generated numbers and show carry in $backend" in {
+      Driver(() => new FullAdder, backend)((c) => new FullAdderTests(c)) should be (true)
     }
   }
 }

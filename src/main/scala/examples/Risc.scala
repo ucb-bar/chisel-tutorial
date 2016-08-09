@@ -51,8 +51,3 @@ class Risc extends Module {
     pc := pc + 1.U
   }
 }
-
-object Opcodes {
-  val add_op = 0
-  val imm_op = 1
-}

@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class MemoTests(c: Memo, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class MemoTests(c: Memo) extends PeekPokeTester(c) {
   def rd(addr: Int, data: Int) = {
     poke(c.io.ren, 1)
     poke(c.io.rdAddr, addr)

@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class MaxNTests(c: MaxN, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class MaxNTests(c: MaxN) extends PeekPokeTester(c) {
   val ins = Array.fill(c.n){ 0 }
   for (i <- 0 until 10) {
     var mx = 0

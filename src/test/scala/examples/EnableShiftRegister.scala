@@ -2,9 +2,9 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class EnableShiftRegisterTests(c: EnableShiftRegister, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class EnableShiftRegisterTests(c: EnableShiftRegister) extends PeekPokeTester(c) {
   val reg = Array.fill(4){ 0 }
   for (t <- 0 until 16) {
     val in    = rnd.nextInt(16)
@@ -22,9 +22,10 @@ class EnableShiftRegisterTests(c: EnableShiftRegister, b: Option[TesterBackend] 
 }
 
 class EnableShiftRegisterTester extends ChiselFlatSpec {
-  "EnableShiftRegister" should "create a pipeline of registers and shift them each cycle" in {
-    runPeekPokeTester(() => new EnableShiftRegister) {
-      (c,b) => new EnableShiftRegisterTests(c,b)
+  behavior of "EnableShiftRegister"
+  backends foreach {backend =>
+    it should s"create a pipeline of registers and shift them each cycle in $backend" in {
+      Driver(() => new EnableShiftRegister, backend)(c => new EnableShiftRegisterTests(c)) should be (true)
     }
   }
 }

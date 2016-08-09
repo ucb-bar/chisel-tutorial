@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class VendingMachineTests(c: VendingMachine, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class VendingMachineTests(c: VendingMachine) extends PeekPokeTester(c) {
   var money = 0
   var isValid = false
   for (t <- 0 until 20) {

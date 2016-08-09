@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class CounterTest(c: Counter, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class CounterTest(c: Counter) extends PeekPokeTester(c) {
   val maxInt  = 16
   var curCnt  = 0
 
@@ -27,8 +27,10 @@ class CounterTest(c: Counter, b: Option[TesterBackend] = None) extends PeekPokeT
 }
 
 class CounterTester extends ChiselFlatSpec {
-  "Counter" should "correctly count randomly generated numbers" in {
-    runPeekPokeTester(() => new Counter){
-      (c,b) => new CounterTest(c,b)}
+  behavior of "Counter"
+  backends foreach {backend =>
+    it should s"correctly count randomly generated numbers in $backend" in {
+      Driver(() => new Counter, backend)(c => new CounterTest(c)) should be (true)
+    }
   }
 }

@@ -2,10 +2,9 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 import scala.io.Source
-import java.io.FileOutputStream
-import java.io.File
+import java.io.{File, FileOutputStream, InputStream}
 
 object Image {
   val MagicNumber  = 0x59a66a95
@@ -21,8 +20,8 @@ object Image {
     res(3) = ((d >>  0)&255).toByte
     res
   }
-  def apply(filename: String): Image = {
-    val file = Source.fromFile(filename)(scala.io.Codec.ISO8859)
+  def apply(stream: InputStream): Image = {
+    val file = Source.fromInputStream(stream)(scala.io.Codec.ISO8859)
     var buf = new StringBuilder();
     file.foreach(c => buf += c)
     val rawData = buf.result()

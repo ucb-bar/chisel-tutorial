@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class RealGCDTests(c: RealGCD, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class RealGCDTests(c: RealGCD) extends PeekPokeTester(c) {
   val inputs = List( (48, 32), (7, 3), (100, 10) )
   val outputs = List( 16, 1, 10)
 

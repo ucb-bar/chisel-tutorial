@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class LFSR16Tests(c: LFSR16, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class LFSR16Tests(c: LFSR16) extends PeekPokeTester(c) {
   var res = 1
   for (t <- 0 until 16) {
     val inc = rnd.nextInt(2)

@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class AccumulatorTests(c: Accumulator, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class AccumulatorTests(c: Accumulator) extends PeekPokeTester(c) {
   var tot = 0
   for (t <- 0 until 16) {
     val in = rnd.nextInt(2)
@@ -15,8 +15,10 @@ class AccumulatorTests(c: Accumulator, b: Option[TesterBackend] = None) extends 
 }
 
 class AccumulatorTester extends ChiselFlatSpec {
-  "Accumulator" should "correctly accumulate randomly generated numbers" in {
-    runPeekPokeTester(() => new Accumulator){
-      (c,b) => new AccumulatorTests(c,b)}
+  behavior of "Accumulator"
+  backends foreach {backend =>
+    it should s"correctly accumulate randomly generated numbers in $backend" in {
+      Driver(() => new Accumulator, backend)(c => new AccumulatorTests(c)) should be (true)
+    }
   }
 }

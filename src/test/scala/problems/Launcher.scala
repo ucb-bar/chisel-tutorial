@@ -2,7 +2,7 @@
 package problems
 
 import Chisel._
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 import utils.TutorialRunner
 
 import scala.collection.mutable.ArrayBuffer
@@ -11,56 +11,56 @@ import scala.collection.mutable.ArrayBuffer
 object Launcher {
   val problems = Map(
     "Accummulator" -> { (backendName: String) =>
-      runPeekPokeTester(() => new Accumulator(), backendName){
-        (c,b) => new AccumulatorTests(c,b)} },
+      Driver(() => new Accumulator(), backendName){
+        (c) => new AccumulatorTests(c)} },
     "LFSR16" -> { (backendName: String) =>
-      runPeekPokeTester(() => new LFSR16(), backendName){
-    (c,b) => new LFSR16Tests(c,b)} },
+      Driver(() => new LFSR16(), backendName){
+    (c) => new LFSR16Tests(c)} },
     "SingleEvenFilter" -> { (backendName: String) =>
-      runPeekPokeTester(() => new SingleEvenFilter(UInt(width = 16)), backendName){
-    (c,b) => new SingleEvenFilterTests(c,b)} },
+      Driver(() => new SingleEvenFilter(UInt(width = 16)), backendName){
+    (c) => new SingleEvenFilterTests(c)} },
     "VecShiftRegister" -> { (backendName: String) =>
-      runPeekPokeTester(() => new VecShiftRegister(), backendName){
-    (c,b) => new VecShiftRegisterTests(c,b)} },
+      Driver(() => new VecShiftRegister(), backendName){
+    (c) => new VecShiftRegisterTests(c)} },
     "VecShiftRegisterSimple" -> { (backendName: String) =>
-      runPeekPokeTester(() => new VecShiftRegisterSimple(), backendName){
-    (c,b) => new VecShiftRegisterSimpleTests(c,b)} },
+      Driver(() => new VecShiftRegisterSimple(), backendName){
+    (c) => new VecShiftRegisterSimpleTests(c)} },
     "VecShiftRegisterParam" -> { (backendName: String) =>
-      runPeekPokeTester(() => new VecShiftRegisterParam(8, 4), backendName){
-    (c,b) => new VecShiftRegisterParamTests(c,b)} },
+      Driver(() => new VecShiftRegisterParam(8, 4), backendName){
+    (c) => new VecShiftRegisterParamTests(c)} },
     "Max2" -> { (backendName: String) =>
-      runPeekPokeTester(() => new Max2(), backendName){
-    (c,b) => new Max2Tests(c,b)} },
+      Driver(() => new Max2(), backendName){
+    (c) => new Max2Tests(c)} },
     "MaxN" -> { (backendName: String) =>
-      runPeekPokeTester(() => new MaxN(8, 16), backendName){
-    (c,b) => new MaxNTests(c,b)} },
+      Driver(() => new MaxN(8, 16), backendName){
+    (c) => new MaxNTests(c)} },
     "Adder" -> { (backendName: String) =>
-      runPeekPokeTester(() => new Adder(8), backendName){
-    (c,b) => new AdderTests(c,b)} },
+      Driver(() => new Adder(8), backendName){
+    (c) => new AdderTests(c)} },
     "DynamicMemorySearch" -> { (backendName: String) =>
-      runPeekPokeTester(() => new DynamicMemorySearch(8, 4), backendName){
-    (c,b) => new DynamicMemorySearchTests(c,b)} },
+      Driver(() => new DynamicMemorySearch(8, 4), backendName){
+    (c) => new DynamicMemorySearchTests(c)} },
     "RealGCD" -> { (backendName: String) =>
-      runPeekPokeTester(() => new RealGCD(), backendName){
-    (c,b) => new RealGCDTests(c,b)} },
+      Driver(() => new RealGCD(), backendName){
+    (c) => new RealGCDTests(c)} },
     "Mux2" -> { (backendName: String) =>
-      runPeekPokeTester(() => new Mux2(), backendName){
-    (c,b) => new Mux2Tests(c,b)} },
+      Driver(() => new Mux2(), backendName){
+    (c) => new Mux2Tests(c)} },
     "Mux4" -> { (backendName: String) =>
-      runPeekPokeTester(() => new Mux4(), backendName){
-    (c,b) => new Mux4Tests(c,b)} },
+      Driver(() => new Mux4(), backendName){
+    (c) => new Mux4Tests(c)} },
     "Memo" -> { (backendName: String) =>
-      runPeekPokeTester(() => new Memo(), backendName){
-    (c,b) => new MemoTests(c,b)} },
+      Driver(() => new Memo(), backendName){
+    (c) => new MemoTests(c)} },
     "Mul" -> { (backendName: String) =>
-      runPeekPokeTester(() => new Mul(), backendName){
-    (c,b) => new MulTests(c,b)} },
+      Driver(() => new Mul(), backendName){
+    (c) => new MulTests(c)} },
     "Counter" -> { (backendName: String) =>
-      runPeekPokeTester(() => new Counter(), backendName){
-    (c,b) => new CounterTest(c,b)} },
+      Driver(() => new Counter(), backendName){
+    (c) => new CounterTest(c)} },
     "VendingMachine" -> { (backendName: String) =>
-      runPeekPokeTester(() => new VendingMachine(), backendName){
-    (c,b) => new VendingMachineTests(c,b) }}
+      Driver(() => new VendingMachine(), backendName){
+    (c) => new VendingMachineTests(c) }}
   )
 
   def main(args: Array[String]): Unit = {

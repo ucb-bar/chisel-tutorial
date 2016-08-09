@@ -2,9 +2,9 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class SimpleALUTests(c: SimpleALU, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class SimpleALUTests(c: SimpleALU) extends PeekPokeTester(c) {
   for (n <- 0 until 64) {
     val a      = rnd.nextInt(16)
     val b      = rnd.nextInt(16)
@@ -32,9 +32,10 @@ class SimpleALUTests(c: SimpleALU, b: Option[TesterBackend] = None) extends Peek
 }
 
 class SimpleALUTester extends ChiselFlatSpec {
-  "SimpleALU" should "perform correct math operation on dynamic operand" in {
-    runPeekPokeTester(() => new SimpleALU) {
-      (c,b) => new SimpleALUTests(c,b)
+  behavior of "SimpleALU"
+  backends foreach {backend =>
+    it should s"perform correct math operation on dynamic operand in $backend" in {
+      Driver(() => new SimpleALU, backend)((c) => new SimpleALUTests(c)) should be (true)
     }
   }
 }

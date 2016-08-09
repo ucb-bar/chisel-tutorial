@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class MaxNTests(c: MaxN, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class MaxNTests(c: MaxN) extends PeekPokeTester(c) {
   for (i <- 0 until 10) {
     var mx = 0
     for (i <- 0 until c.n) {

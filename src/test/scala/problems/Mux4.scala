@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class Mux4Tests(c: Mux4, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class Mux4Tests(c: Mux4) extends PeekPokeTester(c) {
   for (s0 <- 0 until 2) {
     for (s1 <- 0 until 2) {
       for(i0 <- 0 until 2) {
