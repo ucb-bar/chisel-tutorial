@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class CounterTest(c: Counter, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class CounterTest(c: Counter) extends PeekPokeTester(c) {
   val maxInt  = 16
   var curCnt  = 0
 

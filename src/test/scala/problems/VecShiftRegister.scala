@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class VecShiftRegisterTests(c: VecShiftRegister, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class VecShiftRegisterTests(c: VecShiftRegister) extends PeekPokeTester(c) {
   val reg     = Array.fill(4){ 0 }
   val ins     = Array.fill(4){ 0 }
   // Initialize the delays.

@@ -2,7 +2,7 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 import scala.io.Source
 import java.io.FileOutputStream
 import java.io.File

@@ -2,7 +2,7 @@
 package hello
 
 import Chisel._
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver}
 
 class Hello extends Module {
   val io = new Bundle { 
@@ -11,16 +11,13 @@ class Hello extends Module {
   io.out := UInt(42)
 }
 
-class HelloTests(c: Hello, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class HelloTests(c: Hello) extends PeekPokeTester(c) {
   step(1)
   expect(c.io.out, 42)
 }
 
 object Hello {
   def main(args: Array[String]): Unit = {
-    val res = runPeekPokeTester(() => new Hello()){(c,b) => new HelloTests(c,b)}
-    if(!res) {
-      System.exit(1)
-    }
+    if (!Driver(() => new Hello())(c => new HelloTests(c))) System.exit(1)
   }
 }

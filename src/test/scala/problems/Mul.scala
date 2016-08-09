@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class MulTests(c: Mul, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class MulTests(c: Mul) extends PeekPokeTester(c) {
   val maxInt  = 1 << 4
   for (i <- 0 until 10) {
     val x = rnd.nextInt(maxInt)

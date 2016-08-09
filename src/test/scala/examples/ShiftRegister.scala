@@ -2,10 +2,10 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class ShiftRegisterTests(c: ShiftRegister, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
-  val reg     = Array.fill(4){ 0 }
+class ShiftRegisterTests(c: ShiftRegister) extends PeekPokeTester(c) {
+  val reg = Array.fill(4){ 0 }
   for (t <- 0 until 64) {
     val in = rnd.nextInt(2)
     poke(c.io.in, in)
@@ -21,8 +21,7 @@ class ShiftRegisterTester extends ChiselFlatSpec {
   behavior of "ShiftRegister"
   backends foreach {backend =>
     it should s"shift a number through a series of registers in $backend" in {
-      runPeekPokeTester(() => new ShiftRegister, backend) {
-        (c,b) => new ShiftRegisterTests(c,b)} should be (true)
+      Driver(() => new ShiftRegister, backend)((c) => new ShiftRegisterTests(c)) should be (true)
     }
   }
 }

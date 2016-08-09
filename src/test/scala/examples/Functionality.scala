@@ -2,9 +2,9 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class FunctionalityTests(c: Functionality, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class FunctionalityTests(c: Functionality) extends PeekPokeTester(c) {
   val maxInt = 1 << 16
   for (i <- 0 until 10) {
     val x = rnd.nextInt(maxInt)
@@ -20,8 +20,7 @@ class FunctionalityTester extends ChiselFlatSpec {
   behavior of "Functionality"
   backends foreach {backend =>
     it should s"demonstrate usage of functions that generate code in $backend" in {
-      runPeekPokeTester(() => new Functionality, backend) {
-        (c,b) => new FunctionalityTests(c,b)} should be (true)
+      Driver(() => new Functionality, backend)((c) => new FunctionalityTests(c)) should be (true)
     }
   }
 }

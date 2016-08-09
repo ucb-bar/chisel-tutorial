@@ -1,110 +1,110 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 import utils.TutorialRunner
 
 object Launcher {
   val examples = Map(
       "GCD" -> { (backendName: String) =>
-        runPeekPokeTester(() => new GCD(), backendName) {
-          (c, b) => new GCDTests(c, b)
+        Driver(() => new GCD(), backendName) {
+          (c) => new GCDTests(c)
         }
       },
       "Combinational" -> { (backendName: String) =>
-        runPeekPokeTester(() => new Combinational(), backendName) {
-          (c, b) => new CombinationalTests(c, b)
+        Driver(() => new Combinational(), backendName) {
+          (c) => new CombinationalTests(c)
         }
       },
       "Functionality" -> { (backendName: String) =>
-        runPeekPokeTester(() => new Functionality(), backendName) {
-          (c, b) => new FunctionalityTests(c, b)
+        Driver(() => new Functionality(), backendName) {
+          (c) => new FunctionalityTests(c)
         }
       },
       "Parity" -> { (backendName: String) =>
-        runPeekPokeTester(() => new Parity(), backendName) {
-          (c, b) => new ParityTests(c, b)
+        Driver(() => new Parity(), backendName) {
+          (c) => new ParityTests(c)
         }
       },
       "Tbl" -> { (backendName: String) =>
-        runPeekPokeTester(() => new Tbl(), backendName) {
-          (c, b) => new TblTests(c, b)
+        Driver(() => new Tbl(), backendName) {
+          (c) => new TblTests(c)
         }
       },
       "Life" -> { (backendName: String) =>
-        runPeekPokeTester(() => new Life(3), backendName) {
-          (c, b) => new LifeTests(c, b)
+        Driver(() => new Life(3), backendName) {
+          (c) => new LifeTests(c)
         }
       },
       "Risc" -> { (backendName: String) =>
-        runPeekPokeTester(() => new Risc(), backendName) {
-          (c, b) => new RiscTests(c, b)
+        Driver(() => new Risc(), backendName) {
+          (c) => new RiscTests(c)
         }
       },
       "Darken" -> { (backendName: String) =>
-        runPeekPokeTester(() => new Darken(), backendName) {
-          (c, b) => new DarkenTests(c, "src/test/resources/in.im24", "o" +
-            "u,t.im24", b)
+        Driver(() => new Darken(), backendName) {
+          (c) => new DarkenTests(c, "src/test/resources/in.im24", "o" +
+            "u,t.im24")
         }
       },
       "Adder" -> { (backendName: String) =>
-        runPeekPokeTester(() => new Adder(8), backendName) {
-          (c, b) => new AdderTests(c, b)
+        Driver(() => new Adder(8), backendName) {
+          (c) => new AdderTests(c)
         }
       },
       "Adder4" -> { (backendName: String) =>
-        runPeekPokeTester(() => new Adder4(), backendName) {
-          (c, b) => new Adder4Tests(c, b)
+        Driver(() => new Adder4(), backendName) {
+          (c) => new Adder4Tests(c)
         }
       },
       "SimpleALU" -> { (backendName: String) =>
-        runPeekPokeTester(() => new SimpleALU(), backendName) {
-          (c, b) => new SimpleALUTests(c, b)
+        Driver(() => new SimpleALU(), backendName) {
+          (c) => new SimpleALUTests(c)
         }
       },
       "FullAdder" -> { (backendName: String) =>
-        runPeekPokeTester(() => new FullAdder(), backendName) {
-          (c, b) => new FullAdderTests(c, b)
+        Driver(() => new FullAdder(), backendName) {
+          (c) => new FullAdderTests(c)
         }
       },
       "ByteSelector" -> { (backendName: String) =>
-        runPeekPokeTester(() => new ByteSelector(), backendName) {
-          (c, b) => new ByteSelectorTests(c, b)
+        Driver(() => new ByteSelector(), backendName) {
+          (c) => new ByteSelectorTests(c)
         }
       },
       "HiLoMultiplier" -> { (backendName: String) =>
-        runPeekPokeTester(() => new HiLoMultiplier(), backendName) {
-          (c, b) => new HiLoMultiplierTests(c, b)
+        Driver(() => new HiLoMultiplier(), backendName) {
+          (c) => new HiLoMultiplierTests(c)
         }
       },
       "ShiftRegister" -> { (backendName: String) =>
-        runPeekPokeTester(() => new ShiftRegister(), backendName) {
-          (c, b) => new ShiftRegisterTests(c, b)
+        Driver(() => new ShiftRegister(), backendName) {
+          (c) => new ShiftRegisterTests(c)
         }
       },
       "ResetShiftRegister" -> { (backendName: String) =>
-        runPeekPokeTester(() => new ResetShiftRegister(), backendName) {
-          (c, b) => new ResetShiftRegisterTests(c, b)
+        Driver(() => new ResetShiftRegister(), backendName) {
+          (c) => new ResetShiftRegisterTests(c)
         }
       },
       "EnableShiftRegister" -> { (backendName: String) =>
-        runPeekPokeTester(() => new EnableShiftRegister(), backendName) {
-          (c, b) => new EnableShiftRegisterTests(c, b)
+        Driver(() => new EnableShiftRegister(), backendName) {
+          (c) => new EnableShiftRegisterTests(c)
         }
       },
       "LogShifter" -> { (backendName: String) =>
-        runPeekPokeTester(() => new LogShifter(), backendName) {
-          (c, b) => new LogShifterTests(c, b)
+        Driver(() => new LogShifter(), backendName) {
+          (c) => new LogShifterTests(c)
         }
       },
       "VecSearch" -> { (backendName: String) =>
-        runPeekPokeTester(() => new VecSearch(), backendName) {
-          (c, b) => new VecSearchTests(c, b)
+        Driver(() => new VecSearch(), backendName) {
+          (c) => new VecSearchTests(c)
         }
       },
       "Stack" -> { (backendName: String) =>
-        runPeekPokeTester(() => new Stack(8), backendName) {
-          (c, b) => new StackTests(c, b)
+        Driver(() => new Stack(8), backendName) {
+          (c) => new StackTests(c)
         }
       }
   )

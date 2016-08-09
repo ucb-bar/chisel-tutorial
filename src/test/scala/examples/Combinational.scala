@@ -2,9 +2,9 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class CombinationalTests(c: Combinational, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class CombinationalTests(c: Combinational) extends PeekPokeTester(c) {
   val maxInt = 1 << 16
   for (i <- 0 until 10) {
     val x = rnd.nextInt(maxInt)
@@ -20,8 +20,7 @@ class CombinationalTester extends ChiselFlatSpec {
   behavior of "Combinational"
   backends foreach {backend =>
     it should s"correctly add randomly generated numbers in $backend" in {
-      runPeekPokeTester(() => new Combinational, backend){
-        (c,b) => new CombinationalTests(c,b)} should be (true)
+      Driver(() => new Combinational, backend)(c => new CombinationalTests(c)) should be (true)
     }
   }
 }

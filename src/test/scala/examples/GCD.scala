@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class GCDTests(c: GCD, backend: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=backend) {
+class GCDTests(c: GCD) extends PeekPokeTester(c) {
   val (a, b, z) = (64, 48, 16)
   do {
     val first = if (t == 0) 1 else 0;
@@ -19,8 +19,7 @@ class GCDTester extends ChiselFlatSpec {
   behavior of "GCD"
   backends foreach { backend =>
     it should s"correctly compute GCD of two numbers in $backend" in {
-      runPeekPokeTester(() => new GCD, backend) {
-        (c,b) => new GCDTests(c,b)} should be (true)
+      Driver(() => new GCD, backend)(c => new GCDTests(c)) should be (true)
     }
   }
 }

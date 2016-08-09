@@ -2,10 +2,10 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 import util.Random
 
-class LifeTests(c: Life, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class LifeTests(c: Life) extends PeekPokeTester(c) {
   for (t <- 0 until 16) {
     step(1)
     for (j <- 0 until c.n) {
@@ -21,8 +21,7 @@ class LifeTester extends ChiselFlatSpec {
   behavior of "Life"
   backends foreach {backend =>
     it should s"implement transition rules for Conway's life game in $backend" in {
-      runPeekPokeTester(() => new Life(3), backend) {
-        (c,b) => new LifeTests(c,b)} should be (true)
+      Driver(() => new Life(3), backend)((c) => new LifeTests(c)) should be (true)
     }
   }
 }

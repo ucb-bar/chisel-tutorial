@@ -2,9 +2,9 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class HiLoMultiplierTests(c: HiLoMultiplier, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class HiLoMultiplierTests(c: HiLoMultiplier) extends PeekPokeTester(c) {
   for (t <- 0 until 4) {
     val rnd0 = rnd.nextInt(65535)
     val rnd1 = rnd.nextInt(65535)
@@ -21,8 +21,7 @@ class HiLoMultiplierTester extends ChiselFlatSpec {
   behavior of "HiLoMultiplier"
   backends foreach {backend =>
     it should s"multiply two numbers returning result as a hi and low output $backend" in {
-      runPeekPokeTester(() => new HiLoMultiplier, backend) {
-        (c,b) => new HiLoMultiplierTests(c,b)} should be (true)
+      Driver(() => new HiLoMultiplier, backend)((c) => new HiLoMultiplierTests(c)) should be (true)
     }
   }
 }

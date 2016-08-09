@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class VecShiftRegisterParamTests(c: VecShiftRegisterParam, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class VecShiftRegisterParamTests(c: VecShiftRegisterParam) extends PeekPokeTester(c) {
   val reg = Array.fill(c.n){ 0 }
   for (t <- 0 until 16) {
     val in = rnd.nextInt(1 << c.w)

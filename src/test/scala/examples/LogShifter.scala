@@ -2,8 +2,8 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class LogShifterTests(c: LogShifter, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class LogShifterTests(c: LogShifter) extends PeekPokeTester(c) {
 }
 

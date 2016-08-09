@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class AccumulatorTests(c: Accumulator, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class AccumulatorTests(c: Accumulator) extends PeekPokeTester(c) {
   var tot = 0
   for (t <- 0 until 16) {
     val in = rnd.nextInt(2)

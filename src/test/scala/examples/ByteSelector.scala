@@ -2,9 +2,9 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class ByteSelectorTests(c: ByteSelector, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class ByteSelectorTests(c: ByteSelector) extends PeekPokeTester(c) {
   val test_in = 12345678
   for (t <- 0 until 4) {
     poke(c.io.in,     test_in)
@@ -18,8 +18,7 @@ class ByteSelectorTester extends ChiselFlatSpec {
   behavior of "ByteSelector"
   backends foreach {backend =>
     it should s"correctly select correct bits from an input in $backend" in {
-      runPeekPokeTester(() => new ByteSelector, backend){
-        (c,b) => new ByteSelectorTests(c,b)} should be (true)
+      Driver(() => new ByteSelector, backend)((c) => new ByteSelectorTests(c)) should be (true)
     }
   }
 }

@@ -2,9 +2,9 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class ResetShiftRegisterTests(c: ResetShiftRegister, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class ResetShiftRegisterTests(c: ResetShiftRegister) extends PeekPokeTester(c) {
   val ins = Array.fill(4){ 0 }
   val regs = Array.fill(4){ 0 }
   var k   = 0
@@ -26,8 +26,8 @@ class ResetShiftRegisterTester extends ChiselFlatSpec {
   behavior of "ResetShiftRegister"
   backends foreach {backend =>
     it should s"correctly compute ResetShiftRegister of two numbers in $backend" in {
-      runPeekPokeTester(() => new ResetShiftRegister, backend) {
-        (c,b) => new ResetShiftRegisterTests(c,b)} should be (true)
+      Driver(() => new ResetShiftRegister, backend) {
+        (c) => new ResetShiftRegisterTests(c)} should be (true)
     }
   }
 }

@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class Max2Tests(c: Max2, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class Max2Tests(c: Max2) extends PeekPokeTester(c) {
   for (i <- 0 until 10) {
     // FILL THIS IN HERE
     val in0 = rnd.nextInt(256)

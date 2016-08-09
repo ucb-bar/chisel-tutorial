@@ -2,9 +2,9 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class ParityTests(c: Parity, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class ParityTests(c: Parity) extends PeekPokeTester(c) {
   var isOdd = 0
   for (t <- 0 until 10) {
     val bit = rnd.nextInt(2)
@@ -19,8 +19,8 @@ class ParityTester extends ChiselFlatSpec {
   behavior of "Parity"
   backends foreach {backend =>
     it should s"correctly compute parity of two numbers $backend" in {
-      runPeekPokeTester(() => new Parity, backend) {
-        (c,b) => new ParityTests(c,b)} should be (true)
+      Driver(() => new Parity, backend) {
+        (c) => new ParityTests(c)} should be (true)
     }
   }
 }

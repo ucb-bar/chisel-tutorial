@@ -2,12 +2,12 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.{Stack => ScalaStack}
 import scala.util.Random
 
-class StackTests(c: Stack, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class StackTests(c: Stack) extends PeekPokeTester(c) {
   var nxtDataOut = 0
   var dataOut = 0
   val stack = new ScalaStack[Int]()
@@ -43,8 +43,7 @@ class StackTester extends ChiselFlatSpec {
   behavior of "Stack"
   backends foreach {backend =>
     it should s"correctly support basic stack operations $backend" in {
-      runPeekPokeTester(() => new Stack(depth = 8), backend) {
-        (c,b) => new StackTests(c,b)} should be (true)
+      Driver(() => new Stack(depth = 8), backend)((c) => new StackTests(c)) should be (true)
     }
   }
 }

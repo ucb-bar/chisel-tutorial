@@ -2,9 +2,9 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class RiscTests(c: Risc, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class RiscTests(c: Risc) extends PeekPokeTester(c) {
   def wr(addr: BigInt, data: BigInt)  = {
     poke(c.io.isWr,   1)
     poke(c.io.wrAddr, addr)
@@ -49,8 +49,7 @@ class RiscTester extends ChiselFlatSpec {
   behavior of "Risc"
   backends foreach {backend =>
     it should s"run simple fsm implementation in $backend" in {
-      runPeekPokeTester(() => new Risc, backend) {
-        (c,b) => new RiscTests(c,b)} should be (true)
+      Driver(() => new Risc)(c => new RiscTests(c)) should be (true)
     }
   }
 }

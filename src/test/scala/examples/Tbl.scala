@@ -2,9 +2,9 @@
 package examples
 
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class TblTests(c: Tbl, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class TblTests(c: Tbl) extends PeekPokeTester(c) {
   for (t <- 0 until 16) {
     val addr = rnd.nextInt(256)
     poke(c.io.addr, addr)
@@ -17,8 +17,7 @@ class TblTester extends ChiselFlatSpec {
   behavior of "Tbl"
   backends foreach {backend =>
     it should s"implement a table of numbers in $backend" in {
-      runPeekPokeTester(() => new Tbl, backend) {
-        (c,b) => new TblTests(c,b)} should be (true)
+      Driver(() => new Tbl, backend)((c) => new TblTests(c)) should be (true)
     }
   }
 }

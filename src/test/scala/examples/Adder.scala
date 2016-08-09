@@ -1,10 +1,9 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel._
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class AdderTests(c: Adder, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class AdderTests(c: Adder) extends PeekPokeTester(c) {
   for (t <- 0 until 4) {
     val rnd0 = rnd.nextInt(c.n)
     val rnd1 = rnd.nextInt(c.n)
@@ -25,8 +24,7 @@ class AdderTester extends ChiselFlatSpec {
   behavior of "Adder"
   backends foreach {backend =>
     it should s"correctly add randomly generated numbers $backend" in {
-      runPeekPokeTester(() => new Adder(8), backend){
-        (c,b) => new AdderTests(c,b)} should be (true)
+      Driver(() => new Adder(8))(c => new AdderTests(c)) should be (true)
     }
   }
 }

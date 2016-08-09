@@ -1,9 +1,9 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel.iotesters.{ Backend => TesterBackend, _ }
+import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class DynamicMemorySearchTests(c: DynamicMemorySearch, b: Option[TesterBackend] = None) extends PeekPokeTester(c, _backend=b) {
+class DynamicMemorySearchTests(c: DynamicMemorySearch) extends PeekPokeTester(c) {
   val list = Array.fill(c.n){ 0 }
   // Initialize the memory.
   for (k <- 0 until c.n) {
