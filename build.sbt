@@ -22,5 +22,3 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots"),
   Resolver.sonatypeRepo("releases")
 )
-
-parallelExecution in Test := false
