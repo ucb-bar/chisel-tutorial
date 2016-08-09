@@ -48,7 +48,7 @@ object Launcher {
       }
     },
     "Adder" -> { (backendName: String) =>
-      Driver(() => new AdderSol(8), backendName) {
+      Driver(() => new Adder(8), backendName) {
         (c) => new AdderTests(c)
       }
     },

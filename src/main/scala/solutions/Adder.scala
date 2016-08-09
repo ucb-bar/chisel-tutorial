@@ -3,7 +3,7 @@ package solutions
 
 import Chisel._
 
-class AdderSol(val w: Int) extends Module {
+class Adder(val w: Int) extends Module {
   val io = new Bundle {
     val in0 = UInt(INPUT,  w)
     val in1 = UInt(INPUT,  w)

@@ -3,7 +3,7 @@ package solutions
 
 import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class AdderTests(c: AdderSol) extends PeekPokeTester(c) {
+class AdderTests(c: Adder) extends PeekPokeTester(c) {
   for (i <- 0 until 10) {
     val in0 = rnd.nextInt(1 << c.w)
     val in1 = rnd.nextInt(1 << c.w)
@@ -15,10 +15,10 @@ class AdderTests(c: AdderSol) extends PeekPokeTester(c) {
 }
 
 class AdderTester extends ChiselFlatSpec {
-  behavior of "AdderSol"
+  behavior of "Adder"
   backends foreach {backend =>
     it should s"correctly add randomly generated numbers in $backend" in {
-      Driver(() => new AdderSol(16), backend)(c => new AdderTests(c)) should be (true)
+      Driver(() => new Adder(16), backend)(c => new AdderTests(c)) should be (true)
     }
   }
 }
