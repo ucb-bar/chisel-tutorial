@@ -4,8 +4,8 @@ package examples
 
 import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
-class DarkenTests(c: Darken, val infilename: String, val outfilename: String) extends PeekPokeTester(c) {
-  val inPic  = Image(infilename)
+class DarkenTests(c: Darken, infile: java.io.InputStream, outfilename: String) extends PeekPokeTester(c) {
+  val inPic  = Image(infile)
   val outPic = Image(inPic.w, inPic.h, inPic.d)
   step(1)
   for (i <- 0 until inPic.data.length) {
@@ -24,7 +24,7 @@ class DarkenTester extends ChiselFlatSpec {
   backends foreach {backend =>
     it should s"darken an image in $backend" in {
       Driver(() => new Darken(), backend)(
-        c => new DarkenTests(c, "src/test/resources/in.im24", "out.im24")) should be (true)
+        c => new DarkenTests(c, getClass.getResourceAsStream("/in.im24"), "out.im24")) should be (true)
     }
   }
 }
