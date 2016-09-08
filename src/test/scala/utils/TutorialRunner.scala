@@ -3,10 +3,11 @@
 package utils
 
 import scala.collection.mutable.ArrayBuffer
+import scala.util.Properties.envOrElse
 
 object TutorialRunner {
   def apply(tutorialMap: Map[String, String => Boolean], args: Array[String]): Unit = {
-    val backendName = "firrtl"
+    val backendName = envOrElse("TESTER_BACKENDS", "firrtl").split(" ").head
     val problemsToRun = if(args.isEmpty || args.head == "all" ) {
       tutorialMap.keys.toSeq.sorted.toArray
     }
