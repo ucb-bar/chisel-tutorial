@@ -10,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
 
 object Launcher {
   val problems = Map(
-    "Accummulator" -> { (backendName: String) =>
+    "Accumulator" -> { (backendName: String) =>
       Driver(() => new Accumulator(), backendName){
         (c) => new AccumulatorTests(c)} },
     "LFSR16" -> { (backendName: String) =>
