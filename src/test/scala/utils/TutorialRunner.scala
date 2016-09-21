@@ -7,7 +7,21 @@ import scala.util.Properties.envOrElse
 
 object TutorialRunner {
   def apply(tutorialMap: Map[String, String => Boolean], args: Array[String]): Unit = {
-    val backendName = envOrElse("TESTER_BACKENDS", "firrtl").split(" ").head
+    // Choose the default backend based on what is available.
+    lazy val firrtlTerpBackendAvailable: Boolean = {
+      try {
+        val cls = Class.forName("chisel3.iotesters.FirrtlTerpBackend")
+        cls != null
+      } catch {
+        case e: Throwable => false
+      }
+    }
+    lazy val defaultBackend = if (firrtlTerpBackendAvailable) {
+      "firrtl"
+    } else {
+      ""
+    }
+    val backendName = envOrElse("TESTER_BACKENDS", defaultBackend).split(" ").head
     val problemsToRun = if(args.isEmpty || args.head == "all" ) {
       tutorialMap.keys.toSeq.sorted.toArray
     }
