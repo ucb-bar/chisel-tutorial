@@ -22,3 +22,10 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots"),
   Resolver.sonatypeRepo("releases")
 )
+
+// Recommendations from http://www.scalatest.org/user_guide/using_scalatest_with_sbt
+logBuffered in Test := false
+
+// Disable parallel execution when running te
+//  Running tests in parallel on Jenkins currently fails.
+parallelExecution in Test := false
