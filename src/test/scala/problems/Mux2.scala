@@ -2,10 +2,8 @@
 package problems
 
 import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
-import scala.math._
 
 class Mux2Tests(c: Mux2) extends PeekPokeTester(c) {
-  val n = pow(2, 3).toInt
   for (s <- 0 until 2) {
     for (i0 <- 0 until 2) {
       for (i1 <- 0 until 2) {
