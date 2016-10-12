@@ -10,6 +10,9 @@ class CounterTest(c: Counter) extends PeekPokeTester(c) {
   def intWrapAround(n: Int, max: Int) = 
     if(n > max) 0 else n
 
+  poke(c.io.inc, 0)
+  poke(c.io.amt, 0)
+
   // let it spin for a bit
   for (i <- 0 until 5) {
     step(1)
