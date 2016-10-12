@@ -1,4 +1,4 @@
-Chisel Tutorials
+Chisel Tutorials (Development branch)
 ================
 
 These are the tutorials for [Chisel](https://github.com/ucb-bar/chisel3).
@@ -17,7 +17,7 @@ Getting the Repo
     $ git clone https://github.com/ucb-bar/chisel-tutorial.git
     $ cd chisel-tutorial
     $ git fetch origin
-    $ git checkout chisel3
+    $ git checkout master
 
 
 Executing Chisel
@@ -108,3 +108,7 @@ look at the source and test them out:
 
 On our [website](http://chisel.eecs.berkeley.edu/) we also have posted
 [documentation](https://chisel.eecs.berkeley.edu/documentation.html).
+
+Fixes/Updates
+-------------
+If you wish to submit pull requests for changes to this repo, plus check out the master branch, and make your pull requests against that branch.
