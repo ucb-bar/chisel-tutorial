@@ -1,4 +1,4 @@
-Chisel Tutorials (Development branch)
+Chisel Tutorials (Release branch)
 ================
 
 These are the tutorials for [Chisel](https://github.com/ucb-bar/chisel3).
