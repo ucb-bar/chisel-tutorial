@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import Chisel.iotesters.PeekPokeTester
 
 class DynamicMemorySearchTests(c: DynamicMemorySearch) extends PeekPokeTester(c) {
   val list = Array.fill(c.n){ 0 }
@@ -33,7 +33,7 @@ class DynamicMemorySearchTests(c: DynamicMemorySearch) extends PeekPokeTester(c)
     do {
       poke(c.io.en, 0)
       step(1)
-    } while (peek(c.io.done) == 0)
+    } while (peek(c.io.done) == BigInt(0))
     val addr = peek(c.io.target).toInt
     if (list contains target)
       assert(list(addr) == target, "LOOKING FOR " + target + " FOUND " + addr)

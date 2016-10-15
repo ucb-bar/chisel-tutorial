@@ -2,7 +2,7 @@
 package solutions
 
 import Chisel._
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import Chisel.iotesters.PeekPokeTester
 
 class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T]) extends PeekPokeTester(c) {
   val maxInt  = 1 << 16

@@ -1,17 +1,19 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel._
+import chisel3._
 
 class Memo extends Module {
-  val io = new Bundle {
-    val wen     = Bool(INPUT)
-    val wrAddr  = UInt(INPUT,  8)
-    val wrData  = UInt(INPUT,  8)
-    val ren     = Bool(INPUT)
-    val rdAddr  = UInt(INPUT,  8)
-    val rdData  = UInt(OUTPUT, 8)
-  }
+  val io = IO(new Bundle {
+    val wen     = Input(Bool())
+    val wrAddr  = Input(UInt(width = 8))
+    val wrData  = Input(UInt(width = 8))
+    val ren     = Input(Bool())
+    val rdAddr  = Input(UInt(width = 8))
+    val rdData  = Output(UInt(width = 8))
+  })
+
+
   val mem = Mem(256, UInt(width = 8))
 
   // --------------------------------------------------- \\

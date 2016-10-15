@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import Chisel.iotesters.PeekPokeTester
 
 class VendingMachineSwitchTests(c: VendingMachineSwitch) extends PeekPokeTester(c) {
   var money = 0
@@ -17,7 +17,7 @@ class VendingMachineSwitchTests(c: VendingMachineSwitch) extends PeekPokeTester(
     step(1)
 
     // Advance model
-    money = if (isValid) 0 else (money + coin)
+    money = if (isValid) 0 else money + coin
     isValid = money >= 20
 
     // Compare

@@ -2,10 +2,8 @@
 package problems
 
 import Chisel._
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import Chisel.iotesters.Driver
 import utils.TutorialRunner
-
-import scala.collection.mutable.ArrayBuffer
 
 
 object Launcher {
