@@ -8,16 +8,16 @@ class Risc extends Module {
   val io = IO(new Bundle {
     val isWr   = Input(Bool())
     val wrAddr = Input(UInt(width=8))
-    val wrData = Input(Bits(width=32))
+    val wrData = Input(UInt(width=32))
     val boot   = Input(Bool())
     val valid  = Output(Bool())
-    val out    = Output(Bits(width=32))
+    val out    = Output(UInt(width=32))
   })
-  val file = Mem(256, Bits(width = 32))
-  val code = Mem(256, Bits(width = 32))
+  val file = Mem(256, UInt(width = 32))
+  val code = Mem(256, UInt(width = 32))
   val pc   = Reg(init=UInt(0, 8))
   
-  val add_op :: imm_op :: Nil = Enum(Bits(), 2)
+  val add_op :: imm_op :: Nil = Enum(UInt(), 2)
 
   val inst = code(pc)
   val op   = inst(31,24)
@@ -25,13 +25,13 @@ class Risc extends Module {
   val rai  = inst(15, 8)
   val rbi  = inst( 7, 0)
 
-  val ra = Mux(rai === Bits(0), Bits(0), file(rai))
-  val rb = Mux(rbi === Bits(0), Bits(0), file(rbi))
-  val rc = Wire(Bits(width = 32))
+  val ra = Mux(rai === UInt(0), UInt(0), file(rai))
+  val rb = Mux(rbi === UInt(0), UInt(0), file(rbi))
+  val rc = Wire(UInt(width = 32))
 
   io.valid := Bool(false)
-  io.out   := Bits(0)
-  rc       := Bits(0)
+  io.out   := UInt(0)
+  rc       := UInt(0)
 
   when (io.isWr) {
     code(io.wrAddr) := io.wrData
