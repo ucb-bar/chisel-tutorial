@@ -1,13 +1,14 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel._
-
+import chisel3._
+import chisel3.util.Enum
 
 class Parity extends Module {
-  val io = new Bundle {
-    val in  = Bool(INPUT)
-    val out = Bool(OUTPUT) }
+  val io = IO(new Bundle {
+    val in  = Input(Bool())
+    val out = Output(Bool())
+  })
   val s_even :: s_odd :: Nil = Enum(UInt(), 2)
   val state  = Reg(init=s_even)
   when (io.in) {

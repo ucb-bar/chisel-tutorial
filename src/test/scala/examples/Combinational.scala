@@ -2,7 +2,7 @@
 package examples
 
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
 class CombinationalTests(c: Combinational) extends PeekPokeTester(c) {
   val maxInt = 1 << 16

@@ -1,14 +1,13 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel._
-
+import chisel3._
 
 class Combinational extends Module {
-  val io = new Bundle {
-    val x   = UInt(INPUT,  16)
-    val y   = UInt(INPUT,  16)
-    val z   = UInt(OUTPUT, 16)
-  }
+  val io = IO(new Bundle {
+    val x   = Input(UInt(width= 16))
+    val y   = Input(UInt(width= 16))
+    val z   = Output(UInt(width=16))
+  })
   io.z := io.x + io.y
 }

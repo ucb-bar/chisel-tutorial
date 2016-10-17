@@ -1,17 +1,16 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel._
-
+import chisel3._
 
 class FullAdder extends Module {
-  val io = new Bundle {
-    val a    = UInt(INPUT, 1)
-    val b    = UInt(INPUT, 1)
-    val cin  = UInt(INPUT, 1)
-    val sum  = UInt(OUTPUT, 1)
-    val cout = UInt(OUTPUT, 1)
-  }
+  val io = IO(new Bundle {
+    val a    = Input(UInt(width=1))
+    val b    = Input(UInt(width=1))
+    val cin  = Input(UInt(width=1))
+    val sum  = Output(UInt(width=1))
+    val cout = Output(UInt(width=1))
+  })
 
   // Generate the sum
   val a_xor_b = io.a ^ io.b

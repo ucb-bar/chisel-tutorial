@@ -1,14 +1,14 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel._
+import chisel3._
 
 class Functionality extends Module {
-  val io = new Bundle {
-    val x   = Bits(INPUT,  16)
-    val y   = Bits(INPUT,  16)
-    val z   = Bits(OUTPUT, 16)
-  }
+  val io = IO(new Bundle {
+    val x   = Input(Bits(width= 16))
+    val y   = Input(Bits(width= 16))
+    val z   = Output(Bits(width=16))
+  })
   def clb(a: UInt, b: UInt, c: UInt, d: UInt) =
     (a & b) | (~c & d)
   io.z := clb(io.x, io.y, io.x, io.y)

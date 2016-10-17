@@ -1,15 +1,14 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel._
-
+import chisel3._
 
 class LogShifter extends Module {
-  val io = new Bundle {
-    val in    = Bits(INPUT, 16)
-    val shamt = Bits(INPUT, 4)
-    val out   = Bits(OUTPUT, 16)
-  }
+  val io = IO(new Bundle {
+    val in    = Input(Bits(width=16))
+    val shamt = Input(Bits(width=4))
+    val out   = Output(Bits(width=16))
+  })
   val s0 = Reg(init = UInt(0, 16))
   when (io.shamt(3) === Bits(1)) {
     s0 := io.in << Bits(8)

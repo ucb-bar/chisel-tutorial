@@ -2,7 +2,7 @@
 package examples
 
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
 class SimpleALUTests(c: SimpleALU) extends PeekPokeTester(c) {
   for (n <- 0 until 64) {

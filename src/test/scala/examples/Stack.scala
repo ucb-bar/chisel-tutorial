@@ -2,7 +2,7 @@
 package examples
 
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.{Stack => ScalaStack}
 import scala.util.Random

@@ -1,15 +1,14 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel._
-
+import chisel3._
 
 class ResetShiftRegister extends Module {
-  val io = new Bundle {
-    val in    = UInt(INPUT, 4)
-    val shift = Bool(INPUT)
-    val out   = UInt(OUTPUT, 4)
-  }
+  val io = IO(new Bundle {
+    val in    = Input(UInt(width=4))
+    val shift = Input(Bool())
+    val out   = Output(UInt(width=4))
+  })
   // Register reset to zero
   val r0 = Reg(init = UInt(0, width = 4))
   val r1 = Reg(init = UInt(0, width = 4))

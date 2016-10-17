@@ -1,13 +1,13 @@
 // See LICENSE.txt for license details.
 package hello
 
-import Chisel._
-import Chisel.iotesters.{PeekPokeTester, Driver}
+import chisel3._
+import chisel3.iotesters.{PeekPokeTester, Driver}
 
 class Hello extends Module {
-  val io = new Bundle { 
-    val out = UInt(OUTPUT, 8)
-  }
+  val io = IO(new Bundle {
+    val out = Output(UInt(width=8))
+  })
   io.out := UInt(42)
 }
 

@@ -1,18 +1,18 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel._
-
+import chisel3._
+import chisel3.util._
 
 class Risc extends Module {
-  val io = new Bundle {
-    val isWr   = Bool(INPUT)
-    val wrAddr = UInt(INPUT, 8)
-    val wrData = Bits(INPUT, 32)
-    val boot   = Bool(INPUT)
-    val valid  = Bool(OUTPUT)
-    val out    = Bits(OUTPUT, 32)
-  }
+  val io = IO(new Bundle {
+    val isWr   = Input(Bool())
+    val wrAddr = Input(UInt(width=8))
+    val wrData = Input(Bits(width=32))
+    val boot   = Input(Bool())
+    val valid  = Output(Bool())
+    val out    = Output(Bits(width=32))
+  })
   val file = Mem(256, Bits(width = 32))
   val code = Mem(256, Bits(width = 32))
   val pc   = Reg(init=UInt(0, 8))

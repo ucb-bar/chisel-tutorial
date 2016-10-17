@@ -1,15 +1,15 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel._
+import chisel3._
 
 import scala.util.Random
 
 class Cell(isBorn: Boolean) extends Module {
-  val io = new Bundle {
-    val nbrs = Vec(8, Bool(INPUT))
-    val out  = Bool(OUTPUT)
-  }
+  val io = IO(new Bundle {
+    val nbrs = Vec(8, Input(Bool()))
+    val out  = Output(Bool())
+  })
   val isAlive = Reg(init=Bool(isBorn))
   val count   = io.nbrs.foldRight(UInt(0, 3))((x: Bool, y: UInt) => x.asUInt + y)
   when (count < 2.U) {
@@ -26,9 +26,9 @@ class Cell(isBorn: Boolean) extends Module {
 
 class Life(val n: Int) extends Module {
   val tot = n*n
-  val io = new Bundle {
-    val state = Vec(tot, Bool(OUTPUT))
-  }
+  val io = IO(new Bundle {
+    val state = Vec(tot, Output(Bool()))
+  })
   def idx(i: Int, j: Int) = ((j+n)%n)*n+((i+n)%n)
   val rnd = new Random(1)
 
