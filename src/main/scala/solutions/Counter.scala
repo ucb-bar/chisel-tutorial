@@ -1,8 +1,8 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel._
-import Counter._
+import chisel3._
+// import Counter._
 
 object Counter {
 
@@ -25,11 +25,11 @@ object Counter {
 }
 
 class Counter extends Module {
-  val io = new Bundle {
-    val inc = Bool(INPUT)
-    val amt = UInt(INPUT,  4)
-    val tot = UInt(OUTPUT, 8)
-  }
+  val io = IO(new Bundle {
+    val inc = Input(Bool())
+    val amt = Input(UInt(width = 4))
+    val tot = Output(UInt(width = 8))
+  })
 
   io.tot := Counter.counter(255.U, io.inc, io.amt)
 

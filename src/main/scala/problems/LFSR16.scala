@@ -1,13 +1,14 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel._
+import chisel3._
 
 class LFSR16 extends Module {
-  val io = new Bundle {
-    val inc = Bool(INPUT)
-    val out = UInt(OUTPUT, 16)
-  }
+  val io = IO(new Bundle {
+    val inc = Input(Bool())
+    val out = Output(UInt(width = 16))
+  })
+
   // COMPUTE LFSR16 HERE
   io.out := 0.U
 }

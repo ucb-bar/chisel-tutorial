@@ -1,17 +1,18 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel._
+import chisel3._
+import chisel3.util.log2Up
 
 class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
-  val io = new Bundle {
-    val isWr   = Bool(INPUT)
-    val wrAddr = UInt(INPUT,  log2Up(n))
-    val data   = UInt(INPUT,  w)
-    val en     = Bool(INPUT)
-    val target = UInt(OUTPUT, log2Up(n))
-    val done   = Bool(OUTPUT)
-  }
+  val io = IO(new Bundle {
+    val isWr   = Input(Bool())
+    val wrAddr = Input(UInt(width = log2Up(n)))
+    val data   = Input(UInt(width = w))
+    val en     = Input(Bool())
+    val target = Output(UInt(width = log2Up(n)))
+    val done   = Output(Bool())
+  })
   val index  = Reg(init = UInt(0, width = log2Up(n)))
   val list   = Mem(n, UInt(width = w))
   val memVal = list(index)

@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import Chisel.iotesters.PeekPokeTester
 
 class VecShiftRegisterParamTests(c: VecShiftRegisterParam) extends PeekPokeTester(c) {
   val reg = Array.fill(c.n){ 0 }

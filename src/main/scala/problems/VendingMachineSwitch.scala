@@ -1,5 +1,5 @@
 // See LICENSE.txt for license details.
-package solutions
+package problems
 
 import chisel3._
 import chisel3.util._
@@ -18,21 +18,7 @@ class VendingMachineSwitch extends Module {
       when (io.nickel) { state := s_5 }
       when (io.dime) { state := s_10 }
     }
-    is (s_5) {
-      when (io.nickel) { state := s_10 }
-      when (io.dime) { state := s_15 }
-    }
-    is (s_10) {
-      when (io.nickel) { state := s_15 }
-      when (io.dime) { state := s_ok }
-    }
-    is (s_15) {
-      when (io.nickel) { state := s_ok }
-      when (io.dime) { state := s_ok }
-    }
-    is (s_ok) {
-      state := s_idle
-    }
+    // Fill out the remaining states here
   }
   io.valid := (state === s_ok)
 }

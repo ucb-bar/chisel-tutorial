@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import Chisel.iotesters.PeekPokeTester
 
 class Mux2Tests(c: Mux2) extends PeekPokeTester(c) {
   for (s <- 0 until 2) {
@@ -11,7 +11,7 @@ class Mux2Tests(c: Mux2) extends PeekPokeTester(c) {
         poke(c.io.in1, i1)
         poke(c.io.in0, i0)
         step(1)
-        expect(c.io.out, (if (s == 1) i1 else i0))
+        expect(c.io.out, if (s == 1) i1 else i0)
       }
     }
   }

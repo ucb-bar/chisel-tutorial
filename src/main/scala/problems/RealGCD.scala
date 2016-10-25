@@ -1,7 +1,8 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel._
+import chisel3._
+import chisel3.util.{Valid, DeqIO}
 
 class RealGCDInput extends Bundle {
   val a = Bits(width = 16)
@@ -9,10 +10,10 @@ class RealGCDInput extends Bundle {
 }
 
 class RealGCD extends Module {
-  val io  = new Bundle {
-    val in  = Decoupled(new RealGCDInput()).flip()
-    val out = Valid(Bits(width = 16))
-  }
+  val io  = IO(new Bundle {
+    val in  = DeqIO(new RealGCDInput())
+    val out = Output(Valid(UInt(width = 16)))
+  })
 
   // flush this out ...
 
