@@ -1,13 +1,13 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel._
+import chisel3._
 
 class Accumulator extends Module {
-  val io = new Bundle {
-    val in  = UInt(width = 1, dir = INPUT)
-    val out = UInt(width = 8, dir = OUTPUT)
-  }
+  val io = IO(new Bundle {
+    val in  = Input(UInt(width = 1))
+    val out = Output(UInt(width = 8))
+  })
   // COUNT INCOMING TRUES
   // FILL IN HERE ...
   io.out := 0.U

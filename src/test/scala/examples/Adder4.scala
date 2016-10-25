@@ -2,7 +2,7 @@
 package examples
 
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
 class Adder4Tests(c: Adder4) extends PeekPokeTester(c) {
   val rnd2 = rnd.nextInt(2)

@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import Chisel.iotesters.PeekPokeTester
 
 class Mux4Tests(c: Mux4) extends PeekPokeTester(c) {
   for (s0 <- 0 until 2) {

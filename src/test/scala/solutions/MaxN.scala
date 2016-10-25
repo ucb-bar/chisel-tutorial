@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import Chisel.iotesters.PeekPokeTester
 
 class MaxNTests(c: MaxN) extends PeekPokeTester(c) {
   val ins = Array.fill(c.n){ 0 }
@@ -10,7 +10,7 @@ class MaxNTests(c: MaxN) extends PeekPokeTester(c) {
     for (i <- 0 until c.n) {
       ins(i) = rnd.nextInt(1 << c.w)
       poke(c.io.ins(i), ins(i))
-      mx = if (ins(i) > mx) ins(i) else mx;
+      mx = if (ins(i) > mx) ins(i) else mx
     }
     step(1)
     expect(c.io.out, mx)

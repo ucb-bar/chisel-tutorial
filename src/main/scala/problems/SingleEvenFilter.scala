@@ -1,13 +1,15 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel._
+import chisel3._
+import chisel3.util._
 
 abstract class Filter[T <: Data](dtype: T) extends Module {
-  val io = new Bundle {
-    val in  = Valid(dtype).asInput
-    val out = Valid(dtype).asOutput
-} }
+  val io = IO(new Bundle {
+    val in = Input(Valid(dtype))
+    val out = Output(Valid(dtype))
+  })
+}
 
 class PredicateFilter[T <: Data](dtype: T, f: T => Bool) extends Filter(dtype) {
   io.out.valid := io.in.valid && f(io.in.bits)

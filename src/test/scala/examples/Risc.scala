@@ -2,7 +2,7 @@
 package examples
 
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
 class RiscTests(c: Risc) extends PeekPokeTester(c) {
   def wr(addr: BigInt, data: BigInt)  = {

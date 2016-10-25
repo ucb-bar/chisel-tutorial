@@ -2,7 +2,7 @@
 package solutions
 
 import Chisel._
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import Chisel.iotesters.Driver
 import utils.TutorialRunner
 
 object Launcher {

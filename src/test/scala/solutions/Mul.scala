@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import Chisel.iotesters.PeekPokeTester
 
 class MulTests(c: Mul) extends PeekPokeTester(c) {
   val maxInt  = 1 << 4
@@ -11,6 +11,6 @@ class MulTests(c: Mul) extends PeekPokeTester(c) {
     poke(c.io.x, x)
     poke(c.io.y, y)
     step(1)
-    expect(c.io.z, (x * y))
+    expect(c.io.z, x * y)
   }
 }

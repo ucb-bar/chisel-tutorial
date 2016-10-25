@@ -1,17 +1,17 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel._
+import chisel3._
 
 class Mux4 extends Module {
-  val io = new Bundle {
-    val in0 = Bits(INPUT,  1)
-    val in1 = Bits(INPUT,  1)
-    val in2 = Bits(INPUT,  1)
-    val in3 = Bits(INPUT,  1)
-    val sel = Bits(INPUT,  2)
-    val out = Bits(OUTPUT, 1)
-  }
+  val io = IO(new Bundle {
+    val in0 = Input(UInt(width = 1))
+    val in1 = Input(UInt(width = 1))
+    val in2 = Input(UInt(width = 1))
+    val in3 = Input(UInt(width = 1))
+    val sel = Input(UInt(width = 2))
+    val out = Output(UInt(width = 1))
+  })
 
   //-------------------------------------------------------------------------\\
 

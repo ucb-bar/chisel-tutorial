@@ -1,13 +1,15 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel._
+import chisel3._
+import chisel3.util.Enum
 
 class VendingMachine extends Module {
-  val io = new Bundle {
-    val nickel = Bool(dir = INPUT)
-    val dime   = Bool(dir = INPUT)
-    val valid  = Bool(dir = OUTPUT) }
+  val io = IO(new Bundle {
+    val nickel = Input(Bool())
+    val dime   = Input(Bool())
+    val valid  = Output(Bool())
+  })
   val sIdle :: s5 :: s10 :: s15 :: sOk :: Nil =
     Enum(UInt(), 5)
   val state = Reg(init = sIdle)

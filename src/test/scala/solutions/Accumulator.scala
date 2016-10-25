@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import Chisel.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 
 class AccumulatorTests(c: Accumulator) extends PeekPokeTester(c) {
   var tot = 0
