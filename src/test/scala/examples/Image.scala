@@ -2,7 +2,7 @@
 package examples
 
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 import scala.io.Source
 import java.io.{File, FileOutputStream, InputStream}
 

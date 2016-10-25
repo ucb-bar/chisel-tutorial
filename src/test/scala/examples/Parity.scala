@@ -2,7 +2,7 @@
 package examples
 
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
 class ParityTests(c: Parity) extends PeekPokeTester(c) {
   var isOdd = 0

@@ -1,16 +1,15 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel._
-
+import chisel3._
 
 class BasicALU extends Module {
-  val io = new Bundle {
-    val a = UInt(INPUT, 4)
-    val b = UInt(INPUT, 4)
-    val opcode = UInt(INPUT, 4)
-    val out = UInt(OUTPUT, 4)
-  }
+  val io = IO(new Bundle {
+    val a = Input(UInt(width=4))
+    val b = Input(UInt(width=4))
+    val opcode = Input(UInt(width=4))
+    val out = Output(UInt(width=4))
+  })
   io.out := 0.U //THIS SEEMS LIKE A HACK/BUG
   when (io.opcode === 0.U) {
     io.out := io.a //pass A
@@ -36,12 +35,12 @@ class BasicALU extends Module {
 }
 
 class SimpleALU extends Module {
-  val io = new Bundle {
-    val a      = UInt(INPUT,  4)
-    val b      = UInt(INPUT,  4)
-    val opcode = UInt(INPUT,  2)
-    val out = UInt(OUTPUT, 4)
-  }
+  val io = IO(new Bundle {
+    val a      = Input(UInt(width= 4))
+    val b      = Input(UInt(width= 4))
+    val opcode = Input(UInt(width= 2))
+    val out = Output(UInt(width=4))
+  })
   io.out := 0.U
   when (io.opcode === 0.U) {
     io.out := io.a + io.b //ADD

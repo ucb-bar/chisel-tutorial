@@ -1,20 +1,21 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel._
+import chisel3._
+import chisel3.util.log2Up
 
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.{Stack => ScalaStack}
 import scala.util.Random
 
 class Stack(val depth: Int) extends Module {
-  val io = new Bundle {
-    val push    = Bool(INPUT)
-    val pop     = Bool(INPUT)
-    val en      = Bool(INPUT)
-    val dataIn  = UInt(INPUT,  32)
-    val dataOut = UInt(OUTPUT, 32)
-  }
+  val io = IO(new Bundle {
+    val push    = Input(Bool())
+    val pop     = Input(Bool())
+    val en      = Input(Bool())
+    val dataIn  = Input(UInt(width= 32))
+    val dataOut = Output(UInt(width=32))
+  })
 
   val stack_mem = Mem(depth, UInt(width = 32))
   val sp        = Reg(init = UInt(0, width = log2Up(depth+1)))

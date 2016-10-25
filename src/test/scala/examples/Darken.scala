@@ -2,7 +2,7 @@
 package examples
 
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
 class DarkenTests(c: Darken, infile: java.io.InputStream, outfilename: String) extends PeekPokeTester(c) {
   val inPic  = Image(infile)

@@ -2,7 +2,7 @@
 package examples
 
 
-import Chisel.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
 class ResetShiftRegisterTests(c: ResetShiftRegister) extends PeekPokeTester(c) {
   val ins = Array.fill(4){ 0 }

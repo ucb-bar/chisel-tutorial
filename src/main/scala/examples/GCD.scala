@@ -1,17 +1,17 @@
 // See LICENSE.txt for license details.
 package examples
 
-import Chisel._
-
+import chisel3._
+import chisel3.util.unless
 
 class GCD extends Module {
-  val io = new Bundle {
-    val a  = UInt(INPUT,  16)
-    val b  = UInt(INPUT,  16)
-    val e  = Bool(INPUT)
-    val z  = UInt(OUTPUT, 16)
-    val v  = Bool(OUTPUT)
-  }
+  val io = IO(new Bundle {
+    val a  = Input(UInt(width= 16))
+    val b  = Input(UInt(width= 16))
+    val e  = Input(Bool())
+    val z  = Output(UInt(width=16))
+    val v  = Output(Bool())
+  })
   val x  = Reg(UInt())
   val y  = Reg(UInt())
   when   (x > y) { x := x - y }
