@@ -4,11 +4,11 @@ package problems
 import chisel3._
 
 class Adder(val w: Int) extends Module {
-  val io = new Bundle {
-    val in0 = UInt(INPUT,  1)
-    val in1 = UInt(INPUT,  1)
-    val out = UInt(OUTPUT, 1)
-  }
+  val io = IO(new Bundle {
+    val in0 = Input(UInt(width=1))
+    val in1 = Input(UInt(width=1))
+    val out = Output(UInt(width=1))
+  })
   // fill in here
   io.out := 0.U
 }
