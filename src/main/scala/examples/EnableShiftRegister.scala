@@ -5,19 +5,19 @@ import chisel3._
 
 class EnableShiftRegister extends Module {
   val io = IO(new Bundle {
-    val in    = Input(UInt(width=4))
+    val in    = Input(UInt(4.W))
     val shift = Input(Bool())
-    val out   = Output(UInt(width=4))
+    val out   = Output(UInt(4.W))
   })
   val r0 = Reg(UInt())
   val r1 = Reg(UInt())
   val r2 = Reg(UInt())
   val r3 = Reg(UInt())
   when(reset) {
-    r0 := UInt(0, 4)
-    r1 := UInt(0, 4)
-    r2 := UInt(0, 4)
-    r3 := UInt(0, 4)
+    r0 := 0.U(4.W)
+    r1 := 0.U(4.W)
+    r2 := 0.U(4.W)
+    r3 := 0.U(4.W)
   } .elsewhen(io.shift) {
     r0 := io.in
     r1 := r0

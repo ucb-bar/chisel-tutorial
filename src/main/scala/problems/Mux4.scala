@@ -5,12 +5,12 @@ import chisel3._
 
 class Mux4 extends Module {
   val io = IO(new Bundle {
-    val in0 = Input(UInt(width = 1))
-    val in1 = Input(UInt(width = 1))
-    val in2 = Input(UInt(width = 1))
-    val in3 = Input(UInt(width = 1))
-    val sel = Input(UInt(width = 2))
-    val out = Output(UInt(width = 1))
+    val in0 = Input(UInt(1.W))
+    val in1 = Input(UInt(1.W))
+    val in2 = Input(UInt(1.W))
+    val in3 = Input(UInt(1.W))
+    val sel = Input(UInt(2.W))
+    val out = Output(UInt(1.W))
   })
 
   //-------------------------------------------------------------------------\\

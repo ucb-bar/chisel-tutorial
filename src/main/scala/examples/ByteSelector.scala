@@ -5,12 +5,12 @@ import chisel3._
 
 class ByteSelector extends Module {
   val io = IO(new Bundle {
-    val in     = Input(UInt(width=32))
-    val offset = Input(UInt(width=2))
-    val out    = Output(UInt(width=8))
+    val in     = Input(UInt(32.W))
+    val offset = Input(UInt(2.W))
+    val out    = Output(UInt(8.W))
   })
-  io.out := UInt(0, width=8)
-  when (io.offset === UInt(0, width=2)) {
+  io.out := 0.U(8.W)
+  when (io.offset === 0.U(2.W)) {
     io.out := io.in(7,0)
   } .elsewhen (io.offset === 1.U) {
     io.out := io.in(15,8)

@@ -18,12 +18,12 @@ class PredicateFilter[T <: Data](dtype: T, f: T => Bool) extends Filter(dtype) {
 
 object SingleFilter {
   def apply[T <: UInt](dtype: T) = 
-    Module(new PredicateFilter(dtype, (x: T) => Bool(false))) // FILL IN FUNCTION
+    Module(new PredicateFilter(dtype, (x: T) => false.B)) // FILL IN FUNCTION
 }
 
 object EvenFilter {
   def apply[T <: UInt](dtype: T) = 
-    Module(new PredicateFilter(dtype, (x: T) => Bool(false))) // FILL IN FUNCTION
+    Module(new PredicateFilter(dtype, (x: T) => false.B)) // FILL IN FUNCTION
 }
 
 class SingleEvenFilter[T <: UInt](dtype: T) extends Filter(dtype) {

@@ -9,10 +9,10 @@ object VecSearchTest {
 
 class VecSearch extends Module {
   val io = IO(new Bundle {
-    val out = Output(UInt(width= 4))
+    val out = Output(UInt(4.W))
   })
-  val index = Reg(init = UInt(0, width = 3))
-  val elts  = Wire(init = Vec(VecSearchTest.pattern.map(UInt(_, 4))))
+  val index = Reg(init = 0.U(3.W))
+  val elts  = Wire(init = Vec(VecSearchTest.pattern.map(_.asUInt(4.W))))
   index := index + 1.U
   io.out := elts(index)
 }

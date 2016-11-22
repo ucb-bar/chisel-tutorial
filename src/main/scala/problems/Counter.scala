@@ -15,7 +15,7 @@ object Counter {
   // ---------------------------------------- \\
 
   def counter(max: UInt, en: Bool, amt: UInt): UInt = {
-    val x = Reg(init=UInt(0, max.getWidth))
+    val x = Reg(init=0.asUInt(max.getWidth.W))
     x := wrapAround(x + 1.U, max)
     x
   }
@@ -27,8 +27,8 @@ object Counter {
 class Counter extends Module {
   val io = IO(new Bundle {
     val inc = Input(Bool())
-    val amt = Input(UInt(width = 4))
-    val tot = Output(UInt(width = 8))
+    val amt = Input(UInt(4.W))
+    val tot = Output(UInt(8.W))
   })
 
   io.tot := Counter.counter(255.U, io.inc, io.amt)
