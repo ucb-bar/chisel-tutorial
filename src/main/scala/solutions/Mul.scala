@@ -8,9 +8,9 @@ import scala.collection.mutable.ArrayBuffer
 */
 class Mul extends Module {
   val io = IO(new Bundle {
-    val x   = Input(UInt(width = 4))
-    val y   = Input(UInt(width = 4))
-    val z   = Output(UInt(width = 8))
+    val x   = Input(UInt(4.W))
+    val y   = Input(UInt(4.W))
+    val z   = Output(UInt(8.W))
   })
   val muls = new ArrayBuffer[UInt]()
 
@@ -21,7 +21,7 @@ class Mul extends Module {
 
   for (i <- 0 until 16)
     for (j <- 0 until 16)
-      muls += UInt(i * j, width = 8)
+      muls += (i * j).asUInt(8.W)
   val tbl = Vec(muls)
   io.z := tbl((io.x << 4.U) | io.y)
 

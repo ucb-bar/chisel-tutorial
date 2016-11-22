@@ -7,11 +7,11 @@ import chisel3.util._
 //A 4-bit adder with carry in and carry out
 class Adder4 extends Module {
   val io = IO(new Bundle {
-    val A    = Input(UInt(width=4))
-    val B    = Input(UInt(width=4))
-    val Cin  = Input(UInt(width=1))
-    val Sum  = Output(UInt(width=4))
-    val Cout = Output(UInt(width=1))
+    val A    = Input(UInt(4.W))
+    val B    = Input(UInt(4.W))
+    val Cin  = Input(UInt(1.W))
+    val Sum  = Output(UInt(4.W))
+    val Cout = Output(UInt(1.W))
   })
   //Adder for bit 0
   val Adder0 = Module(new FullAdder())

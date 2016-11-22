@@ -5,11 +5,11 @@ import chisel3._
 
 class FullAdder extends Module {
   val io = IO(new Bundle {
-    val a    = Input(UInt(width=1))
-    val b    = Input(UInt(width=1))
-    val cin  = Input(UInt(width=1))
-    val sum  = Output(UInt(width=1))
-    val cout = Output(UInt(width=1))
+    val a    = Input(UInt(1.W))
+    val b    = Input(UInt(1.W))
+    val cin  = Input(UInt(1.W))
+    val sum  = Output(UInt(1.W))
+    val cout = Output(UInt(1.W))
   })
 
   // Generate the sum

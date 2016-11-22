@@ -5,30 +5,30 @@ import chisel3._
 
 class LogShifter extends Module {
   val io = IO(new Bundle {
-    val in    = Input(UInt(width=16))
-    val shamt = Input(UInt(width=4))
-    val out   = Output(UInt(width=16))
+    val in    = Input(UInt(16.W))
+    val shamt = Input(UInt(4.W))
+    val out   = Output(UInt(16.W))
   })
-  val s0 = Reg(init = UInt(0, 16))
-  when (io.shamt(3) === UInt(1)) {
-    s0 := io.in << UInt(8)
+  val s0 = Reg(init = 0.U(16.W))
+  when (io.shamt(3) === 1.U) {
+    s0 := io.in << 8.U
   } .otherwise {
     s0 := io.in
   }
-  val s1 = Reg(init = UInt(0, 16))
-  when (io.shamt(2) === UInt(1)) {
-    s1 := s0 << UInt(4)
+  val s1 = Reg(init = 0.U(16.W))
+  when (io.shamt(2) === 1.U) {
+    s1 := s0 << 4.U
   } .otherwise {
     s1 := s0
   }
-  val s2 = Reg(init = UInt(0, 16))
-  when (io.shamt(1) === UInt(1)) {
-    s2 := s1 << UInt(2)
+  val s2 = Reg(init = 0.U(16.W))
+  when (io.shamt(1) === 1.U) {
+    s2 := s1 << 2.U
   } .otherwise {
     s2 := s1
   }
-  when (io.shamt(1) === UInt(1)) {
-    io.out := s2 << UInt(1)
+  when (io.shamt(1) === 1.U) {
+    io.out := s2 << 1.U
   } .otherwise {
     io.out := s2
   }
