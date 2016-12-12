@@ -6,9 +6,9 @@ import scala.collection.mutable.ArrayBuffer
 
 class Mul extends Module {
   val io = IO(new Bundle {
-    val x   = Input(UInt(width = 4))
-    val y   = Input(UInt(width = 4))
-    val z   = Output(UInt(width = 8))
+    val x   = Input(UInt(4.W))
+    val y   = Input(UInt(4.W))
+    val z   = Output(UInt(8.W))
   })
   val muls = new ArrayBuffer[UInt]()
 

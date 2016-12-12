@@ -6,14 +6,14 @@ import chisel3._
 class Memo extends Module {
   val io = IO(new Bundle {
     val wen     = Input(Bool())
-    val wrAddr  = Input(UInt(width = 8))
-    val wrData  = Input(UInt(width = 8))
+    val wrAddr  = Input(UInt(8.W))
+    val wrData  = Input(UInt(8.W))
     val ren     = Input(Bool())
-    val rdAddr  = Input(UInt(width = 8))
-    val rdData  = Output(UInt(width = 8))
+    val rdAddr  = Input(UInt(8.W))
+    val rdData  = Output(UInt(8.W))
   })
 
-  val mem = Mem(256, UInt(width = 8))
+  val mem = Mem(256, UInt(8.W))
 
   // --------------------------------------------------- \\
   // When wen is asserted, write wrData to mem at wrAddr 

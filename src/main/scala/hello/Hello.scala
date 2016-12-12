@@ -6,9 +6,9 @@ import chisel3.iotesters.{PeekPokeTester, Driver}
 
 class Hello extends Module {
   val io = IO(new Bundle {
-    val out = Output(UInt(width=8))
+    val out = Output(UInt(8.W))
   })
-  io.out := UInt(42)
+  io.out := 42.U
 }
 
 class HelloTests(c: Hello) extends PeekPokeTester(c) {

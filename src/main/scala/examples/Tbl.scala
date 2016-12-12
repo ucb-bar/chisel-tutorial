@@ -5,9 +5,9 @@ import chisel3._
 
 class Tbl extends Module {
   val io = IO(new Bundle {
-    val addr = Input(UInt(width= 8))
-    val out  = Output(UInt(width=8))
+    val addr = Input(UInt(8.W))
+    val out  = Output(UInt(8.W))
   })
-  val r = Wire(init = Vec(Range(0, 256).map(UInt(_, width = 8))))
+  val r = Wire(init = Vec(Range(0, 256).map(_.asUInt(8.W))))
   io.out := r(io.addr)
 }

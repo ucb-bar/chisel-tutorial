@@ -5,8 +5,8 @@ import chisel3._
 
 class ShiftRegister extends Module {
   val io = IO(new Bundle {
-    val in  = Input(UInt(width= 1))
-    val out = Output(UInt(width=1))
+    val in  = Input(UInt(1.W))
+    val out = Output(UInt(1.W))
   })
   val r0 = Reg(next = io.in)
   val r1 = Reg(next = r0)

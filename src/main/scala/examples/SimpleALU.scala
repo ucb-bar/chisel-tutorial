@@ -5,10 +5,10 @@ import chisel3._
 
 class BasicALU extends Module {
   val io = IO(new Bundle {
-    val a = Input(UInt(width=4))
-    val b = Input(UInt(width=4))
-    val opcode = Input(UInt(width=4))
-    val out = Output(UInt(width=4))
+    val a = Input(UInt(4.W))
+    val b = Input(UInt(4.W))
+    val opcode = Input(UInt(4.W))
+    val out = Output(UInt(4.W))
   })
   io.out := 0.U //THIS SEEMS LIKE A HACK/BUG
   when (io.opcode === 0.U) {
@@ -36,10 +36,10 @@ class BasicALU extends Module {
 
 class SimpleALU extends Module {
   val io = IO(new Bundle {
-    val a      = Input(UInt(width= 4))
-    val b      = Input(UInt(width= 4))
-    val opcode = Input(UInt(width= 2))
-    val out = Output(UInt(width=4))
+    val a      = Input(UInt(4.W))
+    val b      = Input(UInt(4.W))
+    val opcode = Input(UInt(2.W))
+    val out = Output(UInt(4.W))
   })
   io.out := 0.U
   when (io.opcode === 0.U) {

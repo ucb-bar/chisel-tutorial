@@ -5,10 +5,10 @@ import chisel3._
 
 class VecShiftRegister extends Module {
   val io = IO(new Bundle {
-    val ins   = Input(Vec(4, UInt(width = 4)))
+    val ins   = Input(Vec(4, UInt(4.W)))
     val load  = Input(Bool())
     val shift = Input(Bool())
-    val out   = Output(UInt(width = 4))
+    val out   = Output(UInt(4.W))
   })
   val delays = Reg(Vec(4, UInt()))
   when (io.load) {

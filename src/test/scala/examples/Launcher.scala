@@ -6,11 +6,6 @@ import utils.TutorialRunner
 
 object Launcher {
   val examples = Map(
-      "GCD" -> { (backendName: String) =>
-        Driver(() => new GCD(), backendName) {
-          (c) => new GCDTests(c)
-        }
-      },
       "Combinational" -> { (backendName: String) =>
         Driver(() => new Combinational(), backendName) {
           (c) => new CombinationalTests(c)

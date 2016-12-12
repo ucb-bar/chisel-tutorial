@@ -10,16 +10,16 @@ class Cell(isBorn: Boolean) extends Module {
     val nbrs = Vec(8, Input(Bool()))
     val out  = Output(Bool())
   })
-  val isAlive = Reg(init=Bool(isBorn))
-  val count   = io.nbrs.foldRight(UInt(0, 3))((x: Bool, y: UInt) => x.asUInt + y)
+  val isAlive = Reg(init=isBorn.B)
+  val count   = io.nbrs.foldRight(0.U(3.W))((x: Bool, y: UInt) => x.asUInt + y)
   when (count < 2.U) {
-    isAlive := Bool(false)
+    isAlive := false.B
   } .elsewhen (count < 4.U) {
-    isAlive := Bool(true)
+    isAlive := true.B
   } .elsewhen (count >= 4.U) {
-    isAlive := Bool(false)
+    isAlive := false.B
   } .elsewhen(!isAlive && count === 3.U) {
-    isAlive := Bool(true)
+    isAlive := true.B
   }
   io.out := isAlive
 }
