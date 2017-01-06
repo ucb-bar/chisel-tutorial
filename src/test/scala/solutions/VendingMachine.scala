@@ -1,11 +1,13 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.PeekPokeTester
+import chisel3.iotesters._
 
 class VendingMachineTests(c: VendingMachine) extends PeekPokeTester(c) {
   var money = 0
   var isValid = false
+  rnd.setSeed(0L)
+
   for (t <- 0 until 20) {
     val coin     = rnd.nextInt(3)*5
     val isNickel = coin == 5
@@ -22,5 +24,13 @@ class VendingMachineTests(c: VendingMachine) extends PeekPokeTester(c) {
 
     // Compare
     expect(c.io.valid, if (isValid) 1 else 0)
+  }
+}
+
+object VendingMachineTester {
+  def main(args: Array[String]): Unit = {
+    Driver.execute(args, () => new VendingMachine()) { c =>
+      new VendingMachineTests(c)
+    }
   }
 }
