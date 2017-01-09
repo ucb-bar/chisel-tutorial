@@ -4,6 +4,20 @@ package problems
 import chisel3._
 import chisel3.util.log2Up
 
+// Problem:
+//
+// This module should be able to write 'data' to
+// internal memory at 'wrAddr' if 'isWr' is asserted.
+//
+// This module should perform sequential search of 'data'
+// in internal memory if 'en' was asserted at least 1 clock cycle
+//
+// While searching 'done' should remain 0,
+// 'done' should be asserted when search is complete
+//
+// If 'data' has been found 'target' should be updated to the first
+// occurrence address
+//
 class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
   val io = IO(new Bundle {
     val isWr   = Input(Bool())
@@ -16,7 +30,11 @@ class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
   val index  = Reg(init = 0.asUInt(log2Up(n).W))
   val memVal = 0.U
   val done   = !io.en && ((memVal === io.data) || (index === (n-1).asUInt))
-  // ...
+
+  // Implement below ----------
+
+  // Implement above ----------
+
   when (io.en) {
     index := 0.U
   } .elsewhen (done === false.B) {

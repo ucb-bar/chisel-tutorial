@@ -4,6 +4,13 @@ package problems
 import chisel3._
 import chisel3.util._
 
+// Problem:
+//
+// Implement vending machine FSM using 'switch' statement
+// 'nickel' is 5  worth coin
+// 'dime'   is 10 worth coin
+// 's_ok' is reached when there are 20 or more worth coins in machine
+//
 class VendingMachineSwitch extends Module {
   val io = IO(new Bundle {
     val nickel = Input(Bool())
@@ -18,7 +25,9 @@ class VendingMachineSwitch extends Module {
       when (io.nickel) { state := s_5 }
       when (io.dime) { state := s_10 }
     }
-    // Fill out the remaining states here
+    // Implement below ----------
+
+    // Implement above ----------
   }
   io.valid := (state === s_ok)
 }
