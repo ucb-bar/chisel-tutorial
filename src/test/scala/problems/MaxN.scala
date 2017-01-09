@@ -3,15 +3,21 @@ package problems
 
 import Chisel.iotesters.PeekPokeTester
 
+// Problem:
+//
+// Implement test for MaxN using PeekPokeTester
+//
 class MaxNTests(c: MaxN) extends PeekPokeTester(c) {
   for (i <- 0 until 10) {
     var mx = 0
     for (i <- 0 until c.n) {
-      // FILL THIS IN HERE
+      // Implement below ----------
       poke(c.io.ins(0), 0)
+      // Implement above ----------
     }
     step(1)
-    // FILL THIS IN HERE
+    // Implement below ----------
     expect(c.io.out, 1)
+    // Implement above ----------
   }
 }

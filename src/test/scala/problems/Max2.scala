@@ -3,13 +3,20 @@ package problems
 
 import Chisel.iotesters.PeekPokeTester
 
+// Problem:
+//
+// Implement test with PeekPokeTester
+//
 class Max2Tests(c: Max2) extends PeekPokeTester(c) {
   for (i <- 0 until 10) {
-    // FILL THIS IN HERE
+
+    // Implement below ----------
+
     poke(c.io.in0, 0)
     poke(c.io.in1, 0)
-    // FILL THIS IN HERE
     step(1)
     expect(c.io.out, 1)
+
+    // Implement above ----------
   }
 }

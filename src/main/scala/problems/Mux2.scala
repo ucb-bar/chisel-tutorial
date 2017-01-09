@@ -3,6 +3,11 @@ package problems
 
 import chisel3._
 
+// Example:
+//
+// This is example of multiplexer 2-to-1 with 'sel' as control signal
+// Multiplexed inputs are 'in0' and 'in1'
+//
 class Mux2 extends Module {
   val io = IO(new Bundle {
     val sel = Input(UInt(1.W))

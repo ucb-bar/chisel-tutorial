@@ -3,6 +3,11 @@ package problems
 
 import chisel3._
 
+// Problem:
+//
+// Implement test for this module. Please edit:
+// $chisel_tutorial/src/test/scala/problems/Max2.scala
+//
 class Max2 extends Module {
   val io = IO(new Bundle {
     val in0 = Input(UInt(8.W))

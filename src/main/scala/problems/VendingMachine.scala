@@ -4,6 +4,13 @@ package problems
 import chisel3._
 import chisel3.util.Enum
 
+// Problem:
+//
+// Implement vending machine using 'when' states
+// 'nickel' is 5 worth coin
+// 'dime'   is 10 worth coin
+// 'sOk' is reached when there are 20 or more worth coins in machine
+//
 class VendingMachine extends Module {
   val io = IO(new Bundle {
     val nickel = Input(Bool())
@@ -14,7 +21,11 @@ class VendingMachine extends Module {
     Enum(5)
   val state = Reg(init=sIdle)
 
-  // flush it out ...
+  // Implement below ----------
+
   state := s5
+
+  // Implement above ----------
+
   io.valid := (state === sOk)
 }
