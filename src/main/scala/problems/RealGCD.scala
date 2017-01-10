@@ -5,8 +5,8 @@ import chisel3._
 import chisel3.util.{Valid, DeqIO}
 
 // Problem:
-// Implement GCD (the greatest common divider) of two numbers
-// Input numbers are bundled as 'RealGCDInput' and decoupled with handshake protocol
+// Implement a GCD circuit (the greatest common divisor of two numbers).
+// Input numbers are bundled as 'RealGCDInput' and communicated using the Decoupled handshake protocol
 //
 class RealGCDInput extends Bundle {
   val a = UInt(16.W)

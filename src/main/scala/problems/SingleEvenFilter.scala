@@ -6,7 +6,7 @@ import chisel3.util._
 
 // Problem:
 //
-// Create composition of two filters:
+// Create a composition (chain) of two filters:
 //
 // SingleFilter - indicates that input is single decimal digit
 // (i.e. is less or equal to 9)
@@ -42,6 +42,7 @@ object EvenFilter {
 class SingleEvenFilter[T <: UInt](dtype: T) extends Filter(dtype) {
   // Implement composition below ----------
 
-  // Implement composition above ----------
   io.out <> io.in
+
+  // Implement composition above ----------
 }

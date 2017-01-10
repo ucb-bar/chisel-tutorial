@@ -15,8 +15,8 @@ import chisel3.util.log2Up
 // While searching 'done' should remain 0,
 // 'done' should be asserted when search is complete
 //
-// If 'data' has been found 'target' should be updated to the first
-// occurrence address
+// If 'data' has been found 'target' should be updated to the
+// address of the first occurrence
 //
 class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
   val io = IO(new Bundle {
@@ -28,10 +28,15 @@ class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
     val done   = Output(Bool())
   })
   val index  = Reg(init = 0.asUInt(log2Up(n).W))
+  // Implement below ----------
+
   val memVal = 0.U
+
+  // Implement above ----------
   val done   = !io.en && ((memVal === io.data) || (index === (n-1).asUInt))
 
   // Implement below ----------
+
 
   // Implement above ----------
 

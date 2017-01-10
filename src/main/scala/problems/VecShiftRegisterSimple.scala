@@ -5,8 +5,8 @@ import chisel3._
 
 // Problem:
 //
-// Implement shift register with four 8-bit stages
-// Shift should occur every clock
+// Implement a shift register with four 8-bit stages.
+// Shift should occur on every clock.
 //
 class VecShiftRegisterSimple extends Module {
   val io = IO(new Bundle {

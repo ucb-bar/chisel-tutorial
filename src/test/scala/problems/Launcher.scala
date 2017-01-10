@@ -41,9 +41,6 @@ object Launcher {
     "RealGCD" -> { (backendName: String) =>
       Driver(() => new RealGCD(), backendName){
     (c) => new RealGCDTests(c)} },
-    "Mux2" -> { (backendName: String) =>
-      Driver(() => new Mux2(), backendName){
-    (c) => new Mux2Tests(c)} },
     "Mux4" -> { (backendName: String) =>
       Driver(() => new Mux4(), backendName){
     (c) => new Mux4Tests(c)} },

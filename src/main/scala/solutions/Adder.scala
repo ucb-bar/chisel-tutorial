@@ -3,6 +3,11 @@ package solutions
 
 import chisel3._
 
+// Problem:
+//
+// 'out' should be the sum of 'in1' and 'in2'
+// Adder width should be parametrized
+//
 class Adder(val w: Int) extends Module {
   val io = IO(new Bundle {
     val in0 = Input(UInt(w.W))

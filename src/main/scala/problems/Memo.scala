@@ -5,7 +5,7 @@ import chisel3._
 
 // Problem:
 //
-// Implement 8-bit width 256 words depth two ports memory
+// Implement a dual port memory of 256 8-bit words.
 // When 'wen' is asserted, write 'wrData' to memory at 'wrAddr'
 // When 'ren' is asserted, 'rdData' holds the output
 // of reading the memory at 'rdAddr'
@@ -19,7 +19,6 @@ class Memo extends Module {
     val rdAddr  = Input(UInt(8.W))
     val rdData  = Output(UInt(8.W))
   })
-
 
   val mem = Mem(256, UInt(8.W))
 

@@ -5,7 +5,7 @@ import chisel3._
 
 // Problem:
 //
-// 'out' should be sum of 'in1' and 'in2'
+// 'out' should be the sum of 'in1' and 'in2'
 // Adder width should be parametrized
 //
 // Implement below ----------

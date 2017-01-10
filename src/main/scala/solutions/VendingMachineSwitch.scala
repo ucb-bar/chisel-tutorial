@@ -4,6 +4,13 @@ package solutions
 import chisel3._
 import chisel3.util._
 
+// Problem:
+//
+// Implement a vending machine using a 'switch' statement.
+// 'nickel' is a 5 cent coin
+// 'dime'   is 10 cent coin
+// 'sOk' is reached when there are coins totalling 20 cents or more in the machine.
+//
 class VendingMachineSwitch extends Module {
   val io = IO(new Bundle {
     val nickel = Input(Bool())

@@ -5,7 +5,7 @@ import chisel3._
 
 // Problem:
 //
-// Implement loadable shift register with four 4-bit stages using Vec
+// Implement a loadable shift register with four 4-bit stages using Vec
 // Shift occurs if 'shift' is asserted
 // Load  occurs if 'load'  is asserted
 // Whole state should be replaced with 'ins' when loaded

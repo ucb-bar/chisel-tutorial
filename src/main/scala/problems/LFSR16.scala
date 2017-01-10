@@ -5,7 +5,7 @@ import chisel3._
 
 // Problem:
 //
-// Implement 16-bit Fibonacci Linear-feedback shift register
+// Implement a 16-bit Fibonacci Linear-feedback shift register
 // with polynomial x^16 + x^14 + x^13 + x^11 + 1
 // State change is allowed only when 'inc' is asserted
 //

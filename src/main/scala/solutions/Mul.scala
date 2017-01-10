@@ -4,26 +4,24 @@ package solutions
 import chisel3._
 import scala.collection.mutable.ArrayBuffer
 
-/** Four-by-four multiply using a look-up table.
-*/
+// Problem:
+//
+// Implement a four-by-four multiplier using a look-up table.
+//
 class Mul extends Module {
   val io = IO(new Bundle {
     val x   = Input(UInt(4.W))
     val y   = Input(UInt(4.W))
     val z   = Output(UInt(8.W))
   })
-  val muls = new ArrayBuffer[UInt]()
+  val mulsValues = new ArrayBuffer[UInt]()
 
-  // -------------------------------- \\
-  // Calculate io.z = io.x * io.y by
-  // building filling out muls
-  // -------------------------------- \\
+  // Calculate io.z = io.x * io.y by generating a table of values for mulsValues
 
   for (i <- 0 until 16)
     for (j <- 0 until 16)
-      muls += (i * j).asUInt(8.W)
-  val tbl = Vec(muls)
+      mulsValues += (i * j).asUInt(8.W)
+  val tbl = Vec(mulsValues)
   io.z := tbl((io.x << 4.U) | io.y)
 
-  // -------------------------------- \\
 }

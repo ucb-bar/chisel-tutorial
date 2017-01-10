@@ -3,6 +3,10 @@ package solutions
 
 import Chisel.iotesters.PeekPokeTester
 
+// Problem:
+//
+// Implement test with PeekPokeTester
+//
 class Max2Tests(c: Max2) extends PeekPokeTester(c) {
   for (i <- 0 until 10) {
     // FILL THIS IN HERE

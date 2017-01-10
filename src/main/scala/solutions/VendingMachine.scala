@@ -4,6 +4,13 @@ package solutions
 import chisel3._
 import chisel3.util.Enum
 
+// Problem:
+//
+// Implement a vending machine using 'when' states.
+// 'nickel' is a 5 cent coin
+// 'dime'   is 10 cent coin
+// 'sOk' is reached when there are coins totalling 20 cents or more in the machine.
+//
 class VendingMachine extends Module {
   val io = IO(new Bundle {
     val nickel = Input(Bool())
