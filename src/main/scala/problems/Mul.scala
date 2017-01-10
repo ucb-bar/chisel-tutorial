@@ -4,6 +4,11 @@ package problems
 import chisel3._
 import scala.collection.mutable.ArrayBuffer
 
+// Problem:
+//
+// Implement 'z' = 'x' * 'y' by
+// building filling out muls
+//
 class Mul extends Module {
   val io = IO(new Bundle {
     val x   = Input(UInt(4.W))
@@ -12,11 +17,7 @@ class Mul extends Module {
   })
   val muls = new ArrayBuffer[UInt]()
 
-  // -------------------------------- \\
-  // Calculate io.z = io.x * io.y by
-  // building filling out muls
-  // -------------------------------- \\
+  // Implement below ----------
 
-
-  // -------------------------------- \\
+  // Implement above ----------
 }

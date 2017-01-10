@@ -3,6 +3,11 @@ package problems
 
 import chisel3._
 
+// Problem:
+//
+// Build a 4-to-1 multiplexer out of three 2-to-1 multiplexers
+// The first multiplexer is already done for you
+//
 class Mux4 extends Module {
   val io = IO(new Bundle {
     val in0 = Input(UInt(1.W))
@@ -13,16 +18,13 @@ class Mux4 extends Module {
     val out = Output(UInt(1.W))
   })
 
-  //-------------------------------------------------------------------------\\
-
-  // Modify this section to build a 4-to-1 mux out of 3 2-to-1 mux
-  // The first mux is already done for you
-
-
-  //-------------------------------------------------------------------------\\
-
   val m0 = Module(new Mux2())
   m0.io.sel := io.sel(0)
   m0.io.in0 := io.in0
   m0.io.in1 := io.in1
+
+  //Implement below ----------
+
+
+  //Implement above ----------
 }

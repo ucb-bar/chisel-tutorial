@@ -3,6 +3,11 @@ package problems
 
 import chisel3._
 
+// Problem:
+//
+// Implement test for this module. Please edit:
+// $chisel-tutorial/src/test/scala/problems/MaxN.scala
+//
 class MaxN(val n: Int, val w: Int) extends Module {
 
   private def Max2(x: UInt, y: UInt) = Mux(x > y, x, y)
