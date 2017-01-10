@@ -1339,10 +1339,10 @@ mutually exclusive in the same \code{when} chain:
 \begin{scala}
 val ram1p = 
   Mem(UInt(width = 32), 1024, seqRead = true)
-val reg_raddr = Reg(UInt())
-when (wen) { ram1p(waddr) := wdata }
-.elsewhen (ren) { reg_raddr := raddr }
-val rdata = ram1p(reg_raddr)
+val reg_addr = Reg(UInt())
+when (wen) { ram1p(addr) := wdata }
+.elsewhen (ren) { reg_addr := addr }
+val rdata = ram1p(reg_addr)
 \end{scala}
 
 If the same \code{Mem} address is both written and sequentially read on the same clock
