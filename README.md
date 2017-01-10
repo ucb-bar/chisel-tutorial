@@ -42,7 +42,7 @@ To help with this, we have produced exercises with circuits (`src/main/scala/pro
 marked places to complete their functionality and simple test cases. You can
 compare your work with our sample solutions in (`src/main/scala/solutions`) and (`src/test/scala/solutions`).  This 
 hierarchical organization and separation of circuits and tests is a good practice and we encourage you to understand it
-and use it in the future.  Typically whe.n you work on a problem you will have two open editor windows (vi, emacs, IDE, 
+and use it in the future.  Typically when you work on a problem you will have two open editor windows (vi, emacs, IDE, 
 etc) one to edit the circuit and the other to edit the tests.
 
 To speed things up, we will keep sbt running. To get started:
