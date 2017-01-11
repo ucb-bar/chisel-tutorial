@@ -2,7 +2,7 @@
 package problems
 
 import chisel3._
-import chisel3.util.Enum
+import chisel3.util._
 
 // Problem:
 //
@@ -10,6 +10,7 @@ import chisel3.util.Enum
 // 'nickel' is a 5 cent coin
 // 'dime'   is 10 cent coin
 // 'sOk' is reached when there are coins totalling 20 cents or more in the machine.
+// The vending machine should return to the 'sIdle' state from the 'sOk' state.
 //
 class VendingMachine extends Module {
   val io = IO(new Bundle {
@@ -17,8 +18,7 @@ class VendingMachine extends Module {
     val dime   = Input(Bool())
     val valid  = Output(Bool())
   })
-  val sIdle :: s5 :: s10 :: s15 :: sOk :: Nil =
-    Enum(5)
+  val sIdle :: s5 :: s10 :: s15 :: sOk :: Nil = Enum(5)
   val state = Reg(init = sIdle)
 
   // Implement below ----------

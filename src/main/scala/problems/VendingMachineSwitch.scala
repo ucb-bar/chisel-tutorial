@@ -10,6 +10,7 @@ import chisel3.util._
 // 'nickel' is a 5 cent coin
 // 'dime'   is 10 cent coin
 // 'sOk' is reached when there are coins totalling 20 cents or more in the machine.
+// The vending machine should return to the 'sIdle' state from the 'sOk' state.
 //
 class VendingMachineSwitch extends Module {
   val io = IO(new Bundle {
@@ -17,17 +18,17 @@ class VendingMachineSwitch extends Module {
     val dime   = Input(Bool())
     val valid  = Output(Bool())
   })
-  val s_idle :: s_5 :: s_10 :: s_15 :: s_ok :: Nil = Enum(5)
-  val state = Reg(init = s_idle)
+  val sIdle :: s5 :: s10 :: s15 :: sOk :: Nil = Enum(5)
+  val state = Reg(init = sIdle)
 
   switch (state) {
-    is (s_idle) {
-      when (io.nickel) { state := s_5 }
-      when (io.dime) { state := s_10 }
+    is (sIdle) {
+      when (io.nickel) { state := s5 }
+      when (io.dime) { state := s10 }
     }
     // Implement below ----------
 
     // Implement above ----------
   }
-  io.valid := (state === s_ok)
+  io.valid := (state === sOk)
 }
