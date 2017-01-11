@@ -58,7 +58,10 @@ object Launcher {
     (c) => new CounterTest(c)} },
     "VendingMachine" -> { (backendName: String) =>
       Driver(() => new VendingMachine(), backendName){
-    (c) => new VendingMachineTests(c) }}
+    (c) => new VendingMachineTests(c)} },
+    "VendingMachineSwitch" -> { (backendName: String) =>
+      Driver(() => new VendingMachineSwitch(), backendName){
+    (c) => new VendingMachineSwitchTests(c)} }
   )
 
   def main(args: Array[String]): Unit = {
