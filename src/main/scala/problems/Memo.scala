@@ -3,6 +3,13 @@ package problems
 
 import chisel3._
 
+// Problem:
+//
+// Implement a dual port memory of 256 8-bit words.
+// When 'wen' is asserted, write 'wrData' to memory at 'wrAddr'
+// When 'ren' is asserted, 'rdData' holds the output
+// of reading the memory at 'rdAddr'
+//
 class Memo extends Module {
   val io = IO(new Bundle {
     val wen     = Input(Bool())
@@ -13,16 +20,10 @@ class Memo extends Module {
     val rdData  = Output(UInt(8.W))
   })
 
-
   val mem = Mem(256, UInt(8.W))
 
-  // --------------------------------------------------- \\
-  // When wen is asserted, write wrData to mem at wrAddr 
-  // When ren is asserted, rdData holds the output out of
-  // reading the mem at rdAddr
-  // --------------------------------------------------- \\
+  // Implement below ----------
 
-
-  // --------------------------------------------------- \\
+  // Implement above ----------
 
 }

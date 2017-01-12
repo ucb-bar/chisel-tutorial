@@ -3,6 +3,10 @@ package solutions
 
 import Chisel.iotesters.PeekPokeTester
 
+// Problem:
+//
+// Implement test for MaxN using PeekPokeTester
+//
 class MaxNTests(c: MaxN) extends PeekPokeTester(c) {
   val ins = Array.fill(c.n){ 0 }
   for (i <- 0 until 10) {
