@@ -4,6 +4,15 @@ package solutions
 import chisel3._
 import chisel3.util._
 
+// Problem:
+//
+// Create a composition (chain) of two filters:
+//
+// SingleFilter - indicates that input is single decimal digit
+// (i.e. is less or equal to 9)
+//
+// EvenFilter   - indicates that input is even number
+//
 abstract class Filter[T <: Data](dtype: T) extends Module {
   val io = IO(new Bundle {
     val in = Input(Valid(dtype))

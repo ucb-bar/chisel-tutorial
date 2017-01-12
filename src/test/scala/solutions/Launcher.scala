@@ -6,7 +6,7 @@ import Chisel.iotesters.Driver
 import utils.TutorialRunner
 
 object Launcher {
-  val solutions = Map(
+  val tests = Map(
     "Accummulator" -> { (backendName: String) =>
       Driver(() => new Accumulator(), backendName) {
         (c) => new AccumulatorTests(c)
@@ -62,11 +62,6 @@ object Launcher {
         (c) => new RealGCDTests(c)
       }
     },
-    "Mux2" -> { (backendName: String) =>
-      Driver(() => new Mux2(), backendName) {
-        (c) => new Mux2Tests(c)
-      }
-    },
     "Mux4" -> { (backendName: String) =>
       Driver(() => new Mux4(), backendName) {
         (c) => new Mux4Tests(c)
@@ -91,12 +86,16 @@ object Launcher {
       Driver(() => new VendingMachine(), backendName) {
         (c) => new VendingMachineTests(c)
       }
+    },
+    "VendingMachineSwitch" -> { (backendName: String) =>
+      Driver(() => new VendingMachineSwitch(), backendName) {
+        (c) => new VendingMachineSwitchTests(c)
+      }
     }
+
   )
 
   def main(args: Array[String]): Unit = {
-    TutorialRunner(solutions, args)
+    TutorialRunner(tests, args)
   }
 }
-
-
