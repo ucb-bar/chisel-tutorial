@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel.iotesters.PeekPokeTester
+import chisel3.iotesters.PeekPokeTester
 
 class RealGCDTests(c: RealGCD) extends PeekPokeTester(c) {
   val inputs = List( (48, 32), (7, 3), (100, 10) )

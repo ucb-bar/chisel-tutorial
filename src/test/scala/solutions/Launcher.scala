@@ -1,8 +1,8 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel._
-import Chisel.iotesters.Driver
+import chisel3._
+import chisel3.iotesters.Driver
 import utils.TutorialRunner
 
 object Launcher {

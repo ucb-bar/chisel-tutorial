@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.PeekPokeTester
+import chisel3.iotesters.PeekPokeTester
 
 class Mux4Tests(c: Mux4) extends PeekPokeTester(c) {
   for (s0 <- 0 until 2) {
