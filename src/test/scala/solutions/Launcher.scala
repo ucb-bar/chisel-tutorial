@@ -18,7 +18,7 @@ object Launcher {
       }
     },
     "SingleEvenFilter" -> { (backendName: String) =>
-      Driver(() => new SingleEvenFilter(UInt(width = 16)), backendName) {
+      Driver(() => new SingleEvenFilter(UInt(16.W)), backendName) {
         (c) => new SingleEvenFilterTests(c)
       }
     },
