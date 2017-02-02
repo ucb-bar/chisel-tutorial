@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.PeekPokeTester
+import chisel3.iotesters.PeekPokeTester
 
 class MemoTests(c: Memo) extends PeekPokeTester(c) {
   def rd(addr: Int, data: Int) = {
