@@ -1,4 +1,4 @@
-Chisel Tutorials (Development branch)
+Chisel Tutorials (Release branch)
 ================
 
 These are the tutorials for [Chisel](https://github.com/ucb-bar/chisel3).
@@ -14,7 +14,7 @@ Getting the Repo
     $ git clone https://github.com/ucb-bar/chisel-tutorial.git
     $ cd chisel-tutorial
     $ git fetch origin
-    $ git checkout master
+    $ git checkout release
 
 
 Executing Chisel

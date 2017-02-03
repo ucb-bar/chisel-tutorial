@@ -10,3 +10,10 @@
 *.out
 /bin/
 target
+
+# Eclipse files
+.cache-main
+.cache-tests
+.classpath
+.project
+.settings/
