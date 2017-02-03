@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
+import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 
 class CounterTest(c: Counter) extends PeekPokeTester(c) {
   val maxInt  = 16

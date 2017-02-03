@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.PeekPokeTester
+import chisel3.iotesters.PeekPokeTester
 
 class VecShiftRegisterSimpleTests(c: VecShiftRegisterSimple) extends PeekPokeTester(c) {
   val reg = Array.fill(4){ 0 }

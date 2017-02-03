@@ -26,7 +26,7 @@ class RiscTests(c: Risc) extends PeekPokeTester(c) {
     Cat(op, UInt(rc, 8), UInt(ra, 8), UInt(rb, 8))
 */
 
-  def I (op: Chisel.UInt, rc: Int, ra: Int, rb: Int) = 
+  def I (op: chisel3.UInt, rc: Int, ra: Int, rb: Int) = 
     ((op.litValue() & 1) << 24) | ((rc & Integer.parseInt("FF", 16)) << 16) | ((ra & Integer.parseInt("FF", 16)) << 8) | (rb & Integer.parseInt("FF", 16))
   val app  = Array(I(c.imm_op,   1, 0, 1), // r1 <- 1
                    I(c.add_op,   1, 1, 1), // r1 <- r1 + r1

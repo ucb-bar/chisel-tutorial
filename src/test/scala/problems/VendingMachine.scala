@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel.iotesters.PeekPokeTester
+import chisel3.iotesters.PeekPokeTester
 
 class VendingMachineTests(c: VendingMachine) extends PeekPokeTester(c) {
   var money = 0
