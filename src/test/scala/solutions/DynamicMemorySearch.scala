@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.PeekPokeTester
+import chisel3.iotesters.PeekPokeTester
 
 class DynamicMemorySearchTests(c: DynamicMemorySearch) extends PeekPokeTester(c) {
   val list = Array.fill(c.n){ 0 }

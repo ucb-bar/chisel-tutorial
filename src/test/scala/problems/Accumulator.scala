@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel.iotesters.PeekPokeTester
+import chisel3.iotesters.PeekPokeTester
 
 class AccumulatorTests(c: Accumulator) extends PeekPokeTester(c) {
   var tot = 0

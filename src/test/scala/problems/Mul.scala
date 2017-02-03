@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel.iotesters.PeekPokeTester
+import chisel3.iotesters.PeekPokeTester
 
 class MulTests(c: Mul) extends PeekPokeTester(c) {
   val maxInt  = 1 << 4

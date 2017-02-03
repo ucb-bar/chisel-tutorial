@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
+import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 
 class AdderTests(c: Adder) extends PeekPokeTester(c) {
   for (i <- 0 until 10) {
