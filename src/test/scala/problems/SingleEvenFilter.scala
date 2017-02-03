@@ -1,8 +1,8 @@
 // See LICENSE.txt for license details.
 package problems
 
-import Chisel._
-import Chisel.iotesters.PeekPokeTester
+import chisel3._
+import chisel3.iotesters.PeekPokeTester
 
 class SingleEvenFilterTests[T <: UInt](c: SingleEvenFilter[T]) extends PeekPokeTester(c) {
   val maxInt  = 1 << 16
