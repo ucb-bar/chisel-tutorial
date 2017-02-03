@@ -10,3 +10,13 @@
 *.out
 /bin/
 target
+
+# sbt run folder
+/test_run_dir/
+
+# Eclipse files
+.cache-main
+.cache-tests
+.classpath
+.project
+.settings/
