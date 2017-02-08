@@ -7,7 +7,7 @@ import utils.TutorialRunner
 
 object Launcher {
   val tests = Map(
-    "Accummulator" -> { (backendName: String) =>
+    "Accumulator" -> { (backendName: String) =>
       Driver(() => new Accumulator(), backendName) {
         (c) => new AccumulatorTests(c)
       }
