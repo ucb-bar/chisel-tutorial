@@ -13,8 +13,11 @@ class Adder(val n:Int) extends Module {
     val Sum  = Output(UInt(n.W))
     val Cout = Output(UInt(1.W))
   })
-  //create a vector of FullAdders
-  val FAs   = Vec.fill(n)(Module(new FullAdder()).io)
+  //create an Array of FullAdders
+  //  NOTE: Since we do all the wiring during elaboration and not at run-time,
+  //  i.e., we don't need to dynamically index into the data structure at run-time,
+  //  we use an Array instead of a Vec.
+  val FAs   = Array.fill(n)(Module(new FullAdder()).io)
   val carry = Wire(Vec(n+1, UInt(1.W)))
   val sum   = Wire(Vec(n, Bool()))
 
