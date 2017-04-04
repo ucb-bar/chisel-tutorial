@@ -2,7 +2,7 @@
 package examples
 
 import chisel3._
-import chisel3.util.log2Up
+import chisel3.util.log2Ceil
 
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.{Stack => ScalaStack}
@@ -18,8 +18,8 @@ class Stack(val depth: Int) extends Module {
   })
 
   val stack_mem = Mem(depth, UInt(32.W))
-  val sp        = Reg(init = 0.U(log2Up(depth+1).W))
-  val out       = Reg(init = 0.U(32.W))
+  val sp        = RegInit(0.U(log2Ceil(depth+1).W))
+  val out       = RegInit(0.U(32.W))
 
   when (io.en) {
     when(io.push && (sp < depth.asUInt)) {

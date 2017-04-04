@@ -21,7 +21,7 @@ class RealGCD extends Module {
 
   val x = Reg(UInt())
   val y = Reg(UInt())
-  val p = Reg(init=false.B)
+  val p = RegInit(false.B)
 
   io.in.ready := !p
 
