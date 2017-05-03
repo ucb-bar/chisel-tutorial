@@ -15,7 +15,7 @@ object Counter {
     Mux(n > max, 0.U, n)
 
   def counter(max: UInt, en: Bool, amt: UInt): UInt = {
-    val x = Reg(init=0.asUInt(max.getWidth.W))
+    val x = RegInit(0.asUInt(max.getWidth.W))
     when (en) { x := wrapAround(x + amt, max) }
     x
   }

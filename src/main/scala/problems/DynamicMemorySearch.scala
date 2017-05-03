@@ -2,7 +2,7 @@
 package problems
 
 import chisel3._
-import chisel3.util.log2Up
+import chisel3.util.log2Ceil
 
 // Problem:
 //
@@ -21,13 +21,13 @@ import chisel3.util.log2Up
 class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
   val io = IO(new Bundle {
     val isWr   = Input(Bool())
-    val wrAddr = Input(UInt(log2Up(n).W))
+    val wrAddr = Input(UInt(log2Ceil(n).W))
     val data   = Input(UInt(w.W))
     val en     = Input(Bool())
-    val target = Output(UInt(log2Up(n).W))
+    val target = Output(UInt(log2Ceil(n).W))
     val done   = Output(Bool())
   })
-  val index  = Reg(init = 0.asUInt(log2Up(n).W))
+  val index  = RegInit(0.asUInt(log2Ceil(n).W))
   // Implement below ----------
 
   val memVal = 0.U

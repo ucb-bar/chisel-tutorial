@@ -10,7 +10,7 @@ class Cell(isBorn: Boolean) extends Module {
     val nbrs = Vec(8, Input(Bool()))
     val out  = Output(Bool())
   })
-  val isAlive = Reg(init=isBorn.B)
+  val isAlive = RegInit(isBorn.B)
   val count   = io.nbrs.foldRight(0.U(3.W))((x: Bool, y: UInt) => x.asUInt + y)
   when (count < 2.U) {
     isAlive := false.B
