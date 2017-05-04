@@ -27,7 +27,7 @@ class DynamicMemorySearch(val n: Int, val w: Int) extends Module {
     val target = Output(UInt(log2Ceil(n).W))
     val done   = Output(Bool())
   })
-  val index  = RegInit(0.asUInt(log2Ceil(n).W))
+  val index  = RegInit(0.U(log2Ceil(n).W))
   // Implement below ----------
 
   val memVal = 0.U
