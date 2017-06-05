@@ -56,7 +56,6 @@ class Life(val n: Int) extends Module {
     val writeAddress = Input(UInt(log2Ceil(tot+1).W))
   })
   private def idx(i: Int, j: Int) = ((j + n) % n) * n + ((i + n) % n)
-  val rnd = new Random(1)
 
   private val cells = Range(0, tot).map(_ => Module(new Cell))
 
