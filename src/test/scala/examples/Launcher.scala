@@ -27,7 +27,7 @@ object Launcher {
         }
       },
       "Life" -> { (backendName: String) =>
-        Driver(() => new Life(3), backendName) {
+        Driver(() => new Life(9), backendName) {
           (c) => new LifeTests(c)
         }
       },
@@ -61,11 +61,16 @@ object Launcher {
           (c) => new FullAdderTests(c)
         }
       },
-      "ByteSelector" -> { (backendName: String) =>
-        Driver(() => new ByteSelector(), backendName) {
-          (c) => new ByteSelectorTests(c)
-        }
-      },
+    "ByteSelector" -> { (backendName: String) =>
+      Driver(() => new ByteSelector(), backendName) {
+        (c) => new ByteSelectorTests(c)
+      }
+    },
+    "GCD" -> { (backendName: String) =>
+      Driver(() => new GCD, backendName) {
+        (c) => new GCDTests(c)
+      }
+    },
       "HiLoMultiplier" -> { (backendName: String) =>
         Driver(() => new HiLoMultiplier(), backendName) {
           (c) => new HiLoMultiplierTests(c)
