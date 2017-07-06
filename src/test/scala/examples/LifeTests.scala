@@ -7,15 +7,6 @@ import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 import util.Random
 
 class LifeTests(c: Life) extends PeekPokeTester(c) {
-//  for (t <- 0 until 16) {
-//    step(1)
-//    for (j <- 0 until c.n) {
-//      for (i <- 0 until c.n) {
-//        peek(c.io.state(c.idx(i, j)))
-//      }
-//      println()
-//    }
-//  }
   // Disable printing when peeking state variables
 
   def setMode(run: Boolean): Unit = {
