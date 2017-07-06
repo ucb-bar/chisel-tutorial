@@ -45,8 +45,8 @@ class RouterIO(n: Int) extends Bundle {
   * The number of addresses recognized does not need to match the number of outputs
   */
 class Router extends Module {
-  val depth = Router.routeTableSize
-  val n     = Router.numberOfOutputs
+  val depth: Int = Router.routeTableSize
+  val n: Int = Router.numberOfOutputs
   val io    = IO(new RouterIO(n))
   val tbl   = Mem(depth, UInt(BigInt(n).bitLength.W))
 
