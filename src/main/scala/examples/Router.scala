@@ -28,9 +28,9 @@ class Packet extends Bundle {
 
 /**
   * The router circuit IO
-  * It routes a packet placed on it's input to one of n output ports
+  * It routes a packet placed on its single input port to one of n output ports
   *
-  * @param n is number of fanned outputs for the routed packet
+  * @param n is the number of fanned outputs for the routed packet
   */
 class RouterIO(n: Int) extends Bundle {
   val read_routing_table_request   = DeqIO(new ReadCmd())
