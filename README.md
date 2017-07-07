@@ -20,7 +20,7 @@ Getting the Repo
 Executing Chisel
 ----------------
 
-####Testing Your System
+#### Testing Your System
 First make sure that you have sbt (the scala build tool) installed. See details
 in [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html).
 
