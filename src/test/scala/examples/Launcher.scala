@@ -27,7 +27,7 @@ object Launcher {
         }
       },
       "Life" -> { (backendName: String) =>
-        Driver(() => new Life(9), backendName) {
+        Driver(() => new Life(12), backendName) {
           (c) => new LifeTests(c)
         }
       },
