@@ -53,6 +53,8 @@ To speed things up, we will keep sbt running. To get started:
 This should already work. Try
 
     > test:run-main problems.Launcher Mux2
+    
+Note that `Mux2` is defined in `Mux4.scala`.
 
 #### Mux4
 You can instantiate a module with `val foo = Module(new Bar())`
