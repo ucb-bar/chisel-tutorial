@@ -2,7 +2,6 @@
 package examples
 
 import chisel3._
-import chisel3.util._
 
 //A n-bit adder with carry in and carry out
 class Adder(val n:Int) extends Module {
@@ -32,6 +31,6 @@ class Adder(val n:Int) extends Module {
     carry(i+1) := FAs(i).cout
     sum(i) := FAs(i).sum.toBool()
   }
-  io.Sum := Cat(sum.reverse)
+  io.Sum := sum.asUInt
   io.Cout := carry(n)
 }
