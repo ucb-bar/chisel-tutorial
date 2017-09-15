@@ -30,7 +30,7 @@ class BasicALU extends Module {
   } .elsewhen (io.opcode === 8.U) {
     io.out := io.a < io.b //set on A less than B
   } .otherwise { 
-    io.out :=  (io.a === io.b).asUInt() //set on A equal to B
+    io.out :=  (io.a === io.b).asUInt //set on A equal to B
   }
 }
 
