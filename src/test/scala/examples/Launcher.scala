@@ -6,103 +6,103 @@ import utils.TutorialRunner
 
 object Launcher {
   val examples = Map(
-      "Combinational" -> { (backendName: String) =>
-        Driver(() => new Combinational(), backendName) {
+      "Combinational" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new Combinational()) {
           (c) => new CombinationalTests(c)
         }
       },
-      "Functionality" -> { (backendName: String) =>
-        Driver(() => new Functionality(), backendName) {
+      "Functionality" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new Functionality()) {
           (c) => new FunctionalityTests(c)
         }
       },
-      "Parity" -> { (backendName: String) =>
-        Driver(() => new Parity(), backendName) {
+      "Parity" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new Parity()) {
           (c) => new ParityTests(c)
         }
       },
-      "Tbl" -> { (backendName: String) =>
-        Driver(() => new Tbl(), backendName) {
+      "Tbl" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new Tbl()) {
           (c) => new TblTests(c)
         }
       },
-      "Life" -> { (backendName: String) =>
-        Driver(() => new Life(12), backendName) {
+      "Life" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new Life(12)) {
           (c) => new LifeTests(c)
         }
       },
-      "Risc" -> { (backendName: String) =>
-        Driver(() => new Risc(), backendName) {
+      "Risc" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new Risc()) {
           (c) => new RiscTests(c)
         }
       },
-      "Darken" -> { (backendName: String) =>
-        Driver(() => new Darken(), backendName) {
+      "Darken" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new Darken()) {
           (c) => new DarkenTests(c, getClass.getResourceAsStream("/in.im24"), "o" + "u,t.im24")
         }
       },
-      "Adder" -> { (backendName: String) =>
-        Driver(() => new Adder(8), backendName) {
+      "Adder" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new Adder(8)) {
           (c) => new AdderTests(c)
         }
       },
-      "Adder4" -> { (backendName: String) =>
-        Driver(() => new Adder4(), backendName) {
+      "Adder4" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new Adder4()) {
           (c) => new Adder4Tests(c)
         }
       },
-      "SimpleALU" -> { (backendName: String) =>
-        Driver(() => new SimpleALU(), backendName) {
+      "SimpleALU" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new SimpleALU()) {
           (c) => new SimpleALUTests(c)
         }
       },
-      "FullAdder" -> { (backendName: String) =>
-        Driver(() => new FullAdder(), backendName) {
+      "FullAdder" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new FullAdder()) {
           (c) => new FullAdderTests(c)
         }
       },
-    "ByteSelector" -> { (backendName: String) =>
-      Driver(() => new ByteSelector(), backendName) {
+    "ByteSelector" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new ByteSelector()) {
         (c) => new ByteSelectorTests(c)
       }
     },
-    "GCD" -> { (backendName: String) =>
-      Driver(() => new GCD, backendName) {
+    "GCD" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new GCD) {
         (c) => new GCDTests(c)
       }
     },
-      "HiLoMultiplier" -> { (backendName: String) =>
-        Driver(() => new HiLoMultiplier(), backendName) {
+      "HiLoMultiplier" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new HiLoMultiplier()) {
           (c) => new HiLoMultiplierTests(c)
         }
       },
-      "ShiftRegister" -> { (backendName: String) =>
-        Driver(() => new ShiftRegister(), backendName) {
+      "ShiftRegister" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new ShiftRegister()) {
           (c) => new ShiftRegisterTests(c)
         }
       },
-      "ResetShiftRegister" -> { (backendName: String) =>
-        Driver(() => new ResetShiftRegister(), backendName) {
+      "ResetShiftRegister" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new ResetShiftRegister()) {
           (c) => new ResetShiftRegisterTests(c)
         }
       },
-      "EnableShiftRegister" -> { (backendName: String) =>
-        Driver(() => new EnableShiftRegister(), backendName) {
+      "EnableShiftRegister" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new EnableShiftRegister()) {
           (c) => new EnableShiftRegisterTests(c)
         }
       },
-      "LogShifter" -> { (backendName: String) =>
-        Driver(() => new LogShifter(), backendName) {
+      "LogShifter" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new LogShifter()) {
           (c) => new LogShifterTests(c)
         }
       },
-      "VecSearch" -> { (backendName: String) =>
-        Driver(() => new VecSearch(), backendName) {
+      "VecSearch" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new VecSearch()) {
           (c) => new VecSearchTests(c)
         }
       },
-      "Stack" -> { (backendName: String) =>
-        Driver(() => new Stack(8), backendName) {
+      "Stack" -> { (args: Array[String]) =>
+        Driver.execute(args, () => new Stack(8)) {
           (c) => new StackTests(c)
         }
       }

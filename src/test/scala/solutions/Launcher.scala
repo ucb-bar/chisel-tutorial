@@ -7,88 +7,88 @@ import utils.TutorialRunner
 
 object Launcher {
   val tests = Map(
-    "Accumulator" -> { (backendName: String) =>
-      Driver(() => new Accumulator(), backendName) {
+    "Accumulator" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new Accumulator()) {
         (c) => new AccumulatorTests(c)
       }
     },
-    "LFSR16" -> { (backendName: String) =>
-      Driver(() => new LFSR16(), backendName) {
+    "LFSR16" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new LFSR16()) {
         (c) => new LFSR16Tests(c)
       }
     },
-    "SingleEvenFilter" -> { (backendName: String) =>
-      Driver(() => new SingleEvenFilter(UInt(16.W)), backendName) {
+    "SingleEvenFilter" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new SingleEvenFilter(UInt(16.W))) {
         (c) => new SingleEvenFilterTests(c)
       }
     },
-    "VecShiftRegister" -> { (backendName: String) =>
-      Driver(() => new VecShiftRegister(), backendName) {
+    "VecShiftRegister" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new VecShiftRegister()) {
         (c) => new VecShiftRegisterTests(c)
       }
     },
-    "VecShiftRegisterSimple" -> { (backendName: String) =>
-      Driver(() => new VecShiftRegisterSimple(), backendName) {
+    "VecShiftRegisterSimple" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new VecShiftRegisterSimple()) {
         (c) => new VecShiftRegisterSimpleTests(c)
       }
     },
-    "VecShiftRegisterParam" -> { (backendName: String) =>
-      Driver(() => new VecShiftRegisterParam(8, 4), backendName) {
+    "VecShiftRegisterParam" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new VecShiftRegisterParam(8, 4)) {
         (c) => new VecShiftRegisterParamTests(c)
       }
     },
-    "Max2" -> { (backendName: String) =>
-      Driver(() => new Max2(), backendName) {
+    "Max2" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new Max2()) {
         (c) => new Max2Tests(c)
       }
     },
-    "MaxN" -> { (backendName: String) =>
-      Driver(() => new MaxN(8, 16), backendName) {
+    "MaxN" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new MaxN(8, 16)) {
         (c) => new MaxNTests(c)
       }
     },
-    "Adder" -> { (backendName: String) =>
-      Driver(() => new Adder(8), backendName) {
+    "Adder" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new Adder(8)) {
         (c) => new AdderTests(c)
       }
     },
-    "DynamicMemorySearch" -> { (backendName: String) =>
-      Driver(() => new DynamicMemorySearch(8, 4), backendName) {
+    "DynamicMemorySearch" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new DynamicMemorySearch(8, 4)) {
         (c) => new DynamicMemorySearchTests(c)
       }
     },
-    "RealGCD" -> { (backendName: String) =>
-      Driver(() => new RealGCD(), backendName) {
+    "RealGCD" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new RealGCD()) {
         (c) => new RealGCDTests(c)
       }
     },
-    "Mux4" -> { (backendName: String) =>
-      Driver(() => new Mux4(), backendName) {
+    "Mux4" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new Mux4()) {
         (c) => new Mux4Tests(c)
       }
     },
-    "Memo" -> { (backendName: String) =>
-      Driver(() => new Memo(), backendName) {
+    "Memo" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new Memo()) {
         (c) => new MemoTests(c)
       }
     },
-    "Mul" -> { (backendName: String) =>
-      Driver(() => new Mul(), backendName) {
+    "Mul" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new Mul()) {
         (c) => new MulTests(c)
       }
     },
-    "Counter" -> { (backendName: String) =>
-      Driver(() => new Counter(), backendName) {
+    "Counter" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new Counter()) {
         (c) => new CounterTest(c)
       }
     },
-    "VendingMachine" -> { (backendName: String) =>
-      Driver(() => new VendingMachine(), backendName) {
+    "VendingMachine" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new VendingMachine()) {
         (c) => new VendingMachineTests(c)
       }
     },
-    "VendingMachineSwitch" -> { (backendName: String) =>
-      Driver(() => new VendingMachineSwitch(), backendName) {
+    "VendingMachineSwitch" -> { (args: Array[String]) =>
+      Driver.execute(args, () => new VendingMachineSwitch()) {
         (c) => new VendingMachineSwitchTests(c)
       }
     }

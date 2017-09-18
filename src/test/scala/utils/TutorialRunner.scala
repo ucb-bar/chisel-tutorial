@@ -6,29 +6,15 @@ import scala.collection.mutable.ArrayBuffer
 import scala.util.Properties.envOrElse
 
 object TutorialRunner {
-  def apply(tutorialMap: Map[String, String => Boolean], args: Array[String]): Unit = {
-    // Choose the default backend based on what is available.
-    lazy val firrtlTerpBackendAvailable: Boolean = {
-      try {
-        val cls = Class.forName("chisel3.iotesters.FirrtlTerpBackend")
-        cls != null
-      } catch {
-        case e: Throwable => false
-      }
-    }
-    lazy val defaultBackend = if (firrtlTerpBackendAvailable) {
-      "firrtl"
-    } else {
-      ""
-    }
-    val backendName = envOrElse("TESTER_BACKENDS", defaultBackend).split(" ").head
+  def apply(tutorialMap: Map[String, Array[String] => Boolean], args: Array[String]): Unit = {
     val problemsToRun = if(args.isEmpty || args.head == "all" ) {
       tutorialMap.keys.toSeq.sorted.toArray
     }
     else {
-      args
+      args.takeWhile(!_.startsWith("-"))
     }
 
+    val driverArgs = args.dropWhile(!_.startsWith("-"))
     var successful = 0
     val errors = new ArrayBuffer[String]
     for(testName <- problemsToRun) {
@@ -36,7 +22,7 @@ object TutorialRunner {
         case Some(test) =>
           println(s"Starting tutorial $testName")
           try {
-            if(test(backendName)) {
+            if(test(driverArgs)) {
               successful += 1
             }
             else {
