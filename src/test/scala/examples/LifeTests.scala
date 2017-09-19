@@ -2,7 +2,8 @@
 package examples
 
 
-import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
+import chisel3.iotesters.{Driver, PeekPokeTester}
+import org.scalatest.FreeSpec
 
 import util.Random
 
@@ -17,30 +18,56 @@ class LifeTests(c: Life) extends PeekPokeTester(c) {
   def clear_board(): Unit = {
     poke(c.io.writeValue, 0)
 
-    for (i <- 0 until c.n*c.n) {
+    for {
+      i <- 0 until c.rows
+      j <- 0 until c.cols
+    } {
       // println(s"clearing $i")
-      poke(c.io.writeAddress, i)
+      poke(c.io.writeRowAddress, i)
+      poke(c.io.writeColAddress, j)
       step(1)
     }
   }
 
-  def init_blinker(): Unit = {
+  def initBlinker(): Unit = {
     clear_board()
 
     poke(c.io.writeValue, 1)
-//    for(addr <- Seq(44, 45, 46)) {
-    for(addr <- Seq(14, 15, 16)) {
-      poke(c.io.writeAddress, addr)
+    poke(c.io.writeRowAddress, 3)
+    for(addr <- Seq(3, 5)) {
+      poke(c.io.writeColAddress, addr)
       step(1)
     }
+    poke(c.io.writeRowAddress, 4)
+    for(addr <- Seq(4, 5)) {
+      poke(c.io.writeColAddress, addr)
+      step(1)
+    }
+    poke(c.io.writeRowAddress, 5)
+    for(addr <- Seq(4)) {
+      poke(c.io.writeColAddress, addr)
+      step(1)
+    }
+
   }
 
-  def init_glider(): Unit = {
+  def initGlider(): Unit = {
     clear_board()
 
     poke(c.io.writeValue, 1)
-    for(addr <- Seq(2, 15, 25, 26, 27)) {
-      poke(c.io.writeAddress, addr)
+    poke(c.io.writeRowAddress, 3)
+    for(addr <- Seq(3, 5)) {
+      poke(c.io.writeColAddress, addr)
+      step(1)
+    }
+    poke(c.io.writeRowAddress, 4)
+    for(addr <- Seq(4, 5)) {
+      poke(c.io.writeColAddress, addr)
+      step(1)
+    }
+    poke(c.io.writeRowAddress, 5)
+    for(addr <- Seq(4)) {
+      poke(c.io.writeColAddress, addr)
       step(1)
     }
   }
@@ -48,9 +75,9 @@ class LifeTests(c: Life) extends PeekPokeTester(c) {
   def randomize(): Unit = {
     clear_board()
 
-    for(addr <- 0 until c.n * c.n) {
+    for(addr <- 0 until c.rows * c.rows) {
       poke(c.io.writeValue, Random.nextBoolean())
-      poke(c.io.writeAddress, addr)
+      poke(c.io.writeRowAddress, addr)
       step(1)
     }
   }
@@ -58,18 +85,20 @@ class LifeTests(c: Life) extends PeekPokeTester(c) {
   def printBoard(): Unit = {
     // Print column number
     print("   ")
-    for (j <- 0 until c.n)
-      print(" " + j.toString.last)
+    for (i <- 0 until c.cols)
+      print(" " + i.toString.last)
     println()
 
-    for (j <- 0 until c.n) {
+    for(i <- 0 until c.rows) {
       // Print line number
-      print(f"$j%2d")
+      print(f"$i%2d")
       print(" ")
 
       // Print cell state
-      for (i <- 0 until c.n) {
-        val s = peek(c.io.state(j*c.n+i))
+      for {
+        j <- 0 until c.cols
+      } {
+        val s = peek(c.io.state(i)(j))
         if (s == 1)
           print(" *")
         else
@@ -83,9 +112,9 @@ class LifeTests(c: Life) extends PeekPokeTester(c) {
 
   setMode(run = false)
   // uncomment one of these
-//  init_blinker
-  init_glider()
-//  randomize()
+  //  initBlinker
+  initGlider()
+  //  randomize()
   printBoard()
 
   setMode(run = true)
@@ -97,14 +126,18 @@ class LifeTests(c: Life) extends PeekPokeTester(c) {
   }
 }
 
-class LifeTester extends ChiselFlatSpec {
-  behavior of "Life"
-  backends foreach {backend =>
-    it should s"implement transition rules for Conway's life game in $backend" in {
-      Driver.execute(Array(), () => new Life(12)) { c =>
-        new LifeTests(c)
-      } should be (true)
-    }
+class LifeTester extends FreeSpec {
+  //  behavior of "Life"
+  //  backends foreach {backend =>
+  //    it should s"implement transition rules for Conway's life game in $backend" in {
+  //      Driver.execute(Array(), () => new Life(12)) { c =>
+  //        new LifeTests(c)
+  //      } // should be (true)
+  //    }
+  //  }
+  "life must run" in {
+    Driver.execute(Array(), () => new Life(30, 30)) { c =>
+      new LifeTests(c)
+    } // should be (true)
   }
 }
-

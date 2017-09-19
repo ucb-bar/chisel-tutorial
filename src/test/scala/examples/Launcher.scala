@@ -27,7 +27,7 @@ object Launcher {
         }
       },
       "Life" -> { (manager: TesterOptionsManager) =>
-        Driver.execute(() => new Life(12), manager) {
+        Driver.execute(() => new Life(12, 12), manager) {
           (c) => new LifeTests(c)
         }
       },
