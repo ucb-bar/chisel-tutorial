@@ -1,108 +1,108 @@
 // See LICENSE.txt for license details.
 package examples
 
-import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3.iotesters.{Driver, TesterOptionsManager}
 import utils.TutorialRunner
 
 object Launcher {
   val examples = Map(
-      "Combinational" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new Combinational()) {
+      "Combinational" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Combinational(), manager) {
           (c) => new CombinationalTests(c)
         }
       },
-      "Functionality" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new Functionality()) {
+      "Functionality" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Functionality(), manager) {
           (c) => new FunctionalityTests(c)
         }
       },
-      "Parity" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new Parity()) {
+      "Parity" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Parity(), manager) {
           (c) => new ParityTests(c)
         }
       },
-      "Tbl" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new Tbl()) {
+      "Tbl" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Tbl(), manager) {
           (c) => new TblTests(c)
         }
       },
-      "Life" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new Life(12)) {
+      "Life" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Life(12), manager) {
           (c) => new LifeTests(c)
         }
       },
-      "Risc" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new Risc()) {
+      "Risc" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Risc(), manager) {
           (c) => new RiscTests(c)
         }
       },
-      "Darken" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new Darken()) {
+      "Darken" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Darken(), manager) {
           (c) => new DarkenTests(c, getClass.getResourceAsStream("/in.im24"), "o" + "u,t.im24")
         }
       },
-      "Adder" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new Adder(8)) {
+      "Adder" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Adder(8), manager) {
           (c) => new AdderTests(c)
         }
       },
-      "Adder4" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new Adder4()) {
+      "Adder4" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Adder4(), manager) {
           (c) => new Adder4Tests(c)
         }
       },
-      "SimpleALU" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new SimpleALU()) {
+      "SimpleALU" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new SimpleALU(), manager) {
           (c) => new SimpleALUTests(c)
         }
       },
-      "FullAdder" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new FullAdder()) {
+      "FullAdder" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new FullAdder(), manager) {
           (c) => new FullAdderTests(c)
         }
       },
-    "ByteSelector" -> { (args: Array[String]) =>
-      Driver.execute(args, () => new ByteSelector()) {
-        (c) => new ByteSelectorTests(c)
-      }
-    },
-    "GCD" -> { (args: Array[String]) =>
-      Driver.execute(args, () => new GCD) {
-        (c) => new GCDTests(c)
-      }
-    },
-      "HiLoMultiplier" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new HiLoMultiplier()) {
+      "ByteSelector" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new ByteSelector(), manager) {
+          (c) => new ByteSelectorTests(c)
+        }
+      },
+      "GCD" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new GCD, manager) {
+          (c) => new GCDTests(c)
+        }
+      },
+      "HiLoMultiplier" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new HiLoMultiplier(), manager) {
           (c) => new HiLoMultiplierTests(c)
         }
       },
-      "ShiftRegister" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new ShiftRegister()) {
+      "ShiftRegister" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new ShiftRegister(), manager) {
           (c) => new ShiftRegisterTests(c)
         }
       },
-      "ResetShiftRegister" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new ResetShiftRegister()) {
+      "ResetShiftRegister" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new ResetShiftRegister(), manager) {
           (c) => new ResetShiftRegisterTests(c)
         }
       },
-      "EnableShiftRegister" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new EnableShiftRegister()) {
+      "EnableShiftRegister" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new EnableShiftRegister(), manager) {
           (c) => new EnableShiftRegisterTests(c)
         }
       },
-      "LogShifter" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new LogShifter()) {
+      "LogShifter" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new LogShifter(), manager) {
           (c) => new LogShifterTests(c)
         }
       },
-      "VecSearch" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new VecSearch()) {
+      "VecSearch" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new VecSearch(), manager) {
           (c) => new VecSearchTests(c)
         }
       },
-      "Stack" -> { (args: Array[String]) =>
-        Driver.execute(args, () => new Stack(8)) {
+      "Stack" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Stack(8), manager) {
           (c) => new StackTests(c)
         }
       }

@@ -3,26 +3,42 @@
 package utils
 
 import scala.collection.mutable.ArrayBuffer
-import scala.util.Properties.envOrElse
+import chisel3.iotesters._
 
 object TutorialRunner {
-  def apply(tutorialMap: Map[String, Array[String] => Boolean], args: Array[String]): Unit = {
-    val problemsToRun = if(args.isEmpty || args.head == "all" ) {
-      tutorialMap.keys.toSeq.sorted.toArray
-    }
-    else {
-      args.takeWhile(!_.startsWith("-"))
-    }
-
-    val driverArgs = args.dropWhile(!_.startsWith("-"))
+  def apply(tutorialMap: Map[String, TesterOptionsManager => Boolean], args: Array[String]): Unit = {
     var successful = 0
     val errors = new ArrayBuffer[String]
+
+    val optionsManager = new TesterOptionsManager()
+    optionsManager.doNotExitOnHelp()
+
+    optionsManager.parse(args)
+
+    val programArgs = optionsManager.commonOptions.programArgs
+
+    if(programArgs.isEmpty) {
+      println("Available tutorials")
+      for(x <- tutorialMap.keys) {
+        println(x)
+      }
+      println("all")
+      System.exit(0)
+    }
+
+    val problemsToRun = if(programArgs.exists(x => x.toLowerCase() == "all")) {
+      tutorialMap.keys
+    }
+    else {
+      programArgs
+    }
+
     for(testName <- problemsToRun) {
       tutorialMap.get(testName) match {
         case Some(test) =>
           println(s"Starting tutorial $testName")
           try {
-            if(test(driverArgs)) {
+            if(test(optionsManager)) {
               successful += 1
             }
             else {
