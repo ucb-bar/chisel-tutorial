@@ -3,40 +3,42 @@
 package utils
 
 import scala.collection.mutable.ArrayBuffer
-import scala.util.Properties.envOrElse
+import chisel3.iotesters._
 
 object TutorialRunner {
-  def apply(tutorialMap: Map[String, String => Boolean], args: Array[String]): Unit = {
-    // Choose the default backend based on what is available.
-    lazy val firrtlTerpBackendAvailable: Boolean = {
-      try {
-        val cls = Class.forName("chisel3.iotesters.FirrtlTerpBackend")
-        cls != null
-      } catch {
-        case e: Throwable => false
-      }
-    }
-    lazy val defaultBackend = if (firrtlTerpBackendAvailable) {
-      "firrtl"
-    } else {
-      ""
-    }
-    val backendName = envOrElse("TESTER_BACKENDS", defaultBackend).split(" ").head
-    val problemsToRun = if(args.isEmpty || args.head == "all" ) {
-      tutorialMap.keys.toSeq.sorted.toArray
-    }
-    else {
-      args
-    }
-
+  def apply(tutorialMap: Map[String, TesterOptionsManager => Boolean], args: Array[String]): Unit = {
     var successful = 0
     val errors = new ArrayBuffer[String]
+
+    val optionsManager = new TesterOptionsManager()
+    optionsManager.doNotExitOnHelp()
+
+    optionsManager.parse(args)
+
+    val programArgs = optionsManager.commonOptions.programArgs
+
+    if(programArgs.isEmpty) {
+      println("Available tutorials")
+      for(x <- tutorialMap.keys) {
+        println(x)
+      }
+      println("all")
+      System.exit(0)
+    }
+
+    val problemsToRun = if(programArgs.exists(x => x.toLowerCase() == "all")) {
+      tutorialMap.keys
+    }
+    else {
+      programArgs
+    }
+
     for(testName <- problemsToRun) {
       tutorialMap.get(testName) match {
         case Some(test) =>
           println(s"Starting tutorial $testName")
           try {
-            if(test(backendName)) {
+            if(test(optionsManager)) {
               successful += 1
             }
             else {
