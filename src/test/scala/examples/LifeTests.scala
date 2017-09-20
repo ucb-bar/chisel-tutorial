@@ -22,7 +22,6 @@ class LifeTests(c: Life) extends PeekPokeTester(c) {
       i <- 0 until c.rows
       j <- 0 until c.cols
     } {
-      // println(s"clearing $i")
       poke(c.io.writeRowAddress, i)
       poke(c.io.writeColAddress, j)
       step(1)
@@ -127,14 +126,6 @@ class LifeTests(c: Life) extends PeekPokeTester(c) {
 }
 
 class LifeTester extends FreeSpec {
-  //  behavior of "Life"
-  //  backends foreach {backend =>
-  //    it should s"implement transition rules for Conway's life game in $backend" in {
-  //      Driver.execute(Array(), () => new Life(12)) { c =>
-  //        new LifeTests(c)
-  //      } // should be (true)
-  //    }
-  //  }
   "life must run" in {
     Driver.execute(Array(), () => new Life(30, 30)) { c =>
       new LifeTests(c)
