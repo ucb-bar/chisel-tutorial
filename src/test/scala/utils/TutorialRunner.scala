@@ -6,7 +6,7 @@ import scala.collection.mutable.ArrayBuffer
 import chisel3.iotesters._
 
 object TutorialRunner {
-  def apply(tutorialMap: Map[String, TesterOptionsManager => Boolean], args: Array[String]): Unit = {
+  def apply(section: String, tutorialMap: Map[String, TesterOptionsManager => Boolean], args: Array[String]): Unit = {
     var successful = 0
     val errors = new ArrayBuffer[String]
 
@@ -38,6 +38,8 @@ object TutorialRunner {
         case Some(test) =>
           println(s"Starting tutorial $testName")
           try {
+            optionsManager.setTopName(testName)
+            optionsManager.setTargetDirName(s"test_run_dir/$section/$testName")
             if(test(optionsManager)) {
               successful += 1
             }

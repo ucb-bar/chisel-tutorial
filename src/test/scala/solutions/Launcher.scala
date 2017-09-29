@@ -96,6 +96,6 @@ object Launcher {
   )
 
   def main(args: Array[String]): Unit = {
-    TutorialRunner(tests, args)
+    TutorialRunner("solutions", tests, args)
   }
 }
