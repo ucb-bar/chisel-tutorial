@@ -1,114 +1,114 @@
 // See LICENSE.txt for license details.
 package examples
 
-import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3.iotesters.{Driver, TesterOptionsManager}
 import utils.TutorialRunner
 
 object Launcher {
   val examples = Map(
-      "Combinational" -> { (backendName: String) =>
-        Driver(() => new Combinational(), backendName) {
+      "Combinational" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Combinational(), manager) {
           (c) => new CombinationalTests(c)
         }
       },
-      "Functionality" -> { (backendName: String) =>
-        Driver(() => new Functionality(), backendName) {
+      "Functionality" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Functionality(), manager) {
           (c) => new FunctionalityTests(c)
         }
       },
-      "Parity" -> { (backendName: String) =>
-        Driver(() => new Parity(), backendName) {
+      "Parity" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Parity(), manager) {
           (c) => new ParityTests(c)
         }
       },
-      "Tbl" -> { (backendName: String) =>
-        Driver(() => new Tbl(), backendName) {
+      "Tbl" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Tbl(), manager) {
           (c) => new TblTests(c)
         }
       },
-      "Life" -> { (backendName: String) =>
-        Driver(() => new Life(12), backendName) {
+      "Life" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Life(12, 12), manager) {
           (c) => new LifeTests(c)
         }
       },
-      "Risc" -> { (backendName: String) =>
-        Driver(() => new Risc(), backendName) {
+      "Risc" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Risc(), manager) {
           (c) => new RiscTests(c)
         }
       },
-      "Darken" -> { (backendName: String) =>
-        Driver(() => new Darken(), backendName) {
+      "Darken" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Darken(), manager) {
           (c) => new DarkenTests(c, getClass.getResourceAsStream("/in.im24"), "o" + "u,t.im24")
         }
       },
-      "Adder" -> { (backendName: String) =>
-        Driver(() => new Adder(8), backendName) {
+      "Adder" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Adder(8), manager) {
           (c) => new AdderTests(c)
         }
       },
-      "Adder4" -> { (backendName: String) =>
-        Driver(() => new Adder4(), backendName) {
+      "Adder4" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Adder4(), manager) {
           (c) => new Adder4Tests(c)
         }
       },
-      "SimpleALU" -> { (backendName: String) =>
-        Driver(() => new SimpleALU(), backendName) {
+      "SimpleALU" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new SimpleALU(), manager) {
           (c) => new SimpleALUTests(c)
         }
       },
-      "FullAdder" -> { (backendName: String) =>
-        Driver(() => new FullAdder(), backendName) {
+      "FullAdder" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new FullAdder(), manager) {
           (c) => new FullAdderTests(c)
         }
       },
-    "ByteSelector" -> { (backendName: String) =>
-      Driver(() => new ByteSelector(), backendName) {
-        (c) => new ByteSelectorTests(c)
-      }
-    },
-    "GCD" -> { (backendName: String) =>
-      Driver(() => new GCD, backendName) {
-        (c) => new GCDTests(c)
-      }
-    },
-      "HiLoMultiplier" -> { (backendName: String) =>
-        Driver(() => new HiLoMultiplier(), backendName) {
+      "ByteSelector" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new ByteSelector(), manager) {
+          (c) => new ByteSelectorTests(c)
+        }
+      },
+      "GCD" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new GCD, manager) {
+          (c) => new GCDTests(c)
+        }
+      },
+      "HiLoMultiplier" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new HiLoMultiplier(), manager) {
           (c) => new HiLoMultiplierTests(c)
         }
       },
-      "ShiftRegister" -> { (backendName: String) =>
-        Driver(() => new ShiftRegister(), backendName) {
+      "ShiftRegister" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new ShiftRegister(), manager) {
           (c) => new ShiftRegisterTests(c)
         }
       },
-      "ResetShiftRegister" -> { (backendName: String) =>
-        Driver(() => new ResetShiftRegister(), backendName) {
+      "ResetShiftRegister" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new ResetShiftRegister(), manager) {
           (c) => new ResetShiftRegisterTests(c)
         }
       },
-      "EnableShiftRegister" -> { (backendName: String) =>
-        Driver(() => new EnableShiftRegister(), backendName) {
+      "EnableShiftRegister" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new EnableShiftRegister(), manager) {
           (c) => new EnableShiftRegisterTests(c)
         }
       },
-      "LogShifter" -> { (backendName: String) =>
-        Driver(() => new LogShifter(), backendName) {
+      "LogShifter" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new LogShifter(), manager) {
           (c) => new LogShifterTests(c)
         }
       },
-      "VecSearch" -> { (backendName: String) =>
-        Driver(() => new VecSearch(), backendName) {
+      "VecSearch" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new VecSearch(), manager) {
           (c) => new VecSearchTests(c)
         }
       },
-      "Stack" -> { (backendName: String) =>
-        Driver(() => new Stack(8), backendName) {
+      "Stack" -> { (manager: TesterOptionsManager) =>
+        Driver.execute(() => new Stack(8), manager) {
           (c) => new StackTests(c)
         }
       }
   )
   def main(args: Array[String]): Unit = {
-    TutorialRunner(examples, args)
+    TutorialRunner("examples", examples, args)
   }
 }
 
