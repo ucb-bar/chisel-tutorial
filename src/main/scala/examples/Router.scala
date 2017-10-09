@@ -50,6 +50,7 @@ class Router extends Module {
   val io    = IO(new RouterIO(n))
   val tbl   = Mem(depth, UInt(BigInt(n).bitLength.W))
 
+  // These ensure all output signals are driven.
   io.read_routing_table_request.nodeq()
   io.load_routing_table_request.nodeq()
   io.read_routing_table_response.noenq()
@@ -60,6 +61,7 @@ class Router extends Module {
     out.noenq()
   }
 
+  // We rely on Chisel's "last connect" semantics to override the default connections as appropriate.
   when(io.read_routing_table_request.valid && io.read_routing_table_response.ready) {
     io.read_routing_table_response.enq(tbl(
       io.read_routing_table_request.deq().addr
