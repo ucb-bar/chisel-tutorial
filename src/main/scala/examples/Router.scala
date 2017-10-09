@@ -50,12 +50,14 @@ class Router extends Module {
   val io    = IO(new RouterIO(n))
   val tbl   = Mem(depth, UInt(BigInt(n).bitLength.W))
 
-  when(reset.toBool) {
-    io.read_routing_table_request.nodeq()
-    io.load_routing_table_request.nodeq()
-    io.read_routing_table_response.noenq()
-    io.in.nodeq()
-    io.outs.foreach { out => out.noenq() }
+  io.read_routing_table_request.nodeq()
+  io.load_routing_table_request.nodeq()
+  io.read_routing_table_response.noenq()
+  io.read_routing_table_response.bits := 0.U
+  io.in.nodeq()
+  io.outs.foreach { out =>
+    out.bits := 0.U.asTypeOf(out.bits)
+    out.noenq()
   }
 
   when(io.read_routing_table_request.valid && io.read_routing_table_response.ready) {
