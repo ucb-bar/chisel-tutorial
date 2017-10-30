@@ -37,8 +37,8 @@ scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-language:refle
 // Provide a managed dependency on X if -DXVersion="" is supplied on the command line.
 // The following are the default development versions, not the "release" versions.
 val defaultVersions = Map(
-  "chisel3" -> "3.0-SNAPSHOT",
-  "chisel-iotesters" -> "1.1-SNAPSHOT"
+  "chisel3" -> "3.0.0-RC1",
+  "chisel-iotesters" -> "1.1.0-RC1"
   )
 
 libraryDependencies ++= (Seq("chisel3","chisel-iotesters").map {
