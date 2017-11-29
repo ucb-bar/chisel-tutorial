@@ -32,6 +32,8 @@ name := "chisel-tutorial"
 
 scalaVersion := "2.11.11"
 
+crossScalaVersions := Seq("2.11.11", "2.12.3")
+
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-language:reflectiveCalls")
 
 // Provide a managed dependency on X if -DXVersion="" is supplied on the command line.
