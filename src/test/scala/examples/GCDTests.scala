@@ -13,18 +13,18 @@ class GCDTests(c: GCD) extends PeekPokeTester(c) {
     poke(c.io.a, inputs(i)._1)
     poke(c.io.b, inputs(i)._2)
 
-    poke(c.io.e, 1)
+    poke(c.io.load, 1)
     step(1)
-    poke(c.io.e, 0)
+    poke(c.io.load, 0)
 
     var ready = false
 
     do {
-      ready = peek(c.io.v) == 1
+      ready = peek(c.io.valid) == 1
       step(1)
     } while (t < 100 && ! ready)
 
-    expect(c.io.z, outputs(i))
+    expect(c.io.out, outputs(i))
     i += 1
   } while (t < 100 && i < 3)
 

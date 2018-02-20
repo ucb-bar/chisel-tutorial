@@ -15,7 +15,7 @@ class VecShiftRegisterParam(val n: Int, val w: Int) extends Module {
     val out = Output(UInt(w.W))
   })
 
-  val initValues = Seq.fill(n) { 0.U(8.W) }
+  val initValues = Seq.fill(n) { 0.U(w.W) }
   val delays = RegInit(Vec(initValues))
 
   for (i <- n-1 to 1 by -1) {
