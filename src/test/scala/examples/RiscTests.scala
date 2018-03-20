@@ -47,8 +47,7 @@ class RiscTests(c: Risc) extends PeekPokeTester(c) {
 
 class RiscTester extends ChiselFlatSpec {
   behavior of "Risc"
-//  backends foreach {backend =>
-  Seq("firrtl") foreach {backend =>
+  backends foreach {backend =>
     it should s"run simple fsm implementation in $backend" in {
       Driver(() => new Risc)(c => new RiscTests(c)) should be (true)
     }
