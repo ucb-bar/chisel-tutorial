@@ -84,8 +84,7 @@ class StackTests(c: Stack) extends PeekPokeTester(c) {
 
 class StackTester extends ChiselFlatSpec {
   behavior of "Stack"
-//  backends foreach {backend =>
-  Seq("firrtl") foreach {backend =>
+  backends foreach {backend =>
     it should s"correctly support basic stack operations $backend" in {
       Driver(() => new Stack(depth = 8), backend)((c) => new StackTests(c)) should be (true)
     }
