@@ -26,7 +26,7 @@ def javacOptionsVersion(scalaVersion: String): Seq[String] = {
 
 organization := "edu.berkeley.cs"
 
-version := "3.1-SNAPSHOT"
+version := "3.2-SNAPSHOT"
 
 name := "chisel-tutorial"
 
