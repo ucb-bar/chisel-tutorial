@@ -32,7 +32,7 @@ class Packet extends Bundle {
   *
   * @param n is the number of fanned outputs for the routed packet
   */
-class RouterIO(n: Int) extends Bundle {
+class RouterIO(val n: Int) extends Bundle {
   val read_routing_table_request   = DeqIO(new ReadCmd())
   val read_routing_table_response  = EnqIO(UInt(Router.addressWidth.W))
   val load_routing_table_request   = DeqIO(new WriteCmd())
