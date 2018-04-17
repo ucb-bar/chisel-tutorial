@@ -1,11 +1,8 @@
 // See LICENSE.txt for license details.
 package examples
 
-
 import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
-import scala.collection.mutable.HashMap
-import scala.collection.mutable.{Stack => ScalaStack}
-import scala.util.Random
+import scala.collection.mutable.{ArrayStack => ScalaStack}
 
 class StackTestsOrig(c: Stack) extends PeekPokeTester(c) {
   var nxtDataOut = 0

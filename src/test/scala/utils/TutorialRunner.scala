@@ -1,5 +1,4 @@
 // See LICENSE.txt for license details.
-
 package utils
 
 import scala.collection.mutable.ArrayBuffer
