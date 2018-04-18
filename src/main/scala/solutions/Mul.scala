@@ -21,7 +21,7 @@ class Mul extends Module {
   for (i <- 0 until 16)
     for (j <- 0 until 16)
       mulsValues += (i * j).asUInt(8.W)
-  val tbl = Vec(mulsValues)
+  val tbl = VecInit(mulsValues)
   io.z := tbl((io.x << 4.U) | io.y)
 
 }
