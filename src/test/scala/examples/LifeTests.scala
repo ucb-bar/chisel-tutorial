@@ -1,7 +1,6 @@
 // See LICENSE.txt for license details.
 package examples
 
-
 import chisel3.iotesters.{Driver, PeekPokeTester}
 import org.scalatest.FreeSpec
 

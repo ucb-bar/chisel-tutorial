@@ -1,7 +1,6 @@
 // See LICENSE.txt for license details.
 package examples
 
-
 import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
 class DarkenTests(c: Darken, infile: java.io.InputStream, outfilename: String) extends PeekPokeTester(c) {

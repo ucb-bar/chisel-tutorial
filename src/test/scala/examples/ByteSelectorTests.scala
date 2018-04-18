@@ -1,7 +1,6 @@
 // See LICENSE.txt for license details.
 package examples
 
-
 import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 
 class ByteSelectorTests(c: ByteSelector) extends PeekPokeTester(c) {
