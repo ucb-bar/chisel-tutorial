@@ -4,10 +4,6 @@ package examples
 import chisel3._
 import chisel3.util.log2Ceil
 
-import scala.collection.mutable.HashMap
-import scala.collection.mutable.{Stack => ScalaStack}
-import scala.util.Random
-
 class Stack(val depth: Int) extends Module {
   val io = IO(new Bundle {
     val push    = Input(Bool())

@@ -15,7 +15,7 @@ class VecShiftRegisterSimple extends Module {
   })
 
   val initValues = Seq.fill(4) { 0.U(8.W) }
-  val delays = RegInit(Vec(initValues))
+  val delays = RegInit(VecInit(initValues))
 
   // Implement below ----------
 

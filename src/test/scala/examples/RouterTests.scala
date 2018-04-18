@@ -1,5 +1,4 @@
 // See LICENSE for license details.
-
 package examples
 
 import chisel3._
