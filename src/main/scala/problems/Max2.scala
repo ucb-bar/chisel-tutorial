@@ -6,7 +6,7 @@ import chisel3._
 // Problem:
 //
 // Implement a test for this module. Please edit:
-// .../chisel_tutorial/src/test/scala/problems/Max2.scala
+// .../chisel_tutorial/src/test/scala/problems/Max2Tests.scala
 //
 class Max2 extends Module {
   val io = IO(new Bundle {
