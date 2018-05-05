@@ -52,38 +52,38 @@ To speed things up, we will keep sbt running. To get started:
 #### Mux2
 This should already work. Try
 
-    > test:run-main problems.Launcher Mux2
+    > test:runMain problems.Launcher Mux2
     
 Note that `Mux2` is defined in `Mux4.scala`.
 
 #### Mux4
 You can instantiate a module with `val foo = Module(new Bar())`
 
-    > test:run-main problems.Launcher Mux4
+    > test:runMain problems.Launcher Mux4
 
 #### Counter
 You can conditionally update a value without a mux by using `when (cond) { foo := bar }`
 
-    > test:run-main problems.Launcher Counter
+    > test:runMain problems.Launcher Counter
 
 #### Vending Machine
 
-    > test:run-main problems.Launcher VendingMachine
+    > test:runMain problems.Launcher VendingMachine
 
 #### Memo
 The type of memory that's inferred is based on how you handle the read and
 write enables. This is pretty much the same as how Xilinx and Altera infer
 memories.
 
-    > test:run-main problems.Launcher Memo
+    > test:runMain problems.Launcher Memo
 
 #### Mul
 
-    > test:run-main problems.Launcher Mul
+    > test:runMain problems.Launcher Mul
 
 #### RealGCD
 
-    > test:run-main problems.Launcher RealGCD
+    > test:runMain problems.Launcher RealGCD
 
 
 To check that all of your solutions are correct:
