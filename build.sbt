@@ -61,3 +61,5 @@ parallelExecution in Test := false
 scalacOptions ++= scalacOptionsVersion(scalaVersion.value)
 
 javacOptions ++= javacOptionsVersion(scalaVersion.value)
+
+trapExit := false
