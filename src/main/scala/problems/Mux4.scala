@@ -41,9 +41,8 @@ class Mux4 extends Module {
   //Implement below ----------
 
 
-  //Implement above ----------
 
-
-  // make the compile process happy, needs to be substituted by the solution
+  // make the compile process happy, needs to be substituted by the output of the Mux
   io.out := 1.U
+  //Implement above ----------
 }
