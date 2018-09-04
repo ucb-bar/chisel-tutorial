@@ -29,3 +29,9 @@ target
 .classpath
 .project
 .settings/
+
+# ignore files created when viewing doc/tutorial/*.tex
+doc/tutorial/*.aux
+doc/tutorial/*.log
+doc/tutorial/*.pdf
+doc/tutorial/*.synctex.gz
