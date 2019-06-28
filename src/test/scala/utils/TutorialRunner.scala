@@ -37,9 +37,11 @@ object TutorialRunner {
         case Some(test) =>
           println(s"Starting tutorial $testName")
           try {
-            optionsManager.setTopName(testName)
-            optionsManager.setTargetDirName(s"test_run_dir/$section/$testName")
-            if(test(optionsManager)) {
+            // Start with a (relatively) clean set of options.
+            val testOptionsManager = new TesterOptionsManager()
+            testOptionsManager.setTopName(testName)
+            testOptionsManager.setTargetDirName(s"test_run_dir/$section/$testName")
+            if(test(testOptionsManager)) {
               successful += 1
             }
             else {
