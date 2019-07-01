@@ -39,6 +39,7 @@ object TutorialRunner {
           try {
             // Start with a (relatively) clean set of options.
             val testOptionsManager = new TesterOptionsManager()
+            testOptionsManager.parse(args)
             testOptionsManager.setTopName(testName)
             testOptionsManager.setTargetDirName(s"test_run_dir/$section/$testName")
             if(test(testOptionsManager)) {
