@@ -4,6 +4,18 @@ package utils
 import scala.collection.mutable.ArrayBuffer
 import chisel3.iotesters._
 
+object OptionsCopy {
+  def apply(t: TesterOptionsManager): TesterOptionsManager = {
+    new TesterOptionsManager {
+      testerOptions = t.testerOptions.copy()
+      interpreterOptions = t.interpreterOptions.copy()
+      chiselOptions = t.chiselOptions.copy()
+      firrtlOptions = t.firrtlOptions.copy()
+      treadleOptions = t.treadleOptions.copy()
+    }
+  }
+}
+
 object TutorialRunner {
   def apply(section: String, tutorialMap: Map[String, TesterOptionsManager => Boolean], args: Array[String]): Unit = {
     var successful = 0
@@ -37,9 +49,11 @@ object TutorialRunner {
         case Some(test) =>
           println(s"Starting tutorial $testName")
           try {
-            optionsManager.setTopName(testName)
-            optionsManager.setTargetDirName(s"test_run_dir/$section/$testName")
-            if(test(optionsManager)) {
+            // Start with a (relatively) clean set of options.
+            val testOptionsManager = OptionsCopy(optionsManager)
+            testOptionsManager.setTopName(testName)
+            testOptionsManager.setTargetDirName(s"test_run_dir/$section/$testName")
+            if(test(testOptionsManager)) {
               successful += 1
             }
             else {
