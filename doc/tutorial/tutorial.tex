@@ -803,7 +803,7 @@ This circuit has an output that is a copy of the input signal \verb+in+
 delayed by one clock cycle.  Note that we do not have to specify the
 type of \verb+Reg+ as it will be automatically inferred from its input
 when instantiated in this way.  In the current version of Chisel,
-clock and reset are global signals that are implicity included where
+clock and reset are global signals that are implicitly included where
 needed.
 
 Using registers, we can quickly define a number of useful circuit
@@ -832,7 +832,7 @@ to which the register will be initialized when the global reset for the circuit 
 The \verb!:=! assignment to \verb!x! in \verb!counter! wires an update combinational circuit 
 which increments the counter value unless it hits the \verb+max+ at which point it wraps back to zero.
 Note that when \verb!x! appears on the right-hand side of
-an assigment, its output is referenced, whereas when on the left-hand
+an assignment, its output is referenced, whereas when on the left-hand
 side, its input is referenced.
 
 Counters can be used to build a number of useful sequential circuits.
