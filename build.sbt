@@ -38,12 +38,12 @@ scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-language:refle
 
 // Provide a managed dependency on X if -DXVersion="" is supplied on the command line.
 // The following are the default development versions, not the "release" versions.
-val defaultVersions = Map(
-  "chisel-iotesters" -> "1.3-SNAPSHOT"
+val defaultVersions = Seq(
+  "chisel-iotesters" -> "1.4.0"
   )
 
-libraryDependencies ++= (Seq("chisel-iotesters").map {
-  dep: String => "edu.berkeley.cs" %% dep % sys.props.getOrElse(dep + "Version", defaultVersions(dep)) })
+libraryDependencies ++= defaultVersions.map { case (dep, ver) =>
+  "edu.berkeley.cs" %% dep % sys.props.getOrElse(dep + "Version", ver) }
 
 resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots"),
