@@ -1,8 +1,6 @@
 // See LICENSE.txt for license details.
 package examples
 
-
-import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
 import scala.io.Source
 import java.io.{File, FileOutputStream, InputStream}
 

@@ -3,7 +3,7 @@ package examples
 
 import chisel3._
 
-//A 4-bit adder with carry in and carry out
+//A 16*16-bit multiplier with separate high and low product outputs
 class HiLoMultiplier() extends Module {
   val io = IO(new Bundle {
     val A  = Input(UInt(16.W))

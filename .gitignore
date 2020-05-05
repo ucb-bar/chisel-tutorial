@@ -1,4 +1,13 @@
 # These are generated when we run the build
+/emulator/
+/examples/target/
+/examples/project/target/
+/hello/project/target/
+/hello/target/
+/problems/project/target/
+/problems/target/
+/solutions/project/target/
+/solutions/target/
 /generated*/
 .idea
 *.h
@@ -10,3 +19,23 @@
 *.out
 /bin/
 target
+
+# sbt run folder
+/test_run_dir/
+
+# Eclipse files
+.cache-main
+.cache-tests
+.classpath
+.project
+.settings/
+
+# ignore files created when viewing doc/tutorial/*.tex
+doc/tutorial/*.aux
+doc/tutorial/*.log
+doc/tutorial/*.pdf
+doc/tutorial/*.synctex.gz
+doc/tutorial/*.sty
+doc/chisel-tutorial.pdf
+doc/*.aux
+doc/*.log

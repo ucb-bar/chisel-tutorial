@@ -6,7 +6,7 @@ import chisel3._
 // Problem:
 //
 // Implement test for this module. Please edit:
-// .../chisel-tutorial/src/test/scala/problems/MaxN.scala
+// .../chisel-tutorial/src/test/scala/problems/MaxNTests.scala
 //
 class MaxN(val n: Int, val w: Int) extends Module {
 

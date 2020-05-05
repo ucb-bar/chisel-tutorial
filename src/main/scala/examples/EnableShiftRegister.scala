@@ -13,7 +13,7 @@ class EnableShiftRegister extends Module {
   val r1 = Reg(UInt())
   val r2 = Reg(UInt())
   val r3 = Reg(UInt())
-  when(reset) {
+  when(reset.asBool) {
     r0 := 0.U(4.W)
     r1 := 0.U(4.W)
     r2 := 0.U(4.W)

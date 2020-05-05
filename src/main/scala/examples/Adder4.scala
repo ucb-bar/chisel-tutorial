@@ -36,6 +36,6 @@ class Adder4 extends Module {
   Adder3.io.a := io.A(3)
   Adder3.io.b := io.B(3)
   Adder3.io.cin := Adder2.io.cout
-  io.Sum := Cat(Adder3.io.sum, s2).asUInt()
+  io.Sum := Cat(Adder3.io.sum, s2).asUInt
   io.Cout := Adder3.io.cout
 }

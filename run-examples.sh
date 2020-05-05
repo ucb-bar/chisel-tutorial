@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-
-sbt "test:run-main examples.Launcher $1"
+args=$@
+sbt -v "test:runMain examples.Launcher $args"
