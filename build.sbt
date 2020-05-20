@@ -26,25 +26,24 @@ def javacOptionsVersion(scalaVersion: String): Seq[String] = {
 
 organization := "edu.berkeley.cs"
 
-version := "3.1.0"
+version := "3.3.0"
 
 name := "chisel-tutorial"
 
-scalaVersion := "2.11.12"
+scalaVersion := "2.12.10"
 
-crossScalaVersions := Seq("2.11.12", "2.12.4")
+crossScalaVersions := Seq("2.12.10", "2.11.12")
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-language:reflectiveCalls")
 
 // Provide a managed dependency on X if -DXVersion="" is supplied on the command line.
 // The following are the current "release" versions.
-val defaultVersions = Map(
-  "chisel3" -> "3.1.+",
-  "chisel-iotesters" -> "1.2.+"
+val defaultVersions = Seq(
+  "chisel-iotesters" -> "1.4.1+"
   )
 
-libraryDependencies ++= (Seq("chisel3","chisel-iotesters").map {
-  dep: String => "edu.berkeley.cs" %% dep % sys.props.getOrElse(dep + "Version", defaultVersions(dep)) })
+libraryDependencies ++= defaultVersions.map { case (dep, ver) =>
+  "edu.berkeley.cs" %% dep % sys.props.getOrElse(dep + "Version", ver) }
 
 resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots"),
