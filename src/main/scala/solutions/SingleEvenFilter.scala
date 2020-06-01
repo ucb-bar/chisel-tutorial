@@ -32,7 +32,7 @@ object SingleFilter {
 
 object EvenFilter {
   def apply[T <: UInt](dtype: T) = 
-    Module(new PredicateFilter(dtype, (x: T) => x(0).toBool))
+    Module(new PredicateFilter(dtype, (x: T) => x(0).asBool))
 }
 
 class SingleEvenFilter[T <: UInt](dtype: T) extends Filter(dtype) {

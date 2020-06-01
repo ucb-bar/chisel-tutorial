@@ -29,7 +29,7 @@ class Adder(val n:Int) extends Module {
     FAs(i).b := io.B(i)
     FAs(i).cin := carry(i)
     carry(i+1) := FAs(i).cout
-    sum(i) := FAs(i).sum.toBool()
+    sum(i) := FAs(i).sum.asBool
   }
   io.Sum := sum.asUInt
   io.Cout := carry(n)
