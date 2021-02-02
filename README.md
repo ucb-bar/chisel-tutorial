@@ -1,7 +1,7 @@
 Chisel Tutorials (Development branch)
 ================
 
-These are the tutorials for [Chisel](https://github.com/ucb-bar/chisel3).
+These are the tutorials for [Chisel](https://github.com/chipsalliance/chisel3).
 
 Chisel is an open-source hardware construction language developed
 at UC Berkeley that supports advanced hardware design using highly
@@ -10,12 +10,12 @@ parameterized generators and layered domain-specific hardware languages.
 
 Getting the Repo
 ----------------
-
-    $ git clone https://github.com/ucb-bar/chisel-tutorial.git
-    $ cd chisel-tutorial
-    $ git fetch origin
-    $ git checkout master
-
+```
+> git clone https://github.com/ucb-bar/chisel-tutorial.git
+> cd chisel-tutorial
+> git fetch origin
+> git checkout master
+```
 
 Executing Chisel
 ----------------
@@ -24,7 +24,7 @@ Executing Chisel
 First make sure that you have sbt (the scala build tool) installed. See details
 in [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html).
 
-    $ sbt run
+    > sbt run
 
 This will generate and test a simple block (`Hello`) that always outputs the
 number 42 (aka 0x2a). You should see `[success]` on the last line of output (from sbt) and
@@ -47,7 +47,7 @@ etc) one to edit the circuit and the other to edit the tests.
 
 To speed things up, we will keep sbt running. To get started:
 
-    $ sbt
+    > sbt
 
 #### Mux2
 This should already work. Try
@@ -88,12 +88,12 @@ memories.
 
 To check that all of your solutions are correct:
 
-    $ ./run-problem.sh all
+    > ./run-problem.sh all
 
 
 To run all of our reference solutions:
 
-    $ ./run-solution.sh all
+    > ./run-solution.sh all
 
 Note: ./run-problem.sh, ./run-solution.sh, ./run-examples.sh are convenience scripts to invoke tests
 
@@ -103,14 +103,15 @@ In addition to the problems and the solutions, we have also provided some
 examples of more complex circuits (`src/main/scala/examples`) and (`src/test/scala/examples`). You should take a 
 look at the source and test them out:
 
-    $ ./run-examples.sh all
+    > ./run-examples.sh all
 
 The [wiki](https://github.com/ucb-bar/chisel-tutorial/wiki/) attached to this repo contains more information on working with Chisel.
 Additional documentation may be found on the chisel3 repo
 [wiki](https://github.com/ucb-bar/chisel3/wiki/)
 and the
-[documentation](https://chisel.eecs.berkeley.edu/documentation.html)
-section of the [website](https://chisel.eecs.berkeley.edu/).
+[general documentation](https://www.chisel-lang.org/chisel3/) and the 
+[API documentation](https://www.chisel-lang.org/latest/)
+sections of the [website](https://chisel-lang.org/).
 
 Fixes/Updates
 -------------
